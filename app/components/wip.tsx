@@ -40,7 +40,7 @@ export default function UnderConstruction() {
               Resume
             </a>
             <a
-              href="https://github.com/your-github-username"
+              href="https://github.com/elizabethprettosotelo"
               target="_blank"
               rel="noopener noreferrer"
               className="text-2xl px-4 py-2 bg-[#45140C] text-white rounded hover:text-[#E5B1A4] transition font-formadjr font-medium"
