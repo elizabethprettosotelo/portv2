@@ -56,7 +56,7 @@ export default function UnderConstruction() {
               LinkedIn
             </a>
           </div>
-          <Image src="/littleguys.svg" alt="alt" width={300} height={300} className="w-40 sm:w-75 h-auto" />git 
+          <Image src="/littleguys.svg" alt="alt" width={300} height={300} className="w-40 sm:w-75 h-auto" /> 
         </div>
       </div>
       <Footer />
