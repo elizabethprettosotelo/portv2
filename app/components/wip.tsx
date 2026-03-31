@@ -1,0 +1,65 @@
+
+
+import Image from "next/image";
+import Footer from "./footer";
+
+export default function UnderConstruction() {
+
+  return (
+    <div className="min-h-screen flex flex-col bg-[#B5AD21]">
+      <div className="flex-1 flex flex-col items-center justify-center w-full">
+        <div className="relative mb-2 flex items-center justify-center" style={{ height: "60px" }}>
+          <h1
+            className="absolute inset-0 flex items-center justify-center text-6xl text-[#F3EDE2] font-bold font-formadjr whitespace-nowrap"
+            style={{
+              WebkitTextStroke: "4px #45140C",
+              zIndex: 1,
+            }}
+          >
+            Pardon our dust!
+          </h1>
+          <h1
+            className="absolute inset-0 flex items-center justify-center text-6xl text-[#F3EDE2] font-bold font-formadjr whitespace-nowrap"
+            style={{
+              zIndex: 2,
+            }}
+          >
+            Pardon our dust!
+          </h1>
+        </div>
+        <p className="text-3xl mb-6 text-[#45140C] font-medium font-inter">This portfolio is currently still being developed.
+          Please check back soon!</p>
+        <div className="flex flex-col items-center">
+          <div className="flex gap-4 mb-4">
+            <a
+              href="/resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-2xl px-4 py-2 bg-[#45140C] text-white rounded hover:bg-[#E5B1A4] transition font-formadjr font-medium"
+            >
+              Resume
+            </a>
+            <a
+              href="https://github.com/your-github-username"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-2xl px-4 py-2 bg-[#45140C] text-white rounded hover:bg-[#E5B1A4] transition font-formadjr font-medium"
+            >
+              GitHub
+            </a>
+            <a
+              href="https://www.linkedin.com/in/your-linkedin-username/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-2xl px-4 py-2 bg-[#45140C] text-white rounded hover:bg-[#E5B1A4] transition font-formadjr font-medium"
+            >
+              LinkedIn
+            </a>
+          </div>
+          <Image src="/littleguys.svg" alt="alt" width={300} height={300} />
+        </div>
+      </div>
+      <Footer />
+    </div>
+  );
+}
