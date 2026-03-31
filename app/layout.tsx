@@ -10,6 +10,9 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Eli Pretto-Sotelo",
   description: "UI/UX Designer & Frontend Developer",
+  icons: {
+    icon: '/thebaby.png',
+  },
 };
 
 export default function RootLayout({

@@ -35,7 +35,7 @@ export default function UnderConstruction() {
               href="/resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-2xl px-4 py-2 bg-[#45140C] text-white rounded hover:bg-[#E5B1A4] transition font-formadjr font-medium"
+              className="text-2xl px-4 py-2 bg-[#45140C] text-white rounded hover:text-[#E5B1A4] transition font-formadjr font-medium"
             >
               Resume
             </a>
@@ -43,15 +43,15 @@ export default function UnderConstruction() {
               href="https://github.com/your-github-username"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-2xl px-4 py-2 bg-[#45140C] text-white rounded hover:bg-[#E5B1A4] transition font-formadjr font-medium"
+              className="text-2xl px-4 py-2 bg-[#45140C] text-white rounded hover:text-[#E5B1A4] transition font-formadjr font-medium"
             >
               GitHub
             </a>
             <a
-              href="https://www.linkedin.com/in/your-linkedin-username/"
+              href="https://www.linkedin.com/in/elizabeth-pretto-sotelo/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-2xl px-4 py-2 bg-[#45140C] text-white rounded hover:bg-[#E5B1A4] transition font-formadjr font-medium"
+              className="text-2xl px-4 py-2 bg-[#45140C] text-white rounded hover:text-[#E5B1A4] transition font-formadjr font-medium"
             >
               LinkedIn
             </a>
