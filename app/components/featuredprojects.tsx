@@ -115,7 +115,7 @@ function ProjectCard({ project }: { project: Project }) {
           {project.tags.map((tag) => (
             <span
               key={tag}
-              className="text-xs px-2 py-0.5 rounded-full bg-[#45140C]/10 text-[#45140C] font-medium font-formadjr"
+              className="text-xs px-2 py-0.5 rounded-full bg-[#45140C]/10 text-[#45140C] font-normal font-inter"
             >
               {tag}
             </span>
@@ -142,13 +142,13 @@ export default function FeaturedProjects() {
       {/* Timeline layout */}
       <div className="relative flex flex-col items-center gap-0 max-w-2xl mx-auto">
         {/* Vertical line */}
-        <div className="absolute left-0 top-0 bottom-0 w-px bg-[#45140C]/30" style={{ left: "-2rem" }} />
+        <div className="absolute left-0 top-0 bottom-0 w-px bg-[#E5B1A4]/30" style={{ left: "-2rem" }} />
 
         {projects.map((project) => (
           <div key={project.slug} className="relative w-full mb-12">
             {/* Node on the line */}
             <div
-              className="absolute w-3 h-3 rounded-full bg-[#45140C] border-2 border-[#F3EDE2]"
+              className="absolute w-3 h-3 rounded-full bg-[#E5B1A4] border-2 border-[#F3EDE2]"
               style={{ left: "-2.375rem", top: "50%", transform: "translateY(-50%)" }}
             />
             <ProjectCard project={project} />
