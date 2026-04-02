@@ -136,7 +136,7 @@ function ProjectCard({ project }: { project: Project }) {
 
 export default function FeaturedProjects() {
   return (
-    <section className="w-full py-16 px-4 bg-[#F3EDE2]">
+    <section id="projects" className="w-full py-16 px-4 bg-[#F3EDE2]">
       <h2 className="text-4xl font-bold text-[#45140C] font-formadjr mb-12 text-center">Selected Projects</h2>
 
       {/* Timeline layout */}
@@ -145,7 +145,7 @@ export default function FeaturedProjects() {
         <div className="absolute left-0 top-0 bottom-0 w-px bg-[#E5B1A4]/30" style={{ left: "-2rem" }} />
 
         {projects.map((project) => (
-          <div key={project.slug} className="relative w-full mb-12">
+          <div key={project.slug} id={project.slug} className="relative w-full mb-12">
             {/* Node on the line */}
             <div
               className="absolute w-3 h-3 rounded-full bg-[#E5B1A4] border-2 border-[#F3EDE2]"

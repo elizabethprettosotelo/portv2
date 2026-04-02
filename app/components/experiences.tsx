@@ -155,7 +155,7 @@ function ExperienceCard({ experience }: { experience: Experience }) {
 
 export default function Experiences() {
   return (
-    <section className="w-full py-16 px-4 bg-[#F3EDE2]">
+    <section id="experiences" className="w-full py-16 px-4 bg-[#F3EDE2]">
       <h2 className="text-4xl font-bold text-[#45140C] font-formadjr mb-12 text-center">
         Experience
       </h2>
