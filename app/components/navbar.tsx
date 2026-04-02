@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
+import { useHover } from '../contexts/HoverContext';
 
 // Layer structure mimicking Figma's layers panel
 type Layer = {
@@ -11,7 +12,7 @@ type Layer = {
   sublayers?: { id: string; label: string }[];
 };
 
-const layers: Layer[] = [
+const homePageLayers: Layer[] = [
   { id: 'hero', label: 'Hero Section', icon: '⬜' },
   {
     id: 'projects',
@@ -27,12 +28,23 @@ const layers: Layer[] = [
   { id: 'footer', label: 'Footer', icon: '⬜' },
 ];
 
+const projectsPageLayers: Layer[] = [
+  { id: 'project-one', label: 'Project One', icon: '📁' },
+  { id: 'project-two', label: 'Project Two', icon: '📁' },
+  { id: 'project-three', label: 'Project Three', icon: '📁' },
+  { id: 'project-four', label: 'Project Four', icon: '📁' },
+  { id: 'project-five', label: 'Project Five', icon: '📁' },
+  { id: 'project-six', label: 'Project Six', icon: '📁' },
+];
+
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [expandedLayers, setExpandedLayers] = useState<Set<string>>(new Set(['projects']));
+  const [expandedLayers, setExpandedLayers] = useState<Set<string>>(new Set());
   const [activeSection, setActiveSection] = useState<string>('hero');
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [currentPath, setCurrentPath] = useState('');
+  const { hoveredProject, setHoveredProject } = useHover();
 
   const mobileNavLinks = [
     { href: '/home', label: 'Home' },
@@ -46,6 +58,27 @@ export default function Navbar() {
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
+
+  // Track current path and update expanded layers
+  useEffect(() => {
+    const path = window.location.pathname;
+    setCurrentPath(path);
+    
+    // Auto-expand Featured Projects on home page
+    if (path === '/projects') {
+      // Projects page doesn't need auto-expansion anymore
+      setExpandedLayers(new Set());
+    } else {
+      // Home page - expand Featured Projects section
+      setExpandedLayers(new Set(['projects']));
+    }
+  }, []);
+
+  // Determine which layers to show based on current page
+  const isProjectsPage = currentPath === '/projects';
+  const isHomePage = currentPath === '/' || currentPath === '/home';
+  const layers = isProjectsPage ? projectsPageLayers : homePageLayers;
+  const layerTitle = isProjectsPage ? 'All Projects' : 'Home Page';
 
   // Update CSS variable for sidebar width
   useEffect(() => {
@@ -82,7 +115,7 @@ export default function Navbar() {
 
     const observer = new IntersectionObserver(observerCallback, observerOptions);
 
-    // Observe all sections
+    // Observe all sections based on current layers
     layers.forEach((layer) => {
       const element = document.getElementById(layer.id);
       if (element) observer.observe(element);
@@ -95,7 +128,7 @@ export default function Navbar() {
     });
 
     return () => observer.disconnect();
-  }, []);
+  }, [currentPath, layers]);
 
   const toggleLayer = (layerId: string) => {
     setExpandedLayers((prev) => {
@@ -126,7 +159,19 @@ export default function Navbar() {
   };
 
   const isActive = (id: string) => {
-    return activeSection === id || (activeSection.startsWith('project-') && id === 'projects');
+    // Check if this layer is being hovered
+    if (hoveredProject === id) return true;
+    
+    // Check if it's the exact active section
+    if (activeSection === id) return true;
+    
+    // Check if it's a parent project and the active section is one of its sublayers
+    if (activeSection.startsWith(id + '-')) return true;
+    
+    // Special case for 'projects' parent on home page
+    if (id === 'projects' && activeSection.startsWith('project-')) return true;
+    
+    return false;
   };
 
   return (
@@ -194,16 +239,70 @@ export default function Navbar() {
       </div>
 
       {/* Desktop Left Sidebar */}
-      <aside className={`hidden md:block fixed left-0 top-0 h-screen bg-[#45140C] border-r-2 border-[#E5B1A4]/20 z-50 overflow-y-auto overflow-x-hidden transition-all duration-300 ${
+      <aside className={`hidden md:block fixed left-0 top-0 h-screen bg-[#45140C] border-r-2 border-[#E5B1A4]/20 z-50 overflow-y-auto overflow-x-hidden transition-all duration-300 custom-scrollbar ${
         sidebarCollapsed ? 'w-12' : 'w-64'
       }`}>
         <div className={`p-4 ${sidebarCollapsed ? 'p-2' : ''}`}>
-          {/* Project Name */}
-          {!sidebarCollapsed && (
-            <div className="mb-4 pb-3 border-b border-[#E5B1A4]/20">
-                <Image src="/thebaby.png" alt="alt" width={32} height={32} className="mb-2" />
-              <h2 className="text-lg font-bold text-[#F3EDE2] font-formadjr">eli's portfolio</h2>
+          {/* Project Name with Toggle Button */}
+          <div className="mb-4 pb-3 border-b border-[#E5B1A4]/20">
+            <div className="flex items-start justify-between gap-2">
+              {!sidebarCollapsed && (
+                <div className="flex flex-col">
+                  <Image src="/thebaby.png" alt="alt" width={32} height={32} className="mb-2" />
+                  <h2 className="text-lg font-bold text-[#F3EDE2] font-formadjr">eli's portfolio</h2>
+                </div>
+              )}
+              
+              {/* Toggle Button */}
+              <button
+                onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
+                className="w-8 h-8 flex items-center justify-center hover:bg-[#F3EDE2]/10 rounded transition group border border-[#E5B1A4]/20 shrink-0"
+                aria-label={sidebarCollapsed ? "Expand layers" : "Collapse layers"}
+                title={sidebarCollapsed ? "Expand layers" : "Collapse layers"}
+              >
+                <svg
+                  className={`w-4 h-4 text-[#F3EDE2] group-hover:text-[#E5B1A4] transition-all duration-300 ${
+                    sidebarCollapsed ? 'rotate-180' : ''
+                  }`}
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
             </div>
+          </div>
+
+          {/* Pages Section */}
+          {!sidebarCollapsed && (
+            <>
+              <div className="mb-4 pb-3 border-b border-[#E5B1A4]/20">
+                <div className="text-xs font-bold text-[#E5B1A4] tracking-wider font-mono mb-3">PAGES</div>
+                <div className="flex flex-col gap-1">
+                  {mobileNavLinks.map((link) => {
+                    const isActive = currentPath === link.href || (currentPath === '/' && link.href === '/home');
+                    return (
+                      <a
+                        key={link.href}
+                        href={link.href}
+                        className={`flex items-center gap-2 px-2 py-1.5 rounded transition-all ${
+                          isActive
+                            ? 'bg-[#B5AD21]/20 text-[#B5AD21]'
+                            : 'text-[#F3EDE2] hover:bg-[#F3EDE2]/5'
+                        }`}
+                      >
+                        <span className="text-xs opacity-70">📄</span>
+                        <span className="text-sm font-mono flex-1">{link.label}</span>
+                        {isActive && (
+                          <div className="w-1.5 h-1.5 rounded-full bg-[#B5AD21]"></div>
+                        )}
+                      </a>
+                    );
+                  })}
+                </div>
+              </div>
+            </>
           )}
 
           {/* Figma-style title */}
@@ -211,30 +310,9 @@ export default function Navbar() {
             <div className="flex items-center gap-2 mb-4 pb-3 border-b border-[#E5B1A4]/20">
               <div className="text-xs font-bold text-[#E5B1A4] tracking-wider font-mono">LAYERS</div>
               <div className="w-px h-4 bg-[#E5B1A4]/30"></div>
-              <div className="text-xs text-[#F3EDE2]/60 font-mono">Home Page</div>
+              <div className="text-xs text-[#F3EDE2]/60 font-mono">{layerTitle}</div>
             </div>
           )}
-
-          {/* Toggle Button - Small square aligned right */}
-          <div className="flex justify-end mb-4">
-            <button
-              onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-              className="w-8 h-8 flex items-center justify-center hover:bg-[#F3EDE2]/10 rounded transition group border border-[#E5B1A4]/20"
-              aria-label={sidebarCollapsed ? "Expand layers" : "Collapse layers"}
-              title={sidebarCollapsed ? "Expand layers" : "Collapse layers"}
-            >
-              <svg
-                className={`w-4 h-4 text-[#F3EDE2] group-hover:text-[#E5B1A4] transition-all duration-300 ${
-                  sidebarCollapsed ? 'rotate-180' : ''
-                }`}
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-              </svg>
-            </button>
-          </div>
 
           {/* Layers List */}
           {!sidebarCollapsed && (
@@ -251,10 +329,16 @@ export default function Navbar() {
                   onClick={() => {
                     if (layer.sublayers) {
                       toggleLayer(layer.id);
+                      // Also scroll to section if it's the Featured Projects on home page
+                      if (layer.id === 'projects') {
+                        scrollToSection(layer.id);
+                      }
                     } else {
                       scrollToSection(layer.id);
                     }
                   }}
+                  onMouseEnter={() => isProjectsPage && setHoveredProject(layer.id)}
+                  onMouseLeave={() => isProjectsPage && setHoveredProject(null)}
                 >
                   {/* Expand/collapse chevron */}
                   {layer.sublayers && (
@@ -292,6 +376,8 @@ export default function Navbar() {
                             : 'text-[#F3EDE2]/80 hover:bg-[#F3EDE2]/5'
                         }`}
                         onClick={() => scrollToSection(sublayer.id)}
+                        onMouseEnter={() => isHomePage && setHoveredProject(sublayer.id)}
+                        onMouseLeave={() => isHomePage && setHoveredProject(null)}
                       >
                         <span className="text-xs opacity-70">⬜</span>
                         <span className="text-sm font-mono flex-1">{sublayer.label}</span>

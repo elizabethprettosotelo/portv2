@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { useHover } from "../contexts/HoverContext";
 
 type Project = {
   title: string;
@@ -43,6 +44,9 @@ const projects: Project[] = [
 function ProjectCard({ project }: { project: Project }) {
   const [carouselOpen, setCarouselOpen] = useState(false);
   const [currentImage, setCurrentImage] = useState(0);
+  const { hoveredProject, setHoveredProject } = useHover();
+  
+  const isHighlighted = hoveredProject === project.slug;
 
   const allImages = [project.thumbnail, ...project.images];
 
@@ -50,7 +54,13 @@ function ProjectCard({ project }: { project: Project }) {
   const next = () => setCurrentImage((i) => (i + 1) % allImages.length);
 
   return (
-    <div className="relative bg-[#F3EDE2] rounded-xl shadow-md overflow-hidden w-full max-w-2xl">
+    <div 
+      className={`relative bg-[#F3EDE2] rounded-xl shadow-md overflow-hidden w-full max-w-2xl transition-all duration-300 ${
+        isHighlighted ? 'ring-2 ring-[#B5AD21] shadow-xl' : ''
+      }`}
+      onMouseEnter={() => setHoveredProject(project.slug)}
+      onMouseLeave={() => setHoveredProject(null)}
+    >
       {/* Thumbnail */}
       {!carouselOpen && (
         <div

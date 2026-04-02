@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { HoverProvider } from "./contexts/HoverContext";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -28,7 +29,9 @@ export default function RootLayout({
       <head>
         <link rel="stylesheet" href="https://use.typekit.net/jdu6nlf.css" />
       </head>
-      <body className="min-h-full flex flex-col overflow-x-hidden">{children}</body>
+      <body className="min-h-full flex flex-col overflow-x-hidden" suppressHydrationWarning>
+        <HoverProvider>{children}</HoverProvider>
+      </body>
     </html>
   );
 }

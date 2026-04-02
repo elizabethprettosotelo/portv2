@@ -3,21 +3,92 @@ import Image from "next/image";
 
 export default function Footer() {
   return (
-    <footer id="footer" className="w-full max-w-full bg-[#45140C] text-[#F3EDE2] py-6 mt-auto transition-all duration-300 overflow-x-hidden" style={{ marginLeft: 'var(--sidebar-width, 0px)' }}>
-      <div className="container mx-auto flex flex-col md:flex-row items-center justify-between px-4 gap-4 max-w-full">
-        <Image src="/eliprettosotelo.svg" alt="alt" width={200} height={200} />
-        <div className=" text-left flex flex-wrap gap-6 text-lg font-formadjr font-medium">
-          <a href="/home" className="hover:text-[#E5B1A4] transition">Home</a>
-          <a href="/projects" className="hover:text-[#E5B1A4] transition">Projects</a>
-          <a href="/experience" className="hover:text-[#E5B1A4] transition">Experience</a>
-          <a href="/play" className="hover:text-[#E5B1A4] transition">Play</a>
-          {/* Add more links as needed */}
+    <footer 
+      id="footer" 
+      className="bg-[#45140C] text-[#F3EDE2] py-12 mt-auto overflow-hidden border-t-2 border-[#E5B1A4]/20" 
+      style={{ 
+        marginLeft: 'var(--sidebar-width, 0px)',
+        width: 'calc(100% - var(--sidebar-width, 0px))'
+      }}
+    >
+      <div className="max-w-7xl mx-auto px-6 md:px-8">
+        {/* Main Footer Content */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+          {/* Logo Section */}
+          <div className="flex flex-col items-start">
+            <Image 
+              src="/eliprettosotelo.svg" 
+              alt="Eli Pretto-Sotelo Logo" 
+              width={180} 
+              height={50} 
+              className="mb-4"
+            />
+            <p className="text-sm text-[#F3EDE2]/70 font-inter">
+              UI/UX Designer & Frontend Developer
+            </p>
+          </div>
+
+          {/* Navigation Links */}
+          <div className="flex flex-col items-start md:items-center">
+            <h3 className="text-xs font-bold text-[#B5AD21] tracking-wider font-mono mb-4">
+              NAVIGATION
+            </h3>
+            <div className="flex flex-col gap-2 text-base font-formadjr">
+              <a href="/home" className="hover:text-[#B5AD21] transition">
+                Home
+              </a>
+              <a href="/projects" className="hover:text-[#B5AD21] transition">
+                Projects
+              </a>
+              <a href="/experience" className="hover:text-[#B5AD21] transition">
+                Experience
+              </a>
+              <a href="/play" className="hover:text-[#B5AD21] transition">
+                Play
+              </a>
+            </div>
+          </div>
+
+          {/* Contact & Social */}
+          <div className="flex flex-col items-start md:items-end">
+            <h3 className="text-xs font-bold text-[#B5AD21] tracking-wider font-mono mb-4">
+              CONNECT
+            </h3>
+            <div className="flex flex-col gap-2 text-base font-formadjr md:text-right">
+              <a 
+                href="mailto:elizabethprettosotelo@gmail.com" 
+                className="hover:text-[#B5AD21] transition"
+              >
+                Email
+              </a>
+              <a 
+                href="https://github.com/elizabethprettosotelo" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="hover:text-[#B5AD21] transition"
+              >
+                GitHub
+              </a>
+              <a 
+                href="https://www.linkedin.com/in/elizabeth-pretto-sotelo/" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="hover:text-[#B5AD21] transition"
+              >
+                LinkedIn
+              </a>
+            </div>
+          </div>
         </div>
-        <div className="text-right flex flex-col gap-bottom-2 text-lg font-formadjr font-medium">
-          {/* Placeholder for contact/social links */}
-          <a href="mailto:elizabethprettosotelo@gmail.com" className="hover:text-[#E5B1A4] transition">Email</a>
-          <a href="https://github.com/elizabethprettosotelo" target="_blank" rel="noopener noreferrer" className="hover:text-[#E5B1A4] transition">GitHub</a>
-          <a href="https://www.linkedin.com/in/elizabeth-pretto-sotelo/" target="_blank" rel="noopener noreferrer" className="hover:text-[#E5B1A4] transition">LinkedIn</a>
+
+        {/* Bottom Bar */}
+        <div className="pt-6 border-t border-[#E5B1A4]/20 flex flex-col md:flex-row items-center justify-between gap-4">
+          <p className="text-sm text-[#F3EDE2]/60 font-inter">
+            © {new Date().getFullYear()} Eli Pretto-Sotelo. All rights reserved.
+          </p>
+          <p className="text-sm text-[#F3EDE2]/60 font-inter">
+            Designed & Built with 💛
+          </p>
         </div>
       </div>
     </footer>
