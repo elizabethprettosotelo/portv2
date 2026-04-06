@@ -11,7 +11,6 @@ export default function AboutPage() {
           // Hero
           name="Eli Pretto-Sotelo"
           tagline="UI/UX Designer & Frontend Developer"
-          profileImage="/profile.jpg"
           
           // Bio
           bio={`Hi! I'm Eli, a designer and developer who loves creating beautiful, functional digital experiences.

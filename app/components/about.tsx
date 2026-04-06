@@ -1,12 +1,14 @@
 "use client";
 
 import Image from "next/image";
+import { useState } from "react";
+
+const PHOTOS = ["/about/me1.png", "/about/me2.png"];
 
 type AboutProps = {
   // Hero Section
   name: string;
   tagline: string;
-  profileImage: string;
   
   // Bio
   bio: string;
@@ -30,27 +32,64 @@ type AboutProps = {
 export default function About({
   name,
   tagline,
-  profileImage,
   bio,
   skills,
   interests,
   funFacts,
   ctaText = "Let's work together!",
 }: AboutProps) {
+  const [currentPhoto, setCurrentPhoto] = useState(0);
+
+  const prevPhoto = () =>
+    setCurrentPhoto((i) => (i - 1 + PHOTOS.length) % PHOTOS.length);
+  const nextPhoto = () =>
+    setCurrentPhoto((i) => (i + 1) % PHOTOS.length);
+
   return (
     <div className="w-full bg-[#F3EDE2]">
       {/* Hero Section */}
       <section className="w-full py-20 px-8 bg-[#45140C] fade-in-up">
         <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-12">
-          {/* Profile Image */}
-          <div className="relative w-64 h-64 rounded-full overflow-hidden shadow-2xl shrink-0 border-4 border-[#B5AD21]">
-            <Image
-              src={profileImage}
-              alt={name}
-              fill
-              className="object-cover"
-              priority
-            />
+          {/* Photo Carousel */}
+          <div className="shrink-0 flex flex-col items-center gap-3">
+            <div className="relative w-56 h-72 rounded-2xl overflow-hidden shadow-2xl border-4 border-[#B5AD21]">
+              <Image
+                src={PHOTOS[currentPhoto]}
+                alt={`${name} photo ${currentPhoto + 1}`}
+                fill
+                className="object-cover transition-opacity duration-300"
+                priority
+              />
+              {/* Prev button */}
+              <button
+                onClick={prevPhoto}
+                aria-label="Previous photo"
+                className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-[#45140C]/60 hover:bg-[#45140C]/90 text-[#F3EDE2] flex items-center justify-center transition-all duration-200 text-sm z-10"
+              >
+                ‹
+              </button>
+              {/* Next button */}
+              <button
+                onClick={nextPhoto}
+                aria-label="Next photo"
+                className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-[#45140C]/60 hover:bg-[#45140C]/90 text-[#F3EDE2] flex items-center justify-center transition-all duration-200 text-sm z-10"
+              >
+                ›
+              </button>
+            </div>
+            {/* Dot indicators */}
+            <div className="flex gap-2">
+              {PHOTOS.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setCurrentPhoto(i)}
+                  aria-label={`Go to photo ${i + 1}`}
+                  className={`w-2 h-2 rounded-full transition-all duration-200 ${
+                    i === currentPhoto ? "bg-[#B5AD21] scale-125" : "bg-[#F3EDE2]/40 hover:bg-[#F3EDE2]/70"
+                  }`}
+                />
+              ))}
+            </div>
           </div>
           
           {/* Intro Text */}
@@ -122,7 +161,7 @@ export default function About({
       <section className="w-full py-16 px-8 fade-in-up-delay-3">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-bold text-[#45140C] font-formadjr mb-8">
-            When I'm Not Designing...
+            When I&apos;m Not Designing...
           </h2>
           <div className="flex flex-wrap gap-4">
             {interests.map((interest, index) => (
@@ -170,7 +209,7 @@ export default function About({
             {ctaText}
           </h2>
           <p className="text-xl text-[#F3EDE2]/80 font-inter mb-8">
-            I'm always open to new opportunities and collaborations.
+            I&apos;m always open to new opportunities and collaborations.
           </p>
           <div className="flex gap-4 justify-center flex-wrap">
             <a

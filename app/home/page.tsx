@@ -1,20 +1,5 @@
-import FeaturedProjects from "../components/featuredprojects";
-import Experiences from "../components/experiences";
-import Footer from "../components/footer";
-import Navbar from "../components/navbar";
-import Hero from "../components/hero";
+import { redirect } from "next/navigation";
 
-export default function Home() {
-  return (
-    <div className="min-h-screen flex flex-col overflow-x-hidden max-w-full bg-[#F3EDE2]">
-      <Navbar />
-      {/* Add padding for left sidebar on desktop, top padding for mobile header */}
-      <main className="flex-1 pt-16 md:pt-0 overflow-x-hidden max-w-full bg-[#F3EDE2]" style={{ marginLeft: 'var(--sidebar-width, 0px)' }}>
-        <Hero />
-        <FeaturedProjects />
-        <Experiences />
-      </main>
-      <Footer />
-    </div>
-  );
+export default function HomeLegacy() {
+  redirect("/");
 }

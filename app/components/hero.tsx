@@ -20,14 +20,14 @@ export default function Hero() {
       <div className="absolute top-20 right-10 w-40 h-40 rounded-full bg-[#45140C]/5"></div>
       <div className="absolute bottom-40 left-20 w-60 h-60 rounded-full bg-[#45140C]/10"></div>
       
-      <div className="relative max-w-7xl w-full z-10">
+      <div className="relative max-w-7xl w-full z-10 flex justify-center">
         {/* Main content */}
-        <div className="flex flex-col lg:flex-row items-start lg:items-center gap-12 lg:gap-16">
+        <div className="flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-16">
           {/* Main headline with SVG */}
-          <div className="shrink-0">
+          <div className="shrink-0 text-center lg:text-left">
             <h1 className="text-6xl md:text-8xl lg:text-8xl xl:text-9xl font-bold text-[#45140C] font-formadjr leading-none">
               design til <br />
-              <span className="text-[#F3EDE2]">it's right!</span>
+              <span className="text-[#F3EDE2]">it&apos;s right!</span>
             </h1>
             
             {/* Little guys SVG */}
@@ -43,7 +43,7 @@ export default function Hero() {
           </div>
 
           {/* Supporting text and CTAs in tan container */}
-          <div className="bg-[#F3EDE2] rounded-2xl p-8 md:p-10 shadow-xl max-w-xl">
+          <div className="bg-[#F3EDE2] rounded-2xl p-8 md:p-10 shadow-xl max-w-xl w-full">
             <div className="flex flex-col gap-6">
               {/* Supporting text */}
               <div className="space-y-4">
@@ -51,14 +51,15 @@ export default function Hero() {
                   Welcome to my portfolio — a collection of my design work & development projects.
                 </p>
                 <p className="text-lg md:text-xl text-[#45140C]/80 font-inter leading-relaxed">
-                  I'm Eli, a UX Designer and Frontend Developer who believes in iterating until 
-                  every pixel feels intentional. <a 
-                    href="/experience" 
-                    className="underline decoration-2 underline-offset-4 hover:text-[#B5AD21] transition-colors duration-200 font-medium"
-                  >
-                    Learn more about me →
-                  </a>
+                  I&apos;m <span className="font-bold text-[#45140C]">Eli Pretto-Sotelo</span>, a UX Designer and Frontend Developer who believes in iterating until 
+                  every pixel feels intentional.
                 </p>
+                <a 
+                  href="/experience" 
+                  className="inline-block underline decoration-2 underline-offset-4 hover:text-[#B5AD21] transition-colors duration-200 font-medium text-lg md:text-xl text-[#45140C]/80 font-inter"
+                >
+                  Learn more about me →
+                </a>
               </div>
 
               {/* CTA Buttons */}

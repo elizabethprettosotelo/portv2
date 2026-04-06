@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
 
 type Experience = {
   role: string;
@@ -17,47 +16,45 @@ type Experience = {
 
 const experiences: Experience[] = [
   {
-    role: "UX Designer",
-    company: "Company Name",
-    location: "City, State",
-    dateRange: "Jan 2024 – Present",
-    type: "Full-time",
-    description: "A short overview of this role and what you worked on. Keep it to 1–2 sentences that set the stage.",
-    bullets: [
-      "Led end-to-end design of a feature used by 10k+ users.",
-      "Collaborated with engineers and PMs to ship product updates.",
-      "Conducted user research and synthesized findings into design decisions.",
-    ],
-    skills: ["Figma", "User Research", "Prototyping"],
-    logo: "/logos/company1.png",
-  },
-  {
-    role: "Product Design Intern",
-    company: "Another Company",
-    location: "Remote",
-    dateRange: "May 2023 – Aug 2023",
+    role: "UX/UI Designer & Software Engineer",
+    company: "UCF Center of Distributed Learning",
+    location: "Orlando, FL",
+    dateRange: "Oct. 2025 – Present",
     type: "Internship",
-    description: "A short overview of this internship and the team you were part of.",
+    description: "Designing and developing for Materia, an open-source lesson-gamifying platform, bridging the gap between UX/UI design and hands-on front-end development.",
     bullets: [
-      "Redesigned onboarding flow, reducing drop-off by 20%.",
-      "Built and maintained a component library in Figma.",
+      "Designed and iterated on interactive UX/UI prototypes in Figma, applying user-centered design principles to gamify learning experiences.",
+      "Implemented finalized UX/UI designs through hands-on development, translating visual and interaction designs directly into functional code.",
+      "Served as both designer and programmer on the project, contributing across the full design-to-development pipeline.",
     ],
-    skills: ["Figma", "Design Systems", "Usability Testing"],
-    logo: "/logos/company2.png",
+    skills: ["Figma", "UX/UI Design", "Front-End Development", "User-Centered Design"],
   },
   {
-    role: "Freelance Designer",
-    company: "Independent",
-    location: "Remote",
-    dateRange: "2022 – Present",
-    type: "Freelance",
-    description: "Worked with small businesses and startups to craft brand identities and digital experiences.",
+    role: "Design Director",
+    company: "Knight Hacks",
+    location: "UCF, Orlando, FL",
+    dateRange: "Jan. 2026 – Mar. 2026",
+    type: "Volunteer",
+    description: "Led design efforts for UCF's largest software engineering club and its premier Hackathon, Knight Hacks, ensuring a positive and enriching experience for all participants.",
     bullets: [
-      "Delivered brand identities for 5+ clients.",
-      "Designed marketing sites and landing pages.",
+      "Organized and directed design contributions for Knight Hacks' annual hackathon event.",
+      "Designed graphics for merchandise, the hackathon site, and branding that stay true to Knight Hacks' mission.",
     ],
-    skills: ["Branding", "Web Design", "Illustration"],
-    // no logo for freelance
+    skills: ["Graphic Design", "Branding", "Event Design", "Figma"],
+  },
+  {
+    role: "UX/UI Design & Web Development Intern",
+    company: "C² Technologies",
+    location: "Remote",
+    dateRange: "Aug. 2025 – Oct. 2025",
+    type: "Internship",
+    description: "Supported C² Technologies' adaptable learning platform, Adapt2Learn, through UX/UI design and digital marketing asset creation.",
+    bullets: [
+      "Designed and prototyped interactive, demo-ready websites in Figma to support Adapt2Learn, ensuring user-friendly layouts and modern UI practices.",
+      "Created digital marketing assets and graphic deliverables aligned with brand guidelines.",
+      "Elevated company visibility at showcases, client demonstrations, and internal presentations.",
+    ],
+    skills: ["Figma", "UX/UI Design", "Web Design", "Graphic Design", "Branding"],
   },
 ];
 
@@ -69,85 +66,56 @@ const typeColors: Record<string, string> = {
 };
 
 function ExperienceCard({ experience }: { experience: Experience }) {
-  const [expanded, setExpanded] = useState(false);
-
   return (
-    <div className="w-full max-w-2xl bg-[#45140C] rounded-xl shadow-md overflow-hidden">
-      {/* Header */}
-      <div className="p-5 pb-3">
-        <div className="flex items-start justify-between gap-3 flex-wrap">
-          <div className="flex items-center gap-3">
-            {/* Company logo */}
-            {experience.logo && (
-              <div className="w-12 h-12 rounded-lg bg-[#F3EDE2] flex items-center justify-center shrink-0 overflow-hidden">
-                <Image
-                  src={experience.logo}
-                  alt={`${experience.company} logo`}
-                  width={44}
-                  height={44}
-                  className="object-contain w-full h-full p-1"
-                />
-              </div>
-            )}
-            <div>
-              <h3 className="text-2xl font-bold text-[#F3EDE2] font-formadjr leading-tight">
-                {experience.role}
-              </h3>
-              <p className="text-[#E5B1A4] text-lg font-formadjr font-medium">
-                {experience.company}
-              </p>
+    <div className="relative w-full max-w-2xl bg-[#F3EDE2] border border-[#45140C]/20 rounded-xl shadow-sm overflow-hidden hover:shadow-[0_4px_12px_rgba(229,177,164,0.4)] transition-all duration-200">
+      {/* Type pill — overlaid top-right */}
+      <span
+        className={`absolute top-3 right-3 z-10 text-xs font-formadjr font-semibold px-3 py-1 rounded-full ${typeColors[experience.type] ?? "bg-[#45140C]/10 text-[#45140C]"}`}
+      >
+        {experience.type}
+      </span>
+
+      <div className="px-6 py-5">
+        <div className="flex items-center gap-3 flex-wrap pr-24">
+          {/* Company logo */}
+          {experience.logo && (
+            <div className="w-11 h-11 rounded-lg bg-[#45140C]/10 flex items-center justify-center shrink-0 overflow-hidden">
+              <Image
+                src={experience.logo}
+                alt={`${experience.company} logo`}
+                width={40}
+                height={40}
+                className="object-contain w-full h-full p-1"
+              />
             </div>
+          )}
+          <div>
+            <h3 className="text-xl font-bold text-[#45140C] font-formadjr leading-snug tracking-wide">
+              {experience.role}
+            </h3>
+            <p className="text-[#45140C]/80 text-base font-formadjr font-medium tracking-wide">
+              {experience.company}
+            </p>
+            <p className="text-sm text-[#45140C]/60 font-inter tracking-wide mt-0.5">{experience.dateRange}</p>
           </div>
-          <span
-            className={`text-xs font-formadjr font-semibold px-3 py-1 rounded-full mt-1 shrink-0 ${typeColors[experience.type] ?? "bg-[#F3EDE2] text-[#45140C]"}`}
-          >
-            {experience.type}
-          </span>
         </div>
 
-        {/* Meta */}
-        <div className="flex flex-wrap gap-3 mt-2 text-sm text-[#F3EDE2]/70 font-inter">
-          <span>📍 {experience.location}</span>
-          <span>🗓 {experience.dateRange}</span>
+        {/* Skills */}
+        <div className="mt-4 flex flex-wrap gap-2">
+          {experience.skills.map((skill) => (
+            <span
+              key={skill}
+              className="text-sm px-3 py-1 rounded-full border border-[#45140C]/40 text-[#45140C] font-formadjr tracking-wide"
+            >
+              {skill}
+            </span>
+          ))}
         </div>
 
         {/* Description */}
-        <p className="mt-3 text-[#F3EDE2]/90 text-base font-inter leading-relaxed">
+        <p className="mt-4 text-base text-[#45140C]/90 font-inter leading-relaxed tracking-wide">
           {experience.description}
         </p>
-      </div>
-
-      {/* Expandable bullets */}
-      <div className="px-5 pb-2">
-        <button
-          onClick={() => setExpanded((v) => !v)}
-          className="text-sm text-[#E5B1A4] font-formadjr font-medium hover:text-[#B5AD21] transition flex items-center gap-1"
-        >
-          {expanded ? "Hide details ▲" : "Show details ▼"}
-        </button>
-
-        {expanded && (
-          <ul className="mt-3 space-y-2 list-none">
-            {experience.bullets.map((bullet, i) => (
-              <li key={i} className="flex items-start gap-2 text-[#F3EDE2]/90 text-sm font-inter leading-relaxed">
-                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#E5B1A4] shrink-0" />
-                {bullet}
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
-
-      {/* Skills */}
-      <div className="px-5 pb-5 pt-2 flex flex-wrap gap-2">
-        {experience.skills.map((skill) => (
-          <span
-            key={skill}
-            className="text-xs px-2 py-0.5 rounded-full border border-[#F3EDE2]/30 text-[#F3EDE2]/80 font-formadjr"
-          >
-            {skill}
-          </span>
-        ))}
       </div>
     </div>
   );
@@ -156,15 +124,16 @@ function ExperienceCard({ experience }: { experience: Experience }) {
 export default function Experiences() {
   return (
     <section id="experiences" className="w-full py-16 px-4 bg-[#F3EDE2]">
-      <h2 className="text-4xl font-bold text-[#45140C] font-formadjr mb-12 text-center">
-        Experience
-      </h2>
+      <div className="max-w-2xl mx-auto mb-12">
+        <h2 className="text-4xl font-bold text-[#45140C] font-formadjr text-left">Experience</h2>
+        <p className="text-lg text-[#45140C]/70 font-inter mt-2 text-left">look at all the places that have put up with me ✦</p>
+      </div>
 
       {/* Timeline layout */}
       <div className="relative max-w-2xl mx-auto">
         {/* Vertical line */}
         <div
-          className="absolute top-0 bottom-0 w-px bg-[#45140C]/30"
+          className="absolute top-0 bottom-0 w-px bg-[#B5AD21]"
           style={{ left: "-2rem" }}
         />
 

@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useHover } from '../contexts/HoverContext';
 import { useProjectSections } from '../contexts/ProjectSectionsContext';
 import { useNavbar } from '../contexts/NavbarContext';
@@ -15,28 +16,33 @@ type Layer = {
 };
 
 const homePageLayers: Layer[] = [
-  { id: 'hero', label: 'Hero Section', icon: '⬜' },
+  { id: 'hero', label: 'Hero Section', icon: '✦' },
   {
     id: 'projects',
-    label: 'Featured Projects',
-    icon: '📁',
+    label: 'Selected Projects',
+    icon: '✦',
     sublayers: [
-      { id: 'project-one', label: 'Project One' },
-      { id: 'project-two', label: 'Project Two' },
-      { id: 'project-three', label: 'Project Three' },
+      { id: 'project-one', label: 'Conduit' },
+      { id: 'project-two', label: 'Labeling' },
     ],
   },
-  { id: 'experiences', label: 'Experiences', icon: '⬜' },
-  { id: 'footer', label: 'Footer', icon: '⬜' },
+  { id: 'experiences', label: 'Experience', icon: '✦',
+    sublayers: [
+      { id: 'exp-cdl', label: 'UCF CDL' },
+      { id: 'exp-knighthacks', label: 'Knight Hacks' },
+      { id: 'exp-c2', label: 'C² Technologies' },
+    ],
+  },
+  { id: 'footer', label: 'Footer', icon: '✦' },
 ];
 
 const projectsPageLayers: Layer[] = [
-  { id: 'project-one', label: 'Project One', icon: '📁' },
-  { id: 'project-two', label: 'Project Two', icon: '📁' },
-  { id: 'project-three', label: 'Project Three', icon: '📁' },
-  { id: 'project-four', label: 'Project Four', icon: '📁' },
-  { id: 'project-five', label: 'Project Five', icon: '📁' },
-  { id: 'project-six', label: 'Project Six', icon: '📁' },
+  { id: 'project-one',   label: 'Conduit',        icon: '✦' },
+  { id: 'project-two',   label: 'Labeling',        icon: '✦' },
+  { id: 'project-three', label: 'Project Three',   icon: '✦' },
+  { id: 'project-four',  label: 'Project Four',    icon: '✦' },
+  { id: 'project-five',  label: 'Project Five',    icon: '✦' },
+  { id: 'project-six',   label: 'Project Six',     icon: '✦' },
 ];
 
 export default function Navbar() {
@@ -65,22 +71,28 @@ export default function Navbar() {
   // Track current path and update expanded layers
   useEffect(() => {
     const path = window.location.pathname;
-    setCurrentPath(path);
-    
-    // Auto-expand Featured Projects on home page
-    if (path === '/projects') {
-      // Projects page doesn't need auto-expansion anymore
-      setExpandedLayers(new Set());
-    } else if (path.startsWith('/projects/') && path !== '/projects') {
-      // Project detail page - set first section as active if available
-      setExpandedLayers(new Set());
-      if (projectSections.length > 0) {
-        setActiveSection(projectSections[0].id);
+
+    // Defer setState to avoid calling it synchronously inside an effect
+    const id = setTimeout(() => {
+      setCurrentPath(path);
+
+      // Auto-expand Featured Projects on home page
+      if (path === '/projects') {
+        // Projects page doesn't need auto-expansion anymore
+        setExpandedLayers(new Set());
+      } else if (path.startsWith('/projects/') && path !== '/projects') {
+        // Project detail page - set first section as active if available
+        setExpandedLayers(new Set());
+        if (projectSections.length > 0) {
+          setActiveSection(projectSections[0].id);
+        }
+      } else {
+        // Home page - expand Featured Projects section
+        setExpandedLayers(new Set(['projects']));
       }
-    } else {
-      // Home page - expand Featured Projects section
-      setExpandedLayers(new Set(['projects']));
-    }
+    }, 0);
+
+    return () => clearTimeout(id);
   }, [projectSections]);
 
   // Determine which layers to show based on current page
@@ -193,9 +205,9 @@ export default function Navbar() {
       <div className="md:hidden fixed top-0 left-0 right-0 bg-[#45140C] border-b-2 border-[#E5B1A4]/20 z-50 overflow-x-hidden">
         <div className="flex items-center justify-between h-16 px-4">
           {/* Logo/Name */}
-          <a href="/" className="text-lg font-bold text-[#F3EDE2] font-formadjr hover:text-[#E5B1A4] transition">
+          <Link href="/" className="text-lg font-bold text-[#F3EDE2] font-formadjr hover:text-[#E5B1A4] transition">
             Eli Pretto-Sotelo
-          </a>
+          </Link>
 
           {/* Mobile menu toggle */}
           <button
@@ -262,7 +274,7 @@ export default function Navbar() {
               {!sidebarCollapsed && (
                 <div className="flex flex-col">
                   <Image src="/thebaby.png" alt="alt" width={32} height={32} className="mb-2" />
-                  <h2 className="text-lg font-bold text-[#F3EDE2] font-formadjr">eli's portfolio</h2>
+                  <h2 className="text-lg font-bold text-[#F3EDE2] font-formadjr">eli&apos;s portfolio</h2>
                 </div>
               )}
               
@@ -353,18 +365,6 @@ export default function Navbar() {
                   onMouseEnter={() => isProjectsPage && setHoveredProject(layer.id)}
                   onMouseLeave={() => isProjectsPage && setHoveredProject(null)}
                 >
-                  {/* Expand/collapse chevron */}
-                  {layer.sublayers && (
-                    <svg
-                      className={`w-3 h-3 transition-transform ${expandedLayers.has(layer.id) ? 'rotate-90' : ''}`}
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path d="M7 7l3 3 3-3" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  )}
-                  {!layer.sublayers && <div className="w-3"></div>}
-
                   {/* Layer icon */}
                   <span className="text-xs opacity-70">{layer.icon}</span>
 
@@ -374,6 +374,19 @@ export default function Navbar() {
                   {/* Active indicator */}
                   {isActive(layer.id) && (
                     <div className="w-1.5 h-1.5 rounded-full bg-[#B5AD21]"></div>
+                  )}
+
+                  {/* Expand/collapse chevron on the right */}
+                  {layer.sublayers ? (
+                    <svg
+                      className={`w-3 h-3 transition-transform shrink-0 ${expandedLayers.has(layer.id) ? 'rotate-90' : ''}`}
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path d="M7 7l3 3 3-3" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  ) : (
+                    <div className="w-3" />
                   )}
                 </div>
 
@@ -392,7 +405,7 @@ export default function Navbar() {
                         onMouseEnter={() => isHomePage && setHoveredProject(sublayer.id)}
                         onMouseLeave={() => isHomePage && setHoveredProject(null)}
                       >
-                        <span className="text-xs opacity-70">⬜</span>
+                        <span className="text-xs opacity-70">✦</span>
                         <span className="text-sm font-mono flex-1">{sublayer.label}</span>
                         {activeSection === sublayer.id && (
                           <div className="w-1.5 h-1.5 rounded-full bg-[#B5AD21]"></div>
