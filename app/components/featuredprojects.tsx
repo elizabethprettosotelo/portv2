@@ -39,7 +39,7 @@ const projects: Project[] = [
   {
     title: "Conduit",
     blurb: "Multimodal accessibility platform that unifies EEG, gaze tracking, voice detection, and ASL recognition into one adaptive interface built in 36 hours.",
-    thumbnail: "/conduitthumb.jpg",
+    thumbnail: "/conduit/conduitthumb.jpg",
     gif: "/project1.gif",
     video: "/conduit/conduitlaunch.mp4",
     tags: ["Accessibility", "UX Design", "Multimodal Design"],

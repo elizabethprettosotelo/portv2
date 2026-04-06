@@ -25,7 +25,7 @@ const allProjects: Project[] = [
   {
     title: "Conduit",
     blurb: "Multimodal accessibility platform that unifies EEG, gaze tracking, voice detection, and ASL recognition into one adaptive interface built in 36 hours.",
-    thumbnail: "/conduitthumb.jpg",
+    thumbnail: "/conduit/conduitthumb.jpg",
     gif: "/project1.gif",
     video: "/conduit/conduitlaunch.mp4",
     images: ["/project1-1.jpg", "/project1-2.jpg", "/project1-3.jpg"],
@@ -59,7 +59,7 @@ const allProjects: Project[] = [
   {
     title: "Project Three",
     blurb: "A short description of this project. What problem it solved, your role, and what made it interesting.",
-    thumbnail: "/project3-thumb.jpg",
+    thumbnail: "/labeling/thumbnail.png",
     images: ["/project3-1.jpg", "/project3-2.jpg", "/project3-3.jpg"],
     tags: ["Frontend", "Design Systems"],
     slug: "project-three",
@@ -75,7 +75,7 @@ const allProjects: Project[] = [
   {
     title: "Project Four",
     blurb: "An exploration of design patterns and user flows for a complex application.",
-    thumbnail: "/project4-thumb.jpg",
+    thumbnail: "/labeling/thumbnail.png",
     images: ["/project4-1.jpg", "/project4-2.jpg"],
     tags: ["UX Design", "Wireframing"],
     slug: "project-four",
@@ -90,7 +90,7 @@ const allProjects: Project[] = [
   {
     title: "Project Five",
     blurb: "A comprehensive branding and identity project for a startup company.",
-    thumbnail: "/project5-thumb.jpg",
+    thumbnail: "/labeling/thumbnail.png",
     images: ["/project5-1.jpg"],
     tags: ["Branding", "UI Design"],
     slug: "project-five",
@@ -105,7 +105,7 @@ const allProjects: Project[] = [
   {
     title: "Project Six",
     blurb: "Responsive web design and development for an e-commerce platform.",
-    thumbnail: "/project6-thumb.jpg",
+    thumbnail: "/labeling/thumbnail.png",
     images: ["/project6-1.jpg", "/project6-2.jpg", "/project6-3.jpg"],
     tags: ["Frontend", "Responsive Design"],
     slug: "project-six",

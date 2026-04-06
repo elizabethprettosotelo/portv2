@@ -47,32 +47,35 @@ export default function About({
 
   return (
     <div className="w-full bg-[#F3EDE2]">
-      {/* Hero Section */}
-      <section className="w-full py-20 px-8 bg-[#45140C] fade-in-up">
-        <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-12">
+
+      {/* About Me — carousel left, name + bio right */}
+      <section className="w-full py-20 px-8 fade-in-up">
+        <div className="max-w-5xl mx-auto flex flex-col lg:flex-row gap-12 items-start">
+
           {/* Photo Carousel */}
-          <div className="shrink-0 flex flex-col items-center gap-3">
-            <div className="relative w-56 h-72 rounded-2xl overflow-hidden shadow-2xl border-4 border-[#B5AD21]">
-              <Image
-                src={PHOTOS[currentPhoto]}
-                alt={`${name} photo ${currentPhoto + 1}`}
-                fill
-                className="object-cover transition-opacity duration-300"
-                priority
-              />
-              {/* Prev button */}
+          <div className="shrink-0 flex flex-col items-center gap-3 lg:sticky lg:top-8">
+            {/* Arrow + image row */}
+            <div className="flex items-center gap-3">
               <button
                 onClick={prevPhoto}
                 aria-label="Previous photo"
-                className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-[#45140C]/60 hover:bg-[#45140C]/90 text-[#F3EDE2] flex items-center justify-center transition-all duration-200 text-sm z-10"
+                className="text-[#B5AD21] hover:text-[#45140C] transition-colors duration-200 text-2xl leading-none"
               >
                 ‹
               </button>
-              {/* Next button */}
+              <div className="relative w-96 h-72 rounded-2xl overflow-hidden shadow-2xl border-4 border-[#45140C]">
+                <Image
+                  src={PHOTOS[currentPhoto]}
+                  alt={`${name} photo ${currentPhoto + 1}`}
+                  fill
+                  className="object-cover transition-opacity duration-300"
+                  priority
+                />
+              </div>
               <button
                 onClick={nextPhoto}
                 aria-label="Next photo"
-                className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-[#45140C]/60 hover:bg-[#45140C]/90 text-[#F3EDE2] flex items-center justify-center transition-all duration-200 text-sm z-10"
+                className="text-[#B5AD21] hover:text-[#45140C] transition-colors duration-200 text-2xl leading-none"
               >
                 ›
               </button>
@@ -85,32 +88,21 @@ export default function About({
                   onClick={() => setCurrentPhoto(i)}
                   aria-label={`Go to photo ${i + 1}`}
                   className={`w-2 h-2 rounded-full transition-all duration-200 ${
-                    i === currentPhoto ? "bg-[#B5AD21] scale-125" : "bg-[#F3EDE2]/40 hover:bg-[#F3EDE2]/70"
+                    i === currentPhoto ? "bg-[#B5AD21] scale-125" : "bg-[#45140C]/25 hover:bg-[#45140C]/50"
                   }`}
                 />
               ))}
             </div>
           </div>
-          
-          {/* Intro Text */}
-          <div className="flex-1 text-center md:text-left">
-            <h1 className="text-5xl md:text-6xl font-bold text-[#F3EDE2] font-formadjr mb-4">
+
+          {/* Name, tagline, bio */}
+          <div className="flex-1">
+            <h1 className="text-5xl md:text-6xl font-bold text-[#45140C] font-formadjr mb-2">
               {name}
             </h1>
-            <p className="text-2xl md:text-3xl text-[#B5AD21] font-formadjr">
+            <p className="text-2xl text-[#B5AD21] font-formadjr mb-8">
               {tagline}
             </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Bio Section */}
-      <section className="w-full py-16 px-8 fade-in-up-delay-1">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-[#45140C] font-formadjr mb-8">
-            About Me
-          </h2>
-          <div className="prose prose-lg max-w-none">
             <p className="text-lg text-[#45140C]/70 font-inter leading-relaxed whitespace-pre-line">
               {bio}
             </p>
@@ -122,28 +114,27 @@ export default function About({
       <div className="w-full h-px bg-[#45140C]/10" />
 
       {/* Skills & Tools Section */}
-      <section className="w-full py-16 px-8 fade-in-up-delay-2">
+      <section className="w-full py-12 px-8 fade-in-up-delay-2">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-[#45140C] font-formadjr mb-12 text-center">
+          <h2 className="text-4xl md:text-5xl font-bold text-[#45140C] font-formadjr mb-8 text-center">
             Skills & Tools
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="flex flex-wrap justify-center gap-3">
             {skills.map((skillGroup, index) => (
               <div
                 key={index}
-                className="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow duration-300"
+                className="w-56 bg-white rounded-xl px-5 py-4 shadow-sm hover:shadow-md transition-shadow duration-300"
               >
-                <h3 className="text-xl font-bold text-[#45140C] font-formadjr mb-4 flex items-center gap-2">
-                  <span className="text-2xl">✨</span>
+                <h3 className="text-base font-bold text-[#45140C] font-formadjr mb-3 border-b border-[#45140C]/10 pb-2">
                   {skillGroup.category}
                 </h3>
-                <ul className="space-y-2">
+                <ul className="space-y-1">
                   {skillGroup.items.map((item, i) => (
                     <li
                       key={i}
-                      className="text-base text-[#45140C]/65 font-inter flex items-center gap-2"
+                      className="text-sm text-[#45140C]/65 font-inter flex items-center gap-2"
                     >
-                      <span className="text-[#B5AD21]">→</span>
+                      <span className="text-[#B5AD21] text-xs">✦</span>
                       {item}
                     </li>
                   ))}
