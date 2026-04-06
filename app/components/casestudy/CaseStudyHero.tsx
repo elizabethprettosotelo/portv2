@@ -10,7 +10,7 @@ type CaseStudyHeroProps = {
 
 export default function CaseStudyHero({ title, subtitle, heroImage }: CaseStudyHeroProps) {
   return (
-    <section className="relative w-full h-[60vh] min-h-100 overflow-hidden fade-in-up">
+    <section className="relative w-full h-[50vh] min-h-100 overflow-hidden fade-in-up">
       <Image
         src={heroImage}
         alt={title}
@@ -19,12 +19,12 @@ export default function CaseStudyHero({ title, subtitle, heroImage }: CaseStudyH
         priority
       />
       <div className="absolute inset-0 bg-linear-to-t from-[#45140C]/80 via-[#45140C]/40 to-transparent" />
-      <div className="absolute bottom-0 left-0 right-0 p-8 md:p-16">
+      <div className="absolute bottom-0 left-0 right-0 p-6 md:p-12">
         <div className="max-w-7xl mx-auto">
-          <h1 className="text-5xl md:text-7xl font-bold text-[#F3EDE2] font-formadjr mb-4">
+          <h1 className="text-4xl md:text-6xl font-bold text-[#F3EDE2] font-formadjr mb-3">
             {title}
           </h1>
-          <p className="text-xl md:text-2xl text-[#F3EDE2]/90 font-formadjr max-w-3xl">
+          <p className="text-lg md:text-xl text-[#F3EDE2]/90 font-inter max-w-3xl">
             {subtitle}
           </p>
         </div>

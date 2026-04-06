@@ -37,13 +37,15 @@ export default function CaseStudyPersona({
   }, []);
 
   return (
-    <section id="personas" className="w-full py-16 px-6 bg-[#F3EDE2] fade-in-up-delay-3">
-      <div className="max-w-7xl mx-auto">
-        {/* Section Title */}
-        <h2 className="text-4xl md:text-5xl font-bold text-[#45140C] font-formadjr mb-4">
+    <section id="personas" className="w-full py-12 px-8 bg-[#F3EDE2]">
+      <div className="max-w-5xl mx-auto">
+        {/* Section Number & Title */}
+        <div className="text-6xl font-bold text-[#B5AD21]/20 mb-3 font-formadjr">
+          03
+        </div>
+        <h2 className="text-3xl md:text-4xl font-bold text-[#45140C] font-formadjr mb-6">
           {title}
         </h2>
-        <div className="w-20 h-1 bg-[#B5AD21] mb-12"></div>
 
         {/* Personas Grid - 2-3 per row */}
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">

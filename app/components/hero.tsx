@@ -23,11 +23,24 @@ export default function Hero() {
       <div className="relative max-w-7xl w-full z-10">
         {/* Main content */}
         <div className="flex flex-col lg:flex-row items-start lg:items-center gap-12 lg:gap-16">
-          {/* Main headline */}
-          <h1 className="text-6xl md:text-8xl lg:text-8xl xl:text-9xl font-bold text-[#45140C] font-formadjr leading-none shrink-0">
-            design til <br />
-            <span className="text-[#F3EDE2]">it's right</span>
-          </h1>
+          {/* Main headline with SVG */}
+          <div className="shrink-0">
+            <h1 className="text-6xl md:text-8xl lg:text-8xl xl:text-9xl font-bold text-[#45140C] font-formadjr leading-none">
+              design til <br />
+              <span className="text-[#F3EDE2]">it's right!</span>
+            </h1>
+            
+            {/* Little guys SVG */}
+            <div className="mt-6 pt-1 flex justify-center">
+              <Image 
+                src="/littleguys.svg" 
+                alt="Little guys decoration" 
+                width={300} 
+                height={100}
+                className="w-auto h-20 md:h-24"
+              />
+            </div>
+          </div>
 
           {/* Supporting text and CTAs in tan container */}
           <div className="bg-[#F3EDE2] rounded-2xl p-8 md:p-10 shadow-xl max-w-xl">
@@ -35,11 +48,10 @@ export default function Hero() {
               {/* Supporting text */}
               <div className="space-y-4">
                 <p className="text-xl md:text-2xl text-[#45140C] font-inter leading-relaxed">
-                  Welcome to my portfolio — a curated collection of design work, development projects, 
-                  and creative explorations.
+                  Welcome to my portfolio — a collection of my design work & development projects.
                 </p>
                 <p className="text-lg md:text-xl text-[#45140C]/80 font-inter leading-relaxed">
-                  I'm Eli, a UI/UX Designer and Frontend Developer who believes in iterating until 
+                  I'm Eli, a UX Designer and Frontend Developer who believes in iterating until 
                   every pixel feels intentional. <a 
                     href="/experience" 
                     className="underline decoration-2 underline-offset-4 hover:text-[#B5AD21] transition-colors duration-200 font-medium"
@@ -69,18 +81,18 @@ export default function Hero() {
             </div>
           </div>
         </div>
+      </div>
 
-        {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-          <svg 
-            className="w-6 h-6 text-[#45140C]/40" 
-            fill="none" 
-            viewBox="0 0 24 24" 
-            stroke="currentColor"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-          </svg>
-        </div>
+      {/* Scroll indicator */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+        <svg 
+          className="w-6 h-6 text-[#45140C]/40" 
+          fill="none" 
+          viewBox="0 0 24 24" 
+          stroke="currentColor"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+        </svg>
       </div>
     </section>
   );

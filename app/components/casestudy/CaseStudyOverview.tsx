@@ -5,9 +5,10 @@ import { useProjectSections } from '../../contexts/ProjectSectionsContext';
 
 type CaseStudyOverviewProps = {
   overview: string;
+  sectionNumber?: string;
 };
 
-export default function CaseStudyOverview({ overview }: CaseStudyOverviewProps) {
+export default function CaseStudyOverview({ overview, sectionNumber = "01" }: CaseStudyOverviewProps) {
   const { registerSection, unregisterSection } = useProjectSections();
 
   useEffect(() => {
@@ -16,16 +17,21 @@ export default function CaseStudyOverview({ overview }: CaseStudyOverviewProps) 
   }, []);
 
   return (
-    <section id="overview" className="w-full py-16 px-8 bg-[#F3EDE2] fade-in-up-delay-3">
-      <div className="max-w-4xl mx-auto">
-        <h2 className="text-4xl md:text-5xl font-bold text-[#45140C] font-formadjr mb-6 flex items-center gap-4">
-          <span className="text-3xl">📋</span>
-          Overview
+    <section id="overview" className="w-full py-12 px-8 bg-[#F3EDE2]">
+      <div className="max-w-5xl mx-auto">
+        {/* Section Number */}
+        <div className="text-6xl font-bold text-[#B5AD21]/20 mb-3 font-formadjr">
+          {sectionNumber}
+        </div>
+        
+        {/* Section Title */}
+        <h2 className="text-3xl md:text-4xl font-bold text-[#45140C] font-formadjr mb-6">
+          Context
         </h2>
-        <div className="prose prose-lg max-w-none">
-          <p className="text-lg text-[#45140C]/70 font-inter leading-relaxed whitespace-pre-line">
-            {overview}
-          </p>
+        
+        {/* Content */}
+        <div className="text-base md:text-lg text-[#45140C]/80 font-inter leading-relaxed max-w-4xl">
+          {overview}
         </div>
       </div>
     </section>

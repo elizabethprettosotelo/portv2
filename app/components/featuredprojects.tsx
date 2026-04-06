@@ -9,115 +9,60 @@ type Project = {
   title: string;
   blurb: string;
   thumbnail: string;
-  images: string[];
+  gif: string;
   tags: string[];
   slug: string;
 };
 
 const projects: Project[] = [
   {
-    title: "Project One",
-    blurb: "A short description of this project. What problem it solved, your role, and what made it interesting.",
+    title: "Conduit",
+    blurb: "Multimodal accessibility platform that unifies EEG, gaze tracking, voice detection, and ASL recognition into one adaptive interface built in 36 hours.",
     thumbnail: "/project1-thumb.jpg",
-    images: ["/project1-1.jpg", "/project1-2.jpg", "/project1-3.jpg"],
-    tags: ["UX Design", "Research"],
+    gif: "/project1.gif",
+    tags: ["Accessibility", "UX Design", "Multimodal Design"],
     slug: "project-one",
   },
   {
-    title: "Project Two",
-    blurb: "A short description of this project. What problem it solved, your role, and what made it interesting.",
+    title: "Labeling",
+    blurb: "Redesigned Materia's image labeling widget with full WCAG 2.1 AA compliance, responsive layouts, and modern UI for 50,000+ students.",
     thumbnail: "/project2-thumb.jpg",
-    images: ["/project2-1.jpg", "/project2-2.jpg"],
-    tags: ["UI Design", "Prototyping"],
+    gif: "/project2.gif",
+    tags: ["UI Redesign", "Accessibility", "Higher Education"],
     slug: "project-two",
-  },
-  {
-    title: "Project Three",
-    blurb: "A short description of this project. What problem it solved, your role, and what made it interesting.",
-    thumbnail: "/project3-thumb.jpg",
-    images: ["/project3-1.jpg", "/project3-2.jpg", "/project3-3.jpg"],
-    tags: ["Frontend", "Design Systems"],
-    slug: "project-three",
   },
 ];
 
 function ProjectCard({ project }: { project: Project }) {
-  const [carouselOpen, setCarouselOpen] = useState(false);
-  const [currentImage, setCurrentImage] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
   const { hoveredProject, setHoveredProject } = useHover();
   
   const isHighlighted = hoveredProject === project.slug;
-
-  const allImages = [project.thumbnail, ...project.images];
-
-  const prev = () => setCurrentImage((i) => (i - 1 + allImages.length) % allImages.length);
-  const next = () => setCurrentImage((i) => (i + 1) % allImages.length);
 
   return (
     <div 
       className={`relative bg-[#F3EDE2] rounded-xl shadow-md overflow-hidden w-full max-w-2xl transition-all duration-300 ${
         isHighlighted ? 'ring-2 ring-[#B5AD21] shadow-xl' : ''
       }`}
-      onMouseEnter={() => setHoveredProject(project.slug)}
-      onMouseLeave={() => setHoveredProject(null)}
+      onMouseEnter={() => {
+        setHoveredProject(project.slug);
+        setIsHovered(true);
+      }}
+      onMouseLeave={() => {
+        setHoveredProject(null);
+        setIsHovered(false);
+      }}
     >
-      {/* Thumbnail */}
-      {!carouselOpen && (
-        <div
-          className="relative w-full h-56 cursor-pointer group"
-          onClick={() => setCarouselOpen(true)}
-        >
-          <Image
-            src={project.thumbnail}
-            alt={project.title}
-            fill
-            className="object-cover"
-          />
-          <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
-            <span className="text-white text-sm font-medium font-formadjr">View images</span>
-          </div>
-        </div>
-      )}
-
-      {/* Carousel */}
-      {carouselOpen && (
-        <div className="relative w-full h-56 bg-black">
-          <Image
-            src={allImages[currentImage]}
-            alt={`${project.title} image ${currentImage + 1}`}
-            fill
-            className="object-cover"
-          />
-          <button
-            onClick={prev}
-            className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 text-white rounded-full w-8 h-8 flex items-center justify-center hover:bg-black/70 transition"
-          >
-            ‹
-          </button>
-          <button
-            onClick={next}
-            className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 text-white rounded-full w-8 h-8 flex items-center justify-center hover:bg-black/70 transition"
-          >
-            ›
-          </button>
-          {/* Dot indicators */}
-          <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1">
-            {allImages.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => setCurrentImage(i)}
-                className={`w-2 h-2 rounded-full transition ${i === currentImage ? "bg-white" : "bg-white/40"}`}
-              />
-            ))}
-          </div>
-          <button
-            onClick={() => { setCarouselOpen(false); setCurrentImage(0); }}
-            className="absolute top-2 right-2 bg-black/50 text-white rounded-full w-7 h-7 flex items-center justify-center text-xs hover:bg-black/70 transition"
-          >
-            ✕
-          </button>
-        </div>
-      )}
+      {/* Image/GIF */}
+      <div className="relative w-full h-56">
+        <Image
+          src={isHovered ? project.gif : project.thumbnail}
+          alt={project.title}
+          fill
+          className="object-cover"
+          unoptimized={isHovered}
+        />
+      </div>
 
       {/* Card content */}
       <div className="p-5">

@@ -9,8 +9,11 @@ Full-width hero section with image overlay.
 - **Props**: `title`, `subtitle`, `heroImage`
 
 ### CaseStudyMeta
-Project metadata bar with role, timeline, tools, and tags.
-- **Props**: `role`, `timeline`, `tools[]`, `tags[]`
+Project metadata bar with role, timeline, tools, tags, and optional links.
+- **Props**: `role`, `timeline`, `tools[]`, `tags[]`, `links?[]`
+- **Links Format**: `{ label, url, type }` where type is `github`, `demo`, `figma`, or `other`
+- **Link Colors**: GitHub (dark brown), Demo (green), Figma (pink), Other (light)
+- **Layout**: 4 columns when links provided, 3 columns otherwise
 
 ### CaseStudyOverview
 Overview section with icon and content.
@@ -49,7 +52,17 @@ import CaseStudyMeta from "../../components/casestudy/CaseStudyMeta";
 // ... import other components
 
 <CaseStudyHero title="..." subtitle="..." heroImage="..." />
-<CaseStudyMeta role="..." timeline="..." tools={[...]} tags={[...]} />
+<CaseStudyMeta 
+  role="..." 
+  timeline="..." 
+  tools={[...]} 
+  tags={[...]}
+  links={[
+    { label: "GitHub", url: "...", type: "github" },
+    { label: "Demo", url: "...", type: "demo" },
+    { label: "Figma", url: "...", type: "figma" }
+  ]}
+/>
 <CaseStudyOverview overview="..." />
 <CaseStudyProblem problem="..." />
 <CaseStudySolution solution="..." />
