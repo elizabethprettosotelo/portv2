@@ -1,5 +1,6 @@
 import FeaturedProjects from "./components/featuredprojects";
 import Experiences from "./components/experiences";
+import Skills from "./components/skills";
 import Footer from "./components/footer";
 import Navbar from "./components/navbar";
 import Hero from "./components/hero";
@@ -12,6 +13,7 @@ export default function Home() {
         <Hero />
         <FeaturedProjects />
         <Experiences />
+        <Skills />
       </main>
       <Footer />
     </div>

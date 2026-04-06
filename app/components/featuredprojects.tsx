@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useHover } from "../contexts/HoverContext";
 
 type ProjectLink = {
@@ -45,9 +45,9 @@ const projects: Project[] = [
     tags: ["Accessibility", "UX Design", "Multimodal Design"],
     slug: "project-one",
     links: [
-      { label: "GitHub",  href: "https://github.com/elizabethprettosotelo", kind: "github"  },
-      { label: "Devpost", href: "https://devpost.com",                       kind: "devpost" },
-      { label: "Figma",   href: "https://figma.com",                         kind: "figma"   },
+      { label: "GitHub",  href: "https://github.com/kwaiidev/conduit",                                                              kind: "github"  },
+      { label: "Devpost", href: "https://devpost.com/software/conduit-y8gqoj?ref_content=my-projects-tab&ref_feature=my_projects", kind: "devpost" },
+      { label: "Figma",   href: "https://figma.com",                                                                                kind: "figma"   },
     ],
   },
   {
@@ -66,10 +66,35 @@ const projects: Project[] = [
   },
 ];
 
+function AnimatedCard({ project }: { project: Project }) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        el.classList.remove("anim-hidden");
+        el.classList.add("anim-slide-up");
+        obs.disconnect();
+      }
+    }, { threshold: 0.1, rootMargin: "0px 0px -40px 0px" });
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
+  return (
+    <div ref={ref} className="anim-hidden">
+      <ProjectCard project={project} />
+    </div>
+  );
+}
+
 function ProjectCard({ project }: { project: Project }) {
   const [isHovered, setIsHovered] = useState(false);
   const { hoveredProject, setHoveredProject } = useHover();
   const videoRef = useRef<HTMLVideoElement>(null);
+  const playPromiseRef = useRef<Promise<void> | null>(null);
   
   const isHighlighted = hoveredProject === project.slug;
 
@@ -78,7 +103,8 @@ function ProjectCard({ project }: { project: Project }) {
     setIsHovered(true);
     if (videoRef.current) {
       videoRef.current.currentTime = 0;
-      videoRef.current.play();
+      playPromiseRef.current = videoRef.current.play();
+      playPromiseRef.current?.catch(() => {/* interrupted — ignore */});
     }
   };
 
@@ -86,14 +112,23 @@ function ProjectCard({ project }: { project: Project }) {
     setHoveredProject(null);
     setIsHovered(false);
     if (videoRef.current) {
-      videoRef.current.pause();
-      videoRef.current.currentTime = 0;
+      const video = videoRef.current;
+      if (playPromiseRef.current) {
+        playPromiseRef.current.then(() => {
+          video.pause();
+          video.currentTime = 0;
+        }).catch(() => {/* interrupted — ignore */});
+        playPromiseRef.current = null;
+      } else {
+        video.pause();
+        video.currentTime = 0;
+      }
     }
   };
 
   return (
     <div 
-      className={`relative bg-[#F3EDE2] rounded-xl shadow-md overflow-hidden w-full max-w-3xl transition-all duration-300 ${
+      className={`relative bg-[#FDFAF7] rounded-xl shadow-md overflow-hidden w-full max-w-3xl transition-all duration-300 ${
         isHighlighted ? 'shadow-[0_4px_12px_rgba(229,177,164,0.4)]' : ''
       }`}
       onMouseEnter={handleMouseEnter}
@@ -192,11 +227,38 @@ function ProjectCard({ project }: { project: Project }) {
 }
 
 export default function FeaturedProjects() {
+  const headingRef = useRef<HTMLDivElement>(null);
+  const btnRef     = useRef<HTMLDivElement>(null);
+
+  // Animate heading in when scrolled into view
+  useEffect(() => {
+    const targets = [
+      { el: headingRef.current, cls: "anim-slide-up",    delay: 0   },
+      { el: btnRef.current,     cls: "anim-slide-up",    delay: 200 },
+    ];
+    const observers: IntersectionObserver[] = [];
+    targets.forEach(({ el, cls, delay }) => {
+      if (!el) return;
+      const obs = new IntersectionObserver(([entry]) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            el.classList.remove("anim-hidden");
+            el.classList.add(cls);
+          }, delay);
+          obs.disconnect();
+        }
+      }, { threshold: 0.1, rootMargin: "0px 0px -40px 0px" });
+      obs.observe(el);
+      observers.push(obs);
+    });
+    return () => observers.forEach(o => o.disconnect());
+  }, []);
+
   return (
     <section id="projects" className="w-full py-16 px-4 bg-[#F3EDE2]">
-      <div className="max-w-3xl mx-auto mb-12">
+      <div ref={headingRef} className="anim-hidden max-w-3xl mx-auto mb-12">
         <h2 className="text-4xl font-bold text-[#45140C] font-formadjr text-left">Selected Projects</h2>
-        <p className="text-lg text-[#45140C]/70 font-inter mt-2 text-left">look at all these things i&apos;ve been cooking up ✦</p>
+        <p className="text-lg text-[#45140C]/70 font-inter mt-2 text-left">Look at all these things I&apos;ve been cooking up ✦</p>
       </div>
 
       {/* Timeline layout */}
@@ -211,13 +273,13 @@ export default function FeaturedProjects() {
               className="absolute w-3 h-3 rounded-full bg-[#B5AD21] border-2 border-[#F3EDE2]"
               style={{ left: "-2.375rem", top: "50%", transform: "translateY(-50%)" }}
             />
-            <ProjectCard project={project} />
+            <AnimatedCard project={project} />
           </div>
         ))}
       </div>
 
       {/* View all projects button */}
-      <div className="flex justify-center mt-4">
+      <div ref={btnRef} className="anim-hidden flex justify-center mt-4">
         <Link
           href="/projects"
           className="px-8 py-3 bg-[#45140C] text-[#F3EDE2] rounded font-formadjr font-medium text-lg hover:bg-[#B5AD21] transition"

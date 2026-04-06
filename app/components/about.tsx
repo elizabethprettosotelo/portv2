@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 
-const PHOTOS = ["/about/me1.png", "/about/me2.png"];
+const PHOTOS = ["/ABOUT/me1.png", "/ABOUT/me2.png"];
 
 type AboutProps = {
   // Hero Section
@@ -14,48 +14,61 @@ type AboutProps = {
   bio: string;
   
   // Skills & Tools
-  skills: {
+  skills?: {
     category: string;
     items: string[];
   }[];
   
-  // Interests/Hobbies
-  interests: string[];
+  // Interests/Hobbies — kept for potential future use
+  interests?: string[];
   
-  // Fun Facts
-  funFacts?: string[];
-  
-  // Contact CTA
-  ctaText?: string;
+  // Community Gallery
+  communityCaption?: string;
+  communityMedia?: {
+    src: string;
+    type: "image" | "video";
+    alt?: string;
+    caption?: string;
+  }[];
+
+  // Books
+  books?: {
+    title: string;
+    author?: string;
+    cover: string;
+  }[];
+  readingBlurb?: string;
+  readingPhoto?: string;
 };
 
 export default function About({
   name,
   tagline,
   bio,
-  skills,
-  interests,
-  funFacts,
-  ctaText = "Let's work together!",
+  books,
+  readingBlurb,
+  readingPhoto,
+  communityCaption,
+  communityMedia,
 }: AboutProps) {
   const [currentPhoto, setCurrentPhoto] = useState(0);
+  const [lightboxSrc, setLightboxSrc] = useState<string | null>(null);
 
-  const prevPhoto = () =>
-    setCurrentPhoto((i) => (i - 1 + PHOTOS.length) % PHOTOS.length);
-  const nextPhoto = () =>
-    setCurrentPhoto((i) => (i + 1) % PHOTOS.length);
+  const prevPhoto = () => setCurrentPhoto((i) => (i - 1 + PHOTOS.length) % PHOTOS.length);
+  const nextPhoto = () => setCurrentPhoto((i) => (i + 1) % PHOTOS.length);
 
   return (
+    <>
     <div className="w-full bg-[#F3EDE2]">
 
       {/* About Me — carousel left, name + bio right */}
-      <section className="w-full py-20 px-8 fade-in-up">
-        <div className="max-w-5xl mx-auto flex flex-col lg:flex-row gap-12 items-start">
+      <section id="about-bio" className="w-full py-16 px-4 sm:px-8 fade-in-up">
+        <div className="max-w-5xl mx-auto flex flex-col lg:flex-row gap-10 items-center lg:items-start">
 
           {/* Photo Carousel */}
-          <div className="shrink-0 flex flex-col items-center gap-3 lg:sticky lg:top-8">
+          <div className="shrink-0 flex flex-col items-center gap-3 lg:sticky lg:top-8 w-full lg:w-auto">
             {/* Arrow + image row */}
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 w-full justify-center">
               <button
                 onClick={prevPhoto}
                 aria-label="Previous photo"
@@ -63,12 +76,14 @@ export default function About({
               >
                 ‹
               </button>
-              <div className="relative w-96 h-72 rounded-2xl overflow-hidden shadow-2xl border-4 border-[#45140C]">
+              <div className="relative w-full max-w-md sm:max-w-lg lg:w-120 lg:h-90 aspect-4/3 lg:aspect-auto rounded-2xl overflow-hidden shadow-2xl border border-[#45140C]/30">
                 <Image
+                  key={currentPhoto}
                   src={PHOTOS[currentPhoto]}
                   alt={`${name} photo ${currentPhoto + 1}`}
                   fill
-                  className="object-cover transition-opacity duration-300"
+                  className="object-cover"
+                  style={{ animation: 'fadeIn 0.4s ease-out' }}
                   priority
                 />
               </div>
@@ -96,14 +111,14 @@ export default function About({
           </div>
 
           {/* Name, tagline, bio */}
-          <div className="flex-1">
-            <h1 className="text-5xl md:text-6xl font-bold text-[#45140C] font-formadjr mb-2">
+          <div className="flex-1 text-center lg:text-left">
+            <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold text-[#45140C] font-formadjr mb-2">
               {name}
             </h1>
-            <p className="text-2xl text-[#B5AD21] font-formadjr mb-8">
+            <p className="text-lg sm:text-xl text-[#B5AD21] font-formadjr mb-6">
               {tagline}
             </p>
-            <p className="text-lg text-[#45140C]/70 font-inter leading-relaxed whitespace-pre-line">
+            <p className="text-base sm:text-lg text-[#45140C]/70 font-inter leading-relaxed whitespace-pre-line">
               {bio}
             </p>
           </div>
@@ -113,114 +128,212 @@ export default function About({
       {/* Divider */}
       <div className="w-full h-px bg-[#45140C]/10" />
 
-      {/* Skills & Tools Section */}
-      <section className="w-full py-12 px-8 fade-in-up-delay-2">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-[#45140C] font-formadjr mb-8 text-center">
-            Skills & Tools
+      {/* Community Section */}
+      <section id="about-community" className="w-full py-16 px-4 sm:px-8 fade-in-up-delay-1">
+        <div className="max-w-5xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold text-[#45140C] font-formadjr mb-2">
+            I Love My Community
           </h2>
-          <div className="flex flex-wrap justify-center gap-3">
-            {skills.map((skillGroup, index) => (
-              <div
-                key={index}
-                className="w-56 bg-white rounded-xl px-5 py-4 shadow-sm hover:shadow-md transition-shadow duration-300"
-              >
-                <h3 className="text-base font-bold text-[#45140C] font-formadjr mb-3 border-b border-[#45140C]/10 pb-2">
-                  {skillGroup.category}
-                </h3>
-                <ul className="space-y-1">
-                  {skillGroup.items.map((item, i) => (
-                    <li
-                      key={i}
-                      className="text-sm text-[#45140C]/65 font-inter flex items-center gap-2"
-                    >
-                      <span className="text-[#B5AD21] text-xs">✦</span>
-                      {item}
-                    </li>
-                  ))}
-                </ul>
+          {communityCaption && (
+            <p className="text-[#45140C]/60 font-inter text-sm mb-10 max-w-xl leading-relaxed">
+              {communityCaption}
+            </p>
+          )}
+          {!communityCaption && (
+            <p className="text-[#45140C]/30 font-inter text-sm mb-10 italic">
+              Add a caption via the <code className="text-xs">communityCaption</code> prop.
+            </p>
+          )}
+
+          {/* Media — stacks on mobile, side by side on desktop */}
+          {communityMedia && communityMedia.length > 0 ? (
+            <div className="flex flex-col lg:flex-row gap-6 items-start">
+
+              {/* 2×2 image grid — full width on mobile, auto on desktop */}
+              <div className="grid grid-cols-2 gap-3 w-full lg:w-auto">
+                {communityMedia.filter(m => m.type === "image").map((item, index) => (
+                  <div
+                    key={index}
+                    className="relative w-full lg:w-72 rounded-xl overflow-hidden shadow-md border border-[#45140C]/10 cursor-zoom-in group"
+                    style={{ aspectRatio: '16/9' }}
+                    onClick={() => item.src && setLightboxSrc(item.src)}
+                  >
+                    {item.src ? (
+                      <>
+                        <Image
+                          src={item.src}
+                          alt={item.alt ?? "Community photo"}
+                          fill
+                          className="object-cover transition-transform duration-300 group-hover:scale-105"
+                        />
+                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center">
+                          <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-white text-2xl">⤢</span>
+                        </div>
+                      </>
+                    ) : (
+                      <div className="w-full h-full bg-[#45140C]/5 flex items-center justify-center">
+                        <p className="text-[#45140C]/25 font-inter text-xs text-center px-3">photo coming soon</p>
+                      </div>
+                    )}
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
+
+              {/* Reels — side by side, centered on mobile */}
+              <div className="flex flex-row gap-4 justify-center lg:justify-start w-full lg:w-auto">
+                {communityMedia.filter(m => m.type === "video").map((item, index) => (
+                  <div key={index} className="flex flex-col gap-2">
+                    <div className="rounded-xl overflow-hidden shadow-md border border-[#45140C]/10">
+                      <video
+                        src={item.src}
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        className="w-36 sm:w-44 object-cover"
+                        style={{ aspectRatio: '9/16' }}
+                      />
+                    </div>
+                    {item.caption && (
+                      <p className="text-[#45140C]/50 font-inter text-xs leading-snug max-w-44">
+                        {item.caption}
+                      </p>
+                    )}
+                  </div>
+                ))}
+              </div>
+
+            </div>
+          ) : (
+            <div className="flex flex-col lg:flex-row gap-6 items-start">
+              <div className="grid grid-cols-2 gap-3 w-full lg:w-auto">
+                {[...Array(4)].map((_, i) => (
+                  <div key={i} className="w-full lg:w-72 rounded-xl border border-dashed border-[#45140C]/20 bg-[#45140C]/3 flex items-center justify-center" style={{ aspectRatio: '16/9' }}>
+                    <p className="text-[#45140C]/25 font-inter text-xs">photo</p>
+                  </div>
+                ))}
+              </div>
+              <div className="flex flex-row gap-4 justify-center lg:justify-start">
+                {[...Array(2)].map((_, i) => (
+                  <div key={i} className="w-36 sm:w-44 rounded-xl border border-dashed border-[#45140C]/20 bg-[#45140C]/3 flex items-center justify-center" style={{ aspectRatio: '9/16' }}>
+                    <p className="text-[#45140C]/25 font-inter text-xs">reel</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </section>
 
       {/* Divider */}
       <div className="w-full h-px bg-[#45140C]/10" />
 
-      {/* Interests Section */}
-      <section className="w-full py-16 px-8 fade-in-up-delay-3">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-[#45140C] font-formadjr mb-8">
-            When I&apos;m Not Designing...
+      {/* Reading Section */}
+      <section id="about-interests" className="w-full py-16 px-4 sm:px-8 fade-in-up-delay-3">
+        <div className="max-w-5xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold text-[#45140C] font-formadjr mb-2">
+            I Love to Read!
           </h2>
-          <div className="flex flex-wrap gap-4">
-            {interests.map((interest, index) => (
-              <span
-                key={index}
-                className="px-6 py-3 bg-[#B5AD21] text-[#45140C] rounded-full text-lg font-medium font-formadjr hover:bg-[#45140C] hover:text-[#F3EDE2] transition-all duration-300 cursor-default"
-              >
-                {interest}
-              </span>
-            ))}
-          </div>
-        </div>
-      </section>
+          <p className="text-[#45140C]/40 font-inter text-sm mb-10">Hover over a cover to see the title.</p>
 
-      {/* Fun Facts Section */}
-      {funFacts && funFacts.length > 0 && (
-        <>
-          <div className="w-full h-px bg-[#45140C]/10" />
-          <section className="w-full py-16 px-8 fade-in-up-delay-4">
-            <div className="max-w-4xl mx-auto">
-              <h2 className="text-4xl md:text-5xl font-bold text-[#45140C] font-formadjr mb-8">
-                Fun Facts
-              </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {funFacts.map((fact, index) => (
-                  <div
-                    key={index}
-                    className="bg-[#45140C] rounded-lg p-6 shadow-md"
-                  >
-                    <p className="text-lg text-[#F3EDE2] font-inter">
-                      {fact}
+          <div id="about-books" className="flex flex-col lg:flex-row gap-10 items-start">
+
+              {/* Col 1 — photo, hidden on mobile since it crowds things */}
+              <div className="hidden lg:block shrink-0 w-64">
+                <div className="relative w-full aspect-3/4 rounded-2xl overflow-hidden border border-[#45140C]/30 shadow-xl bg-[#45140C]/5 flex items-center justify-center">
+                  {readingPhoto ? (
+                    <Image
+                      src={readingPhoto}
+                      alt="Me reading"
+                      fill
+                      className="object-cover"
+                    />
+                  ) : (
+                    <p className="text-[#45140C]/30 font-inter text-sm text-center px-4">
+                      Add a photo via the <code className="text-xs">readingPhoto</code> prop
                     </p>
-                  </div>
-                ))}
+                  )}
+                </div>
               </div>
-            </div>
-          </section>
-        </>
-      )}
 
-      {/* CTA Section */}
-      <section className="w-full py-20 px-8 bg-[#45140C] border-t-2 border-[#E5B1A4]/20">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl md:text-5xl font-bold text-[#F3EDE2] font-formadjr mb-6">
-            {ctaText}
-          </h2>
-          <p className="text-xl text-[#F3EDE2]/80 font-inter mb-8">
-            I&apos;m always open to new opportunities and collaborations.
-          </p>
-          <div className="flex gap-4 justify-center flex-wrap">
-            <a
-              href="mailto:elizabethprettosotelo@gmail.com"
-              className="px-8 py-4 bg-[#B5AD21] text-[#45140C] rounded-lg font-formadjr font-bold text-lg hover:bg-[#E5B1A4] transition-all duration-200 shadow-lg hover:shadow-xl"
-            >
-              Get in Touch
-            </a>
-            <a
-              href="/resume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-8 py-4 bg-transparent border-2 border-[#B5AD21] text-[#B5AD21] rounded-lg font-formadjr font-bold text-lg hover:bg-[#B5AD21] hover:text-[#45140C] transition-all duration-200"
-            >
-              View Resume
-            </a>
+              {/* Col 2 — blurb on top, books below */}
+              <div className="flex-1 flex flex-col gap-8">
+                {/* Blurb */}
+                {readingBlurb ? (
+                  <p className="text-[#45140C]/70 font-inter text-base leading-relaxed max-w-xl">
+                    {readingBlurb}
+                  </p>
+                ) : (
+                  <p className="text-[#45140C]/30 font-inter text-sm italic">
+                    Add a blurb via the <code className="text-xs">readingBlurb</code> prop.
+                  </p>
+                )}
+
+                {/* Book row — wraps on mobile */}
+                {books && books.length > 0 ? (
+                  <div className="flex flex-row flex-wrap justify-center sm:justify-start gap-4">
+                    {books.map((book, index) => (
+                      <div
+                        key={index}
+                        className="group relative flex flex-col items-center cursor-default"
+                      >
+                        <div className="relative w-24 sm:w-28 h-36 sm:h-44 rounded-md shadow-lg overflow-hidden border border-[#45140C]/15 group-hover:animate-[bookTilt_0.5s_ease-in-out_infinite] group-hover:shadow-xl transition-shadow duration-300">
+                          <Image
+                            src={book.cover}
+                            alt={book.title}
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                        <div className="absolute -top-14 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-10 whitespace-nowrap">
+                          <div className="bg-[#45140C] text-[#F3EDE2] text-sm font-inter px-3 py-2 rounded-lg shadow-lg">
+                            <p className="font-bold">{book.title}</p>
+                            {book.author && <p className="text-[#F3EDE2]/70 text-xs mt-0.5">{book.author}</p>}
+                          </div>
+                          <div className="w-2.5 h-2.5 bg-[#45140C] rotate-45 mx-auto -mt-1.5" />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-[#45140C]/40 font-inter italic">No books added yet.</p>
+                )}
+              </div>
           </div>
         </div>
       </section>
+
     </div>
+
+      {/* Lightbox */}
+      {lightboxSrc && (
+        <div
+          className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4 backdrop-blur-sm"
+          style={{ animation: 'fadeIn 0.2s ease-out' }}
+          onClick={() => setLightboxSrc(null)}
+        >
+          <button
+            onClick={() => setLightboxSrc(null)}
+            className="absolute top-4 right-5 text-white/70 hover:text-white text-4xl leading-none transition-colors"
+            aria-label="Close"
+          >
+            ×
+          </button>
+          <div
+            className="relative max-w-4xl max-h-[90vh] w-full rounded-2xl overflow-hidden shadow-2xl"
+            style={{ animation: 'dialogIn 0.25s ease-out' }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={lightboxSrc ?? undefined}
+              alt="Enlarged photo"
+              className="w-full h-full object-contain max-h-[90vh]"
+            />
+          </div>
+        </div>
+      )}
+    </>
   );
 }
 

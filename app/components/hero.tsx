@@ -1,17 +1,43 @@
 "use client";
 
 import Image from "next/image";
+import { useEffect, useRef } from "react";
 
 export default function Hero() {
+  const headlineRef  = useRef<HTMLDivElement>(null);
+  const svgRef       = useRef<HTMLDivElement>(null);
+  const cardRef      = useRef<HTMLDivElement>(null);
+
+  // Stagger hero elements in on mount
+  useEffect(() => {
+    const els = [
+      { el: headlineRef.current,  cls: "anim-slide-left",  delay: 0   },
+      { el: svgRef.current,       cls: "anim-slide-up",    delay: 150 },
+      { el: cardRef.current,      cls: "anim-slide-right", delay: 200 },
+    ];
+    els.forEach(({ el, cls, delay }) => {
+      if (!el) return;
+      setTimeout(() => {
+        el.classList.remove("anim-hidden");
+        el.classList.add(cls);
+      }, delay);
+    });
+  }, []);
   const handleScrollToProjects = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    const projectsSection = document.getElementById('projects');
-    if (projectsSection) {
-      projectsSection.scrollIntoView({ 
-        behavior: 'smooth',
-        block: 'start'
-      });
-    }
+    const btn = e.currentTarget;
+    // Brief press animation before scrolling
+    btn.classList.add("scale-95", "opacity-80");
+    setTimeout(() => {
+      btn.classList.remove("scale-95", "opacity-80");
+      const projectsSection = document.getElementById('projects');
+      if (projectsSection) {
+        projectsSection.scrollIntoView({ 
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    }, 180);
   };
 
   return (
@@ -24,14 +50,14 @@ export default function Hero() {
         {/* Main content */}
         <div className="flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-16">
           {/* Main headline with SVG */}
-          <div className="shrink-0 text-center lg:text-left">
+          <div ref={headlineRef} className="anim-hidden shrink-0 text-center lg:text-left">
             <h1 className="text-6xl md:text-8xl lg:text-8xl xl:text-9xl font-bold text-[#45140C] font-formadjr leading-none">
               design til <br />
               <span className="text-[#F3EDE2]">it&apos;s right!</span>
             </h1>
             
             {/* Little guys SVG */}
-            <div className="mt-6 pt-1 flex justify-center">
+            <div ref={svgRef} className="anim-hidden mt-6 pt-1 flex justify-center">
               <Image 
                 src="/littleguys.svg" 
                 alt="Little guys decoration" 
@@ -43,7 +69,7 @@ export default function Hero() {
           </div>
 
           {/* Supporting text and CTAs in tan container */}
-          <div className="bg-[#F3EDE2] rounded-2xl p-8 md:p-10 shadow-xl max-w-xl w-full">
+          <div ref={cardRef} className="anim-hidden bg-[#F3EDE2] rounded-2xl p-8 md:p-10 shadow-xl max-w-xl w-full">
             <div className="flex flex-col gap-6">
               {/* Supporting text */}
               <div className="space-y-4">
@@ -66,7 +92,7 @@ export default function Hero() {
               <div className="flex flex-wrap gap-4">
                 <button
                   onClick={handleScrollToProjects}
-                  className="px-8 py-4 bg-[#45140C] text-[#F3EDE2] rounded-lg font-formadjr font-bold text-lg hover:bg-[#B5AD21] hover:text-[#45140C] transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+                  className="px-8 py-4 bg-[#45140C] text-[#F3EDE2] rounded-lg font-formadjr font-bold text-lg hover:bg-[#B5AD21] hover:text-[#45140C] transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 active:scale-95"
                 >
                   View Projects
                 </button>

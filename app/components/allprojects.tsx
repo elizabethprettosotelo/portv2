@@ -34,9 +34,9 @@ const allProjects: Project[] = [
     featured: true,
     caseStudy: true,
     links: [
-      { label: "GitHub",  href: "https://github.com/elizabethprettosotelo", kind: "github"  },
-      { label: "Devpost", href: "https://devpost.com",                       kind: "devpost" },
-      { label: "Figma",   href: "https://figma.com",                         kind: "figma"   },
+      { label: "GitHub",  href: "https://github.com/kwaiidev/conduit",                                                              kind: "github"  },
+      { label: "Devpost", href: "https://devpost.com/software/conduit-y8gqoj?ref_content=my-projects-tab&ref_feature=my_projects", kind: "devpost" },
+      { label: "Figma",   href: "https://figma.com",                                                                                kind: "figma"   },
     ],
   },
   {
@@ -131,6 +131,7 @@ function ProjectCard({
   const { hoveredProject, setHoveredProject } = useHover();
   const router = useRouter();
   const videoRef = useRef<HTMLVideoElement>(null);
+  const playPromiseRef = useRef<Promise<void> | null>(null);
   const isHighlighted = isHovered || hoveredProject === project.slug;
   const hasCaseStudy = !!project.caseStudy;
 
@@ -139,7 +140,8 @@ function ProjectCard({
     setHoveredProject(project.slug);
     if (videoRef.current) {
       videoRef.current.currentTime = 0;
-      videoRef.current.play();
+      playPromiseRef.current = videoRef.current.play();
+      playPromiseRef.current?.catch(() => {/* interrupted — ignore */});
     }
   };
 
@@ -147,8 +149,17 @@ function ProjectCard({
     setIsHovered(false);
     setHoveredProject(null);
     if (videoRef.current) {
-      videoRef.current.pause();
-      videoRef.current.currentTime = 0;
+      const video = videoRef.current;
+      if (playPromiseRef.current) {
+        playPromiseRef.current.then(() => {
+          video.pause();
+          video.currentTime = 0;
+        }).catch(() => {/* interrupted — ignore */});
+        playPromiseRef.current = null;
+      } else {
+        video.pause();
+        video.currentTime = 0;
+      }
     }
   };
 
@@ -162,7 +173,7 @@ function ProjectCard({
 
   return (
     <div
-      className={`relative bg-[#F3EDE2] rounded-xl shadow-md overflow-hidden cursor-pointer transition-all duration-300 h-full flex flex-col ${
+      className={`relative bg-[#FDFAF7] rounded-xl shadow-md overflow-hidden cursor-pointer transition-all duration-300 h-full flex flex-col ${
         isHighlighted ? "shadow-[0_4px_12px_rgba(229,177,164,0.4)] -translate-y-1" : ""
       }`}
       onClick={handleCardClick}

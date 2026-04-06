@@ -16,7 +16,7 @@ type Layer = {
 };
 
 const homePageLayers: Layer[] = [
-  { id: 'hero', label: 'Hero Section', icon: '✦' },
+  { id: 'hero', label: 'Hello!', icon: '✦' },
   {
     id: 'projects',
     label: 'Selected Projects',
@@ -33,6 +33,7 @@ const homePageLayers: Layer[] = [
       { id: 'exp-c2', label: 'C² Technologies' },
     ],
   },
+  { id: 'skills', label: 'Skills & Tools', icon: '✦' },
   { id: 'footer', label: 'Footer', icon: '✦' },
 ];
 
@@ -43,6 +44,13 @@ const projectsPageLayers: Layer[] = [
   { id: 'project-four',  label: 'Project Four',    icon: '✦' },
   { id: 'project-five',  label: 'Project Five',    icon: '✦' },
   { id: 'project-six',   label: 'Project Six',     icon: '✦' },
+];
+
+const aboutPageLayers: Layer[] = [
+  { id: 'about-bio',       label: 'About Me',       icon: '✦' },
+  { id: 'about-community', label: 'My Community',   icon: '✦' },
+  { id: 'about-books',     label: 'On My Shelf',    icon: '✦' },
+  { id: 'about-interests', label: 'Interests',      icon: '✦' },
 ];
 
 export default function Navbar() {
@@ -87,8 +95,8 @@ export default function Navbar() {
           setActiveSection(projectSections[0].id);
         }
       } else {
-        // Home page - expand Featured Projects section
-        setExpandedLayers(new Set(['projects']));
+        // Home page - expand Featured Projects AND Experience sections
+        setExpandedLayers(new Set(['projects', 'experiences']));
       }
     }, 0);
 
@@ -99,6 +107,7 @@ export default function Navbar() {
   const isProjectsPage = currentPath === '/projects';
   const isHomePage = currentPath === '/' || currentPath === '/home';
   const isProjectDetailPage = currentPath.startsWith('/projects/') && currentPath !== '/projects';
+  const isAboutPage = currentPath === '/experience';
   
   // Convert project sections to layers format
   const projectDetailLayers: Layer[] = projectSections.map(section => ({
@@ -117,6 +126,9 @@ export default function Navbar() {
   } else if (isProjectsPage) {
     layers = projectsPageLayers;
     layerTitle = 'All Projects';
+  } else if (isAboutPage) {
+    layers = aboutPageLayers;
+    layerTitle = 'About Me';
   } else {
     layers = homePageLayers;
     layerTitle = 'Home Page';
@@ -170,34 +182,55 @@ export default function Navbar() {
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
-      // Different offset for mobile (with top header) vs desktop (left sidebar)
       const offset = window.innerWidth < 768 ? 80 : 20;
       const elementPosition = element.getBoundingClientRect().top;
+      const distance = Math.abs(elementPosition);
       const offsetPosition = elementPosition + window.pageYOffset - offset;
 
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth',
-      });
+      window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+
+      // Fire flash bar once scroll settles — use scrollend if available, else estimate duration
+      const fireFlash = () => {
+        // Ensure element is position:relative so the bar is contained
+        const prev = element.style.position;
+        if (!prev || prev === 'static') element.style.position = 'relative';
+
+        const bar = document.createElement('div');
+        bar.className = 'section-flash-bar';
+        element.prepend(bar);
+        bar.addEventListener('animationend', () => {
+          bar.remove();
+          if (!prev || prev === 'static') element.style.position = '';
+        }, { once: true });
+      };
+
+      if ('onscrollend' in window) {
+        window.addEventListener('scrollend', fireFlash, { once: true });
+      } else {
+        // Fallback: estimate ~1px per ms for smooth scroll, min 400ms
+        const estimated = Math.max(400, Math.min(distance * 0.5, 1200));
+        setTimeout(fireFlash, estimated);
+      }
     }
     setIsOpen(false);
   };
 
-  const isActive = (id: string) => {
-    // Check if this layer is being hovered
-    if (hoveredProject === id) return true;
-    
-    // Check if it's the exact active section
+  const isScrollActive = (id: string) => {
     if (activeSection === id) return true;
-    
-    // Check if it's a parent project and the active section is one of its sublayers
     if (activeSection.startsWith(id + '-')) return true;
-    
-    // Special case for 'projects' parent on home page
     if (id === 'projects' && activeSection.startsWith('project-')) return true;
-    
+    if (id === 'experiences' && (activeSection === 'exp-cdl' || activeSection === 'exp-knighthacks' || activeSection === 'exp-c2')) return true;
     return false;
   };
+
+  const isHoverActive = (id: string) => {
+    if (hoveredProject === id) return true;
+    if (id === 'projects' && (hoveredProject === 'project-one' || hoveredProject === 'project-two')) return true;
+    if (id === 'experiences' && (hoveredProject === 'exp-cdl' || hoveredProject === 'exp-knighthacks' || hoveredProject === 'exp-c2')) return true;
+    return false;
+  };
+
+  const isActive = (id: string) => isScrollActive(id) || isHoverActive(id); // eslint-disable-line @typescript-eslint/no-unused-vars
 
   return (
     <>
@@ -245,8 +278,9 @@ export default function Navbar() {
                 key={link.href}
                 href={link.href}
                 onClick={() => setIsOpen(false)}
-                className="text-lg font-formadjr font-medium text-[#F3EDE2] hover:text-[#E5B1A4] hover:bg-[#F3EDE2]/5 px-4 py-3 rounded transition-all duration-200"
+                className="flex items-center gap-2 text-lg font-formadjr font-medium text-[#F3EDE2] hover:text-[#E5B1A4] hover:bg-[#F3EDE2]/5 px-4 py-3 rounded transition-all duration-200"
               >
+                <span className="text-[#B5AD21] text-sm">✦</span>
                 {link.label}
               </a>
             ))}
@@ -317,7 +351,7 @@ export default function Navbar() {
                             : 'text-[#F3EDE2] hover:bg-[#F3EDE2]/5'
                         }`}
                       >
-                        <span className="text-xs opacity-70">📄</span>
+                        <span className="text-xs text-[#B5AD21]">✦</span>
                         <span className="text-sm font-mono flex-1">{link.label}</span>
                         {isActive && (
                           <div className="w-1.5 h-1.5 rounded-full bg-[#B5AD21]"></div>
@@ -347,8 +381,10 @@ export default function Navbar() {
                 {/* Main Layer */}
                 <div
                   className={`group flex items-center gap-2 px-2 py-1.5 rounded cursor-pointer transition-all ${
-                    isActive(layer.id)
+                    isScrollActive(layer.id)
                       ? 'bg-[#B5AD21]/20 text-[#B5AD21]'
+                      : isHoverActive(layer.id)
+                      ? 'bg-[#F3EDE2]/5 text-[#F3EDE2]/70'
                       : 'text-[#F3EDE2] hover:bg-[#F3EDE2]/5'
                   }`}
                   onClick={() => {
@@ -372,7 +408,7 @@ export default function Navbar() {
                   <span className="text-sm font-mono flex-1">{layer.label}</span>
 
                   {/* Active indicator */}
-                  {isActive(layer.id) && (
+                  {isScrollActive(layer.id) && (
                     <div className="w-1.5 h-1.5 rounded-full bg-[#B5AD21]"></div>
                   )}
 
@@ -397,8 +433,10 @@ export default function Navbar() {
                       <div
                         key={sublayer.id}
                         className={`group flex items-center gap-2 px-2 py-1.5 rounded cursor-pointer transition-all ${
-                          activeSection === sublayer.id
+                          isScrollActive(sublayer.id)
                             ? 'bg-[#B5AD21]/20 text-[#B5AD21]'
+                            : isHoverActive(sublayer.id)
+                            ? 'bg-[#F3EDE2]/5 text-[#F3EDE2]/70'
                             : 'text-[#F3EDE2]/80 hover:bg-[#F3EDE2]/5'
                         }`}
                         onClick={() => scrollToSection(sublayer.id)}
@@ -407,7 +445,7 @@ export default function Navbar() {
                       >
                         <span className="text-xs opacity-70">✦</span>
                         <span className="text-sm font-mono flex-1">{sublayer.label}</span>
-                        {activeSection === sublayer.id && (
+                        {isScrollActive(sublayer.id) && (
                           <div className="w-1.5 h-1.5 rounded-full bg-[#B5AD21]"></div>
                         )}
                       </div>

@@ -1,8 +1,11 @@
 "use client";
 
 import Image from "next/image";
+import { useEffect, useRef } from "react";
+import { useHover } from "../contexts/HoverContext";
 
 type Experience = {
+  id: string;
   role: string;
   company: string;
   location: string;
@@ -16,6 +19,7 @@ type Experience = {
 
 const experiences: Experience[] = [
   {
+    id: "exp-cdl",
     role: "UX/UI Designer & Software Engineer",
     company: "UCF Center of Distributed Learning",
     location: "Orlando, FL",
@@ -30,6 +34,7 @@ const experiences: Experience[] = [
     skills: ["Figma", "UX/UI Design", "Front-End Development", "User-Centered Design"],
   },
   {
+    id: "exp-knighthacks",
     role: "Design Director",
     company: "Knight Hacks",
     location: "UCF, Orlando, FL",
@@ -43,6 +48,7 @@ const experiences: Experience[] = [
     skills: ["Graphic Design", "Branding", "Event Design", "Figma"],
   },
   {
+    id: "exp-c2",
     role: "UX/UI Design & Web Development Intern",
     company: "C² Technologies",
     location: "Remote",
@@ -65,9 +71,17 @@ const typeColors: Record<string, string> = {
   "Volunteer": "bg-[#F3EDE2]/70 text-[#45140C]",
 };
 
-function ExperienceCard({ experience }: { experience: Experience }) {
+function ExperienceCard({ experience, isHovered }: { experience: Experience; isHovered: boolean }) {
+  const { setHoveredProject } = useHover();
   return (
-    <div className="relative w-full max-w-2xl bg-[#F3EDE2] border border-[#45140C]/20 rounded-xl shadow-sm overflow-hidden hover:shadow-[0_4px_12px_rgba(229,177,164,0.4)] transition-all duration-200">
+    <div
+      id={experience.id}
+      onMouseEnter={() => setHoveredProject(experience.id)}
+      onMouseLeave={() => setHoveredProject(null)}
+      className={`relative w-full max-w-3xl bg-[#FDFAF7] border border-[#45140C]/20 rounded-xl shadow-sm overflow-hidden transition-all duration-300 ${
+        isHovered ? 'shadow-[0_4px_12px_rgba(229,177,164,0.4)]' : ''
+      }`}
+    >
       {/* Type pill — overlaid top-right */}
       <span
         className={`absolute top-3 right-3 z-10 text-xs font-formadjr font-semibold px-3 py-1 rounded-full ${typeColors[experience.type] ?? "bg-[#45140C]/10 text-[#45140C]"}`}
@@ -105,7 +119,7 @@ function ExperienceCard({ experience }: { experience: Experience }) {
           {experience.skills.map((skill) => (
             <span
               key={skill}
-              className="text-sm px-3 py-1 rounded-full border border-[#45140C]/40 text-[#45140C] font-formadjr tracking-wide"
+              className="text-sm px-3 py-1 rounded-full border border-[#45140C]/25 text-[#45140C]/80 font-formadjr tracking-wide"
             >
               {skill}
             </span>
@@ -113,7 +127,7 @@ function ExperienceCard({ experience }: { experience: Experience }) {
         </div>
 
         {/* Description */}
-        <p className="mt-4 text-base text-[#45140C]/90 font-inter leading-relaxed tracking-wide">
+        <p className="mt-4 text-base text-[#45140C]/75 font-inter leading-relaxed tracking-wide">
           {experience.description}
         </p>
       </div>
@@ -121,16 +135,57 @@ function ExperienceCard({ experience }: { experience: Experience }) {
   );
 }
 
+function AnimatedExpCard({ experience, isHovered }: { experience: Experience; isHovered: boolean }) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        el.classList.remove("anim-hidden");
+        el.classList.add("anim-slide-up");
+        obs.disconnect();
+      }
+    }, { threshold: 0.1, rootMargin: "0px 0px -40px 0px" });
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
+  return (
+    <div ref={ref} className="anim-hidden">
+      <ExperienceCard experience={experience} isHovered={isHovered} />
+    </div>
+  );
+}
+
 export default function Experiences() {
+  const { hoveredProject } = useHover();
+  const headingRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = headingRef.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        el.classList.remove("anim-hidden");
+        el.classList.add("anim-slide-up");
+        obs.disconnect();
+      }
+    }, { threshold: 0.1, rootMargin: "0px 0px -40px 0px" });
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
   return (
     <section id="experiences" className="w-full py-16 px-4 bg-[#F3EDE2]">
-      <div className="max-w-2xl mx-auto mb-12">
+      <div ref={headingRef} className="anim-hidden max-w-3xl mx-auto mb-12">
         <h2 className="text-4xl font-bold text-[#45140C] font-formadjr text-left">Experience</h2>
-        <p className="text-lg text-[#45140C]/70 font-inter mt-2 text-left">look at all the places that have put up with me ✦</p>
+        <p className="text-lg text-[#45140C]/70 font-inter mt-2 text-left">Look at all the cool places I&apos;ve worked at ✦</p>
       </div>
 
       {/* Timeline layout */}
-      <div className="relative max-w-2xl mx-auto">
+      <div className="relative max-w-3xl mx-auto">
         {/* Vertical line */}
         <div
           className="absolute top-0 bottom-0 w-px bg-[#B5AD21]"
@@ -144,7 +199,7 @@ export default function Experiences() {
               className="absolute w-3 h-3 rounded-full bg-[#B5AD21] border-2 border-[#F3EDE2]"
               style={{ left: "-2.375rem", top: "50%", transform: "translateY(-50%)" }}
             />
-            <ExperienceCard experience={exp} />
+            <AnimatedExpCard experience={exp} isHovered={hoveredProject === exp.id} />
           </div>
         ))}
       </div>

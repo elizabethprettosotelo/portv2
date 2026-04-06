@@ -128,3 +128,98 @@ body {
   from { opacity: 0; transform: translateY(10px) scale(0.97); }
   to   { opacity: 1; transform: translateY(0)    scale(1);    }
 }
+
+@keyframes bookTilt {
+  0%   { transform: rotate(-4deg) scale(1.05); }
+  50%  { transform: rotate(4deg)  scale(1.05); }
+  100% { transform: rotate(-4deg) scale(1.05); }
+}
+
+/* ── Page load / scroll-in animations ── */
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(32px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-32px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(32px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.92); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* Applied by JS when element enters viewport */
+.anim-slide-up    { animation: slideUp      0.6s cubic-bezier(0.16,1,0.3,1) forwards; }
+.anim-slide-left  { animation: slideInLeft  0.6s cubic-bezier(0.16,1,0.3,1) forwards; }
+.anim-slide-right { animation: slideInRight 0.6s cubic-bezier(0.16,1,0.3,1) forwards; }
+.anim-scale-in    { animation: scaleIn      0.5s cubic-bezier(0.16,1,0.3,1) forwards; }
+
+/* Stagger delays */
+.anim-delay-1 { animation-delay: 0.1s; }
+.anim-delay-2 { animation-delay: 0.2s; }
+.anim-delay-3 { animation-delay: 0.3s; }
+.anim-delay-4 { animation-delay: 0.4s; }
+.anim-delay-5 { animation-delay: 0.5s; }
+.anim-delay-6 { animation-delay: 0.6s; }
+.anim-delay-7 { animation-delay: 0.7s; }
+
+/* Pre-animation hidden state */
+.anim-hidden { opacity: 0; }
+
+/* ── Navbar scroll-to flash ── */
+@keyframes sectionFlash {
+  0%   { opacity: 0; transform: scaleX(0); }
+  20%  { opacity: 1; transform: scaleX(1); }
+  70%  { opacity: 1; transform: scaleX(1); }
+  100% { opacity: 0; transform: scaleX(1); }
+}
+
+.section-flash-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: #B5AD21;
+  transform-origin: left;
+  animation: sectionFlash 0.8s cubic-bezier(0.16,1,0.3,1) forwards;
+  pointer-events: none;
+  z-index: 50;
+}
+
+/* ── Page transition overlay ── */
+@keyframes overlaySlideDown {
+  from { transform: translateY(-100%); }
+  to   { transform: translateY(0%); }
+}
+
+@keyframes overlaySlideOff {
+  from { transform: translateY(0%); }
+  to   { transform: translateY(100%); }
+}
+
+.page-transition-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #45140C;
+  transform: translateY(-100%);
+  pointer-events: none;
+}
+
+.page-transition-overlay.slide-down {
+  pointer-events: all;
+  animation: overlaySlideDown 0.45s cubic-bezier(0.76,0,0.24,1) forwards;
+}
+
+.page-transition-overlay.slide-off {
+  animation: overlaySlideOff 0.45s cubic-bezier(0.76,0,0.24,1) forwards;
+}
