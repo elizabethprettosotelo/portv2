@@ -132,7 +132,7 @@ function ProjectCard({ project }: { project: Project }) {
           ))}
         </div>
         <h3 className="text-2xl font-bold text-[#45140C] font-formadjr mb-2">{project.title}</h3>
-        <p className="text-[#45140C]/80 text-base font-inter leading-relaxed">{project.blurb}</p>
+        <p className="text-[#45140C]/65 text-base font-inter leading-relaxed">{project.blurb}</p>
         <Link
           href={`/projects/${project.slug}`}
           className="inline-block mt-4 text-sm font-medium text-[#45140C] underline underline-offset-4 hover:text-[#B5AD21] transition font-formadjr"
@@ -178,3 +178,4 @@ export default function FeaturedProjects() {
     </section>
   );
 }
+

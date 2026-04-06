@@ -3,6 +3,8 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { useHover } from '../contexts/HoverContext';
+import { useProjectSections } from '../contexts/ProjectSectionsContext';
+import { useNavbar } from '../contexts/NavbarContext';
 
 // Layer structure mimicking Figma's layers panel
 type Layer = {
@@ -41,15 +43,16 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [expandedLayers, setExpandedLayers] = useState<Set<string>>(new Set());
   const [activeSection, setActiveSection] = useState<string>('hero');
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [copied, setCopied] = useState(false);
   const [currentPath, setCurrentPath] = useState('');
   const { hoveredProject, setHoveredProject } = useHover();
+  const { sections: projectSections } = useProjectSections();
+  const { sidebarCollapsed, setSidebarCollapsed } = useNavbar();
 
   const mobileNavLinks = [
     { href: '/home', label: 'Home' },
     { href: '/projects', label: 'Projects' },
-    { href: '/experience', label: 'Experience' },
+    { href: '/experience', label: 'About' },
     { href: '/play', label: 'Play' },
   ];
 
@@ -68,34 +71,44 @@ export default function Navbar() {
     if (path === '/projects') {
       // Projects page doesn't need auto-expansion anymore
       setExpandedLayers(new Set());
+    } else if (path.startsWith('/projects/') && path !== '/projects') {
+      // Project detail page - set first section as active if available
+      setExpandedLayers(new Set());
+      if (projectSections.length > 0) {
+        setActiveSection(projectSections[0].id);
+      }
     } else {
       // Home page - expand Featured Projects section
       setExpandedLayers(new Set(['projects']));
     }
-  }, []);
+  }, [projectSections]);
 
   // Determine which layers to show based on current page
   const isProjectsPage = currentPath === '/projects';
   const isHomePage = currentPath === '/' || currentPath === '/home';
-  const layers = isProjectsPage ? projectsPageLayers : homePageLayers;
-  const layerTitle = isProjectsPage ? 'All Projects' : 'Home Page';
-
-  // Update CSS variable for sidebar width
-  useEffect(() => {
-    const updateSidebarWidth = () => {
-      // Only apply sidebar width on desktop
-      if (window.innerWidth >= 768) {
-        const width = sidebarCollapsed ? '48px' : '256px';
-        document.documentElement.style.setProperty('--sidebar-width', width);
-      } else {
-        document.documentElement.style.setProperty('--sidebar-width', '0px');
-      }
-    };
-
-    updateSidebarWidth();
-    window.addEventListener('resize', updateSidebarWidth);
-    return () => window.removeEventListener('resize', updateSidebarWidth);
-  }, [sidebarCollapsed]);
+  const isProjectDetailPage = currentPath.startsWith('/projects/') && currentPath !== '/projects';
+  
+  // Convert project sections to layers format
+  const projectDetailLayers: Layer[] = projectSections.map(section => ({
+    id: section.id,
+    label: section.label,
+    icon: '⬜'
+  }));
+  
+  // Determine which layers to use
+  let layers: Layer[];
+  let layerTitle: string;
+  
+  if (isProjectDetailPage && projectDetailLayers.length > 0) {
+    layers = projectDetailLayers;
+    layerTitle = 'Case Study';
+  } else if (isProjectsPage) {
+    layers = projectsPageLayers;
+    layerTitle = 'All Projects';
+  } else {
+    layers = homePageLayers;
+    layerTitle = 'Home Page';
+  }
 
   // Scroll spy effect
   useEffect(() => {

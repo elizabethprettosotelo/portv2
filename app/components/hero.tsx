@@ -1,63 +1,72 @@
+"use client";
+
 import Image from "next/image";
 
 export default function Hero() {
+  const handleScrollToProjects = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    const projectsSection = document.getElementById('projects');
+    if (projectsSection) {
+      projectsSection.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  };
+
   return (
-    <section id="hero" className="relative min-h-screen flex items-center justify-center bg-[#F3EDE2] px-4 py-20 overflow-hidden">
-      {/* Decorative circles */}
-      <div className="absolute top-20 left-10 w-40 h-40 rounded-full bg-[#B5AD21]/15"></div>
-      <div className="absolute bottom-40 right-20 w-60 h-60 rounded-full bg-[#B5AD21]/30"></div>
+    <section id="hero" className="relative h-[85vh] flex items-center justify-center bg-[#B5AD21] px-6 md:px-12 py-20 overflow-hidden">
+      {/* Decorative elements */}
+      <div className="absolute top-20 right-10 w-40 h-40 rounded-full bg-[#45140C]/5"></div>
+      <div className="absolute bottom-40 left-20 w-60 h-60 rounded-full bg-[#45140C]/10"></div>
       
-      <div className="relative max-w-5xl w-full">
+      <div className="relative max-w-7xl w-full z-10">
         {/* Main content */}
-        <div className="flex flex-col items-start md:items-center gap-6">
-          {/* "hi i'm" text with playful positioning */}
-          <div className="flex items-baseline gap-3 ml-4 md:ml-0">
-            <span className="text-4xl md:text-6xl font-bold text-[#B5AD21] font-formadjr">
-              hi
-            </span>
-            <span className="text-3xl md:text-5xl font-medium text-[#45140C]/80 font-formadjr">
-              i'm
-            </span>
-          </div>
+        <div className="flex flex-col lg:flex-row items-start lg:items-center gap-12 lg:gap-16">
+          {/* Main headline */}
+          <h1 className="text-6xl md:text-8xl lg:text-8xl xl:text-9xl font-bold text-[#45140C] font-formadjr leading-none shrink-0">
+            design til <br />
+            <span className="text-[#F3EDE2]">it's right</span>
+          </h1>
 
-          <div className="relative group">
-            <div className="absolute inset-0 bg-[#45140C]/5 rounded-lg blur-xl group-hover:bg-[#45140C]/10 transition-all duration-300"></div>
-            <Image 
-              src="/epsforlight.png" 
-              alt="Eli Pretto-Sotelo" 
-              width={600} 
-              height={150}
-              className="relative z-10 w-full max-w-lg md:max-w-2xl h-auto drop-shadow-lg"
-              priority
-            />
-          </div>
+          {/* Supporting text and CTAs in tan container */}
+          <div className="bg-[#F3EDE2] rounded-2xl p-8 md:p-10 shadow-xl max-w-xl">
+            <div className="flex flex-col gap-6">
+              {/* Supporting text */}
+              <div className="space-y-4">
+                <p className="text-xl md:text-2xl text-[#45140C] font-inter leading-relaxed">
+                  Welcome to my portfolio — a curated collection of design work, development projects, 
+                  and creative explorations.
+                </p>
+                <p className="text-lg md:text-xl text-[#45140C]/80 font-inter leading-relaxed">
+                  I'm Eli, a UI/UX Designer and Frontend Developer who believes in iterating until 
+                  every pixel feels intentional. <a 
+                    href="/experience" 
+                    className="underline decoration-2 underline-offset-4 hover:text-[#B5AD21] transition-colors duration-200 font-medium"
+                  >
+                    Learn more about me →
+                  </a>
+                </p>
+              </div>
 
-          {/* Subtitle with offset */}
-          <div className="flex flex-col gap-2 mt-4 md:self-end md:mr-12">
-            <p className="text-xl md:text-3xl text-[#45140C] font-formadjr font-medium">
-              UI/UX Designer
-            </p>
-            <p className="text-xl md:text-3xl text-[#45140C]/70 font-formadjr font-medium md:text-right">
-              & Frontend Developer
-            </p>
-          </div>
-
-          {/* CTA Button */}
-          <div className="mt-8 flex gap-4 ml-4 md:ml-0">
-            <a
-              href="#projects"
-              className="px-6 py-3 bg-[#45140C] text-[#F3EDE2] rounded-lg font-formadjr font-bold hover:bg-[#E5B1A4] hover:text-[#45140C] transition-all duration-200 transform hover:scale-105 shadow-lg"
-            >
-              View Work
-            </a>
-            <a
-              href="/resume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-6 py-3 border-2 border-[#45140C] text-[#45140C] rounded-lg font-formadjr font-bold hover:bg-[#45140C] hover:text-[#F3EDE2] transition-all duration-200"
-            >
-              Resume
-            </a>
+              {/* CTA Buttons */}
+              <div className="flex flex-wrap gap-4">
+                <button
+                  onClick={handleScrollToProjects}
+                  className="px-8 py-4 bg-[#45140C] text-[#F3EDE2] rounded-lg font-formadjr font-bold text-lg hover:bg-[#B5AD21] hover:text-[#45140C] transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+                >
+                  View Projects
+                </button>
+                <a
+                  href="/resume.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-8 py-4 border-3 border-[#45140C] text-[#45140C] rounded-lg font-formadjr font-bold text-lg hover:bg-[#45140C] hover:text-[#F3EDE2] transition-all duration-200"
+                >
+                  Resume
+                </a>
+              </div>
+            </div>
           </div>
         </div>
 

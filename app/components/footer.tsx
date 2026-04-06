@@ -41,7 +41,7 @@ export default function Footer() {
                 Projects
               </a>
               <a href="/experience" className="hover:text-[#B5AD21] transition">
-                Experience
+                About
               </a>
               <a href="/play" className="hover:text-[#B5AD21] transition">
                 Play
@@ -94,3 +94,4 @@ export default function Footer() {
     </footer>
   );
 }
+

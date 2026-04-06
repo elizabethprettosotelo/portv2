@@ -205,7 +205,7 @@ export default function CaseStudy({
                   <h3 className="text-2xl md:text-3xl font-bold text-[#45140C] font-formadjr">
                     {section.title}
                   </h3>
-                  <p className="text-base text-[#45140C]/90 font-inter leading-relaxed whitespace-pre-line">
+                  <p className="text-base text-[#45140C]/70 font-inter leading-relaxed whitespace-pre-line">
                     {section.content}
                   </p>
                   {section.image && (

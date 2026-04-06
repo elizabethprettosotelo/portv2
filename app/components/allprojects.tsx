@@ -136,7 +136,7 @@ function ProjectCard({ project }: { project: Project }) {
           <h3 className="text-xl font-bold text-[#45140C] font-formadjr mb-2">
             {project.title}
           </h3>
-          <p className="text-[#45140C]/80 text-sm font-inter leading-relaxed line-clamp-2">
+          <p className="text-[#45140C]/65 text-sm font-inter leading-relaxed line-clamp-2">
             {project.blurb}
           </p>
         </div>
@@ -231,3 +231,4 @@ export default function AllProjects() {
     </>
   );
 }
+
