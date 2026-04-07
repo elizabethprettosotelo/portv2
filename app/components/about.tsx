@@ -72,7 +72,7 @@ export default function About({
               <button
                 onClick={prevPhoto}
                 aria-label="Previous photo"
-                className="text-[#B5AD21] hover:text-[#45140C] transition-colors duration-200 text-2xl leading-none"
+                className="text-[#45140C] hover:text-[#B5AD21] transition-colors duration-200 text-4xl font-bold leading-none"
               >
                 ‹
               </button>
@@ -82,15 +82,14 @@ export default function About({
                   src={PHOTOS[currentPhoto]}
                   alt={`${name} photo ${currentPhoto + 1}`}
                   fill
-                  className="object-cover"
-                  style={{ animation: 'fadeIn 0.4s ease-out' }}
+                  className="object-cover animate-fade-in"
                   priority
                 />
               </div>
               <button
                 onClick={nextPhoto}
                 aria-label="Next photo"
-                className="text-[#B5AD21] hover:text-[#45140C] transition-colors duration-200 text-2xl leading-none"
+                className="text-[#45140C] hover:text-[#B5AD21] transition-colors duration-200 text-4xl font-bold leading-none"
               >
                 ›
               </button>
@@ -277,12 +276,23 @@ export default function About({
                         key={index}
                         className="group relative flex flex-col items-center cursor-default"
                       >
-                        <div className="relative w-24 sm:w-28 h-36 sm:h-44 rounded-md shadow-lg overflow-hidden border border-[#45140C]/15 group-hover:animate-[bookTilt_0.5s_ease-in-out_infinite] group-hover:shadow-xl transition-shadow duration-300">
+                        <div 
+                          className="relative w-24 sm:w-28 h-36 sm:h-44 rounded-md shadow-lg border border-[#45140C]/15 group-hover:shadow-xl transition-all duration-300"
+                          style={{
+                            animation: 'none',
+                          }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.animation = 'bookTilt 0.5s ease-in-out infinite';
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.animation = 'none';
+                          }}
+                        >
                           <Image
                             src={book.cover}
                             alt={book.title}
                             fill
-                            className="object-cover"
+                            className="object-cover rounded-md"
                           />
                         </div>
                         <div className="absolute -top-14 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-10 whitespace-nowrap">
