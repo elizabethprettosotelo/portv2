@@ -1,6 +1,6 @@
-import Footer from "../../../components/footer";
-import Navbar from "../../../components/navbar";
-import PendingCaseStudyPage from "../../../components/casestudy/PendingCaseStudyPage";
+import Footer from "../../components/footer";
+import Navbar from "../../components/navbar";
+import PendingCaseStudyPage from "../../components/casestudy/PendingCaseStudyPage";
 
 export default function PallitPage() {
   return (

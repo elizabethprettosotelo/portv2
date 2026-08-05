@@ -1,6 +1,6 @@
-import Footer from "../../../components/footer";
-import Navbar from "../../../components/navbar";
-import PendingCaseStudyPage from "../../../components/casestudy/PendingCaseStudyPage";
+import Footer from "../../components/footer";
+import Navbar from "../../components/navbar";
+import PendingCaseStudyPage from "../../components/casestudy/PendingCaseStudyPage";
 
 export default function ProjectFourPage() {
   return (
@@ -12,7 +12,7 @@ export default function ProjectFourPage() {
       >
         <PendingCaseStudyPage
           title="Project Four"
-          subtitle="Case study pending. I’m keeping the surface simple for now so the page can show the structure before the full narrative arrives."
+          subtitle="Case study pending. I'm keeping the surface simple for now so the page can show the structure before the full narrative arrives."
           role="UX Designer"
           timeline="In progress"
           tools={["Figma", "Wireframing", "Prototyping"]}
