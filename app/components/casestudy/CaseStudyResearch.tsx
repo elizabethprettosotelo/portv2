@@ -50,13 +50,13 @@ export default function CaseStudyResearch({
   const { registerSection, unregisterSection } = useProjectSections();
 
   useEffect(() => {
-    registerSection({ id: 'research', label: 'Research' });
+    registerSection({ id: 'research', label: 'Ideation' });
     return () => unregisterSection('research');
-  }, []);
+  }, [registerSection, unregisterSection]);
 
   return (
-    <section id="research" className="w-full py-12 px-8 bg-[#F3EDE2]">
-      <div className="max-w-5xl mx-auto">
+    <section id="research" className="w-full py-12 bg-[#F3EDE2]">
+      <div className="w-full">
         {/* Section Number */}
         <div className="text-6xl font-bold text-[#B5AD21]/20 mb-3 font-formadjr">
           {sectionNumber}
@@ -102,7 +102,7 @@ export default function CaseStudyResearch({
               {findings.map((finding, index) => (
                 <div key={index} className="border-l-4 border-[#E5B1A4] pl-6 py-3 bg-[#E5B1A4]/5">
                   <p className="text-lg text-[#45140C]/90 font-inter italic leading-relaxed">
-                    "{finding.quote}"
+                    &ldquo;{finding.quote}&rdquo;
                   </p>
                   {finding.author && (
                     <p className="text-xs text-[#45140C]/60 font-inter mt-2">
@@ -206,7 +206,7 @@ export default function CaseStudyResearch({
                       <div className="mb-4 pb-4 border-b border-[#45140C]/10">
                         <div className="relative pl-4">
                           <div className="absolute left-0 top-0 text-2xl text-[#B5AD21] font-formadjr leading-none">
-                            "
+                            &ldquo;
                           </div>
                           <p className="text-sm text-[#45140C]/80 font-inter italic leading-relaxed">
                             {persona.quote}

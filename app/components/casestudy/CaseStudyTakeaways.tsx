@@ -24,11 +24,11 @@ export default function CaseStudyTakeaways({
   useEffect(() => {
     registerSection({ id: 'takeaways', label: 'Takeaways' });
     return () => unregisterSection('takeaways');
-  }, []);
+  }, [registerSection, unregisterSection]);
 
   return (
-    <section id="takeaways" className="w-full py-12 px-8 bg-[#F3EDE2]">
-      <div className="max-w-5xl mx-auto">
+    <section id="takeaways" className="w-full py-12 bg-[#F3EDE2]">
+      <div className="w-full">
         {/* Section Number */}
         <div className="text-6xl font-bold text-[#B5AD21]/20 mb-3 font-formadjr">
           {sectionNumber}

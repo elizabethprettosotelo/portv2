@@ -19,12 +19,27 @@ type Experience = {
 
 const experiences: Experience[] = [
   {
+    id: "exp-adobe-next",
+    role: "Adobe Next// Campus Leader",
+    company: "Adobe",
+    location: "Remote",
+    dateRange: "Aug. 2026 – Present",
+    type: "Internship",
+    description: "Representing Adobe Next// on campus by helping connect students with creative tools, community, and opportunities to explore design and storytelling.",
+    bullets: [
+      "Support campus-facing activations and community-building efforts for Adobe Next//.",
+      "Share resources, prompts, and opportunities that help students explore creative careers and tools.",
+      "Build visibility for Adobe Next// through student outreach and participation in campus conversations.",
+    ],
+    skills: ["Community Building", "Leadership", "Adobe Creative Suite", "Student Outreach"],
+  },
+  {
     id: "exp-cdl",
     role: "UX/UI Designer & Software Engineer",
     company: "UCF Center of Distributed Learning",
     location: "Orlando, FL",
     dateRange: "Oct. 2025 – Present",
-    type: "Internship",
+    type: "Current",
     description: "Designing and developing for Materia, an open-source lesson-gamifying platform, bridging the gap between UX/UI design and hands-on front-end development.",
     bullets: [
       "Designed and iterated on interactive UX/UI prototypes in Figma, applying user-centered design principles to gamify learning experiences.",
@@ -69,6 +84,7 @@ const typeColors: Record<string, string> = {
   "Internship": "bg-[#B5AD21] text-[#45140C]",
   "Freelance": "bg-[#E5B1A4] text-[#45140C]",
   "Volunteer": "bg-[#F3EDE2]/70 text-[#45140C]",
+  "Current": "bg-[#E5B1A4] text-[#45140C]",
 };
 
 function ExperienceCard({ experience, isHovered }: { experience: Experience; isHovered: boolean }) {
@@ -84,16 +100,16 @@ function ExperienceCard({ experience, isHovered }: { experience: Experience; isH
     >
       {/* Type pill — overlaid top-right */}
       <span
-        className={`absolute top-3 right-3 z-10 text-xs font-formadjr font-semibold px-3 py-1 rounded-full ${typeColors[experience.type] ?? "bg-[#45140C]/10 text-[#45140C]"}`}
+        className={`absolute top-2.5 right-2.5 z-10 text-xs font-formadjr font-semibold px-2.5 py-0.5 rounded-full ${typeColors[experience.type] ?? "bg-[#45140C]/10 text-[#45140C]"}`}
       >
         {experience.type}
       </span>
 
-      <div className="px-6 py-5">
-        <div className="flex items-center gap-3 flex-wrap pr-24">
+      <div className="px-5 py-4">
+        <div className="flex items-center gap-2 flex-wrap pr-20">
           {/* Company logo */}
           {experience.logo && (
-            <div className="w-11 h-11 rounded-lg bg-[#45140C]/10 flex items-center justify-center shrink-0 overflow-hidden">
+            <div className="w-9 h-9 rounded-lg bg-[#45140C]/10 flex items-center justify-center shrink-0 overflow-hidden">
               <Image
                 src={experience.logo}
                 alt={`${experience.company} logo`}
@@ -104,22 +120,22 @@ function ExperienceCard({ experience, isHovered }: { experience: Experience; isH
             </div>
           )}
           <div>
-            <h3 className="text-xl font-bold text-[#45140C] font-formadjr leading-snug tracking-wide">
+            <h3 className="text-lg font-bold text-[#45140C] font-formadjr leading-snug tracking-wide">
               {experience.role}
             </h3>
-            <p className="text-[#45140C]/80 text-base font-formadjr font-medium tracking-wide">
+            <p className="text-[#45140C]/80 text-sm font-formadjr font-medium tracking-wide">
               {experience.company}
             </p>
-            <p className="text-sm text-[#45140C]/60 font-inter tracking-wide mt-0.5">{experience.dateRange}</p>
+            <p className="text-xs text-[#45140C]/60 font-inter tracking-wide mt-0.5">{experience.dateRange}</p>
           </div>
         </div>
 
         {/* Skills */}
-        <div className="mt-4 flex flex-wrap gap-2">
+        <div className="mt-3 flex flex-wrap gap-1.5">
           {experience.skills.map((skill) => (
             <span
               key={skill}
-              className="text-sm px-3 py-1 rounded-full border border-[#45140C]/25 text-[#45140C]/80 font-formadjr tracking-wide"
+              className="text-xs px-2.5 py-0.5 rounded-full border border-[#45140C]/25 text-[#45140C]/80 font-formadjr tracking-wide"
             >
               {skill}
             </span>
@@ -127,7 +143,7 @@ function ExperienceCard({ experience, isHovered }: { experience: Experience; isH
         </div>
 
         {/* Description */}
-        <p className="mt-4 text-base text-[#45140C]/75 font-inter leading-relaxed tracking-wide">
+        <p className="mt-3 text-sm text-[#45140C]/75 font-inter leading-relaxed tracking-wide">
           {experience.description}
         </p>
       </div>
@@ -193,7 +209,7 @@ export default function Experiences() {
         />
 
         {experiences.map((exp, i) => (
-          <div key={i} className="relative mb-10">
+          <div key={i} className="relative mb-8">
             {/* Timeline node */}
             <div
               className="absolute w-3 h-3 rounded-full bg-[#B5AD21] border-2 border-[#F3EDE2]"

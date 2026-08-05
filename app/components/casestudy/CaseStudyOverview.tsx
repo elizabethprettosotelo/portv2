@@ -6,19 +6,20 @@ import { useProjectSections } from '../../contexts/ProjectSectionsContext';
 type CaseStudyOverviewProps = {
   overview: string;
   sectionNumber?: string;
+  title?: string;
 };
 
-export default function CaseStudyOverview({ overview, sectionNumber = "01" }: CaseStudyOverviewProps) {
+export default function CaseStudyOverview({ overview, sectionNumber = "01", title = "Context" }: CaseStudyOverviewProps) {
   const { registerSection, unregisterSection } = useProjectSections();
 
   useEffect(() => {
     registerSection({ id: 'overview', label: 'Overview' });
     return () => unregisterSection('overview');
-  }, []);
+  }, [registerSection, unregisterSection]);
 
   return (
-    <section id="overview" className="w-full py-12 px-8 bg-[#F3EDE2]">
-      <div className="max-w-5xl mx-auto">
+    <section id="overview" className="w-full py-12 bg-[#F3EDE2]">
+      <div className="w-full">
         {/* Section Number */}
         <div className="text-6xl font-bold text-[#B5AD21]/20 mb-3 font-formadjr">
           {sectionNumber}
@@ -26,7 +27,7 @@ export default function CaseStudyOverview({ overview, sectionNumber = "01" }: Ca
         
         {/* Section Title */}
         <h2 className="text-3xl md:text-4xl font-bold text-[#45140C] font-formadjr mb-6">
-          Context
+          {title}
         </h2>
         
         {/* Content */}

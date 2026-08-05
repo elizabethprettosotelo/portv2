@@ -6,7 +6,7 @@ Modular components for building custom case study pages. Each component can be u
 
 ### CaseStudyHero
 Full-width hero section with image overlay.
-- **Props**: `title`, `subtitle`, `heroImage`
+- **Props**: `title`, `subtitle`
 
 ### CaseStudyMeta
 Project metadata bar with role, timeline, tools, tags, and optional links.
@@ -51,7 +51,7 @@ import CaseStudyHero from "../../components/casestudy/CaseStudyHero";
 import CaseStudyMeta from "../../components/casestudy/CaseStudyMeta";
 // ... import other components
 
-<CaseStudyHero title="..." subtitle="..." heroImage="..." />
+<CaseStudyHero title="..." subtitle="..." />
 <CaseStudyMeta 
   role="..." 
   timeline="..." 
@@ -73,7 +73,7 @@ import CaseStudyMeta from "../../components/casestudy/CaseStudyMeta";
 
 ### Minimal Case Study (Essential Components Only)
 ```tsx
-<CaseStudyHero title="..." subtitle="..." heroImage="..." />
+<CaseStudyHero title="..." subtitle="..." />
 <CaseStudyMeta role="..." timeline="..." tools={[...]} tags={[...]} />
 <CaseStudyProblem problem="..." />
 <CaseStudySolution solution="..." />

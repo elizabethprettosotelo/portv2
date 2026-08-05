@@ -22,13 +22,13 @@ export default function CaseStudyInsights({
   const { registerSection, unregisterSection } = useProjectSections();
 
   useEffect(() => {
-    registerSection({ id: 'insights', label: 'Define' });
+    registerSection({ id: 'insights', label: 'Ideation' });
     return () => unregisterSection('insights');
-  }, []);
+  }, [registerSection, unregisterSection]);
 
   return (
-    <section id="insights" className="w-full py-12 px-8 bg-[#F3EDE2]">
-      <div className="max-w-5xl mx-auto">
+    <section id="insights" className="w-full py-12 bg-[#F3EDE2]">
+      <div className="w-full">
         {/* Section Number */}
         <div className="text-6xl font-bold text-[#E5B1A4]/30 mb-3 font-formadjr">
           {sectionNumber}
@@ -41,12 +41,12 @@ export default function CaseStudyInsights({
 
         {/* Key Insights */}
         <h3 className="text-xl font-bold text-[#45140C] font-formadjr mb-6">
-          What's making this problem so difficult for users?
+          What&apos;s making this problem so difficult for users?
         </h3>
 
         <div className="grid md:grid-cols-3 gap-6 mb-12">
           {insights.map((insight, index) => (
-            <div key={index} className="bg-gradient-to-br from-[#B5AD21]/5 to-[#E5B1A4]/5 rounded-lg p-6 border-2 border-[#45140C]/5">
+            <div key={index} className="bg-linear-to-br from-[#B5AD21]/5 to-[#E5B1A4]/5 rounded-lg p-6 border-2 border-[#45140C]/5">
               <h4 className="text-sm font-bold text-[#E5B1A4] font-formadjr mb-3 uppercase tracking-wide">
                 {insight.title}
               </h4>

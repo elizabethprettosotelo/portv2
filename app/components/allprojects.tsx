@@ -4,17 +4,19 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState, useRef } from "react";
 import { useHover } from "../contexts/HoverContext";
-import QuickLookModal, { LINK_CONFIG, type ProjectLink, type ProjectOverview } from "./QuickLookModal";
+import type { ProjectLink, ProjectOverview } from "./project-links";
+
 type Project = {
   title: string;
   blurb: string;
+  tagline?: string;
   thumbnail: string;
   gif?: string;
   video?: string;
   images: string[];
   tags: string[];
   slug: string;
-  featured?: boolean;
+  winner?: boolean;
   caseStudy?: boolean;
   noTint?: boolean;
   links?: ProjectLink[];
@@ -23,109 +25,170 @@ type Project = {
 
 const allProjects: Project[] = [
   {
+    title: "UCFHere",
+    blurb: "A campus discovery platform for UCF students that surfaces the places, resources, and updates they need most in one streamlined experience.",
+    tagline: "Creating a university attendance experience students can rely on.",
+    thumbnail: "/ucfhere/frame-2.png",
+    gif: "/project1.gif",
+    video: "/conduit/conduitlaunch.mp4",
+    images: ["/project1-1.jpg", "/project1-2.jpg", "/project1-3.jpg"],
+    tags: ["Product Design", "EdTech", "Frontend"],
+    slug: "ucfhere",
+    caseStudy: true,
+    overview: {
+      role: "Product Designer & Frontend Developer",
+      timeline: "Most recent project",
+      tools: ["Figma", "Next.js", "TypeScript"],
+      summary: "A campus-centered product concept that turns UCF information into a clearer, faster, and more useful experience for students.",
+      status: "in-progress",
+    },
+  },
+  {
+    title: "Wattasave",
+    blurb: "A savings and spending companion that helps people spot small opportunities to save, set goals, and keep momentum without making budgeting feel heavy.",
+    tagline: "Turning everyday routines into cleaner, cheaper energy choices.",
+    thumbnail: "/wattasave/preview.png",
+    gif: "/project2.gif",
+    video: "/labeling/thumbnail.mp4",
+    images: ["/project2-1.jpg", "/project2-2.jpg"],
+    tags: ["Fintech", "UI Design", "Mobile First", "Hackathon"],
+    slug: "wattasave",
+    winner: true,
+    caseStudy: true,
+    links: [
+      { label: "Demo", href: "https://devpost.com/software/wattasave", kind: "demo" },
+    ],
+    overview: {
+      role: "Product Designer",
+      timeline: "Recent concept",
+      tools: ["Figma", "Design Systems"],
+      summary: "A lightweight money-saving experience focused on making personal finance feel approachable, encouraging, and easy to return to.",
+      status: "in-progress",
+    },
+  },
+  {
     title: "Conduit",
     blurb: "Multimodal accessibility platform that unifies EEG, gaze tracking, voice detection, and ASL recognition into one adaptive interface built in 36 hours.",
+    tagline: "Accessibility without assumptions",
     thumbnail: "/conduit/conduitthumb.jpg",
     gif: "/project1.gif",
     video: "/conduit/conduitlaunch.mp4",
     images: ["/project1-1.jpg", "/project1-2.jpg", "/project1-3.jpg"],
-    tags: ["Accessibility", "UX Design", "Multimodal Design"],
+    tags: ["Accessibility", "UX Design", "Multimodal Design", "Hackathon"],
     slug: "project-one",
-    featured: true,
+    winner: true,
     caseStudy: true,
     links: [
-      { label: "GitHub",  href: "https://github.com/kwaiidev/conduit",                                                              kind: "github"  },
+      { label: "GitHub", href: "https://github.com/kwaiidev/conduit", kind: "github" },
       { label: "Devpost", href: "https://devpost.com/software/conduit-y8gqoj?ref_content=my-projects-tab&ref_feature=my_projects", kind: "devpost" },
-      { label: "Figma",   href: "https://figma.com",                                                                                kind: "figma"   },
+      { label: "Figma", href: "https://figma.com", kind: "figma" },
     ],
   },
   {
+    title: "Templater",
+    blurb: "An internal faculty tool that helps instructors explore and select templates for their Canvas courses.",
+    tagline: "Reimagining how instructors build courses.",
+    thumbnail: "/labeling/thumbnail.png",
+    images: ["/project3-1.jpg", "/project3-2.jpg"],
+    tags: ["UX Design"],
+    slug: "templater",
+    caseStudy: true,
+    overview: {
+      role: "Design Placeholder",
+      timeline: "Pending",
+      tools: ["Figma", "Next.js"],
+      summary: "The original interface made templates difficult to distinguish, forcing instructors to choose without clearly understanding how each option would look or function.",
+      status: "in-progress",
+    },
+  },
+  {
     title: "Labeling",
-    blurb: "Redesigned Materia's image labeling widget with full WCAG 2.1 AA compliance, responsive layouts, and modern UI for 50,000+ students.",
+    blurb: "A gamified educational widget used by more than 50,000 students and faculty members each month.",
     thumbnail: "/labeling/thumbnail.png",
     gif: "/project2.gif",
     video: "/labeling/thumbnail.mp4",
     noTint: true,
     images: ["/project2-1.jpg", "/project2-2.jpg"],
-    tags: ["UI Redesign", "Accessibility", "Higher Education"],
+    tagline: "Modernizing a gamified educational widget for accessibility and responsiveness.",
+    tags: ["UI Redesign", "Accessibility", "EdTech"],
     slug: "project-two",
-    featured: true,
     caseStudy: true,
     links: [
       { label: "GitHub", href: "https://github.com/elizabethprettosotelo", kind: "github" },
-      { label: "Figma",  href: "https://figma.com",                        kind: "figma"  },
+      { label: "Figma", href: "https://figma.com", kind: "figma" },
     ],
   },
   {
-    title: "Project Three",
-    blurb: "A short description of this project. What problem it solved, your role, and what made it interesting.",
-    thumbnail: "/labeling/thumbnail.png",
-    images: ["/project3-1.jpg", "/project3-2.jpg", "/project3-3.jpg"],
-    tags: ["Frontend", "Design Systems"],
-    slug: "project-three",
-    featured: true,
-    overview: {
-      role: "Designer & Developer",
-      timeline: "2 weeks",
-      tools: ["Figma", "React"],
-      summary: "Add a quick summary here — what the project was, what you made, and why it matters.",
-      status: "in-progress",
-    },
-  },
-  {
-    title: "Project Four",
-    blurb: "An exploration of design patterns and user flows for a complex application.",
-    thumbnail: "/labeling/thumbnail.png",
-    images: ["/project4-1.jpg", "/project4-2.jpg"],
-    tags: ["UX Design", "Wireframing"],
-    slug: "project-four",
-    overview: {
-      role: "UX Designer",
-      timeline: "3 weeks",
-      tools: ["Figma"],
-      summary: "Add a quick summary here — what the project was, what you made, and why it matters.",
-      status: "complete",
-    },
-  },
-  {
-    title: "Project Five",
-    blurb: "A comprehensive branding and identity project for a startup company.",
+    title: "Tariffix",
+    blurb: "A Chrome extension that calculates estimated tariff costs live while users browse products on e-commerce websites.",
+    tagline: "Calculating tariff costs live while you shop online.",
     thumbnail: "/labeling/thumbnail.png",
     images: ["/project5-1.jpg"],
-    tags: ["Branding", "UI Design"],
+    tags: ["Frontend", "Hackathon"],
     slug: "project-five",
+    winner: true,
+    links: [
+      { label: "GitHub", href: "https://github.com/Adr1an04/Tariffix", kind: "github" },
+      { label: "Figma", href: "https://www.figma.com/design/VQeyiEWBKz8l6L7JDHwgqj/Tarrifix?node-id=0-1&p=f&t=aJdtyxYEZDz6tN2L-0", kind: "figma" },
+      { label: "Guide", href: "https://tariffix.vercel.app/guide", kind: "demo" },
+    ],
     overview: {
-      role: "Brand Designer",
-      timeline: "1 month",
-      tools: ["Illustrator", "Figma"],
-      summary: "Add a quick summary here — what the project was, what you made, and why it matters.",
+      role: "Designer & Frontend Developer",
+      timeline: "Bitcamp 2024 (36 hours)",
+      tools: ["Next.js", "Figma", "Monorepo"],
+      summary: "Shoppers often cannot tell how tariffs may affect an item’s final price until late in the purchasing process. Tariffix surfaces estimated tariff costs directly on product pages, making international pricing easier to understand while shopping.",
+      highlights: [
+        "First frontend-heavy project - went from Figma wireframes to production Next.js site, learning the entire design-to-code pipeline",
+        "Navigated a monorepo for the first time and figured out the folder structure and build configs",
+        "Designed the full branding system and visual identity for the extension",
+        "Translated technically dense tariff data concepts into user-friendly documentation",
+        "Worked as part of a larger team system - learned to build my piece while others handled the backend AI scraping and extension logic",
+        "Won 1st place at Bitcamp 2024 competing against 100+ teams",
+      ],
       status: "complete",
     },
   },
   {
-    title: "Project Six",
-    blurb: "Responsive web design and development for an e-commerce platform.",
+    title: "Knight Hacks VIII Site",
+    blurb: "The visual design and UI for the Knight Hacks VIII website, created to recruit participants and introduce them to the hackathon community.",
+    tagline: "More than a website - an invitation to our hackathon.",
     thumbnail: "/labeling/thumbnail.png",
     images: ["/project6-1.jpg", "/project6-2.jpg", "/project6-3.jpg"],
-    tags: ["Frontend", "Responsive Design"],
+    tags: ["Frontend", "Responsive Design", "Event Site"],
     slug: "project-six",
+    caseStudy: true,
     overview: {
       role: "Frontend Developer",
       timeline: "6 weeks",
       tools: ["Next.js", "Tailwind"],
-      summary: "Add a quick summary here — what the project was, what you made, and why it matters.",
+      summary: "The site needed to communicate essential event information while also capturing the energy, personality, and scale of Knight Hacks. I created an immersive visual system that combined clear information architecture with a distinctive event identity and engaging interface design.",
       status: "complete",
+    },
+  },
+  {
+    title: "Pallit",
+    blurb: "A font and color-palette pairing generator created during my first hackathon.",
+    tagline: "Where typography and color find their match.",
+    thumbnail: "/labeling/thumbnail.png",
+    images: ["/project7-1.jpg", "/project7-2.jpg"],
+    tags: ["Product Design", "Pending", "Hackathon"],
+    slug: "pallit",
+    caseStudy: true,
+    overview: {
+      role: "Design Placeholder",
+      timeline: "Pending",
+      tools: ["Figma", "Next.js"],
+      summary: "Choosing typography and colors that feel cohesive can be difficult, especially for designers beginning a new project.",
+      status: "in-progress",
     },
   },
 ];
 
-/* ── Project card ────────────────────────────────────────────────── */
+/* ── Project card ────────────────────────────────────────────────────────── */
 function ProjectCard({
   project,
-  onQuickLook,
 }: {
   project: Project;
-  onQuickLook: (p: Project) => void;
 }) {
   const [isHovered, setIsHovered] = useState(false);
   const { hoveredProject, setHoveredProject } = useHover();
@@ -133,28 +196,34 @@ function ProjectCard({
   const videoRef = useRef<HTMLVideoElement>(null);
   const playPromiseRef = useRef<Promise<void> | null>(null);
   const isHighlighted = isHovered || hoveredProject === project.slug;
-  const hasCaseStudy = !!project.caseStudy;
+  const hoverTintClass =
+    project.slug === "ucfhere"
+      ? "bg-black/15"
+      : project.slug === "wattasave"
+        ? "bg-[#4A72E8]/14"
+        : "bg-black/0";
+  const showVideoPreview = project.slug === "project-one" || project.slug === "project-two";
 
   const handleMouseEnter = () => {
     setIsHovered(true);
     setHoveredProject(project.slug);
-    if (videoRef.current) {
+    if (showVideoPreview && videoRef.current) {
       videoRef.current.currentTime = 0;
       playPromiseRef.current = videoRef.current.play();
-      playPromiseRef.current?.catch(() => {/* interrupted — ignore */});
+      playPromiseRef.current?.catch(() => {});
     }
   };
 
   const handleMouseLeave = () => {
     setIsHovered(false);
     setHoveredProject(null);
-    if (videoRef.current) {
+    if (showVideoPreview && videoRef.current) {
       const video = videoRef.current;
       if (playPromiseRef.current) {
         playPromiseRef.current.then(() => {
           video.pause();
           video.currentTime = 0;
-        }).catch(() => {/* interrupted — ignore */});
+        }).catch(() => {});
         playPromiseRef.current = null;
       } else {
         video.pause();
@@ -164,11 +233,7 @@ function ProjectCard({
   };
 
   const handleCardClick = () => {
-    if (hasCaseStudy) {
-      router.push(`/projects/${project.slug}`);
-    } else {
-      onQuickLook(project);
-    }
+    router.push(`/projects/${project.slug}`);
   };
 
   return (
@@ -180,60 +245,40 @@ function ProjectCard({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      {/* Featured Badge */}
-      {project.featured && (
-        <div className="absolute top-3 right-3 z-10 px-3 py-1 bg-[#B5AD21] text-[#45140C] text-xs font-bold font-formadjr rounded-full">
-          FEATURED
+      {project.winner && (
+        <div className="absolute top-3 right-3 z-10 px-3 py-1 bg-[#B5AD21] text-white text-xs font-bold font-formadjr rounded-full">
+          WINNER
         </div>
       )}
 
-      {/* Thumbnail */}
       <div className="relative w-full h-56 overflow-hidden bg-[#45140C]/5 shrink-0">
-        {/* Static thumbnail — always visible underneath */}
         <Image
           src={project.thumbnail}
           alt={project.title}
           fill
           className="object-cover"
         />
-        {/* Brown tint overlay (skipped if noTint) */}
-        {!project.noTint && (
-          <div className="absolute inset-0 bg-[#45140C]/20 z-10" />
-        )}
-        {/* Video — fades in on hover */}
-        {project.video && (
+        {showVideoPreview && project.video && (
           <video
             ref={videoRef}
             src={project.video}
             muted
             loop
             playsInline
-            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 z-20 ${isHovered ? "opacity-100" : "opacity-0"}`}
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 z-10 ${isHovered ? "opacity-100" : "opacity-0"}`}
           />
         )}
-        {/* GIF fallback for non-video projects */}
-        {!project.video && project.gif && (
-          <Image
-            src={project.gif}
-            alt={project.title}
-            fill
-            className={`object-cover transition-opacity duration-500 z-20 ${isHovered ? "opacity-100" : "opacity-0"}`}
-            unoptimized
-          />
-        )}
-        {/* Hover label — sits above everything */}
-        <div className={`absolute inset-0 transition-colors duration-300 flex items-center justify-center z-30 ${
-          isHighlighted ? "bg-black/10" : "bg-black/0"
+        <div className={`absolute inset-0 transition-colors duration-300 flex items-center justify-center z-20 ${
+          isHighlighted ? hoverTintClass : "bg-black/0"
         }`}>
           <span className={`text-white text-sm font-medium font-formadjr transition-opacity duration-300 drop-shadow ${
             isHighlighted ? "opacity-100" : "opacity-0"
           }`}>
-            {hasCaseStudy ? "View Case Study →" : "Quick Look →"}
+            View Case Study →
           </span>
         </div>
       </div>
 
-      {/* Content */}
       <div className="p-5 flex flex-col flex-1">
         <div className="flex flex-wrap gap-2 mb-3">
           {project.tags.map((tag) => (
@@ -243,54 +288,23 @@ function ProjectCard({
           ))}
         </div>
         <h3 className="text-xl font-bold text-[#45140C] font-formadjr mb-2">{project.title}</h3>
-        <p className="text-[#45140C]/65 text-sm font-inter leading-relaxed line-clamp-2 flex-1">{project.blurb}</p>
+        <p className="text-[#45140C]/90 text-sm font-medium font-inter leading-relaxed line-clamp-2 flex-1">
+          {project.tagline}
+        </p>
 
-        {/* Footer row */}
-        <div className="flex flex-wrap items-center gap-2 mt-4">
-          {/* External link pills — stop propagation so they don't trigger card click */}
-          {project.links?.map((link) => {
-            const cfg = LINK_CONFIG[link.kind];
-            return (
-              <a
-                key={link.label + link.href}
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={(e) => e.stopPropagation()}
-                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium font-inter border border-[#45140C]/12 transition-all duration-200 ${cfg.bg} ${cfg.text} ${cfg.hoverBg}`}
-              >
-                <span>{cfg.icon}</span>
-                {link.label}
-              </a>
-            );
-          })}
-
-          {/* Case study CTA */}
-          {hasCaseStudy && (
-            <span className="ml-auto text-sm font-medium text-[#45140C] underline underline-offset-4 hover:text-[#B5AD21] transition font-formadjr whitespace-nowrap">
-              See case study →
-            </span>
-          )}
-
-          {/* Quick look CTA */}
-          {!hasCaseStudy && (
-            <button
-              onClick={(e) => { e.stopPropagation(); onQuickLook(project); }}
-              className="ml-auto text-sm font-medium text-[#45140C]/60 hover:text-[#45140C] transition font-formadjr whitespace-nowrap"
-            >
-              Quick look ✦
-            </button>
-          )}
+        <div className="mt-4">
+          <span className="inline-flex text-sm font-medium text-[#45140C] underline underline-offset-4 hover:text-[#B5AD21] transition font-formadjr whitespace-nowrap">
+            See case study →
+          </span>
         </div>
       </div>
     </div>
   );
 }
 
-/* ── Page ────────────────────────────────────────────────────────── */
+/* ── Page ────────────────────────────────────────────────────────────────── */
 export default function AllProjects() {
   const [selectedTag, setSelectedTag] = useState<string>("All");
-  const [quickLookProject, setQuickLookProject] = useState<Project | null>(null);
 
   const allTags = ["All", ...new Set(allProjects.flatMap((p) => p.tags))];
 
@@ -306,7 +320,6 @@ export default function AllProjects() {
 
   return (
     <>
-      {/* Header */}
       <section className="w-full py-16 px-4 bg-[#F3EDE2] fade-in-up">
         <div className="max-w-7xl mx-auto">
           <h1 className="text-5xl md:text-6xl font-bold text-[#45140C] font-formadjr mb-4">All Projects</h1>
@@ -316,7 +329,6 @@ export default function AllProjects() {
         </div>
       </section>
 
-      {/* Filter Tags */}
       <section className="w-full py-6 px-4 bg-[#F3EDE2] border-t border-[#45140C]/10 fade-in-up-delay-1">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-wrap gap-3">
@@ -337,14 +349,13 @@ export default function AllProjects() {
         </div>
       </section>
 
-      {/* Projects Grid */}
       <section className="w-full py-16 px-4 bg-[#F3EDE2]">
         <div className="max-w-7xl mx-auto">
           {filteredProjects.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-start">
               {filteredProjects.map((project, index) => (
                 <div key={project.slug} className={getDelayClass(index)}>
-                  <ProjectCard project={project} onQuickLook={setQuickLookProject} />
+                  <ProjectCard project={project} />
                 </div>
               ))}
             </div>
@@ -355,14 +366,6 @@ export default function AllProjects() {
           )}
         </div>
       </section>
-
-      {/* Quick-look modal */}
-      {quickLookProject && (
-        <QuickLookModal
-          project={quickLookProject}
-          onClose={() => setQuickLookProject(null)}
-        />
-      )}
     </>
   );
 }

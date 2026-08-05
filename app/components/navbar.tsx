@@ -1,66 +1,15 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useHover } from '../contexts/HoverContext';
-import { useProjectSections } from '../contexts/ProjectSectionsContext';
+import { usePathname } from 'next/navigation';
 import { useNavbar } from '../contexts/NavbarContext';
-
-// Layer structure mimicking Figma's layers panel
-type Layer = {
-  id: string;
-  label: string;
-  icon: string;
-  sublayers?: { id: string; label: string }[];
-};
-
-const homePageLayers: Layer[] = [
-  { id: 'hero', label: 'Hello!', icon: '✦' },
-  {
-    id: 'projects',
-    label: 'Selected Projects',
-    icon: '✦',
-    sublayers: [
-      { id: 'project-one', label: 'Conduit' },
-      { id: 'project-two', label: 'Labeling' },
-    ],
-  },
-  { id: 'experiences', label: 'Experience', icon: '✦',
-    sublayers: [
-      { id: 'exp-cdl', label: 'UCF CDL' },
-      { id: 'exp-knighthacks', label: 'Knight Hacks' },
-      { id: 'exp-c2', label: 'C² Technologies' },
-    ],
-  },
-  { id: 'skills', label: 'Skills & Tools', icon: '✦' },
-  { id: 'footer', label: 'Footer', icon: '✦' },
-];
-
-const projectsPageLayers: Layer[] = [
-  { id: 'project-one',   label: 'Conduit',        icon: '✦' },
-  { id: 'project-two',   label: 'Labeling',        icon: '✦' },
-  { id: 'project-three', label: 'Project Three',   icon: '✦' },
-  { id: 'project-four',  label: 'Project Four',    icon: '✦' },
-  { id: 'project-five',  label: 'Project Five',    icon: '✦' },
-  { id: 'project-six',   label: 'Project Six',     icon: '✦' },
-];
-
-const aboutPageLayers: Layer[] = [
-  { id: 'about-bio',       label: 'About Me',       icon: '✦' },
-  { id: 'about-community', label: 'My Community',   icon: '✦' },
-  { id: 'about-books',     label: 'On My Shelf',    icon: '✦' },
-  { id: 'about-interests', label: 'Interests',      icon: '✦' },
-];
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [expandedLayers, setExpandedLayers] = useState<Set<string>>(new Set());
-  const [activeSection, setActiveSection] = useState<string>('hero');
   const [copied, setCopied] = useState(false);
-  const [currentPath, setCurrentPath] = useState('');
-  const { hoveredProject, setHoveredProject } = useHover();
-  const { sections: projectSections } = useProjectSections();
+  const currentPath = usePathname();
   const { sidebarCollapsed, setSidebarCollapsed } = useNavbar();
 
   const mobileNavLinks = [
@@ -75,162 +24,6 @@ export default function Navbar() {
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
-
-  // Track current path and update expanded layers
-  useEffect(() => {
-    const path = window.location.pathname;
-
-    // Defer setState to avoid calling it synchronously inside an effect
-    const id = setTimeout(() => {
-      setCurrentPath(path);
-
-      // Auto-expand Featured Projects on home page
-      if (path === '/projects') {
-        // Projects page doesn't need auto-expansion anymore
-        setExpandedLayers(new Set());
-      } else if (path.startsWith('/projects/') && path !== '/projects') {
-        // Project detail page - set first section as active if available
-        setExpandedLayers(new Set());
-        if (projectSections.length > 0) {
-          setActiveSection(projectSections[0].id);
-        }
-      } else {
-        // Home page - expand Featured Projects AND Experience sections
-        setExpandedLayers(new Set(['projects', 'experiences']));
-      }
-    }, 0);
-
-    return () => clearTimeout(id);
-  }, [projectSections]);
-
-  // Determine which layers to show based on current page
-  const isProjectsPage = currentPath === '/projects';
-  const isHomePage = currentPath === '/' || currentPath === '/home';
-  const isProjectDetailPage = currentPath.startsWith('/projects/') && currentPath !== '/projects';
-  const isAboutPage = currentPath === '/experience';
-  
-  // Convert project sections to layers format
-  const projectDetailLayers: Layer[] = projectSections.map(section => ({
-    id: section.id,
-    label: section.label,
-    icon: '⬜'
-  }));
-  
-  // Determine which layers to use
-  let layers: Layer[];
-  let layerTitle: string;
-  
-  if (isProjectDetailPage && projectDetailLayers.length > 0) {
-    layers = projectDetailLayers;
-    layerTitle = 'Case Study';
-  } else if (isProjectsPage) {
-    layers = projectsPageLayers;
-    layerTitle = 'All Projects';
-  } else if (isAboutPage) {
-    layers = aboutPageLayers;
-    layerTitle = 'About Me';
-  } else {
-    layers = homePageLayers;
-    layerTitle = 'Home Page';
-  }
-
-  // Scroll spy effect
-  useEffect(() => {
-    const observerOptions = {
-      root: null,
-      rootMargin: '-10% 0px -80% 0px',
-      threshold: 0,
-    };
-
-    const observerCallback = (entries: IntersectionObserverEntry[]) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          setActiveSection(entry.target.id);
-        }
-      });
-    };
-
-    const observer = new IntersectionObserver(observerCallback, observerOptions);
-
-    // Observe all sections based on current layers
-    layers.forEach((layer) => {
-      const element = document.getElementById(layer.id);
-      if (element) observer.observe(element);
-
-      // Observe sublayers
-      layer.sublayers?.forEach((sublayer) => {
-        const subElement = document.getElementById(sublayer.id);
-        if (subElement) observer.observe(subElement);
-      });
-    });
-
-    return () => observer.disconnect();
-  }, [currentPath, layers]);
-
-  const toggleLayer = (layerId: string) => {
-    setExpandedLayers((prev) => {
-      const next = new Set(prev);
-      if (next.has(layerId)) {
-        next.delete(layerId);
-      } else {
-        next.add(layerId);
-      }
-      return next;
-    });
-  };
-
-  const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      const offset = window.innerWidth < 768 ? 80 : 20;
-      const elementPosition = element.getBoundingClientRect().top;
-      const distance = Math.abs(elementPosition);
-      const offsetPosition = elementPosition + window.pageYOffset - offset;
-
-      window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
-
-      // Fire flash bar once scroll settles — use scrollend if available, else estimate duration
-      const fireFlash = () => {
-        // Ensure element is position:relative so the bar is contained
-        const prev = element.style.position;
-        if (!prev || prev === 'static') element.style.position = 'relative';
-
-        const bar = document.createElement('div');
-        bar.className = 'section-flash-bar';
-        element.prepend(bar);
-        bar.addEventListener('animationend', () => {
-          bar.remove();
-          if (!prev || prev === 'static') element.style.position = '';
-        }, { once: true });
-      };
-
-      if ('onscrollend' in window) {
-        window.addEventListener('scrollend', fireFlash, { once: true });
-      } else {
-        // Fallback: estimate ~1px per ms for smooth scroll, min 400ms
-        const estimated = Math.max(400, Math.min(distance * 0.5, 1200));
-        setTimeout(fireFlash, estimated);
-      }
-    }
-    setIsOpen(false);
-  };
-
-  const isScrollActive = (id: string) => {
-    if (activeSection === id) return true;
-    if (activeSection.startsWith(id + '-')) return true;
-    if (id === 'projects' && activeSection.startsWith('project-')) return true;
-    if (id === 'experiences' && (activeSection === 'exp-cdl' || activeSection === 'exp-knighthacks' || activeSection === 'exp-c2')) return true;
-    return false;
-  };
-
-  const isHoverActive = (id: string) => {
-    if (hoveredProject === id) return true;
-    if (id === 'projects' && (hoveredProject === 'project-one' || hoveredProject === 'project-two')) return true;
-    if (id === 'experiences' && (hoveredProject === 'exp-cdl' || hoveredProject === 'exp-knighthacks' || hoveredProject === 'exp-c2')) return true;
-    return false;
-  };
-
-  const isActive = (id: string) => isScrollActive(id) || isHoverActive(id); // eslint-disable-line @typescript-eslint/no-unused-vars
 
   return (
     <>
@@ -316,8 +109,8 @@ export default function Navbar() {
               <button
                 onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
                 className="w-8 h-8 flex items-center justify-center hover:bg-[#F3EDE2]/10 rounded transition group border border-[#E5B1A4]/20 shrink-0"
-                aria-label={sidebarCollapsed ? "Expand layers" : "Collapse layers"}
-                title={sidebarCollapsed ? "Expand layers" : "Collapse layers"}
+                aria-label={sidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"}
+                title={sidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"}
               >
                 <svg
                   className={`w-4 h-4 text-[#F3EDE2] group-hover:text-[#E5B1A4] transition-all duration-300 ${
@@ -362,99 +155,6 @@ export default function Navbar() {
                 </div>
               </div>
             </>
-          )}
-
-          {/* Figma-style title */}
-          {!sidebarCollapsed && (
-            <div className="flex items-center gap-2 mb-4 pb-3 border-b border-[#E5B1A4]/20">
-              <div className="text-xs font-bold text-[#E5B1A4] tracking-wider font-mono">LAYERS</div>
-              <div className="w-px h-4 bg-[#E5B1A4]/30"></div>
-              <div className="text-xs text-[#F3EDE2]/60 font-mono">{layerTitle}</div>
-            </div>
-          )}
-
-          {/* Layers List */}
-          {!sidebarCollapsed && (
-            <div className="flex flex-col gap-0.5">
-            {layers.map((layer) => (
-              <div key={layer.id}>
-                {/* Main Layer */}
-                <div
-                  className={`group flex items-center gap-2 px-2 py-1.5 rounded cursor-pointer transition-all ${
-                    isScrollActive(layer.id)
-                      ? 'bg-[#B5AD21]/20 text-[#B5AD21]'
-                      : isHoverActive(layer.id)
-                      ? 'bg-[#F3EDE2]/5 text-[#F3EDE2]/70'
-                      : 'text-[#F3EDE2] hover:bg-[#F3EDE2]/5'
-                  }`}
-                  onClick={() => {
-                    if (layer.sublayers) {
-                      toggleLayer(layer.id);
-                      // Also scroll to section if it's the Featured Projects on home page
-                      if (layer.id === 'projects') {
-                        scrollToSection(layer.id);
-                      }
-                    } else {
-                      scrollToSection(layer.id);
-                    }
-                  }}
-                  onMouseEnter={() => isProjectsPage && setHoveredProject(layer.id)}
-                  onMouseLeave={() => isProjectsPage && setHoveredProject(null)}
-                >
-                  {/* Layer icon */}
-                  <span className="text-xs opacity-70">{layer.icon}</span>
-
-                  {/* Layer name */}
-                  <span className="text-sm font-mono flex-1">{layer.label}</span>
-
-                  {/* Active indicator */}
-                  {isScrollActive(layer.id) && (
-                    <div className="w-1.5 h-1.5 rounded-full bg-[#B5AD21]"></div>
-                  )}
-
-                  {/* Expand/collapse chevron on the right */}
-                  {layer.sublayers ? (
-                    <svg
-                      className={`w-3 h-3 transition-transform shrink-0 ${expandedLayers.has(layer.id) ? 'rotate-90' : ''}`}
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path d="M7 7l3 3 3-3" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  ) : (
-                    <div className="w-3" />
-                  )}
-                </div>
-
-                {/* Sublayers */}
-                {layer.sublayers && expandedLayers.has(layer.id) && (
-                  <div className="ml-5 border-l border-[#E5B1A4]/20 pl-2">
-                    {layer.sublayers.map((sublayer) => (
-                      <div
-                        key={sublayer.id}
-                        className={`group flex items-center gap-2 px-2 py-1.5 rounded cursor-pointer transition-all ${
-                          isScrollActive(sublayer.id)
-                            ? 'bg-[#B5AD21]/20 text-[#B5AD21]'
-                            : isHoverActive(sublayer.id)
-                            ? 'bg-[#F3EDE2]/5 text-[#F3EDE2]/70'
-                            : 'text-[#F3EDE2]/80 hover:bg-[#F3EDE2]/5'
-                        }`}
-                        onClick={() => scrollToSection(sublayer.id)}
-                        onMouseEnter={() => isHomePage && setHoveredProject(sublayer.id)}
-                        onMouseLeave={() => isHomePage && setHoveredProject(null)}
-                      >
-                        <span className="text-xs opacity-70">✦</span>
-                        <span className="text-sm font-mono flex-1">{sublayer.label}</span>
-                        {isScrollActive(sublayer.id) && (
-                          <div className="w-1.5 h-1.5 rounded-full bg-[#B5AD21]"></div>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
           )}
 
           {/* Export Section */}

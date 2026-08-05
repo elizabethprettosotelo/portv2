@@ -30,15 +30,15 @@ export default function CaseStudyPersona({
   const { registerSection, unregisterSection } = useProjectSections();
 
   useEffect(() => {
-    registerSection({ id: "personas", label: "Personas" });
+    registerSection({ id: "personas", label: "Ideation" });
     return () => {
       unregisterSection("personas");
     };
-  }, []);
+  }, [registerSection, unregisterSection]);
 
   return (
-    <section id="personas" className="w-full py-12 px-8 bg-[#F3EDE2]">
-      <div className="max-w-5xl mx-auto">
+    <section id="personas" className="w-full py-12 bg-[#F3EDE2]">
+      <div className="w-full">
         {/* Section Number & Title */}
         <div className="text-6xl font-bold text-[#B5AD21]/20 mb-3 font-formadjr">
           03
@@ -94,11 +94,11 @@ export default function CaseStudyPersona({
               <div className="p-6 flex-1 flex flex-col">
                 {/* Quote */}
                 {persona.quote && (
-                  <div className="mb-4 pb-4 border-b border-[#45140C]/10">
-                    <div className="relative pl-4">
-                      <div className="absolute left-0 top-0 text-2xl text-[#B5AD21] font-formadjr leading-none">
-                        "
-                      </div>
+                    <div className="mb-4 pb-4 border-b border-[#45140C]/10">
+                      <div className="relative pl-4">
+                        <div className="absolute left-0 top-0 text-2xl text-[#B5AD21] font-formadjr leading-none">
+                          &ldquo;
+                        </div>
                       <p className="text-sm text-[#45140C]/80 font-inter italic leading-relaxed">
                         {persona.quote}
                       </p>

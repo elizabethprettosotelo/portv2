@@ -29,13 +29,13 @@ export default function CaseStudyProblem({
   const { registerSection, unregisterSection } = useProjectSections();
 
   useEffect(() => {
-    registerSection({ id: 'problem', label: 'The Problem' });
+    registerSection({ id: 'problem', label: 'Define' });
     return () => unregisterSection('problem');
-  }, []);
+  }, [registerSection, unregisterSection]);
 
   return (
-    <section id="problem" className="w-full py-12 px-8 bg-[#F3EDE2]">
-      <div className="max-w-5xl mx-auto">
+    <section id="problem" className="w-full py-12 bg-[#F3EDE2]">
+      <div className="w-full">
         {/* Section Number */}
         <div className="text-6xl font-bold text-[#E5B1A4]/30 mb-3 font-formadjr">
           {sectionNumber}
@@ -76,7 +76,7 @@ export default function CaseStudyProblem({
         {quote && (
           <div className="border-l-4 border-[#B5AD21] pl-6 py-3 mb-8 max-w-3xl bg-[#B5AD21]/5">
             <p className="text-lg md:text-xl text-[#45140C]/90 font-inter italic leading-relaxed mb-2">
-              "{quote}"
+              &ldquo;{quote}&rdquo;
             </p>
             {quoteAuthor && (
               <p className="text-xs text-[#45140C]/60 font-inter uppercase tracking-wide">

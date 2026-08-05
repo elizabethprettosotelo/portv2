@@ -27,13 +27,13 @@ export default function CaseStudyComparison({
   const { registerSection, unregisterSection } = useProjectSections();
 
   useEffect(() => {
-    registerSection({ id: 'comparison', label: 'Comparison' });
+    registerSection({ id: 'comparison', label: 'Prototyping' });
     return () => unregisterSection('comparison');
-  }, []);
+  }, [registerSection, unregisterSection]);
 
   return (
-    <section id="comparison" className="w-full py-12 px-8 bg-[#F3EDE2]">
-      <div className="max-w-5xl mx-auto">
+    <section id="comparison" className="w-full py-12 bg-[#F3EDE2]">
+      <div className="w-full">
         {/* Section Number */}
         <div className="text-6xl font-bold text-[#B5AD21]/20 mb-3 font-formadjr">
           {sectionNumber}
@@ -70,7 +70,7 @@ export default function CaseStudyComparison({
               {/* Before/After Grid */}
               <div className="flex gap-6 items-start justify-center flex-wrap">
                 {/* Before */}
-                <div className="space-y-3 flex-shrink-0">
+                <div className="space-y-3 shrink-0">
                   <div className="inline-block px-3 py-1 bg-[#E5B1A4]/20 border border-[#E5B1A4]/40 rounded-md">
                     <span className="text-xs font-bold text-[#45140C]/70 font-formadjr uppercase tracking-wide">
                       Before
@@ -88,7 +88,7 @@ export default function CaseStudyComparison({
                 </div>
 
                 {/* After */}
-                <div className="space-y-3 flex-shrink-0">
+                <div className="space-y-3 shrink-0">
                   <div className="inline-block px-3 py-1 bg-[#B5AD21]/20 border border-[#B5AD21]/40 rounded-md">
                     <span className="text-xs font-bold text-[#45140C]/70 font-formadjr uppercase tracking-wide">
                       After

@@ -12,8 +12,8 @@ export default function CaseStudyGallery({ gallery, title = "More Visuals", sect
   if (!gallery || gallery.length === 0) return null;
 
   return (
-    <section className="w-full py-12 px-8 bg-[#F3EDE2]">
-      <div className="max-w-5xl mx-auto">
+    <section className="w-full py-12 bg-[#F3EDE2]">
+      <div className="w-full">
         {/* Section Number & Title */}
         <div className="text-6xl font-bold text-[#E5B1A4]/30 mb-3 font-formadjr">
           {sectionNumber}

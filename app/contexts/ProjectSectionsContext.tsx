@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useCallback, useContext, useMemo, useState } from 'react';
 
 type ProjectSection = {
   id: string;
@@ -19,24 +19,29 @@ const ProjectSectionsContext = createContext<ProjectSectionsContextType | undefi
 export function ProjectSectionsProvider({ children }: { children: React.ReactNode }) {
   const [sections, setSections] = useState<ProjectSection[]>([]);
 
-  const registerSection = (section: ProjectSection) => {
+  const registerSection = useCallback((section: ProjectSection) => {
     setSections((prev) => {
       // Avoid duplicates
-      if (prev.some(s => s.id === section.id)) return prev;
+      if (prev.some((s) => s.id === section.id)) return prev;
       return [...prev, section];
     });
-  };
+  }, []);
 
-  const unregisterSection = (id: string) => {
-    setSections((prev) => prev.filter(s => s.id !== id));
-  };
+  const unregisterSection = useCallback((id: string) => {
+    setSections((prev) => prev.filter((s) => s.id !== id));
+  }, []);
 
-  const clearSections = () => {
+  const clearSections = useCallback(() => {
     setSections([]);
-  };
+  }, []);
+
+  const value = useMemo(
+    () => ({ sections, registerSection, unregisterSection, clearSections }),
+    [sections, registerSection, unregisterSection, clearSections],
+  );
 
   return (
-    <ProjectSectionsContext.Provider value={{ sections, registerSection, unregisterSection, clearSections }}>
+    <ProjectSectionsContext.Provider value={value}>
       {children}
     </ProjectSectionsContext.Provider>
   );

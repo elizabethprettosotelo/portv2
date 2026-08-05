@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Plus_Jakarta_Sans as Inter } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./components/providers";
 
@@ -24,12 +24,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} h-full antialiased overflow-x-hidden`}
+      className={`${inter.variable} h-full antialiased overflow-x-clip`}
     >
-      <head>
-        <link rel="stylesheet" href="https://use.typekit.net/jdu6nlf.css" />
-      </head>
-      <body className="min-h-full flex flex-col overflow-x-hidden" suppressHydrationWarning>
+      <body className="min-h-full flex flex-col overflow-x-clip" suppressHydrationWarning>
         <Providers>
           {children}
         </Providers>

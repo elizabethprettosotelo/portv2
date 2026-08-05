@@ -5,7 +5,7 @@
   --foreground: #171717;
   --sidebar-width: 0px; /* Mobile default */
   --text-brown: #5a2818; /* Lighter, friendlier brown for body text */
-  --font-formadjr: "forma-djr-banner", sans-serif;
+  --font-formadjr: var(--font-inter);
 }
 
 /* Desktop: Set sidebar width */
@@ -18,7 +18,7 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-formadjr), Inter, sans-serif;
+  font-family: var(--font-inter), sans-serif;
 }
 
 /* Make body text more readable with medium weight and better spacing */

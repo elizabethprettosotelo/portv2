@@ -1,32 +1,43 @@
 "use client";
 
-import Image from "next/image";
+import Link from "next/link";
 
 type CaseStudyHeroProps = {
   title: string;
   subtitle: string;
-  heroImage: string;
 };
 
-export default function CaseStudyHero({ title, subtitle, heroImage }: CaseStudyHeroProps) {
+export default function CaseStudyHero({ title, subtitle }: CaseStudyHeroProps) {
   return (
-    <section className="relative w-full h-[50vh] min-h-100 overflow-hidden fade-in-up">
-      <Image
-        src={heroImage}
-        alt={title}
-        fill
-        className="object-cover"
-        priority
-      />
-      <div className="absolute inset-0 bg-linear-to-t from-[#45140C]/80 via-[#45140C]/40 to-transparent" />
-      <div className="absolute bottom-0 left-0 right-0 p-6 md:p-12">
-        <div className="max-w-7xl mx-auto">
-          <h1 className="text-4xl md:text-6xl font-bold text-[#F3EDE2] font-formadjr mb-3">
-            {title}
-          </h1>
-          <p className="text-lg md:text-xl text-[#F3EDE2]/90 font-inter max-w-3xl">
-            {subtitle}
-          </p>
+    <section className="w-full py-10 md:py-12 fade-in-up">
+      <div className="space-y-6">
+        <h1 className="text-4xl md:text-5xl font-bold text-[#45140C] font-formadjr leading-tight">
+          {title}
+        </h1>
+
+        <Link
+          href="/projects"
+          className="inline-flex items-center gap-2 text-sm font-medium text-[#45140C]/75 hover:text-[#45140C] transition font-formadjr"
+        >
+          <span aria-hidden="true">←</span>
+          Back to all project overviews
+        </Link>
+
+        <hr className="border-[#45140C]/15" />
+
+        <p className="text-lg md:text-xl text-[#45140C]/90 font-medium font-inter leading-relaxed max-w-4xl">
+          {subtitle}
+        </p>
+
+        <div className="mt-2 rounded-2xl border-2 border-dashed border-[#45140C]/15 bg-[#FDFAF7] p-5 md:p-6 min-h-[220px] md:min-h-[320px] flex items-center justify-center text-center">
+          <div className="max-w-xl space-y-2">
+            <p className="text-sm font-bold uppercase tracking-[0.24em] text-[#B5AD21] font-mono">
+              Media placeholder
+            </p>
+            <p className="text-sm md:text-base text-[#45140C]/55 font-inter leading-relaxed">
+              Add an image or video here when you are ready.
+            </p>
+          </div>
         </div>
       </div>
     </section>

@@ -27,11 +27,11 @@ export default function CaseStudyResults({
   useEffect(() => {
     registerSection({ id: 'results', label: 'Outcomes & Impact' });
     return () => unregisterSection('results');
-  }, []);
+  }, [registerSection, unregisterSection]);
 
   return (
-    <section id="results" className="w-full py-12 px-8 bg-[#F3EDE2]">
-      <div className="max-w-5xl mx-auto">
+    <section id="results" className="w-full py-12 bg-[#F3EDE2]">
+      <div className="w-full">
         {/* Section Number */}
         <div className="text-6xl font-bold text-[#E5B1A4]/30 mb-3 font-formadjr">
           {sectionNumber}
@@ -46,7 +46,7 @@ export default function CaseStudyResults({
         {metrics && metrics.length > 0 && (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
             {metrics.map((metric, index) => (
-              <div key={index} className="text-center p-4 rounded-lg bg-gradient-to-br from-[#B5AD21]/10 to-[#E5B1A4]/10 border-2 border-[#B5AD21]/20">
+              <div key={index} className="text-center p-4 rounded-lg bg-linear-to-br from-[#B5AD21]/10 to-[#E5B1A4]/10 border-2 border-[#B5AD21]/20">
                 <div className="text-4xl md:text-5xl font-black text-[#45140C] font-formadjr mb-2">
                   {metric.value}
                 </div>
