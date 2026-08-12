@@ -136,7 +136,7 @@ const allProjects: Project[] = [
       role: "Designer & Frontend Developer",
       timeline: "Bitcamp 2024 (36 hours)",
       tools: ["Next.js", "Figma", "Monorepo"],
-      summary: "Shoppers often cannot tell how tariffs may affect an item’s final price until late in the purchasing process. Tariffix surfaces estimated tariff costs directly on product pages, making international pricing easier to understand while shopping.",
+      summary: "Shoppers often cannot tell how tariffs may affect an item's final price until late in the purchasing process. Tariffix surfaces estimated tariff costs directly on product pages, making international pricing easier to understand while shopping.",
       highlights: [
         "First frontend-heavy project - went from Figma wireframes to production Next.js site, learning the entire design-to-code pipeline",
         "Navigated a monorepo for the first time and figured out the folder structure and build configs",

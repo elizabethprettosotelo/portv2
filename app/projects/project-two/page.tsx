@@ -21,7 +21,7 @@ export default function ProjectTwoPage() {
             { label: "GitHub", href: "https://github.com/elizabethprettosotelo", kind: "github" },
             { label: "Figma", href: "https://figma.com", kind: "figma" },
           ]}
-          overview="The existing experience felt outdated and was not designed to work consistently across screen sizes or support a wide range of users. I modernized the interface and improved its accessibility and responsiveness while preserving the widget’s core learning interactions."
+          overview="The existing experience felt outdated and was not designed to work consistently across screen sizes or support a wide range of users. I modernized the interface and improved its accessibility and responsiveness while preserving the widget's core learning interactions."
           summaryCards={[
             {
               number: "01",
@@ -31,7 +31,7 @@ export default function ProjectTwoPage() {
             {
               number: "02",
               title: "Solution",
-              copy: "I modernized the interface and improved its accessibility and responsiveness while preserving the widget’s core learning interactions.",
+              copy: "I modernized the interface and improved its accessibility and responsiveness while preserving the widget's core learning interactions.",
             },
             {
               number: "03",

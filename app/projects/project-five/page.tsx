@@ -22,12 +22,12 @@ export default function ProjectFivePage() {
             { label: "Figma", href: "https://www.figma.com/design/VQeyiEWBKz8l6L7JDHwgqj/Tarrifix?node-id=0-1&p=f&t=aJdtyxYEZDz6tN2L-0", kind: "figma" },
             { label: "Guide", href: "https://tariffix.vercel.app/guide", kind: "demo" },
           ]}
-          overview="Shoppers often cannot tell how tariffs may affect an item’s final price until late in the purchasing process. Tariffix surfaces estimated tariff costs directly on product pages, making international pricing easier to understand while shopping."
+          overview="Shoppers often cannot tell how tariffs may affect an item's final price until late in the purchasing process. Tariffix surfaces estimated tariff costs directly on product pages, making international pricing easier to understand while shopping."
           summaryCards={[
             {
               number: "01",
               title: "Problem",
-              copy: "Shoppers often cannot tell how tariffs may affect an item’s final price until late in the purchasing process.",
+              copy: "Shoppers often cannot tell how tariffs may affect an item's final price until late in the purchasing process.",
             },
             {
               number: "02",
