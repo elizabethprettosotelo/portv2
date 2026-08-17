@@ -46,6 +46,9 @@ const projects: Project[] = [
     video: "/labeling/thumbnail.mp4",
     tags: ["Fintech", "UI Design", "Mobile First"],
     slug: "wattasave",
+    links: [
+      { label: "Demo", href: "https://devpost.com/software/wattasave", kind: "demo" },
+    ],
   },
   {
     title: "Conduit",
