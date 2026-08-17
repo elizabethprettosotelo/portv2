@@ -1,16 +1,17 @@
 "use client";
 
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import { useState, useRef } from "react";
 import { useHover } from "../contexts/HoverContext";
-import type { ProjectLink, ProjectOverview } from "./project-links";
+import { LINK_CONFIG, type ProjectLink, type ProjectOverview } from "./project-links";
 
 type Project = {
   title: string;
   blurb: string;
   tagline?: string;
   thumbnail: string;
+  hoverThumbnail?: string;
+  hoverVideo?: string;
   gif?: string;
   video?: string;
   images: string[];
@@ -35,6 +36,13 @@ const allProjects: Project[] = [
     tags: ["Product Design", "EdTech", "Frontend"],
     slug: "ucfhere",
     caseStudy: true,
+    links: [
+      {
+        label: "Demo",
+        href: "https://www.figma.com/proto/scJhVcSftznC0FFv8q2r0D/UCFHere?node-id=613-8793&starting-point-node-id=613%3A14304&t=f8HuBg7AZFgC5GsF-1",
+        kind: "figma",
+      },
+    ],
     overview: {
       role: "Product Designer & Frontend Developer",
       timeline: "Most recent project",
@@ -51,7 +59,7 @@ const allProjects: Project[] = [
     gif: "/project2.gif",
     video: "/labeling/thumbnail.mp4",
     images: ["/project2-1.jpg", "/project2-2.jpg"],
-    tags: ["Fintech", "UI Design", "Mobile First", "Hackathon"],
+    tags: ["Fintech", "UI Design", "Hackathon", "Frontend"],
     slug: "wattasave",
     winner: true,
     caseStudy: true,
@@ -74,7 +82,7 @@ const allProjects: Project[] = [
     gif: "/project1.gif",
     video: "/conduit/conduitlaunch.mp4",
     images: ["/project1-1.jpg", "/project1-2.jpg", "/project1-3.jpg"],
-    tags: ["Accessibility", "UX Design", "Multimodal Design", "Hackathon"],
+    tags: ["Accessibility", "UX Design", "Hackathon", "Frontend"],
     slug: "project-one",
     winner: true,
     caseStudy: true,
@@ -85,23 +93,6 @@ const allProjects: Project[] = [
     ],
   },
   {
-    title: "Templater",
-    blurb: "An internal faculty tool that helps instructors explore and select templates for their Canvas courses.",
-    tagline: "Reimagining how instructors build courses.",
-    thumbnail: "/labeling/thumbnail.png",
-    images: ["/project3-1.jpg", "/project3-2.jpg"],
-    tags: ["UX Design"],
-    slug: "templater",
-    caseStudy: true,
-    overview: {
-      role: "Design Placeholder",
-      timeline: "Pending",
-      tools: ["Figma", "Next.js"],
-      summary: "The original interface made templates difficult to distinguish, forcing instructors to choose without clearly understanding how each option would look or function.",
-      status: "in-progress",
-    },
-  },
-  {
     title: "Labeling",
     blurb: "A gamified educational widget used by more than 50,000 students and faculty members each month.",
     thumbnail: "/labeling/thumbnail.png",
@@ -110,7 +101,7 @@ const allProjects: Project[] = [
     noTint: true,
     images: ["/project2-1.jpg", "/project2-2.jpg"],
     tagline: "Modernizing a gamified educational widget for accessibility and responsiveness.",
-    tags: ["UI Redesign", "Accessibility", "EdTech"],
+    tags: ["UI Redesign", "Accessibility", "EdTech", "Frontend"],
     slug: "project-two",
     caseStudy: true,
     links: [
@@ -122,7 +113,7 @@ const allProjects: Project[] = [
     title: "Tariffix",
     blurb: "A Chrome extension that calculates estimated tariff costs live while users browse products on e-commerce websites.",
     tagline: "Calculating tariff costs live while you shop online.",
-    thumbnail: "/labeling/thumbnail.png",
+    thumbnail: "/tariffix/gallery-1.jpg",
     images: ["/project5-1.jpg"],
     tags: ["Frontend", "Hackathon"],
     slug: "project-five",
@@ -130,7 +121,7 @@ const allProjects: Project[] = [
     links: [
       { label: "GitHub", href: "https://github.com/Adr1an04/Tariffix", kind: "github" },
       { label: "Figma", href: "https://www.figma.com/design/VQeyiEWBKz8l6L7JDHwgqj/Tarrifix?node-id=0-1&p=f&t=aJdtyxYEZDz6tN2L-0", kind: "figma" },
-      { label: "Guide", href: "https://tariffix.vercel.app/guide", kind: "demo" },
+      { label: "Demo", href: "https://devpost.com/software/tariffix", kind: "demo" },
     ],
     overview: {
       role: "Designer & Frontend Developer",
@@ -152,11 +143,17 @@ const allProjects: Project[] = [
     title: "Knight Hacks VIII Site",
     blurb: "The visual design and UI for the Knight Hacks VIII website, created to recruit participants and introduce them to the hackathon community.",
     tagline: "More than a website - an invitation to our hackathon.",
-    thumbnail: "/labeling/thumbnail.png",
+    thumbnail: "/knighthacks/kh2025.svg",
+    hoverThumbnail: "/labeling/thumbnail.png",
+    hoverVideo: "/knighthacks/kh2025-hover.mp4",
     images: ["/project6-1.jpg", "/project6-2.jpg", "/project6-3.jpg"],
-    tags: ["Frontend", "Responsive Design", "Event Site"],
+    tags: ["Frontend", "Responsive Design"],
     slug: "project-six",
     caseStudy: true,
+    links: [
+      { label: "Demo", href: "https://2025.knighthacks.org/", kind: "demo" },
+      { label: "Figma", href: "https://www.figma.com/design/w7k6OFPP8emqJeIRZULqBb/KHVIII?node-id=0-1&t=glZQk6NvaPThdUn6-1", kind: "figma" },
+    ],
     overview: {
       role: "Frontend Developer",
       timeline: "6 weeks",
@@ -169,11 +166,17 @@ const allProjects: Project[] = [
     title: "Pallit",
     blurb: "A font and color-palette pairing generator created during my first hackathon.",
     tagline: "Where typography and color find their match.",
-    thumbnail: "/labeling/thumbnail.png",
+    thumbnail: "/pallit/frame-3.png",
+    hoverThumbnail: "/pallit/gallery-2.jpg",
     images: ["/project7-1.jpg", "/project7-2.jpg"],
-    tags: ["Product Design", "Pending", "Hackathon"],
+    tags: ["Product Design", "Hackathon", "Frontend"],
     slug: "pallit",
     caseStudy: true,
+    links: [
+      { label: "Demo", href: "https://devpost.com/software/pallit", kind: "demo" },
+      { label: "GitHub", href: "https://github.com/elizabethprettosotelo/pallit/tree/colors", kind: "github" },
+      { label: "Figma", href: "https://www.figma.com/design/XuC21SyzsND047OAgysRNZ/pallit?node-id=0-1&t=I9Hm53xGdbeBgotI-1", kind: "figma" },
+    ],
     overview: {
       role: "Design Placeholder",
       timeline: "Pending",
@@ -184,7 +187,6 @@ const allProjects: Project[] = [
   },
 ];
 
-/* ── Project card ────────────────────────────────────────────────────────── */
 function ProjectCard({
   project,
 }: {
@@ -192,7 +194,6 @@ function ProjectCard({
 }) {
   const [isHovered, setIsHovered] = useState(false);
   const { hoveredProject, setHoveredProject } = useHover();
-  const router = useRouter();
   const videoRef = useRef<HTMLVideoElement>(null);
   const playPromiseRef = useRef<Promise<void> | null>(null);
   const isHighlighted = isHovered || hoveredProject === project.slug;
@@ -203,6 +204,11 @@ function ProjectCard({
         ? "bg-[#4A72E8]/14"
         : "bg-black/0";
   const showVideoPreview = project.slug === "project-one" || project.slug === "project-two";
+  const mainImage =
+    project.hoverThumbnail && isHovered ? project.hoverThumbnail : project.thumbnail;
+  const useHoverVideo = project.hoverVideo && isHovered;
+  const imageFitClass =
+    project.slug === "project-six" ? "object-contain scale-[0.88] p-6" : "object-cover";
 
   const handleMouseEnter = () => {
     setIsHovered(true);
@@ -232,16 +238,11 @@ function ProjectCard({
     }
   };
 
-  const handleCardClick = () => {
-    router.push(`/projects/${project.slug}`);
-  };
-
   return (
     <div
-      className={`relative bg-[#FDFAF7] rounded-xl shadow-md overflow-hidden cursor-pointer transition-all duration-300 h-full flex flex-col ${
+      className={`relative bg-[#FDFAF7] rounded-xl shadow-md overflow-hidden transition-all duration-300 h-full flex flex-col ${
         isHighlighted ? "shadow-[0_4px_12px_rgba(229,177,164,0.4)] -translate-y-1" : ""
       }`}
-      onClick={handleCardClick}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
@@ -252,13 +253,24 @@ function ProjectCard({
       )}
 
       <div className="relative w-full h-56 overflow-hidden bg-[#45140C]/5 shrink-0">
-        <Image
-          src={project.thumbnail}
-          alt={project.title}
-          fill
-          className="object-cover"
-        />
-        {showVideoPreview && project.video && (
+        {useHoverVideo ? (
+          <video
+            src={project.hoverVideo}
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="absolute inset-0 h-full w-full object-cover"
+          />
+        ) : (
+          <Image
+            src={mainImage}
+            alt={project.title}
+            fill
+            className={imageFitClass}
+          />
+        )}
+        {showVideoPreview && project.video && !useHoverVideo && (
           <video
             ref={videoRef}
             src={project.video}
@@ -274,7 +286,7 @@ function ProjectCard({
           <span className={`text-white text-sm font-medium font-formadjr transition-opacity duration-300 drop-shadow ${
             isHighlighted ? "opacity-100" : "opacity-0"
           }`}>
-            View Case Study →
+            Visual links below
           </span>
         </div>
       </div>
@@ -292,17 +304,28 @@ function ProjectCard({
           {project.tagline}
         </p>
 
-        <div className="mt-4">
-          <span className="inline-flex text-sm font-medium text-[#45140C] underline underline-offset-4 hover:text-[#B5AD21] transition font-formadjr whitespace-nowrap">
-            See case study →
-          </span>
+        <div className="mt-4 flex flex-wrap gap-2">
+          {(project.links ?? []).map((link) => (
+            <a
+              key={link.label + link.href}
+              href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`inline-flex items-center gap-1.5 rounded-full border px-3.5 py-2 text-xs font-semibold tracking-[0.02em] shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B5AD21] focus-visible:ring-offset-2 focus-visible:ring-offset-[#FDFAF7] ${LINK_CONFIG[link.kind].bg} ${LINK_CONFIG[link.kind].text} border-[#45140C]/15 hover:border-[#45140C]/25 ${LINK_CONFIG[link.kind].hoverBg}`}
+            >
+              <span aria-hidden="true">{LINK_CONFIG[link.kind].icon}</span>
+              <span>{link.label}</span>
+              <span aria-hidden="true" className="text-[10px] opacity-80">
+                ↗
+              </span>
+            </a>
+          ))}
         </div>
       </div>
     </div>
   );
 }
 
-/* ── Page ────────────────────────────────────────────────────────────────── */
 export default function AllProjects() {
   const [selectedTag, setSelectedTag] = useState<string>("All");
 

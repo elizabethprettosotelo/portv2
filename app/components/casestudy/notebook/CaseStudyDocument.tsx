@@ -1,3 +1,5 @@
+"use client";
+
 import type { ReactNode } from "react";
 import type { CaseStudyDocumentData, CaseStudySection } from "./types";
 import CurrentStateFlow from "./CurrentStateFlow";
@@ -13,6 +15,7 @@ import {
   ProblemGrid,
   SectionHeading,
 } from "./CaseStudyContent";
+import { useInView } from "../../../hooks/useInView";
 
 type CaseStudyDocumentProps = {
   study: CaseStudyDocumentData;
@@ -25,11 +28,14 @@ function SectionShell({
   section: CaseStudySection;
   children: ReactNode;
 }) {
+  const sectionRef = useInView<HTMLElement>("anim-slide-up");
   return (
-    <section id={section.id} className="scroll-mt-28 py-10 md:py-14">
-      <div
-        className="mx-auto grid w-full max-w-[min(80vw,76rem)] gap-6"
-      >
+    <section
+      ref={sectionRef}
+      id={section.id}
+      className="scroll-mt-28 py-10 md:py-14 anim-hidden"
+    >
+      <div className="mx-auto grid w-full max-w-[min(80vw,76rem)] gap-6">
         {children}
       </div>
     </section>

@@ -16,7 +16,7 @@ export default function WattaSavePage() {
           role="Product Designer"
           timeline="Recent concept"
           tools={["Figma", "Design Systems", "Mobile UI"]}
-          tags={["Fintech", "UI Design", "Mobile First", "Hackathon"]}
+          tags={["Fintech", "UI Design", "Hackathon", "Frontend"]}
           links={[
             { label: "Demo", href: "https://devpost.com/software/wattasave", kind: "demo" },
           ]}

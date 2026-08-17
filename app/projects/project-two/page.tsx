@@ -16,7 +16,7 @@ export default function ProjectTwoPage() {
           role="UI/UX Designer & Frontend Developer"
           timeline="Jan - Feb 2025"
           tools={["Figma", "React", "TypeScript"]}
-          tags={["Accessibility", "UI Redesign", "EdTech"]}
+          tags={["Accessibility", "UI Redesign", "EdTech", "Frontend"]}
           links={[
             { label: "GitHub", href: "https://github.com/elizabethprettosotelo", kind: "github" },
             { label: "Figma", href: "https://figma.com", kind: "figma" },

@@ -13,7 +13,6 @@ type PendingCaseStudyPageProps = {
   footerNote?: string;
   links?: ProjectLink[];
   previewEmbedUrl?: string;
-  previewEmbedTitle?: string;
   summaryCards?: {
     number: string;
     title: string;
@@ -56,7 +55,6 @@ export default function PendingCaseStudyPage({
   footerNote = "Full case study coming soon.",
   links = [],
   previewEmbedUrl,
-  previewEmbedTitle = "Project preview",
   summaryCards = [
     {
       number: "01",
@@ -117,7 +115,7 @@ export default function PendingCaseStudyPage({
 
               <div className="space-y-4 max-w-[46rem]">
                 <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#E5B1A4]">
-                  Quick look
+                  Project visuals
                 </p>
                 <h1 className="text-4xl font-bold leading-[1.02] text-[#1f1712] md:text-6xl font-formadjr">
                   {title}
@@ -161,8 +159,18 @@ export default function PendingCaseStudyPage({
                 </div>
               </dl>
 
-              {links.length > 0 && (
+              {(previewEmbedUrl || links.length > 0) && (
                 <div className="flex flex-wrap gap-2 pt-2">
+                  {previewEmbedUrl && (
+                    <a
+                      href={previewEmbedUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center rounded-full border border-[#45140C]/12 bg-[#F3EDE2] px-3 py-1.5 text-xs font-medium text-[#45140C] transition hover:border-[#B5AD21]/40 hover:bg-[#B5AD21]/8"
+                    >
+                      Open visual preview
+                    </a>
+                  )}
                   {links.map((link) => {
                     const cfg = LINK_CONFIG[link.kind];
                     return (
@@ -182,28 +190,14 @@ export default function PendingCaseStudyPage({
               )}
             </div>
 
-            {previewEmbedUrl ? (
-              <div className="lg:pt-2">
-                <div className="overflow-hidden rounded-[1.5rem] border border-[#45140C]/12 bg-[#FDFAF7] shadow-sm aspect-[4/5] min-h-[420px] lg:min-h-[560px]">
-                  <iframe
-                    title={previewEmbedTitle}
-                    src={previewEmbedUrl}
-                    className="h-full w-full"
-                    style={{ border: "1px solid rgba(0, 0, 0, 0.1)" }}
-                    allowFullScreen
-                  />
-                </div>
-              </div>
-            ) : (
-              <MediaFrame
-                media={{
-                  placeholder:
-                    "Add a preview image or short video here when you are ready.",
-                }}
-                className="lg:pt-2"
-                aspectClassName="aspect-[4/5] min-h-[420px] lg:min-h-[560px]"
-              />
-            )}
+            <MediaFrame
+              media={{
+                placeholder:
+                  "Add a preview image or short video here when you are ready.",
+              }}
+              className="lg:pt-2"
+              aspectClassName="aspect-[4/5] min-h-[420px] lg:min-h-[560px]"
+            />
           </div>
         </div>
       </section>

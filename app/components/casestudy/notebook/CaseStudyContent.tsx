@@ -1,6 +1,9 @@
+"use client";
+
 import type { ReactNode } from "react";
 import type { DesignChapter, GoalItem, MediaAsset, ProblemIssue } from "./types";
 import MediaFrame from "./MediaFrame";
+import { useInView } from "../../../hooks/useInView";
 
 export function SectionHeading({
   number,
@@ -11,8 +14,10 @@ export function SectionHeading({
   title: string;
   kicker?: string;
 }) {
+  const headingRef = useInView<HTMLDivElement>("anim-slide-up");
+
   return (
-    <header className="space-y-3">
+    <header ref={headingRef} className="space-y-3 anim-hidden">
       <p className="text-xs font-bold uppercase tracking-[0.28em] text-[#B5AD21]">
         {number}
       </p>
@@ -22,7 +27,7 @@ export function SectionHeading({
             {kicker}
           </p>
         )}
-        <h2 className="text-3xl md:text-4xl lg:text-[2.85rem] font-bold leading-[1.08] text-[#1f1712] font-formadjr">
+        <h2 className="font-formadjr text-3xl font-bold leading-[1.08] text-[#1f1712] md:text-4xl lg:text-[2.85rem]">
           {title}
         </h2>
       </div>
@@ -33,7 +38,7 @@ export function SectionHeading({
 export function MarginNote({ children }: { children: ReactNode }) {
   return (
     <aside className="rounded-2xl border border-[#45140C]/10 bg-[#FDFAF7] p-4 text-sm leading-relaxed text-[#45140C]/70">
-      <p className="text-[10px] font-bold uppercase tracking-[0.24em] text-[#B5AD21] mb-2">
+      <p className="mb-2 text-[10px] font-bold uppercase tracking-[0.24em] text-[#B5AD21]">
         Margin note
       </p>
       {children}
@@ -42,8 +47,13 @@ export function MarginNote({ children }: { children: ReactNode }) {
 }
 
 export function PullQuote({ quote }: { quote: string }) {
+  const quoteRef = useInView<HTMLQuoteElement>("anim-slide-up");
+
   return (
-    <blockquote className="border-l-4 border-[#B5AD21] bg-[#B5AD21]/5 px-5 py-4 text-lg leading-relaxed text-[#1f1712]">
+    <blockquote
+      ref={quoteRef}
+      className="anim-hidden border-l-4 border-[#B5AD21] bg-[#B5AD21]/5 px-5 py-4 text-lg leading-relaxed text-[#1f1712]"
+    >
       <p className="font-medium italic">&ldquo;{quote}&rdquo;</p>
     </blockquote>
   );
@@ -56,13 +66,15 @@ export function GoalList({
   mainGoal: string;
   supportingGoals: GoalItem[];
 }) {
+  const goalRef = useInView<HTMLDivElement>("anim-slide-up");
+
   return (
-    <div className="space-y-6">
+    <div ref={goalRef} className="anim-hidden space-y-6">
       <div className="rounded-[1.75rem] border border-[#45140C]/12 bg-[#FDFAF7] p-6 md:p-8">
-        <p className="text-xs font-bold uppercase tracking-[0.24em] text-[#B5AD21] mb-3">
+        <p className="mb-3 text-xs font-bold uppercase tracking-[0.24em] text-[#B5AD21]">
           Main goal
         </p>
-        <p className="text-2xl md:text-3xl font-semibold leading-tight text-[#1f1712]">
+        <p className="text-2xl font-semibold leading-tight text-[#1f1712] md:text-3xl">
           {mainGoal}
         </p>
       </div>
@@ -71,7 +83,7 @@ export function GoalList({
         {supportingGoals.map((goal, index) => (
           <div
             key={goal.label}
-            className="flex gap-4 rounded-2xl border border-[#45140C]/10 bg-[#FDFAF7] p-4 lg:min-h-full"
+            className={`anim-slide-up anim-delay-${(index % 6) + 1} flex gap-4 rounded-2xl border border-[#45140C]/10 bg-[#FDFAF7] p-4 lg:min-h-full`}
           >
             <div className="shrink-0 text-sm font-bold uppercase tracking-[0.2em] text-[#B5AD21]">
               0{index + 1}
@@ -103,9 +115,10 @@ export function ProblemGrid({
   visual?: MediaAsset;
 }) {
   const hasIssues = Boolean(issues && issues.length > 0);
+  const problemRef = useInView<HTMLDivElement>("anim-slide-up");
 
   return (
-    <div className="space-y-6">
+    <div ref={problemRef} className="anim-hidden space-y-6">
       <div className="space-y-4">
         <MediaFrame
           media={visual}
@@ -128,7 +141,7 @@ export function ProblemGrid({
           {issues!.map((issue, index) => (
             <article
               key={issue.title}
-              className="rounded-[1.5rem] border border-[#45140C]/10 bg-[#FDFAF7] p-4 md:p-5"
+              className={`anim-slide-up anim-delay-${(index % 6) + 1} rounded-[1.5rem] border border-[#45140C]/10 bg-[#FDFAF7] p-4 md:p-5`}
             >
               <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#B5AD21]">
                 0{index + 1}
@@ -151,10 +164,10 @@ export function ProblemGrid({
         consequences &&
         consequences.length > 0 && (
           <ul className="grid gap-3">
-            {consequences.map((item) => (
+            {consequences.map((item, index) => (
               <li
                 key={item}
-                className="flex gap-3 rounded-2xl border border-[#45140C]/10 bg-[#FDFAF7] p-4 text-sm leading-relaxed text-[#45140C]/75"
+                className={`anim-slide-up anim-delay-${(index % 6) + 1} flex gap-3 rounded-2xl border border-[#45140C]/10 bg-[#FDFAF7] p-4 text-sm leading-relaxed text-[#45140C]/75`}
               >
                 <span className="mt-0.5 text-[#B5AD21]">&rarr;</span>
                 <span>{item}</span>
@@ -182,13 +195,18 @@ export function DesignDecision({
   note?: string;
   visual?: MediaAsset;
 }) {
+  const decisionRef = useInView<HTMLDivElement>("anim-slide-up");
+
   return (
-    <article className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+    <article
+      ref={decisionRef}
+      className="anim-hidden grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]"
+    >
       <div className="space-y-4">
         <p className="text-sm font-bold uppercase tracking-[0.24em] text-[#B5AD21]">
           Design decision
         </p>
-        <h3 className="text-2xl md:text-3xl font-semibold text-[#1f1712]">
+        <h3 className="text-2xl font-semibold text-[#1f1712] md:text-3xl">
           {title}
         </h3>
         <div className="space-y-4 text-base leading-relaxed text-[#45140C]/80">
@@ -219,9 +237,12 @@ export function ProcessChapter({
   chapter: DesignChapter;
   reverse?: boolean;
 }) {
+  const chapterRef = useInView<HTMLElement>("anim-slide-up");
+
   return (
     <article
-      className={`grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] ${
+      ref={chapterRef}
+      className={`anim-hidden grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] ${
         reverse ? "lg:[&>*:first-child]:order-2" : ""
       }`}
     >
@@ -232,7 +253,7 @@ export function ProcessChapter({
           </p>
           <div className="h-px flex-1 bg-[#45140C]/10" />
         </div>
-        <h3 className="text-2xl md:text-3xl font-semibold text-[#1f1712]">
+        <h3 className="text-2xl font-semibold text-[#1f1712] md:text-3xl">
           {chapter.title}
         </h3>
         <div className="space-y-4 text-base leading-relaxed text-[#45140C]/80">
@@ -263,8 +284,10 @@ export function AccessibilitySummary({
   intro: string;
   items: string[];
 }) {
+  const accessibilityRef = useInView<HTMLDivElement>("anim-slide-up");
+
   return (
-    <div className="space-y-6">
+    <div ref={accessibilityRef} className="anim-hidden space-y-6">
       <MediaFrame
         media={{
           placeholder:
@@ -272,17 +295,19 @@ export function AccessibilitySummary({
         }}
         aspectClassName="aspect-[16/9] min-h-[280px] lg:min-h-[360px]"
       />
-      <div className="space-y-4 max-w-3xl">
+      <div className="max-w-3xl space-y-4">
         <p className="text-sm font-bold uppercase tracking-[0.24em] text-[#B5AD21]">
           Accessibility and responsiveness
         </p>
         <p className="text-base leading-relaxed text-[#45140C]/80">{intro}</p>
       </div>
       <ul className="grid gap-3">
-        {items.map((item) => (
+        {items.map((item, index) => (
           <li
             key={item}
-            className="rounded-2xl border border-[#45140C]/10 bg-[#FDFAF7] px-4 py-3 text-sm leading-relaxed text-[#1f1712]"
+            className={`anim-hidden anim-slide-up anim-delay-${
+              (index % 6) + 1
+            } rounded-2xl border border-[#45140C]/10 bg-[#FDFAF7] px-4 py-3 text-sm leading-relaxed text-[#1f1712]`}
           >
             {item}
           </li>
@@ -301,8 +326,10 @@ export function OutcomeSummary({
   reflection: string;
   nextSteps: string[];
 }) {
+  const outcomeRef = useInView<HTMLDivElement>("anim-slide-up");
+
   return (
-    <div className="space-y-6">
+    <div ref={outcomeRef} className="anim-hidden space-y-6">
       <MediaFrame
         media={{
           placeholder:
@@ -310,7 +337,7 @@ export function OutcomeSummary({
         }}
         aspectClassName="aspect-[16/9] min-h-[280px] lg:min-h-[360px]"
       />
-      <div className="space-y-4 max-w-3xl">
+      <div className="max-w-3xl space-y-4">
         <p className="text-sm font-bold uppercase tracking-[0.24em] text-[#B5AD21]">
           Outcomes and reflection
         </p>
@@ -318,10 +345,12 @@ export function OutcomeSummary({
         <p className="text-base leading-relaxed text-[#45140C]/80">{reflection}</p>
       </div>
       <div className="space-y-3">
-        {nextSteps.map((step) => (
+        {nextSteps.map((step, index) => (
           <div
             key={step}
-            className="flex gap-3 rounded-2xl border border-dashed border-[#45140C]/18 bg-[#FDFAF7] p-4 text-sm leading-relaxed text-[#45140C]/75"
+            className={`anim-hidden anim-slide-up anim-delay-${
+              (index % 6) + 1
+            } flex gap-3 rounded-2xl border border-dashed border-[#45140C]/18 bg-[#FDFAF7] p-4 text-sm leading-relaxed text-[#45140C]/75`}
           >
             <span className="text-[#B5AD21]">&rarr;</span>
             <span>{step}</span>
@@ -337,12 +366,14 @@ export function IterationSequence({
 }: {
   iterations: { title: string; caption: string }[];
 }) {
+  const iterationRef = useInView<HTMLDivElement>("anim-slide-up");
+
   return (
-    <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+    <div ref={iterationRef} className="anim-hidden grid gap-4 md:grid-cols-2 xl:grid-cols-4">
       {iterations.map((iteration, index) => (
         <div
           key={iteration.title}
-          className="rounded-[1.5rem] border border-[#45140C]/10 bg-[#FDFAF7] p-4"
+          className={`anim-slide-up anim-delay-${(index % 6) + 1} rounded-[1.5rem] border border-[#45140C]/10 bg-[#FDFAF7] p-4`}
         >
           <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#B5AD21]">
             0{index + 1}

@@ -2,9 +2,9 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { useHover } from "../contexts/HoverContext";
+import { LINK_CONFIG } from "./project-links";
 
 type Project = {
   title: string;
@@ -16,6 +16,7 @@ type Project = {
   tags: string[];
   slug: string;
   noTint?: boolean;
+  links?: { label: string; href: string; kind: "github" | "devpost" | "demo" | "figma" | "custom" }[];
 };
 
 const projects: Project[] = [
@@ -28,6 +29,13 @@ const projects: Project[] = [
     video: "/conduit/conduitlaunch.mp4",
     tags: ["Product Design", "Campus Experience", "Frontend"],
     slug: "ucfhere",
+    links: [
+      {
+        label: "Demo",
+        href: "https://www.figma.com/proto/scJhVcSftznC0FFv8q2r0D/UCFHere?node-id=613-8793&starting-point-node-id=613%3A14304&t=f8HuBg7AZFgC5GsF-1",
+        kind: "figma",
+      },
+    ],
   },
   {
     title: "Wattasave",
@@ -48,6 +56,11 @@ const projects: Project[] = [
     video: "/conduit/conduitlaunch.mp4",
     tags: ["Accessibility", "UX Design", "Multimodal Design"],
     slug: "project-one",
+    links: [
+      { label: "GitHub", href: "https://github.com/kwaiidev/conduit", kind: "github" },
+      { label: "Devpost", href: "https://devpost.com/software/conduit-y8gqoj?ref_content=my-projects-tab&ref_feature=my_projects", kind: "devpost" },
+      { label: "Figma", href: "https://figma.com", kind: "figma" },
+    ],
   },
 ];
 
@@ -76,9 +89,9 @@ function AnimatedCard({ project }: { project: Project }) {
 }
 
 function ProjectCard({ project }: { project: Project }) {
-  const router = useRouter();
   const { hoveredProject, setHoveredProject } = useHover();
-  const isHighlighted = hoveredProject === project.slug;
+  const [isHovered, setIsHovered] = useState(false);
+  const isHighlighted = isHovered || hoveredProject === project.slug;
   const hoverTintClass =
     project.slug === "ucfhere"
       ? "bg-black/15"
@@ -87,26 +100,19 @@ function ProjectCard({ project }: { project: Project }) {
         : "bg-black/0";
   const showVideoPreview = project.slug === "project-one";
 
-  const handleMouseEnter = () => {
-    setHoveredProject(project.slug);
-  };
-
-  const handleMouseLeave = () => {
-    setHoveredProject(null);
-  };
-
-  const handleCardClick = () => {
-    router.push(`/projects/${project.slug}`);
-  };
-
   return (
     <div
-      className={`relative bg-[#FDFAF7] rounded-xl shadow-md overflow-hidden cursor-pointer transition-all duration-300 h-full flex flex-col ${
+      className={`relative bg-[#FDFAF7] rounded-xl shadow-md overflow-hidden transition-all duration-300 h-full flex flex-col ${
         isHighlighted ? "shadow-[0_4px_12px_rgba(229,177,164,0.4)] -translate-y-1" : ""
       }`}
-      onClick={handleCardClick}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
+      onMouseEnter={() => {
+        setIsHovered(true);
+        setHoveredProject(project.slug);
+      }}
+      onMouseLeave={() => {
+        setIsHovered(false);
+        setHoveredProject(null);
+      }}
     >
       <div className="relative w-full aspect-[16/9]">
         <Image
@@ -121,7 +127,7 @@ function ProjectCard({ project }: { project: Project }) {
             muted
             loop
             playsInline
-            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 z-10 ${isHighlighted ? "opacity-100" : "opacity-0"}`}
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 z-10 ${isHovered ? "opacity-100" : "opacity-0"}`}
           />
         )}
         <div className={`absolute inset-0 transition-colors duration-300 z-20 ${isHighlighted ? hoverTintClass : "bg-black/0"}`} />
@@ -141,10 +147,22 @@ function ProjectCard({ project }: { project: Project }) {
         <h3 className="text-2xl font-bold text-[#45140C] font-formadjr mb-2">{project.title}</h3>
         <p className="text-[#45140C]/90 text-base font-medium font-inter leading-relaxed">{project.tagline}</p>
 
-        <div className="mt-4">
-          <span className="inline-flex text-sm font-medium text-[#45140C] underline underline-offset-4 hover:text-[#B5AD21] transition font-formadjr whitespace-nowrap">
-            Read case study →
-          </span>
+        <div className="mt-4 flex flex-wrap gap-2">
+          {(project.links ?? []).map((link) => (
+            <a
+              key={link.label + link.href}
+              href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`inline-flex items-center gap-1.5 rounded-full border px-3.5 py-2 text-xs font-semibold tracking-[0.02em] shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B5AD21] focus-visible:ring-offset-2 focus-visible:ring-offset-[#FDFAF7] ${LINK_CONFIG[link.kind].bg} ${LINK_CONFIG[link.kind].text} border-[#45140C]/15 hover:border-[#45140C]/25 ${LINK_CONFIG[link.kind].hoverBg}`}
+            >
+              <span aria-hidden="true">{LINK_CONFIG[link.kind].icon}</span>
+              <span>{link.label}</span>
+              <span aria-hidden="true" className="text-[10px] opacity-80">
+                ↗
+              </span>
+            </a>
+          ))}
         </div>
       </div>
     </div>

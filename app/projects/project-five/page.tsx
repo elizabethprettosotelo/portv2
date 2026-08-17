@@ -20,7 +20,7 @@ export default function ProjectFivePage() {
           links={[
             { label: "GitHub", href: "https://github.com/Adr1an04/Tariffix", kind: "github" },
             { label: "Figma", href: "https://www.figma.com/design/VQeyiEWBKz8l6L7JDHwgqj/Tarrifix?node-id=0-1&p=f&t=aJdtyxYEZDz6tN2L-0", kind: "figma" },
-            { label: "Guide", href: "https://tariffix.vercel.app/guide", kind: "demo" },
+            { label: "Demo", href: "https://devpost.com/software/tariffix", kind: "demo" },
           ]}
           overview="Shoppers often cannot tell how tariffs may affect an item's final price until late in the purchasing process. Tariffix surfaces estimated tariff costs directly on product pages, making international pricing easier to understand while shopping."
           summaryCards={[

@@ -16,7 +16,12 @@ export default function PallitPage() {
           role="Design Placeholder"
           timeline="Pending"
           tools={["Figma", "Next.js"]}
-          tags={["Product Design", "Pending", "Hackathon"]}
+          tags={["Product Design", "Hackathon", "Frontend"]}
+          links={[
+            { label: "Demo", href: "https://devpost.com/software/pallit", kind: "demo" },
+            { label: "GitHub", href: "https://github.com/elizabethprettosotelo/pallit/tree/colors", kind: "github" },
+            { label: "Figma", href: "https://www.figma.com/design/XuC21SyzsND047OAgysRNZ/pallit?node-id=0-1&t=I9Hm53xGdbeBgotI-1", kind: "figma" },
+          ]}
           overview="Choosing typography and colors that feel cohesive can be difficult, especially for designers beginning a new project. Pallit generates complementary font and color combinations to give users a faster starting point for their visual direction."
           summaryCards={[
             {

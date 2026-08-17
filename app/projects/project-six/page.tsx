@@ -16,7 +16,11 @@ export default function ProjectSixPage() {
           role="Frontend Developer"
           timeline="In progress"
           tools={["Next.js", "Tailwind", "Responsive UI"]}
-          tags={["Frontend", "Responsive Design", "Event Site"]}
+          tags={["Frontend", "Responsive Design"]}
+          links={[
+            { label: "Demo", href: "https://2025.knighthacks.org/", kind: "demo" },
+            { label: "Figma", href: "https://www.figma.com/design/w7k6OFPP8emqJeIRZULqBb/KHVIII?node-id=0-1&t=glZQk6NvaPThdUn6-1", kind: "figma" },
+          ]}
           overview="The site needed to communicate essential event information while also capturing the energy, personality, and scale of Knight Hacks. I created an immersive visual system that combined clear information architecture with a distinctive event identity and engaging interface design."
           summaryCards={[
             {

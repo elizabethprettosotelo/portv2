@@ -1,17 +1,24 @@
+"use client";
+
 import Link from "next/link";
 import MediaFrame from "./MediaFrame";
 import type { CaseStudyDocumentData } from "./types";
+import { useInView } from "../../../hooks/useInView";
 
 type NotebookHeroProps = {
   study: CaseStudyDocumentData;
 };
 
 export default function NotebookHero({ study }: NotebookHeroProps) {
+  const introRef = useInView<HTMLDivElement>("anim-slide-up");
+  const metaRef = useInView<HTMLDListElement>("anim-slide-up anim-delay-1");
+  const mediaRef = useInView<HTMLDivElement>("anim-scale-in anim-delay-2");
+
   return (
     <section className="w-full border-b border-[#45140C]/10 bg-[#F3EDE2]">
       <div className="mx-auto w-full max-w-[min(80vw,76rem)] px-4 py-10 md:px-8 md:py-14">
         <div className="grid gap-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(360px,0.95fr)] lg:items-start">
-          <div className="space-y-6">
+          <div ref={introRef} className="space-y-6 anim-hidden">
             <div className="space-y-4">
               <Link
                 href={study.returnHref}
@@ -61,7 +68,10 @@ export default function NotebookHero({ study }: NotebookHeroProps) {
               </p>
             </div>
 
-            <dl className="grid gap-4 border-t border-[#45140C]/10 pt-6 sm:grid-cols-2 xl:grid-cols-3">
+            <dl
+              ref={metaRef}
+              className="grid gap-4 border-t border-[#45140C]/10 pt-6 sm:grid-cols-2 xl:grid-cols-3 anim-hidden"
+            >
               {study.meta.map((item) => (
                 <div key={item.label} className="space-y-1">
                   <dt className="text-[10px] font-bold uppercase tracking-[0.26em] text-[#B5AD21]">
@@ -75,11 +85,12 @@ export default function NotebookHero({ study }: NotebookHeroProps) {
             </dl>
           </div>
 
-          <MediaFrame
-            media={study.heroMedia}
-            className="lg:pt-2"
-            aspectClassName="aspect-[4/5] min-h-[420px] lg:min-h-[560px]"
-          />
+          <div ref={mediaRef} className="anim-hidden lg:pt-2">
+            <MediaFrame
+              media={study.heroMedia}
+              aspectClassName="aspect-[4/5] min-h-[420px] lg:min-h-[560px]"
+            />
+          </div>
         </div>
       </div>
     </section>
