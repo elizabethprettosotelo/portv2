@@ -16,7 +16,7 @@ export default function ProjectFivePage() {
           role="Designer & Frontend Developer"
           timeline="Bitcamp 2024"
           tools={["Next.js", "Figma", "Monorepo"]}
-          tags={["Frontend", "Hackathon"]}
+          tags={["Frontend", "Hackathon", "Fintech"]}
           links={[
             { label: "GitHub", href: "https://github.com/Adr1an04/Tariffix", kind: "github" },
             { label: "Figma", href: "https://www.figma.com/design/VQeyiEWBKz8l6L7JDHwgqj/Tarrifix?node-id=0-1&p=f&t=aJdtyxYEZDz6tN2L-0", kind: "figma" },

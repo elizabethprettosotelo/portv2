@@ -115,7 +115,7 @@ const allProjects: Project[] = [
     tagline: "Calculating tariff costs live while you shop online.",
     thumbnail: "/tariffix/gallery-1.jpg",
     images: ["/project5-1.jpg"],
-    tags: ["Frontend", "Hackathon"],
+    tags: ["Frontend", "Hackathon", "Fintech"],
     slug: "project-five",
     winner: true,
     links: [
