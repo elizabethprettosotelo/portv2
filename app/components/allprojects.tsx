@@ -88,7 +88,7 @@ const allProjects: Project[] = [
     caseStudy: true,
     links: [
       { label: "GitHub", href: "https://github.com/kwaiidev/conduit", kind: "github" },
-      { label: "Devpost", href: "https://devpost.com/software/conduit-y8gqoj?ref_content=my-projects-tab&ref_feature=my_projects", kind: "devpost" },
+      { label: "Demo", href: "https://devpost.com/software/conduit-y8gqoj?ref_content=my-projects-tab&ref_feature=my_projects", kind: "devpost" },
       { label: "Figma", href: "https://figma.com", kind: "figma" },
     ],
   },

@@ -17,8 +17,8 @@ export const LINK_CONFIG: Record<
   devpost: {
     icon: "◈",
     bg: "bg-[#B5AD21]/22",
-    text: "text-[#1F1712]",
-    hoverBg: "hover:bg-[#A8A41F] hover:text-[#1F1712]",
+    text: "text-[#45140C]",
+    hoverBg: "hover:bg-[#A8A41F] hover:text-[#45140C]",
   },
   demo: {
     icon: "▶",
