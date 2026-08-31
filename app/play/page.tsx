@@ -1,5 +1,5 @@
-import UnderConstruction from "../components/wip";
 import Navbar from "../components/navbar";
+import UnderConstruction from "../components/wip";
 
 export default function PlayPage() {
   return (

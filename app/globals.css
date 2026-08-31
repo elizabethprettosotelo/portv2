@@ -136,6 +136,20 @@ body {
   100% { transform: rotate(-4deg) scale(1.05); }
 }
 
+@keyframes bookFlipNext {
+  0%   { opacity: 0; transform: rotateY(0deg) translateZ(0); }
+  15%  { opacity: 1; }
+  50%  { transform: rotateY(-85deg) translateZ(0); }
+  100% { opacity: 0; transform: rotateY(-180deg) translateZ(0); }
+}
+
+@keyframes bookFlipPrev {
+  0%   { opacity: 0; transform: rotateY(0deg) translateZ(0); }
+  15%  { opacity: 1; }
+  50%  { transform: rotateY(85deg) translateZ(0); }
+  100% { opacity: 0; transform: rotateY(180deg) translateZ(0); }
+}
+
 /* Animation utility classes */
 .animate-book-tilt {
   animation: bookTilt 0.5s ease-in-out infinite !important;
