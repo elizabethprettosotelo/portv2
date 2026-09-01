@@ -79,37 +79,20 @@ const experiences: Experience[] = [
   },
 ];
 
-const typeColors: Record<string, string> = {
-  "Full-time": "bg-[#F3EDE2] text-[#45140C]",
-  "Internship": "bg-[#B5AD21] text-[#45140C]",
-  "Freelance": "bg-[#E5B1A4] text-[#45140C]",
-  "Volunteer": "bg-[#F3EDE2]/70 text-[#45140C]",
-  "Current": "bg-[#E5B1A4] text-[#45140C]",
-};
-
-function ExperienceCard({ experience, isHovered }: { experience: Experience; isHovered: boolean }) {
+function ExperienceCard({ experience }: { experience: Experience }) {
   const { setHoveredProject } = useHover();
   return (
     <div
       id={experience.id}
       onMouseEnter={() => setHoveredProject(experience.id)}
       onMouseLeave={() => setHoveredProject(null)}
-      className={`relative w-full max-w-3xl bg-[#FDFAF7] border border-[#45140C]/20 rounded-xl shadow-sm overflow-hidden transition-all duration-300 ${
-        isHovered ? 'shadow-[0_4px_12px_rgba(229,177,164,0.4)]' : ''
-      }`}
+      className="relative w-full max-w-3xl bg-[#F9FAF3] rounded-xl overflow-hidden transition-all duration-300"
     >
-      {/* Type pill — overlaid top-right */}
-      <span
-        className={`absolute top-2.5 right-2.5 z-10 text-xs font-formadjr font-semibold px-2.5 py-0.5 rounded-full ${typeColors[experience.type] ?? "bg-[#45140C]/10 text-[#45140C]"}`}
-      >
-        {experience.type}
-      </span>
-
       <div className="px-5 py-4">
-        <div className="flex items-center gap-2 flex-wrap pr-20">
+        <div className="flex items-center gap-2 flex-wrap">
           {/* Company logo */}
           {experience.logo && (
-            <div className="w-9 h-9 rounded-lg bg-[#45140C]/10 flex items-center justify-center shrink-0 overflow-hidden">
+            <div className="w-9 h-9 rounded-lg bg-[#250D47]/10 flex items-center justify-center shrink-0 overflow-hidden">
               <Image
                 src={experience.logo}
                 alt={`${experience.company} logo`}
@@ -120,30 +103,18 @@ function ExperienceCard({ experience, isHovered }: { experience: Experience; isH
             </div>
           )}
           <div>
-            <h3 className="text-lg font-bold text-[#45140C] font-formadjr leading-snug tracking-wide">
+            <h3 className="text-lg font-bold text-[#250D47] font-formadjr leading-snug tracking-wide">
               {experience.role}
             </h3>
-            <p className="text-[#45140C]/80 text-sm font-formadjr font-medium tracking-wide">
+            <p className="text-[#250D47]/80 text-sm font-formadjr font-medium tracking-wide">
               {experience.company}
             </p>
-            <p className="text-xs text-[#45140C]/60 font-inter tracking-wide mt-0.5">{experience.dateRange}</p>
+            <p className="text-xs text-[#250D47]/60 font-inter tracking-wide mt-0.5">{experience.dateRange}</p>
           </div>
         </div>
 
-        {/* Skills */}
-        <div className="mt-3 flex flex-wrap gap-1.5">
-          {experience.skills.map((skill) => (
-            <span
-              key={skill}
-              className="text-xs px-2.5 py-0.5 rounded-full border border-[#45140C]/25 text-[#45140C]/80 font-formadjr tracking-wide"
-            >
-              {skill}
-            </span>
-          ))}
-        </div>
-
         {/* Description */}
-        <p className="mt-3 text-sm text-[#45140C]/75 font-inter leading-relaxed tracking-wide">
+        <p className="mt-3 text-sm text-[#250D47]/75 font-inter leading-relaxed tracking-wide">
           {experience.description}
         </p>
       </div>
@@ -151,7 +122,7 @@ function ExperienceCard({ experience, isHovered }: { experience: Experience; isH
   );
 }
 
-function AnimatedExpCard({ experience, isHovered }: { experience: Experience; isHovered: boolean }) {
+function AnimatedExpCard({ experience }: { experience: Experience }) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -170,13 +141,12 @@ function AnimatedExpCard({ experience, isHovered }: { experience: Experience; is
 
   return (
     <div ref={ref} className="anim-hidden">
-      <ExperienceCard experience={experience} isHovered={isHovered} />
+      <ExperienceCard experience={experience} />
     </div>
   );
 }
 
 export default function Experiences() {
-  const { hoveredProject } = useHover();
   const headingRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -194,17 +164,17 @@ export default function Experiences() {
   }, []);
 
   return (
-    <section id="experiences" className="w-full py-16 px-4 bg-[#F3EDE2]">
+    <section id="experiences" className="w-full py-16 px-4 bg-[#F0F1E3]">
       <div ref={headingRef} className="anim-hidden max-w-3xl mx-auto mb-12">
-        <h2 className="text-4xl font-bold text-[#45140C] font-formadjr text-left">Experience</h2>
-        <p className="text-lg text-[#45140C]/70 font-inter mt-2 text-left">Look at all the cool places I&apos;ve worked at ✦</p>
+        <h2 className="text-4xl font-bold text-[#250D47] font-formadjr text-left">Experience</h2>
+        <p className="text-lg text-[#250D47]/70 font-inter mt-2 text-left">Look at all the cool places I&apos;ve worked at ✦</p>
       </div>
 
       {/* Timeline layout */}
       <div className="relative max-w-3xl mx-auto">
         {/* Vertical line */}
         <div
-          className="absolute top-0 bottom-0 w-px bg-[#B5AD21]"
+          className="absolute top-0 bottom-0 w-px bg-[#8EB522]"
           style={{ left: "-2rem" }}
         />
 
@@ -212,14 +182,17 @@ export default function Experiences() {
           <div key={i} className="relative mb-8">
             {/* Timeline node */}
             <div
-              className="absolute w-3 h-3 rounded-full bg-[#B5AD21] border-2 border-[#F3EDE2]"
+              className="absolute w-3 h-3 rounded-full bg-[#8EB522] border-2 border-[#F0F1E3]"
               style={{ left: "-2.375rem", top: "50%", transform: "translateY(-50%)" }}
             />
-            <AnimatedExpCard experience={exp} isHovered={hoveredProject === exp.id} />
+            <AnimatedExpCard experience={exp} />
           </div>
         ))}
       </div>
     </section>
   );
 }
+
+
+
 

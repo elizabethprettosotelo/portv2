@@ -60,7 +60,7 @@ export default function CaseStudyNavigation({ sections }: CaseStudyNavigationPro
   return (
     <nav
       aria-label="Case study sections"
-      className="sticky top-16 md:top-4 z-40 w-full border-y border-[#E5B1A4]/45 bg-[#E5B1A4]/18 backdrop-blur-[2px]"
+      className="sticky top-16 md:top-4 z-40 w-full border-y border-[#9AB1EB]/45 bg-[#9AB1EB]/18 backdrop-blur-[2px]"
     >
       <div className="overflow-x-auto px-3 py-3 md:px-4">
         <div className="flex min-w-max items-center gap-2">
@@ -71,10 +71,10 @@ export default function CaseStudyNavigation({ sections }: CaseStudyNavigationPro
                 key={item.id}
                 type="button"
                 onClick={() => scrollTo(item.id)}
-                className={`inline-flex items-center gap-2 border-b px-3 py-2 text-left transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E5B1A4] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F3EDE2] ${
+                className={`inline-flex items-center gap-2 border-b px-3 py-2 text-left transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9AB1EB] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F0F1E3] ${
                   isActive
-                    ? "border-[#45140C]/20 bg-[#E5B1A4]/34 text-[#45140C]"
-                    : "border-transparent bg-transparent text-[#45140C]/60 hover:border-[#45140C]/20 hover:text-[#45140C]"
+                    ? "border-[#250D47]/20 bg-[#9AB1EB]/34 text-[#250D47]"
+                    : "border-transparent bg-transparent text-[#250D47]/60 hover:border-[#250D47]/20 hover:text-[#250D47]"
                 }`}
                 aria-current={isActive ? "true" : undefined}
               >
@@ -92,3 +92,6 @@ export default function CaseStudyNavigation({ sections }: CaseStudyNavigationPro
     </nav>
   );
 }
+
+
+

@@ -32,21 +32,21 @@ export default function CaseStudyComparison({
   }, [registerSection, unregisterSection]);
 
   return (
-    <section id="comparison" className="w-full py-12 bg-[#F3EDE2]">
+    <section id="comparison" className="w-full py-12 bg-[#F0F1E3]">
       <div className="w-full">
         {/* Section Number */}
-        <div className="text-6xl font-bold text-[#B5AD21]/20 mb-3 font-formadjr">
+        <div className="text-6xl font-bold text-[#8EB522]/20 mb-3 font-formadjr">
           {sectionNumber}
         </div>
         
         {/* Section Title */}
-        <h2 className="text-3xl md:text-4xl font-bold text-[#45140C] font-formadjr mb-6">
+        <h2 className="text-3xl md:text-4xl font-bold text-[#250D47] font-formadjr mb-6">
           {title}
         </h2>
 
         {/* Description */}
         {description && (
-          <p className="text-base text-[#45140C]/80 font-inter leading-relaxed mb-8">
+          <p className="text-base text-[#250D47]/80 font-inter leading-relaxed mb-8">
             {description}
           </p>
         )}
@@ -56,13 +56,13 @@ export default function CaseStudyComparison({
           {comparisons.map((item, index) => (
             <div key={index} className="space-y-4">
               {/* Item Title */}
-              <h3 className="text-xl font-bold text-[#45140C] font-formadjr">
+              <h3 className="text-xl font-bold text-[#250D47] font-formadjr">
                 {item.title}
               </h3>
               
               {/* Item Description */}
               {item.description && (
-                <p className="text-base text-[#45140C]/70 font-inter leading-relaxed">
+                <p className="text-base text-[#250D47]/70 font-inter leading-relaxed">
                   {item.description}
                 </p>
               )}
@@ -71,12 +71,12 @@ export default function CaseStudyComparison({
               <div className="flex gap-6 items-start justify-center flex-wrap">
                 {/* Before */}
                 <div className="space-y-3 shrink-0">
-                  <div className="inline-block px-3 py-1 bg-[#E5B1A4]/20 border border-[#E5B1A4]/40 rounded-md">
-                    <span className="text-xs font-bold text-[#45140C]/70 font-formadjr uppercase tracking-wide">
+                  <div className="inline-block px-3 py-1 bg-[#9AB1EB]/20 border border-[#9AB1EB]/40 rounded-md">
+                    <span className="text-xs font-bold text-[#250D47]/70 font-formadjr uppercase tracking-wide">
                       Before
                     </span>
                   </div>
-                  <div className="relative h-96 w-auto rounded-xl overflow-hidden shadow-lg border border-[#45140C]/10">
+                  <div className="relative h-96 w-auto rounded-xl overflow-hidden border border-[#250D47]/10">
                     <Image
                       src={item.before}
                       alt={`${item.title} - Before`}
@@ -89,12 +89,12 @@ export default function CaseStudyComparison({
 
                 {/* After */}
                 <div className="space-y-3 shrink-0">
-                  <div className="inline-block px-3 py-1 bg-[#B5AD21]/20 border border-[#B5AD21]/40 rounded-md">
-                    <span className="text-xs font-bold text-[#45140C]/70 font-formadjr uppercase tracking-wide">
+                  <div className="inline-block px-3 py-1 bg-[#8EB522]/20 border border-[#8EB522]/40 rounded-md">
+                    <span className="text-xs font-bold text-[#250D47]/70 font-formadjr uppercase tracking-wide">
                       After
                     </span>
                   </div>
-                  <div className="relative h-96 w-auto rounded-xl overflow-hidden shadow-lg border border-[#B5AD21]/20 hover:border-[#B5AD21]/40 transition-colors bg-white">
+                  <div className="relative h-96 w-auto rounded-xl overflow-hidden border border-[#8EB522]/20 hover:border-[#8EB522]/40 transition-colors bg-white">
                     <Image
                       src={item.after}
                       alt={`${item.title} - After`}
@@ -112,3 +112,6 @@ export default function CaseStudyComparison({
     </section>
   );
 }
+
+
+

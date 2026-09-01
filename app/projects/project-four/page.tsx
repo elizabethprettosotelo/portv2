@@ -4,10 +4,10 @@ import PendingCaseStudyPage from "../../components/casestudy/PendingCaseStudyPag
 
 export default function ProjectFourPage() {
   return (
-    <div className="min-h-screen flex flex-col max-w-full bg-[#F3EDE2]">
+    <div className="min-h-screen flex flex-col max-w-full bg-[#F0F1E3]">
       <Navbar />
       <main
-        className="flex-1 pt-16 md:pt-0 max-w-full bg-[#F3EDE2]"
+        className="flex-1 pt-16 md:pt-0 max-w-full bg-[#F0F1E3]"
         style={{ marginLeft: "var(--sidebar-width, 0px)" }}
       >
         <PendingCaseStudyPage
@@ -24,3 +24,6 @@ export default function ProjectFourPage() {
     </div>
   );
 }
+
+
+

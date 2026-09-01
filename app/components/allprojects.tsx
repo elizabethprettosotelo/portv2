@@ -1,9 +1,11 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useState, useRef } from "react";
 import { useHover } from "../contexts/HoverContext";
 import { LINK_CONFIG, type ProjectLink, type ProjectOverview } from "./project-links";
+import Tooltip from "./tooltip";
 
 type Project = {
   title: string;
@@ -187,11 +189,7 @@ const allProjects: Project[] = [
   },
 ];
 
-function ProjectCard({
-  project,
-}: {
-  project: Project;
-}) {
+function ProjectCard({ project }: { project: Project; }) {
   const [isHovered, setIsHovered] = useState(false);
   const { hoveredProject, setHoveredProject } = useHover();
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -209,7 +207,7 @@ function ProjectCard({
   const useHoverVideo = project.hoverVideo && isHovered;
   const imageFitClass =
     project.slug === "project-six" ? "object-contain scale-[0.88] p-6" : "object-cover";
-
+  const caseStudyHref = project.slug === "ucfhere" ? "/projects/ucfhere/case-study" : `/projects/${project.slug}`;
   const handleMouseEnter = () => {
     setIsHovered(true);
     setHoveredProject(project.slug);
@@ -240,87 +238,93 @@ function ProjectCard({
 
   return (
     <div
-      className={`relative bg-[#FDFAF7] rounded-xl shadow-md overflow-hidden transition-all duration-300 h-full flex flex-col ${
-        isHighlighted ? "shadow-[0_4px_12px_rgba(229,177,164,0.4)] -translate-y-1" : ""
+      className={`relative bg-[#F9FAF3] rounded-xl overflow-hidden transition-all duration-300 h-full flex flex-col ${
+        isHighlighted ? "-translate-y-1" : ""
       }`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
       {project.winner && (
-        <div className="absolute top-3 right-3 z-10 px-3 py-1 bg-[#B5AD21] text-white text-xs font-bold font-formadjr rounded-full">
+        <div className="absolute top-3 right-3 z-10 px-3 py-1 bg-[#8EB522] text-white text-xs font-bold font-formadjr rounded-full">
           WINNER
         </div>
       )}
 
-      <div className="relative w-full h-56 overflow-hidden bg-[#45140C]/5 shrink-0">
-        {useHoverVideo ? (
-          <video
-            src={project.hoverVideo}
-            autoPlay
-            muted
-            loop
-            playsInline
-            className="absolute inset-0 h-full w-full object-cover"
-          />
-        ) : (
-          <Image
-            src={mainImage}
-            alt={project.title}
-            fill
-            className={imageFitClass}
-          />
-        )}
-        {showVideoPreview && project.video && !useHoverVideo && (
-          <video
-            ref={videoRef}
-            src={project.video}
-            muted
-            loop
-            playsInline
-            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 z-10 ${isHovered ? "opacity-100" : "opacity-0"}`}
-          />
-        )}
-        <div className={`absolute inset-0 transition-colors duration-300 flex items-center justify-center z-20 ${
-          isHighlighted ? hoverTintClass : "bg-black/0"
-        }`}>
-          <span className={`text-white text-sm font-medium font-formadjr transition-opacity duration-300 drop-shadow ${
-            isHighlighted ? "opacity-100" : "opacity-0"
-          }`}>
-            Visual links below
-          </span>
-        </div>
-      </div>
+      <Tooltip followCursor label="Open case study" className="block">
+        <Link href={caseStudyHref} className="block cursor-pointer">
+          <div className="cursor-pointer">
+            <div className="relative w-full h-56 overflow-hidden bg-[#250D47]/5 shrink-0">
+              {useHoverVideo ? (
+                <video
+                  src={project.hoverVideo}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  className="absolute inset-0 h-full w-full object-cover"
+                />
+              ) : (
+                <Image
+                  src={mainImage}
+                  alt={project.title}
+                  fill
+                  className={imageFitClass}
+                />
+              )}
+              {showVideoPreview && project.video && !useHoverVideo && (
+                <video
+                  ref={videoRef}
+                  src={project.video}
+                  muted
+                  loop
+                  playsInline
+                  className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 z-10 ${isHovered ? "opacity-100" : "opacity-0"}`}
+                />
+              )}
+              <div className={`absolute inset-0 transition-colors duration-300 flex items-center justify-center z-20 ${
+                isHighlighted ? hoverTintClass : "bg-black/0"
+              }`}>
+                <span className={`text-white text-sm font-medium font-formadjr transition-opacity duration-300 ${
+                  isHighlighted ? "opacity-100" : "opacity-0"
+                }`}>
+                  Visual links below
+                </span>
+              </div>
+            </div>
 
-      <div className="p-5 flex flex-col flex-1">
-        <div className="flex flex-wrap gap-2 mb-3">
-          {project.tags.map((tag) => (
-            <span key={tag} className="text-xs px-2 py-0.5 rounded-full bg-[#45140C]/10 text-[#45140C] font-normal font-inter">
-              {tag}
+            <div className="p-5 flex flex-col flex-1">
+              <div className="flex flex-wrap gap-2 mb-3">
+                {project.tags.map((tag) => (
+                  <span key={tag} className="text-xs px-2 py-0.5 rounded-full bg-[#250D47]/10 text-[#250D47] font-normal font-inter">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+              <h3 className="text-xl font-bold text-[#250D47] font-formadjr mb-2">{project.title}</h3>
+              <p className="text-[#250D47]/90 text-sm font-medium font-inter leading-relaxed line-clamp-2 flex-1">
+                {project.tagline}
+              </p>
+            </div>
+          </div>
+        </Link>
+      </Tooltip>
+
+      <div className="px-5 pb-5 flex flex-wrap gap-2">
+        {(project.links ?? []).map((link) => (
+          <a
+            key={link.label + link.href}
+            href={link.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`inline-flex items-center gap-1.5 rounded-full border px-3.5 py-2 text-xs font-semibold tracking-[0.02em] transition-all duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8EB522] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F9FAF3] ${LINK_CONFIG[link.kind].bg} ${LINK_CONFIG[link.kind].text} border-[#250D47]/15 hover:border-[#250D47]/25 ${LINK_CONFIG[link.kind].hoverBg}`}
+          >
+            <span aria-hidden="true">{LINK_CONFIG[link.kind].icon}</span>
+            <span>{link.label}</span>
+            <span aria-hidden="true" className="text-[10px] opacity-80">
+              ↗
             </span>
-          ))}
-        </div>
-        <h3 className="text-xl font-bold text-[#45140C] font-formadjr mb-2">{project.title}</h3>
-        <p className="text-[#45140C]/90 text-sm font-medium font-inter leading-relaxed line-clamp-2 flex-1">
-          {project.tagline}
-        </p>
-
-        <div className="mt-4 flex flex-wrap gap-2">
-          {(project.links ?? []).map((link) => (
-            <a
-              key={link.label + link.href}
-              href={link.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`inline-flex items-center gap-1.5 rounded-full border px-3.5 py-2 text-xs font-semibold tracking-[0.02em] shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B5AD21] focus-visible:ring-offset-2 focus-visible:ring-offset-[#FDFAF7] ${LINK_CONFIG[link.kind].bg} ${LINK_CONFIG[link.kind].text} border-[#45140C]/15 hover:border-[#45140C]/25 ${LINK_CONFIG[link.kind].hoverBg}`}
-            >
-              <span aria-hidden="true">{LINK_CONFIG[link.kind].icon}</span>
-              <span>{link.label}</span>
-              <span aria-hidden="true" className="text-[10px] opacity-80">
-                ↗
-              </span>
-            </a>
-          ))}
-        </div>
+          </a>
+        ))}
       </div>
     </div>
   );
@@ -343,16 +347,16 @@ export default function AllProjects() {
 
   return (
     <>
-      <section className="w-full py-16 px-4 bg-[#F3EDE2] fade-in-up">
+      <section className="w-full py-16 px-4 bg-[#F0F1E3] fade-in-up">
         <div className="max-w-7xl mx-auto">
-          <h1 className="text-5xl md:text-6xl font-bold text-[#45140C] font-formadjr mb-4">All Projects</h1>
-          <p className="text-xl text-[#45140C]/70 font-formadjr max-w-2xl">
+          <h1 className="text-5xl md:text-6xl font-bold text-[#250D47] font-formadjr mb-4">All Projects</h1>
+          <p className="text-xl text-[#250D47]/70 font-formadjr max-w-2xl">
             A collection of my design and development work across various disciplines.
           </p>
         </div>
       </section>
 
-      <section className="w-full py-6 px-4 bg-[#F3EDE2] border-t border-[#45140C]/10 fade-in-up-delay-1">
+      <section className="w-full py-6 px-4 bg-[#F0F1E3] border-t border-[#250D47]/10 fade-in-up-delay-1">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-wrap gap-3">
             {allTags.map((tag) => (
@@ -361,8 +365,8 @@ export default function AllProjects() {
                 onClick={() => setSelectedTag(tag)}
                 className={`px-4 py-2 rounded-full font-formadjr font-medium transition-all duration-200 ${
                   selectedTag === tag
-                    ? "bg-[#45140C] text-[#F3EDE2]"
-                    : "bg-[#45140C]/10 text-[#45140C] hover:bg-[#45140C]/20"
+                    ? "bg-[#250D47] text-[#F0F1E3]"
+                    : "bg-[#250D47]/10 text-[#250D47] hover:bg-[#250D47]/20"
                 }`}
               >
                 {tag}
@@ -372,7 +376,7 @@ export default function AllProjects() {
         </div>
       </section>
 
-      <section className="w-full py-16 px-4 bg-[#F3EDE2]">
+      <section className="w-full py-16 px-4 bg-[#F0F1E3]">
         <div className="max-w-7xl mx-auto">
           {filteredProjects.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-start">
@@ -384,7 +388,7 @@ export default function AllProjects() {
             </div>
           ) : (
             <div className="text-center py-20">
-              <p className="text-xl text-[#45140C]/60 font-formadjr">No projects found with this filter.</p>
+              <p className="text-xl text-[#250D47]/60 font-formadjr">No projects found with this filter.</p>
             </div>
           )}
         </div>
@@ -392,3 +396,8 @@ export default function AllProjects() {
     </>
   );
 }
+
+
+
+
+

@@ -2,19 +2,19 @@ import Image from "next/image";
 
 export default function UnderConstruction() {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center w-full px-4 bg-[#B5AD21]">
+    <div className="min-h-screen flex flex-col items-center justify-center w-full px-4 bg-[#8EB522]">
       <div className="relative mb-2 flex items-center justify-center" style={{ height: "60px" }}>
         <h1
-          className="absolute inset-0 flex items-center justify-center text-4xl sm:text-6xl text-[#F3EDE2] font-bold font-formadjr whitespace-nowrap"
+          className="absolute inset-0 flex items-center justify-center text-4xl sm:text-6xl text-[#F0F1E3] font-bold font-formadjr whitespace-nowrap"
           style={{
-            WebkitTextStroke: "4px #45140C",
+            WebkitTextStroke: "4px #250D47",
             zIndex: 1,
           }}
         >
           Pardon our dust!
         </h1>
         <h1
-          className="absolute inset-0 flex items-center justify-center text-4xl sm:text-6xl text-[#F3EDE2] font-bold font-formadjr whitespace-nowrap"
+          className="absolute inset-0 flex items-center justify-center text-4xl sm:text-6xl text-[#F0F1E3] font-bold font-formadjr whitespace-nowrap"
           style={{
             zIndex: 2,
           }}
@@ -22,7 +22,7 @@ export default function UnderConstruction() {
           Pardon our dust!
         </h1>
       </div>
-      <p className="text-lg sm:text-3xl mb-6 text-[#45140C] font-medium font-inter text-center">
+      <p className="text-lg sm:text-3xl mb-6 text-[#250D47] font-medium font-inter text-center">
         This page is currently still being developed. Please check back soon!
       </p>
       <div className="flex flex-col items-center">
@@ -31,7 +31,7 @@ export default function UnderConstruction() {
             href="/resume.pdf"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-base sm:text-2xl px-4 py-2 bg-[#45140C] text-white rounded hover:text-[#E5B1A4] transition font-formadjr font-medium"
+            className="text-base sm:text-2xl px-4 py-2 bg-[#250D47] text-white rounded hover:text-[#9AB1EB] transition font-formadjr font-medium"
           >
             Resume
           </a>
@@ -39,7 +39,7 @@ export default function UnderConstruction() {
             href="https://github.com/elizabethprettosotelo"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-base sm:text-2xl px-4 py-2 bg-[#45140C] text-white rounded hover:text-[#E5B1A4] transition font-formadjr font-medium"
+            className="text-base sm:text-2xl px-4 py-2 bg-[#250D47] text-white rounded hover:text-[#9AB1EB] transition font-formadjr font-medium"
           >
             GitHub
           </a>
@@ -47,7 +47,7 @@ export default function UnderConstruction() {
             href="https://www.linkedin.com/in/elizabeth-pretto-sotelo/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-base sm:text-2xl px-4 py-2 bg-[#45140C] text-white rounded hover:text-[#E5B1A4] transition font-formadjr font-medium"
+            className="text-base sm:text-2xl px-4 py-2 bg-[#250D47] text-white rounded hover:text-[#9AB1EB] transition font-formadjr font-medium"
           >
             LinkedIn
           </a>
@@ -57,3 +57,6 @@ export default function UnderConstruction() {
     </div>
   );
 }
+
+
+

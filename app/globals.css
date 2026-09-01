@@ -4,7 +4,7 @@
   --background: #ffffff;
   --foreground: #171717;
   --sidebar-width: 0px; /* Mobile default */
-  --text-brown: #5a2818; /* Lighter, friendlier brown for body text */
+  --text-brown: #250D47; /* Lighter, friendlier brown for body text */
   --font-inter: "Plus Jakarta Sans", "Segoe UI", Arial, sans-serif;
   --font-formadjr: var(--font-inter);
 }
@@ -20,6 +20,13 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-inter);
+}
+
+@media (pointer: fine) {
+  html,
+  html * {
+    cursor: none !important;
+  }
 }
 
 /* Make body text more readable with medium weight and better spacing */
@@ -68,7 +75,7 @@ body {
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb:active {
-  background: #B5AD21;
+  background: #8EB522;
 }
 
 /* Fade-in Animations */
@@ -212,7 +219,7 @@ body {
   left: 0;
   right: 0;
   height: 3px;
-  background: #B5AD21;
+  background: #8EB522;
   transform-origin: left;
   animation: sectionFlash 0.8s cubic-bezier(0.16,1,0.3,1) forwards;
   pointer-events: none;
@@ -234,7 +241,7 @@ body {
   position: fixed;
   inset: 0;
   z-index: 9999;
-  background: #45140C;
+  background: #250D47;
   transform: translateY(-100%);
   pointer-events: none;
 }
@@ -247,3 +254,4 @@ body {
 .page-transition-overlay.slide-off {
   animation: overlaySlideOff 0.45s cubic-bezier(0.76,0,0.24,1) forwards;
 }
+

@@ -10,33 +10,33 @@ export const LINK_CONFIG: Record<
 > = {
   github: {
     icon: "⌥",
-    bg: "bg-[#45140C]/8",
-    text: "text-[#45140C]",
-    hoverBg: "hover:bg-[#45140C] hover:text-[#F3EDE2]",
+    bg: "bg-[#250D47]/8",
+    text: "text-[#250D47]",
+    hoverBg: "hover:bg-[#250D47] hover:text-[#F0F1E3]",
   },
   devpost: {
     icon: "◈",
-    bg: "bg-[#B5AD21]/22",
-    text: "text-[#45140C]",
-    hoverBg: "hover:bg-[#A8A41F] hover:text-[#45140C]",
+    bg: "bg-[#8EB522]/22",
+    text: "text-[#250D47]",
+    hoverBg: "hover:bg-[#8EB522] hover:text-[#250D47]",
   },
   demo: {
     icon: "▶",
-    bg: "bg-[#B5AD21]/22",
-    text: "text-[#45140C]",
-    hoverBg: "hover:bg-[#A8A41F] hover:text-[#45140C]",
+    bg: "bg-[#8EB522]/22",
+    text: "text-[#250D47]",
+    hoverBg: "hover:bg-[#8EB522] hover:text-[#250D47]",
   },
   figma: {
     icon: "✦",
-    bg: "bg-[#E5B1A4]/28",
-    text: "text-[#45140C]",
-    hoverBg: "hover:bg-[#D79E90] hover:text-[#45140C]",
+    bg: "bg-[#9AB1EB]/28",
+    text: "text-[#250D47]",
+    hoverBg: "hover:bg-[#9AB1EB] hover:text-[#250D47]",
   },
   custom: {
     icon: "→",
-    bg: "bg-[#45140C]/8",
-    text: "text-[#45140C]",
-    hoverBg: "hover:bg-[#45140C] hover:text-[#F3EDE2]",
+    bg: "bg-[#250D47]/8",
+    text: "text-[#250D47]",
+    hoverBg: "hover:bg-[#250D47] hover:text-[#F0F1E3]",
   },
 };
 
@@ -48,3 +48,6 @@ export type ProjectOverview = {
   highlights?: string[];
   status?: "complete" | "in-progress";
 };
+
+
+

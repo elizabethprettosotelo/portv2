@@ -57,7 +57,7 @@ export default function CaseStudyDocument({ study }: CaseStudyDocumentProps) {
                   title={section.label}
                   kicker="Project introduction"
                 />
-                <p className="text-base leading-relaxed text-[#45140C]/80 md:text-lg">
+                <p className="text-base leading-relaxed text-[#250D47]/80 md:text-lg">
                   {section.description}
                 </p>
                 <PullQuote quote={section.valueStatement} />
@@ -76,7 +76,7 @@ export default function CaseStudyDocument({ study }: CaseStudyDocumentProps) {
                   {section.paragraphs.map((paragraph) => (
                     <p
                       key={paragraph}
-                      className="text-base leading-relaxed text-[#45140C]/80 md:text-lg"
+                      className="text-base leading-relaxed text-[#250D47]/80 md:text-lg"
                     >
                       {paragraph}
                     </p>
@@ -147,7 +147,7 @@ export default function CaseStudyDocument({ study }: CaseStudyDocumentProps) {
                   kicker="Design approach"
                 />
                 <div className="space-y-12">
-                  <p className="max-w-3xl text-base leading-relaxed text-[#45140C]/80 md:text-lg">
+                  <p className="max-w-3xl text-base leading-relaxed text-[#250D47]/80 md:text-lg">
                     {section.intro}
                   </p>
                   {section.iterations && section.iterations.length > 0 && (
@@ -183,7 +183,7 @@ export default function CaseStudyDocument({ study }: CaseStudyDocumentProps) {
                   kicker="Final product"
                 />
                 <div className="space-y-6">
-                  <p className="max-w-3xl text-base leading-relaxed text-[#45140C]/80 md:text-lg">
+                  <p className="max-w-3xl text-base leading-relaxed text-[#250D47]/80 md:text-lg">
                     {section.summary}
                   </p>
                   <div className="grid gap-4 md:grid-cols-2">
@@ -195,7 +195,7 @@ export default function CaseStudyDocument({ study }: CaseStudyDocumentProps) {
                     {section.highlights.map((highlight) => (
                       <div
                         key={highlight}
-                        className="rounded-2xl border border-[#45140C]/10 bg-[#FDFAF7] p-4 text-sm leading-relaxed text-[#1f1712]"
+                        className="rounded-2xl border border-[#250D47]/10 bg-[#F0F1E3] p-4 text-sm leading-relaxed text-[#250D47]"
                       >
                         {highlight}
                       </div>
@@ -207,7 +207,7 @@ export default function CaseStudyDocument({ study }: CaseStudyDocumentProps) {
                         <a
                           key={link.label}
                           href={link.href}
-                          className="inline-flex items-center rounded-full border border-[#45140C]/12 bg-[#1f1712] px-4 py-2 text-sm font-medium text-[#F3EDE2] transition hover:bg-[#45140C]"
+                          className="inline-flex items-center rounded-full border border-[#250D47]/12 bg-[#250D47] px-4 py-2 text-sm font-medium text-[#F0F1E3] transition hover:bg-[#250D47]"
                         >
                           {link.label}
                         </a>
@@ -249,7 +249,7 @@ export default function CaseStudyDocument({ study }: CaseStudyDocumentProps) {
                       <a
                         key={link.label}
                         href={link.href}
-                        className="inline-flex items-center rounded-full border border-[#45140C]/12 bg-[#FDFAF7] px-4 py-2 text-sm font-medium text-[#1f1712] transition hover:border-[#B5AD21]/40 hover:bg-[#B5AD21]/6"
+                        className="inline-flex items-center rounded-full border border-[#250D47]/12 bg-[#F0F1E3] px-4 py-2 text-sm font-medium text-[#250D47] transition hover:border-[#8EB522]/40 hover:bg-[#8EB522]/6"
                       >
                         {link.label}
                       </a>
@@ -268,7 +268,7 @@ export default function CaseStudyDocument({ study }: CaseStudyDocumentProps) {
         <div className="flex flex-wrap gap-3">
           <a
             href={study.returnHref}
-            className="inline-flex items-center rounded-full border border-[#45140C]/12 bg-[#FDFAF7] px-4 py-2 text-sm font-medium text-[#1f1712] transition hover:border-[#B5AD21]/40 hover:bg-[#B5AD21]/6"
+            className="inline-flex items-center rounded-full border border-[#250D47]/12 bg-[#F0F1E3] px-4 py-2 text-sm font-medium text-[#250D47] transition hover:border-[#8EB522]/40 hover:bg-[#8EB522]/6"
           >
             {study.returnLabel}
           </a>
@@ -277,3 +277,6 @@ export default function CaseStudyDocument({ study }: CaseStudyDocumentProps) {
     </div>
   );
 }
+
+
+

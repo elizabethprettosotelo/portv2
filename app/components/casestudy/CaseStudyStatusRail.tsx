@@ -77,13 +77,13 @@ export default function CaseStudyStatusRail() {
   return (
     <aside className="lg:sticky lg:top-28 self-start">
       <div className="hidden lg:flex flex-col items-start gap-3">
-        <div className="flex items-center gap-2 text-[10px] font-bold tracking-[0.3em] uppercase text-[#45140C]/45 font-mono">
-          <span className="inline-block h-2 w-2 rounded-full bg-[#B5AD21]" />
+        <div className="flex items-center gap-2 text-[10px] font-bold tracking-[0.3em] uppercase text-[#250D47]/45 font-mono">
+          <span className="inline-block h-2 w-2 rounded-full bg-[#8EB522]" />
           Status
         </div>
 
         <div className="relative pl-4">
-          <div className="absolute left-[7px] top-1 bottom-1 w-px bg-[#45140C]/15" />
+          <div className="absolute left-[7px] top-1 bottom-1 w-px bg-[#250D47]/15" />
           <div className="space-y-3">
             {items.map((item) => {
               const isActive = item.ids.includes(activeSectionId);
@@ -93,14 +93,14 @@ export default function CaseStudyStatusRail() {
                   type="button"
                   onClick={() => scrollToSection(item.id)}
                   className={`relative flex items-center gap-3 text-left transition-colors duration-200 ${
-                    isActive ? "text-[#45140C]" : "text-[#45140C]/45 hover:text-[#45140C]/75"
+                    isActive ? "text-[#250D47]" : "text-[#250D47]/45 hover:text-[#250D47]/75"
                   }`}
                 >
                   <span
                     className={`relative z-10 block h-2.5 w-2.5 rounded-full border transition-all duration-200 ${
                       isActive
-                        ? "bg-[#B5AD21] border-[#B5AD21] scale-110"
-                        : "bg-[#F3EDE2] border-[#45140C]/20"
+                        ? "bg-[#8EB522] border-[#8EB522] scale-110"
+                        : "bg-[#F0F1E3] border-[#250D47]/20"
                     }`}
                   />
                   <span className={`text-sm font-medium font-formadjr ${isActive ? "" : ""}`}>
@@ -112,7 +112,7 @@ export default function CaseStudyStatusRail() {
           </div>
         </div>
 
-        <div className="pt-2 text-[10px] font-mono uppercase tracking-[0.24em] text-[#45140C]/35">
+        <div className="pt-2 text-[10px] font-mono uppercase tracking-[0.24em] text-[#250D47]/35">
           {activeLabel}
         </div>
       </div>
@@ -127,8 +127,8 @@ export default function CaseStudyStatusRail() {
               onClick={() => scrollToSection(item.id)}
               className={`whitespace-nowrap rounded-full border px-3 py-1 text-xs font-medium font-formadjr transition-colors ${
                 isActive
-                  ? "border-[#B5AD21] bg-[#B5AD21]/15 text-[#45140C]"
-                  : "border-[#45140C]/10 bg-[#FDFAF7] text-[#45140C]/55"
+                  ? "border-[#8EB522] bg-[#8EB522]/15 text-[#250D47]"
+                  : "border-[#250D47]/10 bg-[#F0F1E3] text-[#250D47]/55"
               }`}
             >
               {item.label}
@@ -139,3 +139,6 @@ export default function CaseStudyStatusRail() {
     </aside>
   );
 }
+
+
+

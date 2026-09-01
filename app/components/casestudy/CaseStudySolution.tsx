@@ -30,21 +30,21 @@ export default function CaseStudySolution({
   }, [registerSection, unregisterSection]);
 
   return (
-    <section id="solution" className="w-full py-12 bg-[#F3EDE2]">
+    <section id="solution" className="w-full py-12 bg-[#F0F1E3]">
       <div className="w-full">
         {/* Section Number */}
-        <div className="text-6xl font-bold text-[#B5AD21]/20 mb-3 font-formadjr">
+        <div className="text-6xl font-bold text-[#8EB522]/20 mb-3 font-formadjr">
           {sectionNumber}
         </div>
         
         {/* Section Title */}
-        <h2 className="text-3xl md:text-4xl font-bold text-[#45140C] font-formadjr mb-6">
+        <h2 className="text-3xl md:text-4xl font-bold text-[#250D47] font-formadjr mb-6">
           Design Process
         </h2>
         
         {/* Solution Description */}
         {solution && (
-          <div className="text-base md:text-lg text-[#45140C]/80 font-inter leading-relaxed max-w-4xl mb-10">
+          <div className="text-base md:text-lg text-[#250D47]/80 font-inter leading-relaxed max-w-4xl mb-10">
             {solution}
           </div>
         )}
@@ -56,7 +56,7 @@ export default function CaseStudySolution({
               <div key={index} className="space-y-4">
                 {/* Section Image */}
                 {section.image && (
-                  <div className="relative w-full h-80 rounded-xl overflow-hidden shadow-lg mb-4">
+                  <div className="relative w-full h-80 rounded-xl overflow-hidden mb-4">
                     <Image
                       src={section.image}
                       alt={section.title}
@@ -67,22 +67,22 @@ export default function CaseStudySolution({
                 )}
                 
                 {/* Section Title */}
-                <h3 className="text-sm font-bold text-[#B5AD21] font-formadjr uppercase tracking-widest">
+                <h3 className="text-sm font-bold text-[#8EB522] font-formadjr uppercase tracking-widest">
                   {section.title}
                 </h3>
                 
                 {/* Main Content */}
-                <p className="text-base text-[#45140C]/80 font-inter leading-relaxed">
+                <p className="text-base text-[#250D47]/80 font-inter leading-relaxed">
                   {section.content}
                 </p>
                 
                 {/* Why It Matters */}
                 {section.whyItMatters && (
-                  <div className="bg-[#E5B1A4]/10 border-l-4 border-[#E5B1A4] pl-6 py-3 rounded-r-lg">
-                    <p className="text-sm font-bold text-[#45140C]/60 font-formadjr mb-2 uppercase tracking-wide">
+                  <div className="bg-[#9AB1EB]/10 border-l-4 border-[#9AB1EB] pl-6 py-3 rounded-r-lg">
+                    <p className="text-sm font-bold text-[#250D47]/60 font-formadjr mb-2 uppercase tracking-wide">
                       Why this mattered:
                     </p>
-                    <p className="text-base text-[#45140C]/70 font-inter leading-relaxed">
+                    <p className="text-base text-[#250D47]/70 font-inter leading-relaxed">
                       {section.whyItMatters}
                     </p>
                   </div>
@@ -95,3 +95,6 @@ export default function CaseStudySolution({
     </section>
   );
 }
+
+
+

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRef, useEffect, useState } from "react";
 import { useHover } from "../contexts/HoverContext";
 import { LINK_CONFIG } from "./project-links";
+import Tooltip from "./tooltip";
 
 type Project = {
   title: string;
@@ -16,6 +17,7 @@ type Project = {
   tags: string[];
   slug: string;
   noTint?: boolean;
+  caseStudyHref?: string;
   links?: { label: string; href: string; kind: "github" | "devpost" | "demo" | "figma" | "custom" }[];
 };
 
@@ -29,6 +31,7 @@ const projects: Project[] = [
     video: "/conduit/conduitlaunch.mp4",
     tags: ["Product Design", "Campus Experience", "Frontend"],
     slug: "ucfhere",
+    caseStudyHref: "/projects/ucfhere/case-study",
     links: [
       {
         label: "Demo",
@@ -46,6 +49,7 @@ const projects: Project[] = [
     video: "/labeling/thumbnail.mp4",
     tags: ["Fintech", "UI Design", "Mobile First"],
     slug: "wattasave",
+    caseStudyHref: "/projects/wattasave",
     links: [
       { label: "Demo", href: "https://devpost.com/software/wattasave", kind: "demo" },
     ],
@@ -59,6 +63,7 @@ const projects: Project[] = [
     video: "/conduit/conduitlaunch.mp4",
     tags: ["Accessibility", "UX Design", "Multimodal Design"],
     slug: "project-one",
+    caseStudyHref: "/projects/project-one",
     links: [
       { label: "GitHub", href: "https://github.com/kwaiidev/conduit", kind: "github" },
       { label: "Demo", href: "https://devpost.com/software/conduit-y8gqoj?ref_content=my-projects-tab&ref_feature=my_projects", kind: "devpost" },
@@ -102,11 +107,13 @@ function ProjectCard({ project }: { project: Project }) {
         ? "bg-[#4A72E8]/14"
         : "bg-black/0";
   const showVideoPreview = project.slug === "project-one";
+  const caseStudyHref =
+    project.slug === "ucfhere" ? "/projects/ucfhere/case-study" : `/projects/${project.slug}`;
 
   return (
     <div
-      className={`relative bg-[#FDFAF7] rounded-xl shadow-md overflow-hidden transition-all duration-300 h-full flex flex-col ${
-        isHighlighted ? "shadow-[0_4px_12px_rgba(229,177,164,0.4)] -translate-y-1" : ""
+      className={`relative bg-[#F9FAF3] rounded-xl overflow-hidden transition-all duration-300 h-full flex flex-col ${
+        isHighlighted ? "-translate-y-1" : ""
       }`}
       onMouseEnter={() => {
         setIsHovered(true);
@@ -117,56 +124,50 @@ function ProjectCard({ project }: { project: Project }) {
         setHoveredProject(null);
       }}
     >
-      <div className="relative w-full aspect-[16/9]">
-        <Image
-          src={project.thumbnail}
-          alt={project.title}
-          fill
-          className="object-cover"
-        />
-        {showVideoPreview && project.video && (
-          <video
-            src={project.video}
-            muted
-            loop
-            playsInline
-            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 z-10 ${isHovered ? "opacity-100" : "opacity-0"}`}
-          />
-        )}
-        <div className={`absolute inset-0 transition-colors duration-300 z-20 ${isHighlighted ? hoverTintClass : "bg-black/0"}`} />
-      </div>
+      <Tooltip followCursor label="Open case study" className="block h-full">
+        <Link href={caseStudyHref} className="block cursor-pointer h-full">
+          <div className="relative w-full aspect-[16/9]">
+            <Image
+              src={project.thumbnail}
+              alt={project.title}
+              fill
+              className="object-cover"
+            />
+            {showVideoPreview && project.video && (
+              <video
+                src={project.video}
+                muted
+                loop
+                playsInline
+                className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 z-10 ${isHovered ? "opacity-100" : "opacity-0"}`}
+              />
+            )}
+            <div className={`absolute inset-0 transition-colors duration-300 z-20 ${isHighlighted ? hoverTintClass : "bg-black/0"}`} />
+          </div>
 
-      <div className="p-5 flex flex-col flex-1">
-        <div className="flex flex-wrap gap-2 mb-2">
-          {project.tags.map((tag) => (
-            <span
-              key={tag}
-              className="text-xs px-2 py-0.5 rounded-full bg-[#45140C]/10 text-[#45140C] font-normal font-inter"
-            >
-              {tag}
+          <div className="p-5 flex flex-col flex-1">
+            <h3 className="text-2xl font-bold text-[#250D47] font-formadjr mb-2">{project.title}</h3>
+            <p className="text-[#250D47]/90 text-base font-medium font-inter leading-relaxed">{project.tagline}</p>
+          </div>
+        </Link>
+      </Tooltip>
+
+      <div className="px-5 pb-5 flex flex-wrap gap-2">
+        {(project.links ?? []).map((link) => (
+          <a
+            key={link.label + link.href}
+            href={link.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`inline-flex items-center gap-1.5 rounded-full border px-3.5 py-2 text-xs font-semibold tracking-[0.02em] transition-all duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8EB522] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F9FAF3] ${LINK_CONFIG[link.kind].bg} ${LINK_CONFIG[link.kind].text} border-[#250D47]/15 hover:border-[#250D47]/25 ${LINK_CONFIG[link.kind].hoverBg}`}
+          >
+            <span aria-hidden="true">{LINK_CONFIG[link.kind].icon}</span>
+            <span>{link.label}</span>
+            <span aria-hidden="true" className="text-[10px] opacity-80">
+              ↗
             </span>
-          ))}
-        </div>
-        <h3 className="text-2xl font-bold text-[#45140C] font-formadjr mb-2">{project.title}</h3>
-        <p className="text-[#45140C]/90 text-base font-medium font-inter leading-relaxed">{project.tagline}</p>
-
-        <div className="mt-4 flex flex-wrap gap-2">
-          {(project.links ?? []).map((link) => (
-            <a
-              key={link.label + link.href}
-              href={link.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`inline-flex items-center gap-1.5 rounded-full border px-3.5 py-2 text-xs font-semibold tracking-[0.02em] shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B5AD21] focus-visible:ring-offset-2 focus-visible:ring-offset-[#FDFAF7] ${LINK_CONFIG[link.kind].bg} ${LINK_CONFIG[link.kind].text} border-[#45140C]/15 hover:border-[#45140C]/25 ${LINK_CONFIG[link.kind].hoverBg}`}
-            >
-              <span aria-hidden="true">{LINK_CONFIG[link.kind].icon}</span>
-              <span>{link.label}</span>
-              <span aria-hidden="true" className="text-[10px] opacity-80">
-                ↗
-              </span>
-            </a>
-          ))}
-        </div>
+          </a>
+        ))}
       </div>
     </div>
   );
@@ -200,11 +201,11 @@ export default function FeaturedProjects() {
   }, []);
 
   return (
-    <section id="projects" className="w-full py-16 px-4 bg-[#F3EDE2]">
+    <section id="projects" className="w-full py-16 px-4 bg-[#F0F1E3]">
       <div ref={headingRef} className="anim-hidden max-w-7xl mx-auto mb-12 w-full">
         <div className="max-w-3xl text-left">
-          <h2 className="text-4xl font-bold text-[#45140C] font-formadjr text-left">Selected Projects</h2>
-          <p className="text-lg text-[#45140C]/70 font-inter mt-2 text-left">Look at all these things I&apos;ve been cooking up ✦</p>
+          <h2 className="text-4xl font-bold text-[#250D47] font-formadjr text-left">Selected Projects</h2>
+          <p className="text-lg text-[#250D47]/70 font-inter mt-2 text-left">Look at all these things I&apos;ve been cooking up ✦</p>
         </div>
       </div>
 
@@ -221,7 +222,7 @@ export default function FeaturedProjects() {
       <div ref={btnRef} className="anim-hidden flex justify-center mt-8">
         <Link
           href="/projects"
-          className="px-8 py-3 bg-[#45140C] text-[#F3EDE2] rounded font-formadjr font-medium text-lg hover:bg-[#B5AD21] transition"
+          className="px-8 py-3 bg-[#250D47] text-[#F0F1E3] rounded font-formadjr font-medium text-lg hover:bg-[#8EB522] transition"
         >
           View All Projects
         </Link>
@@ -229,3 +230,8 @@ export default function FeaturedProjects() {
     </section>
   );
 }
+
+
+
+
+

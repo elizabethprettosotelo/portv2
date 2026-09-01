@@ -78,7 +78,7 @@ export default function MediaFrame({
           <button
             type="button"
             onClick={() => setOpen(true)}
-            className={`group relative block w-full overflow-hidden rounded-[1.5rem] border border-[#45140C]/12 bg-[#FDFAF7] text-left shadow-sm transition hover:border-[#B5AD21]/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B5AD21] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F3EDE2] ${aspectClassName}`}
+            className={`group relative block w-full overflow-hidden rounded-[1.5rem] border border-[#250D47]/12 bg-[#F0F1E3] text-left transition hover:border-[#8EB522]/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8EB522] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F0F1E3] ${aspectClassName}`}
             aria-label={media.alt ?? "Open image preview"}
           >
             <Image
@@ -88,10 +88,10 @@ export default function MediaFrame({
               className="object-cover transition duration-300 group-hover:scale-[1.02]"
               sizes="(min-width: 1024px) 760px, 100vw"
             />
-            <div className="absolute inset-0 bg-linear-to-t from-[#45140C]/55 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-linear-to-t from-[#250D47]/55 via-transparent to-transparent" />
             {caption && (
               <div className="absolute bottom-0 left-0 right-0 p-4 text-left">
-                <p className="max-w-[90%] text-xs font-medium uppercase tracking-[0.2em] text-[#F3EDE2]/80">
+                <p className="max-w-[90%] text-xs font-medium uppercase tracking-[0.2em] text-[#F0F1E3]/80">
                   {caption}
                 </p>
               </div>
@@ -100,21 +100,21 @@ export default function MediaFrame({
         </div>
 
         {open && (
-          <div className="fixed inset-0 z-[100] flex items-center justify-center bg-[#45140C]/70 p-4">
+          <div className="fixed inset-0 z-[100] flex items-center justify-center bg-[#250D47]/70 p-4">
             <div
               ref={dialogRef}
               role="dialog"
               aria-modal="true"
               aria-label={media.alt ?? "Image preview"}
-              className="relative w-full max-w-5xl overflow-hidden rounded-[1.5rem] bg-[#F3EDE2] shadow-[0_20px_80px_rgba(69,20,12,0.35)]"
+              className="relative w-full max-w-5xl overflow-hidden rounded-[1.5rem] bg-[#F0F1E3]"
             >
-              <div className="flex items-center justify-between gap-4 border-b border-[#45140C]/10 px-4 py-3">
+              <div className="flex items-center justify-between gap-4 border-b border-[#250D47]/10 px-4 py-3">
                 <div className="min-w-0">
-                  <p className="text-xs font-bold uppercase tracking-[0.24em] text-[#B5AD21]">
+                  <p className="text-xs font-bold uppercase tracking-[0.24em] text-[#8EB522]">
                     Preview
                   </p>
                   {media.caption && (
-                    <p className="truncate text-sm text-[#45140C]/70">
+                    <p className="truncate text-sm text-[#250D47]/70">
                       {media.caption}
                     </p>
                   )}
@@ -123,12 +123,12 @@ export default function MediaFrame({
                   ref={closeButtonRef}
                   type="button"
                   onClick={() => setOpen(false)}
-                  className="rounded-full border border-[#45140C]/15 px-3 py-1.5 text-sm font-medium text-[#45140C] transition hover:bg-[#45140C]/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B5AD21]"
+                  className="rounded-full border border-[#250D47]/15 px-3 py-1.5 text-sm font-medium text-[#250D47] transition hover:bg-[#250D47]/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8EB522]"
                 >
                   Close
                 </button>
               </div>
-              <div className="relative aspect-[16/9] bg-[#1f1712]">
+              <div className="relative aspect-[16/9] bg-[#250D47]">
                 <Image
                   src={imageSrc}
                   alt={media.alt ?? ""}
@@ -147,12 +147,12 @@ export default function MediaFrame({
 
   return (
     <div className={className}>
-      <div className={`flex items-center justify-center rounded-[1.5rem] border border-dashed border-[#45140C]/20 bg-[#FDFAF7] p-8 text-center ${aspectClassName}`}>
+      <div className={`flex items-center justify-center rounded-[1.5rem] border border-dashed border-[#250D47]/20 bg-[#F0F1E3] p-8 text-center ${aspectClassName}`}>
         <div className="max-w-md space-y-3">
-          <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#B5AD21]">
+          <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#8EB522]">
             Placeholder
           </p>
-          <p className="text-sm leading-relaxed text-[#45140C]/65">
+          <p className="text-sm leading-relaxed text-[#250D47]/65">
             {media.placeholder ?? "Add a project image or video here."}
           </p>
         </div>
@@ -160,3 +160,6 @@ export default function MediaFrame({
     </div>
   );
 }
+
+
+

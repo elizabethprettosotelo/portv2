@@ -18,16 +18,16 @@ export function SectionHeading({
 
   return (
     <header ref={headingRef} className="space-y-3 anim-hidden">
-      <p className="text-xs font-bold uppercase tracking-[0.28em] text-[#B5AD21]">
+      <p className="text-xs font-bold uppercase tracking-[0.28em] text-[#8EB522]">
         {number}
       </p>
       <div className="space-y-2">
         {kicker && (
-          <p className="text-sm font-medium uppercase tracking-[0.18em] text-[#45140C]/50">
+          <p className="text-sm font-medium uppercase tracking-[0.18em] text-[#250D47]/50">
             {kicker}
           </p>
         )}
-        <h2 className="font-formadjr text-3xl font-bold leading-[1.08] text-[#1f1712] md:text-4xl lg:text-[2.85rem]">
+        <h2 className="font-formadjr text-3xl font-bold leading-[1.08] text-[#250D47] md:text-4xl lg:text-[2.85rem]">
           {title}
         </h2>
       </div>
@@ -37,8 +37,8 @@ export function SectionHeading({
 
 export function MarginNote({ children }: { children: ReactNode }) {
   return (
-    <aside className="rounded-2xl border border-[#45140C]/10 bg-[#FDFAF7] p-4 text-sm leading-relaxed text-[#45140C]/70">
-      <p className="mb-2 text-[10px] font-bold uppercase tracking-[0.24em] text-[#B5AD21]">
+    <aside className="rounded-2xl border border-[#250D47]/10 bg-[#F0F1E3] p-4 text-sm leading-relaxed text-[#250D47]/70">
+      <p className="mb-2 text-[10px] font-bold uppercase tracking-[0.24em] text-[#8EB522]">
         Margin note
       </p>
       {children}
@@ -52,7 +52,7 @@ export function PullQuote({ quote }: { quote: string }) {
   return (
     <blockquote
       ref={quoteRef}
-      className="anim-hidden border-l-4 border-[#B5AD21] bg-[#B5AD21]/5 px-5 py-4 text-lg leading-relaxed text-[#1f1712]"
+      className="anim-hidden border-l-4 border-[#8EB522] bg-[#8EB522]/5 px-5 py-4 text-lg leading-relaxed text-[#250D47]"
     >
       <p className="font-medium italic">&ldquo;{quote}&rdquo;</p>
     </blockquote>
@@ -70,11 +70,11 @@ export function GoalList({
 
   return (
     <div ref={goalRef} className="anim-hidden space-y-6">
-      <div className="rounded-[1.75rem] border border-[#45140C]/12 bg-[#FDFAF7] p-6 md:p-8">
-        <p className="mb-3 text-xs font-bold uppercase tracking-[0.24em] text-[#B5AD21]">
+      <div className="rounded-[1.75rem] border border-[#250D47]/12 bg-[#F0F1E3] p-6 md:p-8">
+        <p className="mb-3 text-xs font-bold uppercase tracking-[0.24em] text-[#8EB522]">
           Main goal
         </p>
-        <p className="text-2xl font-semibold leading-tight text-[#1f1712] md:text-3xl">
+        <p className="text-2xl font-semibold leading-tight text-[#250D47] md:text-3xl">
           {mainGoal}
         </p>
       </div>
@@ -83,14 +83,14 @@ export function GoalList({
         {supportingGoals.map((goal, index) => (
           <div
             key={goal.label}
-            className={`anim-slide-up anim-delay-${(index % 6) + 1} flex gap-4 rounded-2xl border border-[#45140C]/10 bg-[#FDFAF7] p-4 lg:min-h-full`}
+            className={`anim-slide-up anim-delay-${(index % 6) + 1} flex gap-4 rounded-2xl border border-[#250D47]/10 bg-[#F0F1E3] p-4 lg:min-h-full`}
           >
-            <div className="shrink-0 text-sm font-bold uppercase tracking-[0.2em] text-[#B5AD21]">
+            <div className="shrink-0 text-sm font-bold uppercase tracking-[0.2em] text-[#8EB522]">
               0{index + 1}
             </div>
             <div className="min-w-0">
-              <h3 className="text-base font-semibold text-[#1f1712]">{goal.label}</h3>
-              <p className="mt-1 text-sm leading-relaxed text-[#45140C]/70">
+              <h3 className="text-base font-semibold text-[#250D47]">{goal.label}</h3>
+              <p className="mt-1 text-sm leading-relaxed text-[#250D47]/70">
                 {goal.description}
               </p>
             </div>
@@ -124,12 +124,12 @@ export function ProblemGrid({
           media={visual}
           aspectClassName="aspect-[16/9] min-h-[280px] lg:min-h-[360px]"
         />
-        <p className="text-xl leading-relaxed text-[#1f1712] md:text-[1.45rem]">
+        <p className="text-xl leading-relaxed text-[#250D47] md:text-[1.45rem]">
           {statement}
         </p>
         <div className="space-y-4">
           {evidence && (
-            <blockquote className="border-l-4 border-[#B5AD21] bg-[#B5AD21]/5 px-5 py-4 text-base leading-relaxed text-[#45140C]/80">
+            <blockquote className="border-l-4 border-[#8EB522] bg-[#8EB522]/5 px-5 py-4 text-base leading-relaxed text-[#250D47]/80">
               <p className="font-medium">{evidence}</p>
             </blockquote>
           )}
@@ -141,12 +141,12 @@ export function ProblemGrid({
           {issues!.map((issue, index) => (
             <article
               key={issue.title}
-              className={`anim-slide-up anim-delay-${(index % 6) + 1} rounded-[1.5rem] border border-[#45140C]/10 bg-[#FDFAF7] p-4 md:p-5`}
+              className={`anim-slide-up anim-delay-${(index % 6) + 1} rounded-[1.5rem] border border-[#250D47]/10 bg-[#F0F1E3] p-4 md:p-5`}
             >
-              <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#B5AD21]">
+              <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#8EB522]">
                 0{index + 1}
               </p>
-              <h3 className="mt-2 text-lg font-semibold text-[#1f1712]">
+              <h3 className="mt-2 text-lg font-semibold text-[#250D47]">
                 {issue.title}
               </h3>
               <MediaFrame
@@ -154,7 +154,7 @@ export function ProblemGrid({
                 className="mt-4"
                 aspectClassName="aspect-[9/16] min-h-[280px]"
               />
-              <p className="mt-2 text-sm leading-relaxed text-[#45140C]/75">
+              <p className="mt-2 text-sm leading-relaxed text-[#250D47]/75">
                 {issue.description}
               </p>
             </article>
@@ -167,9 +167,9 @@ export function ProblemGrid({
             {consequences.map((item, index) => (
               <li
                 key={item}
-                className={`anim-slide-up anim-delay-${(index % 6) + 1} flex gap-3 rounded-2xl border border-[#45140C]/10 bg-[#FDFAF7] p-4 text-sm leading-relaxed text-[#45140C]/75`}
+                className={`anim-slide-up anim-delay-${(index % 6) + 1} flex gap-3 rounded-2xl border border-[#250D47]/10 bg-[#F0F1E3] p-4 text-sm leading-relaxed text-[#250D47]/75`}
               >
-                <span className="mt-0.5 text-[#B5AD21]">&rarr;</span>
+                <span className="mt-0.5 text-[#8EB522]">&rarr;</span>
                 <span>{item}</span>
               </li>
             ))}
@@ -203,23 +203,23 @@ export function DesignDecision({
       className="anim-hidden grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]"
     >
       <div className="space-y-4">
-        <p className="text-sm font-bold uppercase tracking-[0.24em] text-[#B5AD21]">
+        <p className="text-sm font-bold uppercase tracking-[0.24em] text-[#8EB522]">
           Design decision
         </p>
-        <h3 className="text-2xl font-semibold text-[#1f1712] md:text-3xl">
+        <h3 className="text-2xl font-semibold text-[#250D47] md:text-3xl">
           {title}
         </h3>
-        <div className="space-y-4 text-base leading-relaxed text-[#45140C]/80">
+        <div className="space-y-4 text-base leading-relaxed text-[#250D47]/80">
           <p>
-            <span className="font-semibold text-[#1f1712]">Problem: </span>
+            <span className="font-semibold text-[#250D47]">Problem: </span>
             {problem}
           </p>
           <p>
-            <span className="font-semibold text-[#1f1712]">Decision: </span>
+            <span className="font-semibold text-[#250D47]">Decision: </span>
             {decision}
           </p>
           <p>
-            <span className="font-semibold text-[#1f1712]">Reasoning: </span>
+            <span className="font-semibold text-[#250D47]">Reasoning: </span>
             {reasoning}
           </p>
         </div>
@@ -248,25 +248,25 @@ export function ProcessChapter({
     >
       <div className="space-y-4">
         <div className="flex items-center gap-3">
-          <p className="text-xs font-bold uppercase tracking-[0.24em] text-[#B5AD21]">
+          <p className="text-xs font-bold uppercase tracking-[0.24em] text-[#8EB522]">
             {chapter.number}
           </p>
-          <div className="h-px flex-1 bg-[#45140C]/10" />
+          <div className="h-px flex-1 bg-[#250D47]/10" />
         </div>
-        <h3 className="text-2xl font-semibold text-[#1f1712] md:text-3xl">
+        <h3 className="text-2xl font-semibold text-[#250D47] md:text-3xl">
           {chapter.title}
         </h3>
-        <div className="space-y-4 text-base leading-relaxed text-[#45140C]/80">
+        <div className="space-y-4 text-base leading-relaxed text-[#250D47]/80">
           <p>
-            <span className="font-semibold text-[#1f1712]">Challenge: </span>
+            <span className="font-semibold text-[#250D47]">Challenge: </span>
             {chapter.challenge}
           </p>
           <p>
-            <span className="font-semibold text-[#1f1712]">Decision: </span>
+            <span className="font-semibold text-[#250D47]">Decision: </span>
             {chapter.decision}
           </p>
           <p>
-            <span className="font-semibold text-[#1f1712]">Reasoning: </span>
+            <span className="font-semibold text-[#250D47]">Reasoning: </span>
             {chapter.reasoning}
           </p>
         </div>
@@ -296,10 +296,10 @@ export function AccessibilitySummary({
         aspectClassName="aspect-[16/9] min-h-[280px] lg:min-h-[360px]"
       />
       <div className="max-w-3xl space-y-4">
-        <p className="text-sm font-bold uppercase tracking-[0.24em] text-[#B5AD21]">
+        <p className="text-sm font-bold uppercase tracking-[0.24em] text-[#8EB522]">
           Accessibility and responsiveness
         </p>
-        <p className="text-base leading-relaxed text-[#45140C]/80">{intro}</p>
+        <p className="text-base leading-relaxed text-[#250D47]/80">{intro}</p>
       </div>
       <ul className="grid gap-3">
         {items.map((item, index) => (
@@ -307,7 +307,7 @@ export function AccessibilitySummary({
             key={item}
             className={`anim-hidden anim-slide-up anim-delay-${
               (index % 6) + 1
-            } rounded-2xl border border-[#45140C]/10 bg-[#FDFAF7] px-4 py-3 text-sm leading-relaxed text-[#1f1712]`}
+            } rounded-2xl border border-[#250D47]/10 bg-[#F0F1E3] px-4 py-3 text-sm leading-relaxed text-[#250D47]`}
           >
             {item}
           </li>
@@ -338,11 +338,11 @@ export function OutcomeSummary({
         aspectClassName="aspect-[16/9] min-h-[280px] lg:min-h-[360px]"
       />
       <div className="max-w-3xl space-y-4">
-        <p className="text-sm font-bold uppercase tracking-[0.24em] text-[#B5AD21]">
+        <p className="text-sm font-bold uppercase tracking-[0.24em] text-[#8EB522]">
           Outcomes and reflection
         </p>
-        <p className="text-base leading-relaxed text-[#1f1712]">{summary}</p>
-        <p className="text-base leading-relaxed text-[#45140C]/80">{reflection}</p>
+        <p className="text-base leading-relaxed text-[#250D47]">{summary}</p>
+        <p className="text-base leading-relaxed text-[#250D47]/80">{reflection}</p>
       </div>
       <div className="space-y-3">
         {nextSteps.map((step, index) => (
@@ -350,9 +350,9 @@ export function OutcomeSummary({
             key={step}
             className={`anim-hidden anim-slide-up anim-delay-${
               (index % 6) + 1
-            } flex gap-3 rounded-2xl border border-dashed border-[#45140C]/18 bg-[#FDFAF7] p-4 text-sm leading-relaxed text-[#45140C]/75`}
+            } flex gap-3 rounded-2xl border border-dashed border-[#250D47]/18 bg-[#F0F1E3] p-4 text-sm leading-relaxed text-[#250D47]/75`}
           >
-            <span className="text-[#B5AD21]">&rarr;</span>
+            <span className="text-[#8EB522]">&rarr;</span>
             <span>{step}</span>
           </div>
         ))}
@@ -373,15 +373,15 @@ export function IterationSequence({
       {iterations.map((iteration, index) => (
         <div
           key={iteration.title}
-          className={`anim-slide-up anim-delay-${(index % 6) + 1} rounded-[1.5rem] border border-[#45140C]/10 bg-[#FDFAF7] p-4`}
+          className={`anim-slide-up anim-delay-${(index % 6) + 1} rounded-[1.5rem] border border-[#250D47]/10 bg-[#F0F1E3] p-4`}
         >
-          <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#B5AD21]">
+          <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#8EB522]">
             0{index + 1}
           </p>
-          <h3 className="mt-2 text-lg font-semibold text-[#1f1712]">
+          <h3 className="mt-2 text-lg font-semibold text-[#250D47]">
             {iteration.title}
           </h3>
-          <p className="mt-2 text-sm leading-relaxed text-[#45140C]/70">
+          <p className="mt-2 text-sm leading-relaxed text-[#250D47]/70">
             {iteration.caption}
           </p>
         </div>
@@ -389,3 +389,6 @@ export function IterationSequence({
     </div>
   );
 }
+
+
+

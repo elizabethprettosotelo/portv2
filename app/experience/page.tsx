@@ -4,18 +4,31 @@ import Footer from "../components/footer";
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen flex flex-col overflow-x-hidden max-w-full bg-[#F3EDE2]">
+    <div className="min-h-screen flex flex-col overflow-x-hidden max-w-full bg-[#F0F1E3]">
       <Navbar />
-      <main className="flex-1 pt-16 md:pt-0 overflow-x-hidden max-w-full bg-[#F3EDE2]" style={{ marginLeft: 'var(--sidebar-width, 0px)' }}>
+      <main className="flex-1 pt-16 md:pt-0 overflow-x-hidden max-w-full bg-[#F0F1E3]" style={{ marginLeft: 'var(--sidebar-width, 0px)' }}>
         <About
           // Hero
           name="Eli Pretto-Sotelo"
           tagline="UI/UX Designer & Frontend Developer"
           
           // Bio
-          bio={`Hi! I'm Eli, a designer and developer who loves creating beautiful, functional digital experiences.
-
-I combine my background in UX design with frontend development skills to bridge the gap between design and code. I believe the best products come from understanding both sides of the process.`}
+          bio={
+            <>
+              <p>
+                I&apos;m a UX Designer & Software Engineer at the UCF Center for Distributed Learning, and a senior at UCF studying Visual Communication with a Computer Science minor.
+              </p>
+              <p>
+                Throughout my life, my interests in animation, graphic design, and technology all came together in the form of adoration for UX Design & Engineering.
+              </p>
+              <p>
+                I love to not only design, but iterate and implement my ideas and deliver thoughtful, accessible, and intuitive experiences.
+              </p>
+              <p>
+                I&apos;m a creative at heart, <em>forever and always!</em>
+              </p>
+            </>
+          }
           
           // Skills
           skills={[
@@ -57,6 +70,7 @@ I combine my background in UX design with frontend development skills to bridge 
           // Interests
           interests={[
             "Photography",
+            "Illustration",
             "Coffee Culture",
             "Hiking",
             "Reading",
@@ -92,3 +106,6 @@ I combine my background in UX design with frontend development skills to bridge 
     </div>
   );
 }
+
+
+

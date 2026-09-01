@@ -12,20 +12,20 @@ export default function CaseStudyGallery({ gallery, title = "More Visuals", sect
   if (!gallery || gallery.length === 0) return null;
 
   return (
-    <section className="w-full py-12 bg-[#F3EDE2]">
+    <section className="w-full py-12 bg-[#F0F1E3]">
       <div className="w-full">
         {/* Section Number & Title */}
-        <div className="text-6xl font-bold text-[#E5B1A4]/30 mb-3 font-formadjr">
+        <div className="text-6xl font-bold text-[#9AB1EB]/30 mb-3 font-formadjr">
           {sectionNumber}
         </div>
-        <h2 className="text-3xl md:text-4xl font-bold text-[#45140C] font-formadjr mb-6">
+        <h2 className="text-3xl md:text-4xl font-bold text-[#250D47] font-formadjr mb-6">
           {title}
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {gallery.map((image, index) => (
             <div
               key={index}
-              className="relative w-full h-72 rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 border-2 border-transparent hover:border-[#B5AD21]/30"
+              className="relative w-full h-72 rounded-xl overflow-hidden border-2 border-transparent hover:border-[#8EB522]/30"
             >
               <Image
                 src={image}
@@ -40,3 +40,6 @@ export default function CaseStudyGallery({ gallery, title = "More Visuals", sect
     </section>
   );
 }
+
+
+

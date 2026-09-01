@@ -58,14 +58,14 @@ function AnimatedSkillCard({ group, index }: { group: typeof skillGroups[0]; ind
   }, [index]);
 
   return (
-    <div ref={ref} className="anim-hidden flex-1 min-w-[160px] bg-[#FDFAF7] rounded-xl px-5 py-4 shadow-sm hover:shadow-md transition-shadow duration-300">
-      <h3 className="text-sm font-bold text-[#45140C] font-formadjr mb-3 border-b border-[#45140C]/10 pb-2 uppercase tracking-wider">
+    <div ref={ref} className="anim-hidden flex-1 min-w-[160px] bg-[#F9FAF3] rounded-xl px-5 py-4">
+      <h3 className="text-sm font-bold text-[#250D47] font-formadjr mb-3 border-b border-[#250D47]/10 pb-2 uppercase tracking-wider">
         {group.category}
       </h3>
       <ul className="space-y-1">
         {group.items.map((item, i) => (
-          <li key={i} className="text-sm text-[#45140C]/65 font-inter flex items-center gap-2">
-            <span className="text-[#B5AD21] text-xs">✦</span>
+          <li key={i} className="text-sm text-[#250D47]/65 font-inter flex items-center gap-2">
+            <span className="text-[#8EB522] text-xs">✦</span>
             {item}
           </li>
         ))}
@@ -92,13 +92,13 @@ export default function Skills() {
   }, []);
 
   return (
-    <section id="skills" className="w-full py-20 px-4 bg-[#F3EDE2]">
+    <section id="skills" className="w-full py-20 px-4 bg-[#F0F1E3]">
       <div className="max-w-3xl mx-auto">
         <div ref={headingRef} className="anim-hidden mb-10">
-          <h2 className="text-3xl md:text-4xl font-bold text-[#45140C] font-formadjr mb-2">
+          <h2 className="text-3xl md:text-4xl font-bold text-[#250D47] font-formadjr mb-2">
             Skills & Tools
           </h2>
-          <p className="text-[#45140C]/40 font-inter text-sm">The stuff I actually use day-to-day.</p>
+          <p className="text-[#250D47]/40 font-inter text-sm">The stuff I actually use day-to-day.</p>
         </div>
         <div className="flex flex-wrap justify-center gap-4">
           {skillGroups.map((group, index) => (
@@ -109,3 +109,6 @@ export default function Skills() {
     </section>
   );
 }
+
+
+
