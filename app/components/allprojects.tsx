@@ -35,7 +35,7 @@ const allProjects: Project[] = [
     gif: "/project1.gif",
     video: "/conduit/conduitlaunch.mp4",
     images: ["/project1-1.jpg", "/project1-2.jpg", "/project1-3.jpg"],
-    tags: ["Product Design", "EdTech", "Frontend"],
+    tags: ["Product Design", "EdTech"],
     slug: "ucfhere",
     caseStudy: true,
     links: [
@@ -61,7 +61,7 @@ const allProjects: Project[] = [
     gif: "/project2.gif",
     video: "/labeling/thumbnail.mp4",
     images: ["/project2-1.jpg", "/project2-2.jpg"],
-    tags: ["Fintech", "UI Design", "Hackathon", "Frontend"],
+    tags: ["Fintech", "Hackathon"],
     slug: "wattasave",
     winner: true,
     caseStudy: true,
@@ -84,7 +84,7 @@ const allProjects: Project[] = [
     gif: "/project1.gif",
     video: "/conduit/conduitlaunch.mp4",
     images: ["/project1-1.jpg", "/project1-2.jpg", "/project1-3.jpg"],
-    tags: ["Accessibility", "UX Design", "Hackathon", "Frontend"],
+    tags: ["Accessibility", "Hackathon"],
     slug: "project-one",
     winner: true,
     caseStudy: true,
@@ -103,7 +103,7 @@ const allProjects: Project[] = [
     noTint: true,
     images: ["/project2-1.jpg", "/project2-2.jpg"],
     tagline: "Modernizing a gamified educational widget for accessibility and responsiveness.",
-    tags: ["UI Redesign", "Accessibility", "EdTech", "Frontend"],
+    tags: ["UI Redesign", "EdTech"],
     slug: "project-two",
     caseStudy: true,
     links: [
@@ -117,7 +117,7 @@ const allProjects: Project[] = [
     tagline: "Calculating tariff costs live while you shop online.",
     thumbnail: "/tariffix/gallery-1.jpg",
     images: ["/project5-1.jpg"],
-    tags: ["Frontend", "Hackathon", "Fintech"],
+    tags: ["Fintech", "Hackathon"],
     slug: "project-five",
     winner: true,
     links: [
@@ -149,7 +149,7 @@ const allProjects: Project[] = [
     hoverThumbnail: "/labeling/thumbnail.png",
     hoverVideo: "/knighthacks/kh2025-hover.mp4",
     images: ["/project6-1.jpg", "/project6-2.jpg", "/project6-3.jpg"],
-    tags: ["Frontend", "Responsive Design"],
+    tags: ["Event Branding", "Web Design"],
     slug: "project-six",
     caseStudy: true,
     links: [
@@ -171,7 +171,7 @@ const allProjects: Project[] = [
     thumbnail: "/pallit/frame-3.png",
     hoverThumbnail: "/pallit/gallery-2.jpg",
     images: ["/project7-1.jpg", "/project7-2.jpg"],
-    tags: ["Product Design", "Hackathon", "Frontend"],
+    tags: ["Product Design", "Developer Tools"],
     slug: "pallit",
     caseStudy: true,
     links: [
@@ -238,8 +238,8 @@ function ProjectCard({ project }: { project: Project; }) {
 
   return (
     <div
-      className={`relative bg-[#F9FAF3] rounded-xl overflow-hidden transition-all duration-300 h-full flex flex-col ${
-        isHighlighted ? "-translate-y-1" : ""
+      className={`relative bg-[#F9FAF3] rounded-xl overflow-hidden transition-all duration-300 h-full flex flex-col border-2 ${
+        isHighlighted ? "-translate-y-1 border-[#9AB1EB]" : "border-transparent"
       }`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
@@ -293,15 +293,15 @@ function ProjectCard({ project }: { project: Project; }) {
             </div>
 
             <div className="p-5 flex flex-col flex-1">
-              <div className="flex flex-wrap gap-2 mb-3">
+              <div className="flex flex-wrap gap-1.5 mb-3">
                 {project.tags.map((tag) => (
-                  <span key={tag} className="text-xs px-2 py-0.5 rounded-full bg-[#250D47]/10 text-[#250D47] font-normal font-inter">
+                  <span key={tag} className="text-[11px] px-2.5 py-1 rounded-full border border-[#250D47]/15 text-[#250D47]/75 font-semibold font-inter uppercase tracking-wide">
                     {tag}
                   </span>
                 ))}
               </div>
               <h3 className="text-xl font-bold text-[#250D47] font-formadjr mb-2">{project.title}</h3>
-              <p className="text-[#250D47]/90 text-sm font-medium font-inter leading-relaxed line-clamp-2 flex-1">
+              <p className="text-[#250D47]/70 text-sm font-semibold font-inter leading-relaxed line-clamp-2 flex-1">
                 {project.tagline}
               </p>
             </div>
@@ -350,7 +350,7 @@ export default function AllProjects() {
       <section className="w-full py-16 px-4 bg-[#F0F1E3] fade-in-up">
         <div className="max-w-7xl mx-auto">
           <h1 className="text-5xl md:text-6xl font-bold text-[#250D47] font-formadjr mb-4">All Projects</h1>
-          <p className="text-xl text-[#250D47]/70 font-formadjr max-w-2xl">
+          <p className="text-xl text-[#250D47]/70 font-semibold font-formadjr max-w-2xl">
             A collection of my design and development work across various disciplines.
           </p>
         </div>
@@ -363,7 +363,7 @@ export default function AllProjects() {
               <button
                 key={tag}
                 onClick={() => setSelectedTag(tag)}
-                className={`px-4 py-2 rounded-full font-formadjr font-medium transition-all duration-200 ${
+                className={`px-4 py-2 rounded-full font-formadjr font-bold text-sm transition-all duration-200 ${
                   selectedTag === tag
                     ? "bg-[#250D47] text-[#F0F1E3]"
                     : "bg-[#250D47]/10 text-[#250D47] hover:bg-[#250D47]/20"

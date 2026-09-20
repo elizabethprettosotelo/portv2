@@ -1,4 +1,7 @@
+"use client";
+
 import type { FlowStep } from "./types";
+import { useInView } from "../../../hooks/useInView";
 
 type CurrentStateFlowProps = {
   intro: string;
@@ -7,12 +10,14 @@ type CurrentStateFlowProps = {
 };
 
 export default function CurrentStateFlow({ intro, steps, note }: CurrentStateFlowProps) {
-  return (
-    <div className="space-y-6">
-      <p className="max-w-3xl text-base leading-relaxed text-[#250D47]/80">{intro}</p>
+  const flowRef = useInView<HTMLDivElement>("anim-scale-in");
 
-      <div className="rounded-[1.75rem] border border-[#250D47]/12 bg-[#F0F1E3] p-5 md:p-6">
-        <div className="flex flex-col gap-3 lg:flex-row lg:items-stretch">
+  return (
+    <div className="space-y-8">
+      <p className="text-base leading-relaxed text-[#250D47]/80">{intro}</p>
+
+      <div ref={flowRef} className="anim-hidden rounded-[1.75rem] border border-[#250D47]/12 bg-[#F9FAF3] p-6 md:p-8">
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-stretch">
           {steps.map((step, index) => {
             const isLast = index === steps.length - 1;
             return (
@@ -23,7 +28,7 @@ export default function CurrentStateFlow({ intro, steps, note }: CurrentStateFlo
                       className={`flex h-8 w-8 items-center justify-center rounded-full border text-xs font-bold ${
                         step.highlight
                           ? "border-[#8EB522] bg-[#8EB522] text-[#250D47]"
-                          : "border-[#250D47]/15 bg-white text-[#250D47]"
+                          : "border-[#250D47]/15 bg-[#F0F1E3] text-[#250D47]"
                       }`}
                     >
                       0{index + 1}
@@ -34,7 +39,7 @@ export default function CurrentStateFlow({ intro, steps, note }: CurrentStateFlo
                   </div>
 
                   <div className="min-w-0 flex-1 pb-4 lg:pb-0">
-                    <div className="space-y-2 rounded-[1.25rem] border border-[#250D47]/10 bg-white p-4">
+                    <div className="space-y-2 rounded-[1.25rem] border border-[#250D47]/10 bg-[#F0F1E3] p-5">
                       <p className="text-sm font-semibold text-[#250D47]">{step.label}</p>
                       {step.detail && (
                         <p className="text-sm leading-relaxed text-[#250D47]/70">
@@ -56,7 +61,7 @@ export default function CurrentStateFlow({ intro, steps, note }: CurrentStateFlo
       </div>
 
       {note && (
-        <p className="max-w-3xl border-l-4 border-[#8EB522] pl-4 text-sm leading-relaxed text-[#250D47]/70">
+        <p className="border-l-4 border-[#8EB522] pl-4 text-sm leading-relaxed text-[#250D47]/70">
           {note}
         </p>
       )}

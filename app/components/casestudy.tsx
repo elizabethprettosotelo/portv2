@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { ReactNode } from "react";
 
 type CaseStudyProps = {
@@ -305,12 +306,12 @@ export default function CaseStudy({
       {/* Back to Projects CTA */}
       <section className="w-full py-12 px-8 bg-[#250D47] border-t-2 border-[#9AB1EB]/20">
         <div className="max-w-4xl mx-auto text-center">
-          <a
+          <Link
             href="/projects"
             className="inline-block px-8 py-4 bg-[#8EB522] text-[#250D47] rounded-lg font-formadjr font-bold text-lg hover:bg-[#9AB1EB] transition-all duration-200"
           >
             ← Back to All Projects
-          </a>
+          </Link>
         </div>
       </section>
     </div>

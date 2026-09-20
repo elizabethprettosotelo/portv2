@@ -86,10 +86,10 @@ function ExperienceCard({ experience }: { experience: Experience }) {
       id={experience.id}
       onMouseEnter={() => setHoveredProject(experience.id)}
       onMouseLeave={() => setHoveredProject(null)}
-      className="relative w-full max-w-3xl bg-[#F9FAF3] rounded-xl overflow-hidden transition-all duration-300"
+      className="relative w-full max-w-3xl bg-[#F9FAF3] rounded-xl overflow-hidden transition-all duration-300 border-2 border-transparent hover:border-[#9AB1EB] hover:-translate-y-0.5"
     >
-      <div className="px-5 py-4">
-        <div className="flex items-center gap-2 flex-wrap">
+      <div className="px-5 py-5">
+        <div className="flex items-start gap-3 flex-wrap">
           {/* Company logo */}
           {experience.logo && (
             <div className="w-9 h-9 rounded-lg bg-[#250D47]/10 flex items-center justify-center shrink-0 overflow-hidden">
@@ -102,21 +102,52 @@ function ExperienceCard({ experience }: { experience: Experience }) {
               />
             </div>
           )}
-          <div>
-            <h3 className="text-lg font-bold text-[#250D47] font-formadjr leading-snug tracking-wide">
-              {experience.role}
-            </h3>
-            <p className="text-[#250D47]/80 text-sm font-formadjr font-medium tracking-wide">
-              {experience.company}
-            </p>
-            <p className="text-xs text-[#250D47]/60 font-inter tracking-wide mt-0.5">{experience.dateRange}</p>
+          <div className="flex-1 min-w-[200px] flex items-start justify-between gap-3 flex-wrap">
+            <div>
+              <h3 className="text-lg font-bold text-[#250D47] font-formadjr leading-snug tracking-wide">
+                {experience.role}
+              </h3>
+              <p className="text-[#250D47]/85 text-sm font-formadjr font-bold tracking-wide">
+                {experience.company}
+                <span className="text-[#250D47]/50 font-medium"> · {experience.location}</span>
+              </p>
+            </div>
+            <span className="shrink-0 text-xs font-bold text-[#250D47]/70 font-mono uppercase tracking-wider bg-[#250D47]/8 rounded-full px-3 py-1">
+              {experience.dateRange}
+            </span>
           </div>
         </div>
 
         {/* Description */}
-        <p className="mt-3 text-sm text-[#250D47]/75 font-inter leading-relaxed tracking-wide">
+        <p className="mt-4 text-sm text-[#250D47]/75 font-semibold font-inter leading-relaxed tracking-wide">
           {experience.description}
         </p>
+
+        {/* Key contributions */}
+        {experience.bullets.length > 0 && (
+          <ul className="mt-3 space-y-1.5">
+            {experience.bullets.map((bullet, i) => (
+              <li key={i} className="flex items-start gap-2 text-sm text-[#250D47]/70 font-medium font-inter leading-relaxed">
+                <span className="mt-2 w-1 h-1 rounded-full bg-[#8EB522] shrink-0" />
+                {bullet}
+              </li>
+            ))}
+          </ul>
+        )}
+
+        {/* Skills */}
+        {experience.skills.length > 0 && (
+          <div className="mt-4 flex flex-wrap gap-1.5">
+            {experience.skills.map((skill) => (
+              <span
+                key={skill}
+                className="text-[11px] px-2.5 py-1 rounded-full border border-[#250D47]/15 text-[#250D47]/75 font-semibold font-inter uppercase tracking-wide"
+              >
+                {skill}
+              </span>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
@@ -167,7 +198,9 @@ export default function Experiences() {
     <section id="experiences" className="w-full py-16 px-4 bg-[#F0F1E3]">
       <div ref={headingRef} className="anim-hidden max-w-3xl mx-auto mb-12">
         <h2 className="text-4xl font-bold text-[#250D47] font-formadjr text-left">Experience</h2>
-        <p className="text-lg text-[#250D47]/70 font-inter mt-2 text-left">Look at all the cool places I&apos;ve worked at ✦</p>
+        <p className="text-lg text-[#250D47]/65 font-semibold font-inter mt-2 text-left">
+          All the cool places I&apos;ve gotten to design, build, and lead <span className="text-[#8EB522]">✦</span>
+        </p>
       </div>
 
       {/* Timeline layout */}

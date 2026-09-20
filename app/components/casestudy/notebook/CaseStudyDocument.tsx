@@ -1,7 +1,8 @@
 "use client";
 
+import Link from "next/link";
 import type { ReactNode } from "react";
-import type { CaseStudyDocumentData, CaseStudySection } from "./types";
+import type { CaseStudyDocumentData, CaseStudyLink, CaseStudySection } from "./types";
 import CurrentStateFlow from "./CurrentStateFlow";
 import MediaFrame from "./MediaFrame";
 import {
@@ -21,6 +22,22 @@ type CaseStudyDocumentProps = {
   study: CaseStudyDocumentData;
 };
 
+function CaseStudyLinkButton({ link, className }: { link: CaseStudyLink; className: string }) {
+  const isInternal = link.href.startsWith("/");
+  if (isInternal) {
+    return (
+      <Link href={link.href} className={className}>
+        {link.label}
+      </Link>
+    );
+  }
+  return (
+    <a href={link.href} className={className}>
+      {link.label}
+    </a>
+  );
+}
+
 function SectionShell({
   section,
   children,
@@ -28,16 +45,14 @@ function SectionShell({
   section: CaseStudySection;
   children: ReactNode;
 }) {
-  const sectionRef = useInView<HTMLElement>("anim-slide-up");
+  const sectionRef = useInView<HTMLElement>("anim-slide-up", undefined, { threshold: 0 });
   return (
     <section
       ref={sectionRef}
       id={section.id}
-      className="scroll-mt-28 py-10 md:py-14 anim-hidden"
+      className="anim-hidden scroll-mt-32 border-t border-[#250D47]/8 py-16 first:border-t-0 first:pt-10 md:py-24"
     >
-      <div className="mx-auto grid w-full max-w-[min(80vw,76rem)] gap-6">
-        {children}
-      </div>
+      <div className="mx-auto w-full max-w-4xl space-y-8">{children}</div>
     </section>
   );
 }
@@ -46,32 +61,47 @@ export default function CaseStudyDocument({ study }: CaseStudyDocumentProps) {
   const sections = study.sections;
 
   return (
-    <div className="space-y-4">
-      {sections.map((section) => {
+    <div>
+      {sections.map((section, index) => {
+        const number = String(index + 1).padStart(2, "0");
+
         switch (section.kind) {
           case "intro":
             return (
               <SectionShell key={section.id} section={section}>
-                <SectionHeading
-                  number="01"
-                  title={section.label}
-                  kicker="Project introduction"
-                />
+                <SectionHeading number={number} kicker="Project overview" title={section.label} />
                 <p className="text-base leading-relaxed text-[#250D47]/80 md:text-lg">
                   {section.description}
                 </p>
                 <PullQuote quote={section.valueStatement} />
+                {section.paragraphs?.map((paragraph, paragraphIndex) => (
+                  <div key={paragraph} className="space-y-6">
+                    <p className="text-base leading-relaxed text-[#250D47]/80 md:text-lg">
+                      {paragraph}
+                    </p>
+                    {paragraphIndex === 0 && section.contextCards && (
+                      <div className="grid min-w-0 gap-4 sm:grid-cols-3">
+                        {section.contextCards.map((card, cardIndex) => (
+                          <MediaFrame
+                            key={cardIndex}
+                            media={card}
+                            className="min-w-0"
+                            aspectClassName="aspect-[16/9]"
+                          />
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ))}
+                {section.emphasis && <PullQuote quote={section.emphasis} />}
+                <MediaFrame media={section.diagram} />
               </SectionShell>
             );
 
           case "context":
             return (
               <SectionShell key={section.id} section={section}>
-                <SectionHeading
-                  number="02"
-                  title={section.label}
-                  kicker="Context"
-                />
+                <SectionHeading number={number} kicker="Context" title={section.label} />
                 <div className="space-y-4">
                   {section.paragraphs.map((paragraph) => (
                     <p
@@ -82,7 +112,7 @@ export default function CaseStudyDocument({ study }: CaseStudyDocumentProps) {
                     </p>
                   ))}
                 </div>
-                <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_280px] lg:items-start">
+                <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-start">
                   <PullQuote quote={section.emphasis} />
                   <MediaFrame media={section.diagram} />
                 </div>
@@ -92,17 +122,15 @@ export default function CaseStudyDocument({ study }: CaseStudyDocumentProps) {
           case "problem":
             return (
               <SectionShell key={section.id} section={section}>
-                <SectionHeading
-                  number="03"
-                  title={section.label}
-                  kicker="The problem"
-                />
+                <SectionHeading number={number} kicker="The problem" title={section.label} />
+                {section.flow && <CurrentStateFlow {...section.flow} />}
                 <ProblemGrid
                   statement={section.statement}
                   evidence={section.evidence}
                   issues={section.issues}
                   consequences={section.consequences}
                   visual={section.visual}
+                  pathComparison={section.pathComparison}
                 />
               </SectionShell>
             );
@@ -110,11 +138,7 @@ export default function CaseStudyDocument({ study }: CaseStudyDocumentProps) {
           case "goals":
             return (
               <SectionShell key={section.id} section={section}>
-                <SectionHeading
-                  number="04"
-                  title={section.label}
-                  kicker="Project goal"
-                />
+                <SectionHeading number={number} kicker="Project goal" title={section.label} />
                 <GoalList
                   mainGoal={section.mainGoal}
                   supportingGoals={section.supportingGoals}
@@ -125,11 +149,7 @@ export default function CaseStudyDocument({ study }: CaseStudyDocumentProps) {
           case "flow":
             return (
               <SectionShell key={section.id} section={section}>
-                <SectionHeading
-                  number="05"
-                  title={section.label}
-                  kicker="Current-state experience"
-                />
+                <SectionHeading number={number} kicker="Current-state experience" title={section.label} />
                 <CurrentStateFlow
                   intro={section.intro}
                   steps={section.steps}
@@ -141,23 +161,18 @@ export default function CaseStudyDocument({ study }: CaseStudyDocumentProps) {
           case "chapters":
             return (
               <SectionShell key={section.id} section={section}>
-                <SectionHeading
-                  number="06"
-                  title={section.label}
-                  kicker="Design approach"
-                />
-                <div className="space-y-12">
-                  <p className="max-w-3xl text-base leading-relaxed text-[#250D47]/80 md:text-lg">
+                <SectionHeading number={number} kicker="The process" title={section.label} />
+                <div className="space-y-16">
+                  <p className="text-base leading-relaxed text-[#250D47]/80 md:text-lg">
                     {section.intro}
                   </p>
                   {section.iterations && section.iterations.length > 0 && (
                     <IterationSequence iterations={section.iterations} />
                   )}
-                  {section.chapters.map((chapter, index) => (
+                  {section.chapters.map((chapter) => (
                     <ProcessChapter
                       key={chapter.id}
                       chapter={chapter}
-                      reverse={index % 2 === 1}
                     />
                   ))}
                   {section.decision && (
@@ -177,25 +192,21 @@ export default function CaseStudyDocument({ study }: CaseStudyDocumentProps) {
           case "final":
             return (
               <SectionShell key={section.id} section={section}>
-                <SectionHeading
-                  number="07"
-                  title={section.label}
-                  kicker="Final product"
-                />
-                <div className="space-y-6">
-                  <p className="max-w-3xl text-base leading-relaxed text-[#250D47]/80 md:text-lg">
+                <SectionHeading number={number} kicker="Final product" title={section.label} />
+                <div className="space-y-8">
+                  <p className="text-base leading-relaxed text-[#250D47]/80 md:text-lg">
                     {section.summary}
                   </p>
-                  <div className="grid gap-4 md:grid-cols-2">
+                  <div className="grid gap-5 md:grid-cols-2">
                     {section.visuals.map((media) => (
                       <MediaFrame key={media.placeholder ?? media.src} media={media} />
                     ))}
                   </div>
-                  <div className="grid gap-3 md:grid-cols-3">
+                  <div className="grid gap-4 md:grid-cols-3">
                     {section.highlights.map((highlight) => (
                       <div
                         key={highlight}
-                        className="rounded-2xl border border-[#250D47]/10 bg-[#F0F1E3] p-4 text-sm leading-relaxed text-[#250D47]"
+                        className="rounded-2xl border border-[#250D47]/10 bg-[#F9FAF3] p-4 text-sm leading-relaxed text-[#250D47]"
                       >
                         {highlight}
                       </div>
@@ -204,13 +215,11 @@ export default function CaseStudyDocument({ study }: CaseStudyDocumentProps) {
                   {section.links && section.links.length > 0 && (
                     <div className="flex flex-wrap gap-3 pt-2">
                       {section.links.map((link) => (
-                        <a
+                        <CaseStudyLinkButton
                           key={link.label}
-                          href={link.href}
-                          className="inline-flex items-center rounded-full border border-[#250D47]/12 bg-[#250D47] px-4 py-2 text-sm font-medium text-[#F0F1E3] transition hover:bg-[#250D47]"
-                        >
-                          {link.label}
-                        </a>
+                          link={link}
+                          className="inline-flex items-center rounded-full border border-[#250D47]/12 bg-[#250D47] px-4 py-2 text-sm font-bold text-[#F0F1E3] transition hover:bg-[#8EB522] hover:text-[#250D47]"
+                        />
                       ))}
                     </div>
                   )}
@@ -221,11 +230,7 @@ export default function CaseStudyDocument({ study }: CaseStudyDocumentProps) {
           case "accessibility":
             return (
               <SectionShell key={section.id} section={section}>
-                <SectionHeading
-                  number="08"
-                  title={section.label}
-                  kicker="Responsiveness and accessibility"
-                />
+                <SectionHeading number={number} kicker="Responsiveness and accessibility" title={section.label} />
                 <AccessibilitySummary intro={section.intro} items={section.items} />
               </SectionShell>
             );
@@ -233,11 +238,7 @@ export default function CaseStudyDocument({ study }: CaseStudyDocumentProps) {
           case "outcomes":
             return (
               <SectionShell key={section.id} section={section}>
-                <SectionHeading
-                  number="09"
-                  title={section.label}
-                  kicker="Outcomes and reflection"
-                />
+                <SectionHeading number={number} kicker="Outcomes and reflection" title={section.label} />
                 <OutcomeSummary
                   summary={section.summary}
                   reflection={section.reflection}
@@ -246,13 +247,11 @@ export default function CaseStudyDocument({ study }: CaseStudyDocumentProps) {
                 {section.links && section.links.length > 0 && (
                   <div className="flex flex-wrap gap-3 pt-2">
                     {section.links.map((link) => (
-                      <a
+                      <CaseStudyLinkButton
                         key={link.label}
-                        href={link.href}
-                        className="inline-flex items-center rounded-full border border-[#250D47]/12 bg-[#F0F1E3] px-4 py-2 text-sm font-medium text-[#250D47] transition hover:border-[#8EB522]/40 hover:bg-[#8EB522]/6"
-                      >
-                        {link.label}
-                      </a>
+                        link={link}
+                        className="inline-flex items-center rounded-full border border-[#250D47]/15 bg-[#F9FAF3] px-4 py-2 text-sm font-bold text-[#250D47] transition hover:border-[#8EB522]/50 hover:bg-[#8EB522]/10"
+                      />
                     ))}
                   </div>
                 )}
@@ -264,14 +263,12 @@ export default function CaseStudyDocument({ study }: CaseStudyDocumentProps) {
         }
       })}
 
-      <section className="py-8">
+      <section className="border-t border-[#250D47]/8 py-12">
         <div className="flex flex-wrap gap-3">
-          <a
-            href={study.returnHref}
-            className="inline-flex items-center rounded-full border border-[#250D47]/12 bg-[#F0F1E3] px-4 py-2 text-sm font-medium text-[#250D47] transition hover:border-[#8EB522]/40 hover:bg-[#8EB522]/6"
-          >
-            {study.returnLabel}
-          </a>
+          <CaseStudyLinkButton
+            link={{ label: study.returnLabel, href: study.returnHref }}
+            className="inline-flex items-center rounded-full border border-[#250D47]/15 bg-[#F9FAF3] px-4 py-2 text-sm font-bold text-[#250D47] transition hover:border-[#8EB522]/50 hover:bg-[#8EB522]/10"
+          />
         </div>
       </section>
     </div>

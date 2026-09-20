@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import type { MediaAsset } from "./types";
+import { useInView } from "../../../hooks/useInView";
 
 type MediaFrameProps = {
   media?: MediaAsset;
@@ -27,6 +28,7 @@ export default function MediaFrame({
   const dialogRef = useRef<HTMLDivElement | null>(null);
   const closeButtonRef = useRef<HTMLButtonElement | null>(null);
   const lastFocusedRef = useRef<HTMLElement | null>(null);
+  const revealRef = useInView<HTMLDivElement>("anim-scale-in");
 
   useEffect(() => {
     if (!open) return;
@@ -74,11 +76,11 @@ export default function MediaFrame({
   if (imageSrc) {
     return (
       <>
-        <div className={className}>
+        <div ref={revealRef} className={`anim-hidden ${className}`}>
           <button
             type="button"
             onClick={() => setOpen(true)}
-            className={`group relative block w-full overflow-hidden rounded-[1.5rem] border border-[#250D47]/12 bg-[#F0F1E3] text-left transition hover:border-[#8EB522]/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8EB522] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F0F1E3] ${aspectClassName}`}
+            className={`group relative block w-full overflow-hidden rounded-[1.5rem] border border-[#250D47]/40 bg-[#F9FAF3] text-left transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8EB522] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F0F1E3] ${aspectClassName}`}
             aria-label={media.alt ?? "Open image preview"}
           >
             <Image
@@ -106,7 +108,7 @@ export default function MediaFrame({
               role="dialog"
               aria-modal="true"
               aria-label={media.alt ?? "Image preview"}
-              className="relative w-full max-w-5xl overflow-hidden rounded-[1.5rem] bg-[#F0F1E3]"
+              className="relative w-full max-w-5xl overflow-hidden rounded-[1.5rem] bg-[#F9FAF3]"
             >
               <div className="flex items-center justify-between gap-4 border-b border-[#250D47]/10 px-4 py-3">
                 <div className="min-w-0">
@@ -146,20 +148,25 @@ export default function MediaFrame({
   }
 
   return (
-    <div className={className}>
-      <div className={`flex items-center justify-center rounded-[1.5rem] border border-dashed border-[#250D47]/20 bg-[#F0F1E3] p-8 text-center ${aspectClassName}`}>
-        <div className="max-w-md space-y-3">
-          <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#8EB522]">
-            Placeholder
-          </p>
-          <p className="text-sm leading-relaxed text-[#250D47]/65">
-            {media.placeholder ?? "Add a project image or video here."}
+    <div ref={revealRef} className={`anim-hidden ${className}`}>
+      <div className={`flex items-center justify-center rounded-[1.5rem] border border-dashed border-[#250D47]/15 bg-[#F9FAF3] p-8 text-center ${aspectClassName}`}>
+        <div className="flex max-w-xs flex-col items-center gap-2.5">
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 24 24"
+            fill="none"
+            className="h-5 w-5 text-[#250D47]/25"
+          >
+            <rect x="3" y="4" width="18" height="16" rx="2" stroke="currentColor" strokeWidth="1.5" />
+            <circle cx="8.5" cy="9.5" r="1.5" stroke="currentColor" strokeWidth="1.5" />
+            <path d="M21 16l-5.5-5.5a1.5 1.5 0 0 0-2.12 0L4 19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+          <p className="text-xs font-semibold leading-relaxed text-[#250D47]/45">
+            {media.placeholder ?? "Visual coming soon"}
           </p>
         </div>
       </div>
     </div>
   );
 }
-
-
 

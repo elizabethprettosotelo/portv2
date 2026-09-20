@@ -1,45 +1,46 @@
 "use client";
 
 import type { ReactNode } from "react";
-import type { DesignChapter, GoalItem, MediaAsset, ProblemIssue } from "./types";
+import Image from "next/image";
+import type { DesignChapter, GoalItem, MediaAsset, ProblemIssue, ProblemSection } from "./types";
 import MediaFrame from "./MediaFrame";
 import { useInView } from "../../../hooks/useInView";
 
 export function SectionHeading({
   number,
-  title,
   kicker,
+  title,
 }: {
   number: string;
-  title: string;
   kicker?: string;
+  title: string;
 }) {
-  const headingRef = useInView<HTMLDivElement>("anim-slide-up");
+  const headingRef = useInView<HTMLDivElement>("anim-fade");
 
   return (
-    <header ref={headingRef} className="space-y-3 anim-hidden">
-      <p className="text-xs font-bold uppercase tracking-[0.28em] text-[#8EB522]">
-        {number}
-      </p>
-      <div className="space-y-2">
+    <header ref={headingRef} className="anim-hidden space-y-3">
+      <div className="flex items-center gap-3">
+        <span className="font-mono text-xs font-bold tracking-[0.3em] text-[#8EB522]">
+          {number}
+        </span>
         {kicker && (
-          <p className="text-sm font-medium uppercase tracking-[0.18em] text-[#250D47]/50">
+          <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#250D47]/40">
             {kicker}
-          </p>
+          </span>
         )}
-        <h2 className="font-formadjr text-3xl font-bold leading-[1.08] text-[#250D47] md:text-4xl lg:text-[2.85rem]">
-          {title}
-        </h2>
       </div>
+      <h2 className="font-formadjr text-3xl font-bold leading-[1.08] text-[#250D47] md:text-4xl lg:text-[2.85rem]">
+        {title}
+      </h2>
     </header>
   );
 }
 
 export function MarginNote({ children }: { children: ReactNode }) {
   return (
-    <aside className="rounded-2xl border border-[#250D47]/10 bg-[#F0F1E3] p-4 text-sm leading-relaxed text-[#250D47]/70">
-      <p className="mb-2 text-[10px] font-bold uppercase tracking-[0.24em] text-[#8EB522]">
-        Margin note
+    <aside className="rounded-2xl border border-[#9AB1EB]/40 bg-[#9AB1EB]/8 p-4 text-sm leading-relaxed text-[#250D47]/70">
+      <p className="mb-2 text-[10px] font-bold uppercase tracking-[0.24em] text-[#4a6bb3]">
+        Design note
       </p>
       {children}
     </aside>
@@ -69,8 +70,8 @@ export function GoalList({
   const goalRef = useInView<HTMLDivElement>("anim-slide-up");
 
   return (
-    <div ref={goalRef} className="anim-hidden space-y-6">
-      <div className="rounded-[1.75rem] border border-[#250D47]/12 bg-[#F0F1E3] p-6 md:p-8">
+    <div ref={goalRef} className="anim-hidden space-y-8">
+      <div className="rounded-[1.75rem] border border-[#250D47]/12 bg-[#F9FAF3] p-6 md:p-8">
         <p className="mb-3 text-xs font-bold uppercase tracking-[0.24em] text-[#8EB522]">
           Main goal
         </p>
@@ -79,11 +80,11 @@ export function GoalList({
         </p>
       </div>
 
-      <div className="grid gap-4 lg:grid-cols-4">
+      <div className="grid gap-5 lg:grid-cols-4">
         {supportingGoals.map((goal, index) => (
           <div
             key={goal.label}
-            className={`anim-slide-up anim-delay-${(index % 6) + 1} flex gap-4 rounded-2xl border border-[#250D47]/10 bg-[#F0F1E3] p-4 lg:min-h-full`}
+            className={`anim-slide-up anim-delay-${(index % 6) + 1} flex gap-4 rounded-2xl border border-[#250D47]/10 bg-[#F9FAF3] p-5 lg:min-h-full`}
           >
             <div className="shrink-0 text-sm font-bold uppercase tracking-[0.2em] text-[#8EB522]">
               0{index + 1}
@@ -101,29 +102,125 @@ export function GoalList({
   );
 }
 
+function AttendancePathComparison({ paths }: { paths: NonNullable<ProblemSection["pathComparison"]> }) {
+  return (
+    <div className="grid min-w-0 gap-5 md:grid-cols-2">
+      {(["happy", "unhappy"] as const).map((path) => {
+        const unhappy = path === "unhappy";
+        return (
+          <div
+            key={path}
+            className="flex min-w-0 flex-col overflow-hidden rounded-3xl border border-[#250D47]/12 bg-[#F9FAF3] p-5 lg:p-6"
+          >
+            <h3 className="mb-5 text-center text-lg font-semibold text-[#250D47]">
+              {unhappy ? "The unhappy path" : "The happy path"}
+            </h3>
+            <div className="grid grid-cols-3 gap-2 lg:gap-3">
+              {["Open app", "Scan QR code", "Confirm attendance"].map((label, index) => {
+                const blocked = unhappy && index > 0;
+                const screen = paths.screens?.[path][index];
+                return (
+                  <figure key={label} className="min-w-0">
+                    {screen?.src ? (
+                      <div className="relative overflow-hidden rounded-xl border border-[#250D47]/40 bg-black">
+                        <Image
+                          src={screen.src}
+                          alt={screen.alt ?? screen.caption ?? label}
+                          width={586}
+                          height={1268}
+                          sizes="(min-width: 768px) 160px, 30vw"
+                          className={`h-auto w-full ${blocked ? "blur-[1.5px] brightness-50" : ""}`}
+                        />
+                        {blocked && (
+                          <svg aria-hidden="true" viewBox="0 0 100 180" preserveAspectRatio="none" className="pointer-events-none absolute inset-3 h-[calc(100%-1.5rem)] w-[calc(100%-1.5rem)] text-stone-200">
+                            <path d="M8 8L92 172M92 8L8 172" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
+                          </svg>
+                        )}
+                      </div>
+                    ) : (
+                    <div
+                      role="img"
+                      aria-label={`${label}: ${blocked ? "unavailable screen, crossed out" : "mobile screen placeholder"}`}
+                      className={`relative flex aspect-[586/1268] w-full items-center justify-center overflow-hidden rounded-xl border p-2 ${
+                        blocked
+                          ? "border-stone-300 bg-stone-200 text-stone-400"
+                          : "border-dashed border-[#250D47]/25 bg-[#F0F1E3] text-[#250D47]/40"
+                      }`}
+                    >
+                      <span className="absolute top-2 left-1/2 h-1 w-1/3 -translate-x-1/2 rounded-full bg-current opacity-30" />
+                      <span className={`text-center text-[10px] font-medium ${blocked ? "opacity-40" : ""}`}>Screen {index + 1}</span>
+                      {blocked && (
+                        <svg aria-hidden="true" viewBox="0 0 100 180" preserveAspectRatio="none" className="absolute inset-3 h-[calc(100%-1.5rem)] w-[calc(100%-1.5rem)] text-stone-400">
+                          <path d="M8 8L92 172M92 8L8 172" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
+                        </svg>
+                      )}
+                    </div>
+                    )}
+                    <figcaption className={`mt-2 text-center text-[10px] leading-snug sm:text-xs ${blocked ? "text-stone-500" : "text-[#250D47]/65"}`}>
+                      {screen?.caption ?? label}
+                    </figcaption>
+                  </figure>
+                );
+              })}
+            </div>
+            <h4 className="mt-6 text-xs font-bold uppercase tracking-[0.2em] text-[#8EB522]">
+              NOTES
+            </h4>
+            <ul className="mt-3 space-y-3 text-sm leading-relaxed text-[#250D47]/75">
+              {paths[path].map((point) => (
+                <li key={point} className="flex gap-2.5">
+                  <span aria-hidden="true" className="shrink-0">&bull;</span>
+                  <span>{point}</span>
+                </li>
+              ))}
+            </ul>
+            <div className="mt-auto pt-3">
+              <div className="flex items-center gap-3 rounded-xl border border-[#250D47]/10 bg-[#250D47]/5 px-3 py-3 text-sm font-semibold leading-relaxed text-[#250D47]">
+                <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" className="h-7 w-7 shrink-0">
+                  <circle cx="12" cy="12" r="9" />
+                  <circle cx="9" cy="9" r="0.7" fill="currentColor" />
+                  <circle cx="15" cy="9" r="0.7" fill="currentColor" />
+                  <path d={unhappy ? "M8 16Q12 11 16 16" : "M8 15H16"} />
+                </svg>
+                <span>{unhappy ? "Unhappy path experience: frustrating" : "Happy path experience: neutral"}</span>
+              </div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
 export function ProblemGrid({
   statement,
   evidence,
   issues,
   consequences,
   visual,
+  pathComparison,
 }: {
   statement: string;
   evidence?: string;
   issues?: ProblemIssue[];
   consequences?: string[];
   visual?: MediaAsset;
+  pathComparison?: ProblemSection["pathComparison"];
 }) {
   const hasIssues = Boolean(issues && issues.length > 0);
   const problemRef = useInView<HTMLDivElement>("anim-slide-up");
 
   return (
-    <div ref={problemRef} className="anim-hidden space-y-6">
-      <div className="space-y-4">
-        <MediaFrame
-          media={visual}
-          aspectClassName="aspect-[16/9] min-h-[280px] lg:min-h-[360px]"
-        />
+    <div ref={problemRef} className="anim-hidden space-y-8">
+      <div className="space-y-5">
+        {pathComparison ? (
+          <AttendancePathComparison paths={pathComparison} />
+        ) : (
+          <MediaFrame
+            media={visual}
+            aspectClassName="aspect-[16/9] min-h-[280px] lg:min-h-[360px]"
+          />
+        )}
         <p className="text-xl leading-relaxed text-[#250D47] md:text-[1.45rem]">
           {statement}
         </p>
@@ -137,11 +234,11 @@ export function ProblemGrid({
       </div>
 
       {hasIssues ? (
-        <div className="grid gap-4 xl:grid-cols-3">
+        <div className="grid gap-5 xl:grid-cols-3">
           {issues!.map((issue, index) => (
             <article
               key={issue.title}
-              className={`anim-slide-up anim-delay-${(index % 6) + 1} rounded-[1.5rem] border border-[#250D47]/10 bg-[#F0F1E3] p-4 md:p-5`}
+              className={`anim-slide-up anim-delay-${(index % 6) + 1} rounded-[1.5rem] border border-[#250D47]/10 bg-[#F9FAF3] p-5`}
             >
               <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#8EB522]">
                 0{index + 1}
@@ -163,13 +260,13 @@ export function ProblemGrid({
       ) : (
         consequences &&
         consequences.length > 0 && (
-          <ul className="grid gap-3">
+          <ul className="grid gap-4 md:grid-cols-2">
             {consequences.map((item, index) => (
               <li
                 key={item}
-                className={`anim-slide-up anim-delay-${(index % 6) + 1} flex gap-3 rounded-2xl border border-[#250D47]/10 bg-[#F0F1E3] p-4 text-sm leading-relaxed text-[#250D47]/75`}
+                className={`anim-slide-up anim-delay-${(index % 6) + 1} flex gap-3 rounded-2xl border border-[#9AB1EB]/30 bg-[#9AB1EB]/8 p-5 text-sm leading-relaxed text-[#250D47]/75`}
               >
-                <span className="mt-0.5 text-[#8EB522]">&rarr;</span>
+                <span className="mt-0.5 text-[#4a6bb3]">&rarr;</span>
                 <span>{item}</span>
               </li>
             ))}
@@ -200,9 +297,9 @@ export function DesignDecision({
   return (
     <article
       ref={decisionRef}
-      className="anim-hidden grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]"
+      className="anim-hidden grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-start"
     >
-      <div className="space-y-4">
+      <div className="space-y-5">
         <p className="text-sm font-bold uppercase tracking-[0.24em] text-[#8EB522]">
           Design decision
         </p>
@@ -232,21 +329,18 @@ export function DesignDecision({
 
 export function ProcessChapter({
   chapter,
-  reverse,
 }: {
   chapter: DesignChapter;
-  reverse?: boolean;
 }) {
-  const chapterRef = useInView<HTMLElement>("anim-slide-up");
+  const chapterRef = useInView<HTMLElement>("anim-slide-up", undefined, { threshold: 0 });
 
   return (
     <article
       ref={chapterRef}
-      className={`anim-hidden grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] ${
-        reverse ? "lg:[&>*:first-child]:order-2" : ""
-      }`}
+      id={chapter.id}
+      className="anim-hidden min-w-0 space-y-8 scroll-mt-32"
     >
-      <div className="space-y-4">
+      <div className="mx-auto w-full max-w-2xl space-y-5">
         <div className="flex items-center gap-3">
           <p className="text-xs font-bold uppercase tracking-[0.24em] text-[#8EB522]">
             {chapter.number}
@@ -271,8 +365,51 @@ export function ProcessChapter({
           </p>
         </div>
         {chapter.note && <MarginNote>{chapter.note}</MarginNote>}
+        {chapter.checklist && chapter.checklist.length > 0 && (
+          <ul className="grid gap-2 sm:grid-cols-2">
+            {chapter.checklist.map((item) => (
+              <li
+                key={item}
+                className="flex items-start gap-2 rounded-xl border border-[#250D47]/10 bg-[#F9FAF3] px-3 py-2.5 text-sm leading-relaxed text-[#250D47]/80"
+              >
+                <span className="mt-0.5 text-[#8EB522]">✓</span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
-      <MediaFrame media={chapter.visual} />
+      <div className="w-full min-w-0 space-y-6 md:space-y-8">
+        {chapter.mediaRows?.map((row, rowIndex) => (
+          <div
+            key={`${chapter.id}-${rowIndex}`}
+            className={`grid min-w-0 gap-4 md:gap-6 ${
+              row.items.length === 3
+                ? "sm:grid-cols-3"
+                : row.items.length === 2
+                  ? "sm:grid-cols-2"
+                  : "grid-cols-1"
+            }`}
+          >
+            {row.items.map((media, mediaIndex) => (
+              <MediaFrame
+                key={`${chapter.id}-${rowIndex}-${mediaIndex}`}
+                media={media}
+                className="min-w-0 w-full"
+                aspectClassName={
+                  row.kind === "banner"
+                    ? "aspect-[4/1] min-h-32"
+                    : row.kind === "graph"
+                      ? "aspect-[16/9]"
+                      : row.kind === "focus"
+                        ? "aspect-[4/3]"
+                        : "aspect-[3/4]"
+                }
+              />
+            ))}
+          </div>
+        ))}
+      </div>
     </article>
   );
 }
@@ -287,27 +424,24 @@ export function AccessibilitySummary({
   const accessibilityRef = useInView<HTMLDivElement>("anim-slide-up");
 
   return (
-    <div ref={accessibilityRef} className="anim-hidden space-y-6">
+    <div ref={accessibilityRef} className="anim-hidden space-y-8">
       <MediaFrame
-        media={{
-          placeholder:
-            "Add a mobile accessibility screenshot here showing responsive behavior, focus states, or a touch-friendly interaction.",
-        }}
+        media={{ placeholder: "Accessibility in practice" }}
         aspectClassName="aspect-[16/9] min-h-[280px] lg:min-h-[360px]"
       />
-      <div className="max-w-3xl space-y-4">
+      <div className="space-y-4">
         <p className="text-sm font-bold uppercase tracking-[0.24em] text-[#8EB522]">
           Accessibility and responsiveness
         </p>
         <p className="text-base leading-relaxed text-[#250D47]/80">{intro}</p>
       </div>
-      <ul className="grid gap-3">
+      <ul className="grid gap-4 md:grid-cols-2">
         {items.map((item, index) => (
           <li
             key={item}
             className={`anim-hidden anim-slide-up anim-delay-${
               (index % 6) + 1
-            } rounded-2xl border border-[#250D47]/10 bg-[#F0F1E3] px-4 py-3 text-sm leading-relaxed text-[#250D47]`}
+            } rounded-2xl border border-[#250D47]/10 bg-[#F9FAF3] px-5 py-4 text-sm leading-relaxed text-[#250D47]`}
           >
             {item}
           </li>
@@ -329,15 +463,12 @@ export function OutcomeSummary({
   const outcomeRef = useInView<HTMLDivElement>("anim-slide-up");
 
   return (
-    <div ref={outcomeRef} className="anim-hidden space-y-6">
+    <div ref={outcomeRef} className="anim-hidden space-y-8">
       <MediaFrame
-        media={{
-          placeholder:
-            "Add an outcomes screenshot or short demo clip here showing the final product, success state, or reflection slide.",
-        }}
+        media={{ placeholder: "Final reflection" }}
         aspectClassName="aspect-[16/9] min-h-[280px] lg:min-h-[360px]"
       />
-      <div className="max-w-3xl space-y-4">
+      <div className="space-y-4">
         <p className="text-sm font-bold uppercase tracking-[0.24em] text-[#8EB522]">
           Outcomes and reflection
         </p>
@@ -345,14 +476,17 @@ export function OutcomeSummary({
         <p className="text-base leading-relaxed text-[#250D47]/80">{reflection}</p>
       </div>
       <div className="space-y-3">
+        <p className="text-[10px] font-bold uppercase tracking-[0.24em] text-[#4a6bb3]">
+          What&apos;s next
+        </p>
         {nextSteps.map((step, index) => (
           <div
             key={step}
             className={`anim-hidden anim-slide-up anim-delay-${
               (index % 6) + 1
-            } flex gap-3 rounded-2xl border border-dashed border-[#250D47]/18 bg-[#F0F1E3] p-4 text-sm leading-relaxed text-[#250D47]/75`}
+            } flex gap-3 rounded-2xl border border-dashed border-[#9AB1EB]/40 bg-[#9AB1EB]/8 p-4 text-sm leading-relaxed text-[#250D47]/75`}
           >
-            <span className="text-[#8EB522]">&rarr;</span>
+            <span className="text-[#4a6bb3]">&rarr;</span>
             <span>{step}</span>
           </div>
         ))}
@@ -369,11 +503,11 @@ export function IterationSequence({
   const iterationRef = useInView<HTMLDivElement>("anim-slide-up");
 
   return (
-    <div ref={iterationRef} className="anim-hidden grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+    <div ref={iterationRef} className="anim-hidden grid gap-5 md:grid-cols-2 xl:grid-cols-4">
       {iterations.map((iteration, index) => (
         <div
           key={iteration.title}
-          className={`anim-slide-up anim-delay-${(index % 6) + 1} rounded-[1.5rem] border border-[#250D47]/10 bg-[#F0F1E3] p-4`}
+          className={`anim-slide-up anim-delay-${(index % 6) + 1} rounded-[1.5rem] border border-[#250D47]/10 bg-[#F9FAF3] p-5`}
         >
           <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#8EB522]">
             0{index + 1}

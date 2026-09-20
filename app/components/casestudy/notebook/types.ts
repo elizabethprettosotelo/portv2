@@ -48,7 +48,12 @@ export type DesignChapter = {
   decision: string;
   reasoning: string;
   visual?: MediaAsset;
+  mediaRows?: {
+    kind: "screens" | "focus" | "graph" | "banner";
+    items: MediaAsset[];
+  }[];
   note?: string;
+  checklist?: string[];
 };
 
 export type CaseStudySectionBase = {
@@ -60,6 +65,10 @@ export type IntroSection = CaseStudySectionBase & {
   kind: "intro";
   description: string;
   valueStatement: string;
+  paragraphs?: string[];
+  contextCards?: MediaAsset[];
+  emphasis?: string;
+  diagram?: MediaAsset;
 };
 
 export type ContextSection = CaseStudySectionBase & {
@@ -76,6 +85,19 @@ export type ProblemSection = CaseStudySectionBase & {
   issues?: ProblemIssue[];
   evidence?: string;
   visual?: MediaAsset;
+  flow?: {
+    intro: string;
+    steps: FlowStep[];
+    note?: string;
+  };
+  pathComparison?: {
+    happy: string[];
+    unhappy: string[];
+    screens?: {
+      happy: MediaAsset[];
+      unhappy: MediaAsset[];
+    };
+  };
 };
 
 export type GoalsSection = CaseStudySectionBase & {

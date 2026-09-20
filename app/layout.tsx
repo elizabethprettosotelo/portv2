@@ -2,11 +2,39 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Providers } from "./components/providers";
 
+const title = "Eli Pretto-Sotelo — UX Designer & Frontend Developer";
+const description =
+  "Eli Pretto-Sotelo is a UX designer and frontend developer crafting intuitive, accessible digital experiences at UCF's Center for Distributed Learning — blending research-driven design with clean, considered code.";
+
 export const metadata: Metadata = {
-  title: "Eli Pretto-Sotelo",
-  description: "UI/UX Designer & Frontend Developer",
+  title: {
+    default: title,
+    template: "%s — Eli Pretto-Sotelo",
+  },
+  description,
+  keywords: [
+    "Eli Pretto-Sotelo",
+    "UX Designer",
+    "UI Designer",
+    "Frontend Developer",
+    "Product Design",
+    "UCF Center for Distributed Learning",
+    "Accessibility",
+  ],
+  authors: [{ name: "Eli Pretto-Sotelo" }],
   icons: {
-    icon: '/thebaby.png',
+    icon: "/thebaby.png",
+  },
+  openGraph: {
+    title,
+    description,
+    siteName: "Eli Pretto-Sotelo",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title,
+    description,
   },
 };
 

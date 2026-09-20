@@ -16,7 +16,7 @@ export default function NotebookHero({ study }: NotebookHeroProps) {
 
   return (
     <section className="w-full border-b border-[#250D47]/10 bg-[#F0F1E3]">
-      <div className="mx-auto w-full max-w-[min(80vw,76rem)] px-4 py-10 md:px-8 md:py-14">
+      <div className="mx-auto w-full max-w-[92rem] px-4 py-14 md:px-8 md:py-20">
         <div className="grid gap-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(360px,0.95fr)] lg:items-start">
           <div ref={introRef} className="space-y-6 anim-hidden">
             <div className="space-y-4">
@@ -53,17 +53,17 @@ export default function NotebookHero({ study }: NotebookHeroProps) {
               </div>
             </div>
 
-            <div className="space-y-4 max-w-[46rem]">
+            <div className="space-y-5">
               <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#8EB522]">
                 Case study
               </p>
-              <h1 className="text-4xl font-bold leading-[1.02] text-[#250D47] md:text-6xl font-formadjr">
+              <h1 className="text-4xl font-bold leading-[1.02] text-[#250D47] md:text-6xl lg:text-[3.75rem] font-formadjr">
                 {study.title}
               </h1>
               <p className="text-lg leading-relaxed text-[#250D47]/80 md:text-xl">
                 {study.description}
               </p>
-              <p className="max-w-3xl border-l-4 border-[#8EB522] pl-4 text-lg leading-relaxed text-[#250D47]">
+              <p className="border-l-4 border-[#8EB522] pl-4 text-lg leading-relaxed text-[#250D47]">
                 {study.valueStatement}
               </p>
             </div>

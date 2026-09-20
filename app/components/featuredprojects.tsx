@@ -29,7 +29,7 @@ const projects: Project[] = [
     thumbnail: "/ucfhere/frame-2.png",
     gif: "/project1.gif",
     video: "/conduit/conduitlaunch.mp4",
-    tags: ["Product Design", "Campus Experience", "Frontend"],
+    tags: ["Product Design", "EdTech"],
     slug: "ucfhere",
     caseStudyHref: "/projects/ucfhere/case-study",
     links: [
@@ -47,7 +47,7 @@ const projects: Project[] = [
     thumbnail: "/wattasave/preview.png",
     gif: "/project2.gif",
     video: "/labeling/thumbnail.mp4",
-    tags: ["Fintech", "UI Design", "Mobile First"],
+    tags: ["Fintech", "Hackathon"],
     slug: "wattasave",
     caseStudyHref: "/projects/wattasave",
     links: [
@@ -61,7 +61,7 @@ const projects: Project[] = [
     thumbnail: "/conduit/conduitthumb.jpg",
     gif: "/project1.gif",
     video: "/conduit/conduitlaunch.mp4",
-    tags: ["Accessibility", "UX Design", "Multimodal Design"],
+    tags: ["Accessibility", "Hackathon"],
     slug: "project-one",
     caseStudyHref: "/projects/project-one",
     links: [
@@ -113,8 +113,8 @@ function ProjectCard({ project }: { project: Project }) {
   return (
     <div
       className={`relative bg-[#F9FAF3] rounded-xl overflow-hidden transition-all duration-300 h-full flex flex-col ${
-        isHighlighted ? "-translate-y-1" : ""
-      }`}
+        isHighlighted ? "-translate-y-1 border-[#9AB1EB]" : "border-transparent"
+      } border-2`}
       onMouseEnter={() => {
         setIsHovered(true);
         setHoveredProject(project.slug);
@@ -146,8 +146,18 @@ function ProjectCard({ project }: { project: Project }) {
           </div>
 
           <div className="p-5 flex flex-col flex-1">
+            <div className="flex flex-wrap gap-1.5 mb-3">
+              {project.tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="text-[11px] px-2.5 py-1 rounded-full border border-[#250D47]/15 text-[#250D47]/75 font-semibold font-inter uppercase tracking-wide"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
             <h3 className="text-2xl font-bold text-[#250D47] font-formadjr mb-2">{project.title}</h3>
-            <p className="text-[#250D47]/90 text-base font-medium font-inter leading-relaxed">{project.tagline}</p>
+            <p className="text-[#250D47]/70 text-base font-semibold font-inter leading-relaxed">{project.tagline}</p>
           </div>
         </Link>
       </Tooltip>
@@ -205,7 +215,9 @@ export default function FeaturedProjects() {
       <div ref={headingRef} className="anim-hidden max-w-7xl mx-auto mb-12 w-full">
         <div className="max-w-3xl text-left">
           <h2 className="text-4xl font-bold text-[#250D47] font-formadjr text-left">Selected Projects</h2>
-          <p className="text-lg text-[#250D47]/70 font-inter mt-2 text-left">Look at all these things I&apos;ve been cooking up ✦</p>
+          <p className="text-lg text-[#250D47]/65 font-semibold font-inter mt-2 text-left">
+            A few recent things I&apos;ve been cooking up <span className="text-[#8EB522]">✦</span>
+          </p>
         </div>
       </div>
 
@@ -222,7 +234,7 @@ export default function FeaturedProjects() {
       <div ref={btnRef} className="anim-hidden flex justify-center mt-8">
         <Link
           href="/projects"
-          className="px-8 py-3 bg-[#250D47] text-[#F0F1E3] rounded font-formadjr font-medium text-lg hover:bg-[#8EB522] transition"
+          className="px-8 py-3 bg-[#250D47] text-[#F0F1E3] rounded-lg font-formadjr font-bold text-lg hover:bg-[#8EB522] hover:text-[#250D47] transition-all duration-200 hover:-translate-y-0.5"
         >
           View All Projects
         </Link>

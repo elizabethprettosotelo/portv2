@@ -17,6 +17,7 @@ export default function Navbar() {
     { href: '/home', label: 'Home' },
     { href: '/projects', label: 'Projects' },
     { href: '/experience', label: 'About' },
+    { href: '/blog', label: 'Blog' },
     { href: '/play', label: 'Play' },
   ];
 
@@ -68,7 +69,7 @@ export default function Navbar() {
         >
           <div className="flex flex-col gap-2 py-4 px-4">
             {mobileNavLinks.map((link) => (
-              <a
+              <Link
                 key={link.href}
                 href={link.href}
                 onClick={() => setIsOpen(false)}
@@ -76,7 +77,7 @@ export default function Navbar() {
               >
                 <span className="text-[#8EB522] text-sm">✦</span>
                 {link.label}
-              </a>
+              </Link>
             ))}
             <a
               href="/resume.pdf"
@@ -136,7 +137,7 @@ export default function Navbar() {
                   {mobileNavLinks.map((link) => {
                     const isActive = currentPath === link.href || (currentPath === '/' && link.href === '/home');
                     return (
-                      <a
+                      <Link
                         key={link.href}
                         href={link.href}
                         className={`flex items-center gap-2 px-2 py-1.5 rounded transition-all ${
@@ -150,7 +151,7 @@ export default function Navbar() {
                         {isActive && (
                           <div className="w-1.5 h-1.5 rounded-full bg-[#8EB522]"></div>
                         )}
-                      </a>
+                      </Link>
                     );
                   })}
                 </div>

@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 
 export default function Footer() {
   return (
@@ -29,18 +30,21 @@ export default function Footer() {
               NAVIGATION
             </h3>
             <div className="flex flex-col gap-1.5 text-sm font-formadjr font-medium">
-              <a href="/home" className="text-[#250D47]/85 hover:text-[#250D47] transition">
+              <Link href="/home" className="text-[#250D47]/85 hover:text-[#250D47] transition">
                 Home
-              </a>
-              <a href="/projects" className="text-[#250D47]/85 hover:text-[#250D47] transition">
+              </Link>
+              <Link href="/projects" className="text-[#250D47]/85 hover:text-[#250D47] transition">
                 Projects
-              </a>
-              <a href="/experience" className="text-[#250D47]/85 hover:text-[#250D47] transition">
+              </Link>
+              <Link href="/experience" className="text-[#250D47]/85 hover:text-[#250D47] transition">
                 About
-              </a>
-              <a href="/play" className="text-[#250D47]/85 hover:text-[#250D47] transition">
+              </Link>
+              <Link href="/blog" className="text-[#250D47]/85 hover:text-[#250D47] transition">
+                Blog
+              </Link>
+              <Link href="/play" className="text-[#250D47]/85 hover:text-[#250D47] transition">
                 Play
-              </a>
+              </Link>
             </div>
           </div>
 

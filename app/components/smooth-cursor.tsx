@@ -32,6 +32,7 @@ function CursorMark() {
 
 export default function SmoothCursor() {
   const [isEnabled, setIsEnabled] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
   const lastMousePos = useRef<Position>({ x: 0, y: 0 });
   const velocity = useRef<Position>({ x: 0, y: 0 });
   const lastUpdateTime = useRef(0);
@@ -97,6 +98,7 @@ export default function SmoothCursor() {
     };
 
     const handleMouseMove = (event: MouseEvent) => {
+      setIsVisible(true);
       if (rafId) return;
       rafId = window.requestAnimationFrame(() => {
         smoothMouseMove(event);
@@ -104,11 +106,46 @@ export default function SmoothCursor() {
       });
     };
 
+    const handleHide = () => setIsVisible(false);
+    const handleMouseOut = (event: MouseEvent) => {
+      if (!event.relatedTarget) handleHide();
+    };
+    const handleVisibilityChange = () => {
+      if (document.hidden) handleHide();
+    };
+
+    // Chromium (and friends) only recompute which cursor icon to paint in
+    // response to a mousemove event, not simply because the DOM changed. A
+    // click often causes an immediate re-render right under the pointer
+    // (focus state, hover state, a swapped node), and the browser falls back
+    // to the native arrow until the next real mouse movement. Firing a
+    // synthetic mousemove at the same point right after the click forces an
+    // immediate recompute instead of waiting for the user to nudge the mouse.
+    const handleClick = (event: MouseEvent) => {
+      const { clientX, clientY } = event;
+      requestAnimationFrame(() => {
+        window.dispatchEvent(new MouseEvent("mousemove", { clientX, clientY, bubbles: true }));
+      });
+    };
+
     document.documentElement.classList.add("custom-cursor-active");
     window.addEventListener("mousemove", handleMouseMove);
+    // mousemove alone never fires once the pointer leaves the viewport, tab, or
+    // window loses focus, so the cursor freezes at its last known position
+    // (usually right at the edge) instead of disappearing like a real cursor.
+    document.addEventListener("mouseleave", handleHide);
+    document.addEventListener("mouseout", handleMouseOut);
+    window.addEventListener("blur", handleHide);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    window.addEventListener("click", handleClick, true);
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseleave", handleHide);
+      document.removeEventListener("mouseout", handleMouseOut);
+      window.removeEventListener("blur", handleHide);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      window.removeEventListener("click", handleClick, true);
       document.documentElement.classList.remove("custom-cursor-active");
       window.cancelAnimationFrame(rafId);
       window.clearTimeout(resetTimer);
@@ -131,6 +168,8 @@ export default function SmoothCursor() {
         zIndex: 10000,
         pointerEvents: "none",
         willChange: "transform",
+        opacity: isVisible ? 1 : 0,
+        transition: "opacity 0.15s ease",
       }}
       initial={{ scale: 0 }}
       animate={{ scale: 1 }}

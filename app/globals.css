@@ -29,10 +29,14 @@ body {
   }
 }
 
-/* Make body text more readable with medium weight and better spacing */
-.font-inter {
-  font-weight: 500;
-  letter-spacing: 0.015em; /* Increase letter spacing for better readability */
+/* Make body text more readable with medium weight and better spacing.
+   Lives in @layer base so Tailwind weight utilities (font-semibold, font-bold)
+   can still win the cascade instead of being silently locked at 500. */
+@layer base {
+  .font-inter {
+    font-weight: 500;
+    letter-spacing: 0.015em; /* Increase letter spacing for better readability */
+  }
 }
 
 /* Hide default scrollbar globally */
@@ -187,11 +191,17 @@ body {
   to   { opacity: 1; transform: scale(1); }
 }
 
+@keyframes plainFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
 /* Applied by JS when element enters viewport */
 .anim-slide-up    { animation: slideUp      0.6s cubic-bezier(0.16,1,0.3,1) forwards; }
 .anim-slide-left  { animation: slideInLeft  0.6s cubic-bezier(0.16,1,0.3,1) forwards; }
 .anim-slide-right { animation: slideInRight 0.6s cubic-bezier(0.16,1,0.3,1) forwards; }
 .anim-scale-in    { animation: scaleIn      0.5s cubic-bezier(0.16,1,0.3,1) forwards; }
+.anim-fade        { animation: plainFadeIn  0.8s ease-out forwards; }
 
 /* Stagger delays */
 .anim-delay-1 { animation-delay: 0.1s; }

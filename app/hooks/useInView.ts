@@ -21,8 +21,8 @@ export function useInView<T extends HTMLElement>(
       ([entry]) => {
         if (entry.isIntersecting) {
           el.classList.remove("anim-hidden");
-          el.classList.add(animClass);
-          if (delayClass) el.classList.add(delayClass);
+          el.classList.add(...animClass.split(" ").filter(Boolean));
+          if (delayClass) el.classList.add(...delayClass.split(" ").filter(Boolean));
           observer.disconnect();
         }
       },

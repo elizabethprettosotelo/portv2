@@ -8,46 +8,72 @@ export const ucfhereCaseStudy: CaseStudyDocumentData = {
   meta: [
     { label: "Role", value: "UX Designer" },
     { label: "Organization", value: "UCF Center for Distributed Learning" },
-    { label: "Timeline", value: "June-July 2026" },
+    { label: "Timeline", value: "June-July 2026 design sprint; implementation ongoing" },
     { label: "Platform", value: "Responsive web application and Canvas integration" },
     { label: "Tools", value: "Figma, Claude Design, Figma Make" },
     { label: "Responsibilities", value: "Information architecture, user flows, prototyping, interaction design, responsive design, accessibility, error handling, developer collaboration" },
   ],
   categories: ["Edtech", "Accessibility", "UX Design", "Responsive Web"],
   heroMedia: {
-    placeholder: "Add a large hero mockup or product image here. A full-width desktop scan state would work well.",
+    placeholder: "Full product walkthrough — visual coming soon",
   },
   returnHref: "/projects",
   returnLabel: "Back to all project overviews",
   sections: [
     {
       kind: "intro",
-      id: "intro",
-      label: "UCFHere introduction",
+      id: "overview",
+      label: "Overview",
       description:
         "UCFHere is the University of Central Florida's primary attendance and engagement platform, used by more than 50,000 students each month. Students use the application to scan course-specific QR codes, confirm attendance, and review attendance history through Canvas.",
       valueStatement:
         "I led an end-to-end redesign of the student experience, restructuring the navigation, redesigning the QR check-in flow, creating a responsive attendance record system, and designing recovery experiences for device and browser issues.",
-    },
-    {
-      kind: "context",
-      id: "context",
-      label: "Context",
       paragraphs: [
         "Scanning a class QR code is a tiny interaction on paper, but it happens inside a very short window and carries real consequences if it fails. A student who is unsure whether attendance has been recorded is not just dealing with a UI problem; they are dealing with a class-time problem.",
         "The application had to support more than the scanner itself. Students also needed a way to review attendance records, understand their current status within individual courses, access settings, and get help if something went wrong.",
       ],
+      contextCards: [
+        { placeholder: "Context card 1" },
+        { placeholder: "Context card 2" },
+        { placeholder: "Context card 3" },
+      ],
       emphasis:
         "The redesign needed to answer three questions at almost every stage: what is happening, was the action successful, and what should the student do next?",
       diagram: {
-        placeholder:
-          "Add a small context diagram here showing UCFHere, Canvas, class QR codes, and student devices.",
+        placeholder: "System context — UCFHere, Canvas, and the classroom device flow",
       },
     },
     {
       kind: "problem",
       id: "problem",
       label: "The problem",
+      flow: {
+        intro:
+          "Before proposing any fix, I mapped the full student journey rather than treating the QR scanner as an isolated screen. The central flow was open UCFHere, scan a course QR code, receive confirmation, and then either scan again or return to the dashboard.",
+        note:
+          "The highest-friction point is not the scan itself; it is the moment when the student cannot tell whether the failure is temporary, device-specific, or final. That single moment defined the central problem.",
+        steps: [
+          {
+            label: "Open UCFHere",
+            detail: "Students enter through a task-focused dashboard or the scan flow directly.",
+          },
+          {
+            label: "Scan a course QR code",
+            detail: "The camera and code reader need to feel immediate and unambiguous.",
+            friction: "Permission prompts, unsupported browsers, and unreadable codes can interrupt the flow before the scan even starts.",
+            highlight: true,
+          },
+          {
+            label: "Receive confirmation",
+            detail: "Successful scans need a clear, unmistakable confirmation state.",
+            friction: "A success message that is too subtle can leave students uncertain about whether attendance was recorded.",
+          },
+          {
+            label: "Return to dashboard or scan again",
+            detail: "Students should have a clear next action after the scan finishes.",
+          },
+        ],
+      },
       statement:
         "Attendance is a small action with high consequences. When the scan path breaks, the experience can feel ambiguous instead of reassuring, especially when the student is inside a time-limited classroom moment.",
       consequences: [
@@ -61,8 +87,7 @@ export const ucfhereCaseStudy: CaseStudyDocumentData = {
           description:
             "Students need a clear explanation and recovery path when the browser blocks camera access before scanning can even begin.",
           screenshot: {
-            placeholder:
-              "Add a mobile UI screenshot here showing the camera permission denied state and the recovery action.",
+            placeholder: "Camera permission — denied state",
           },
         },
         {
@@ -70,8 +95,7 @@ export const ucfhereCaseStudy: CaseStudyDocumentData = {
           description:
             "Failed QR scans should tell students what went wrong and how to try again without making the error feel generic.",
           screenshot: {
-            placeholder:
-              "Add a mobile UI screenshot here showing the failed scan state, retry feedback, or a helpful error explanation.",
+            placeholder: "Failed scan — retry state",
           },
         },
         {
@@ -79,16 +103,35 @@ export const ucfhereCaseStudy: CaseStudyDocumentData = {
           description:
             "After a successful scan, the interface still has to make the result obvious so students do not leave confused.",
           screenshot: {
-            placeholder:
-              "Add a mobile UI screenshot here showing the success confirmation state on a phone screen.",
+            placeholder: "Success confirmation state",
           },
         },
       ],
       evidence:
         "Students could encounter disabled camera permissions, unsupported browser behavior, failed QR scans, connectivity problems, or uncertainty about whether their attendance had actually been recorded.",
-      visual: {
-        placeholder:
-          "Add a current-state scan flow screenshot or illustration here showing where the experience becomes unclear.",
+      pathComparison: {
+        screens: {
+          happy: [
+            { src: "/ucfhere/screenshots/ucfherehappypath1.png", alt: "UCFHere scanner reading a classroom QR code", caption: "Scan QR code" },
+            { src: "/ucfhere/screenshots/ucfherehappypath2.png", alt: "UCFHere confirmation that attendance has been recorded", caption: "Confirm attendance" },
+            { src: "/ucfhere/screenshots/ucfherehappypath3.png", alt: "UCFHere attendance history showing the course list", caption: "Review history" },
+          ],
+          unhappy: [
+            { src: "/ucfhere/screenshots/ucfheresadpath.png", alt: "UCFHere scanner with a black camera preview", caption: "Open app" },
+            { src: "/ucfhere/screenshots/ucfheresadpath2.png", alt: "UCFHere session enrollment error, dimmed and crossed out", caption: "Scan error" },
+            { src: "/ucfhere/screenshots/ucfherehappypath3.png", alt: "UCFHere attendance history, dimmed and crossed out to show the interrupted path", caption: "Review history" },
+          ],
+        },
+        happy: [
+          "The app opens and camera access is available.",
+          "The course QR code scans without interruption.",
+          "Attendance is recorded, but subtle feedback can still leave students unsure.",
+        ],
+        unhappy: [
+          "The app opens, but a camera, browser, or connection issue interrupts the flow.",
+          "An unclear error leaves the student without a useful next step.",
+          "The student cannot complete the scan or reach confirmation.",
+        ],
       },
     },
     {
@@ -120,41 +163,11 @@ export const ucfhereCaseStudy: CaseStudyDocumentData = {
       ],
     },
     {
-      kind: "flow",
-      id: "flow",
-      label: "Current-state experience",
-      intro:
-        "I mapped the full student journey rather than treating the QR scanner as an isolated screen. The central flow was open UCFHere, scan a course QR code, receive confirmation, and then either scan again or return to the dashboard.",
-      note:
-        "The highest-friction point is not the scan itself; it is the moment when the student cannot tell whether the failure is temporary, device-specific, or final.",
-      steps: [
-        {
-          label: "Open UCFHere",
-          detail: "Students enter through a task-focused dashboard or the scan flow directly.",
-        },
-        {
-          label: "Scan a course QR code",
-          detail: "The camera and code reader need to feel immediate and unambiguous.",
-          friction: "Permission prompts, unsupported browsers, and unreadable codes can interrupt the flow before the scan even starts.",
-          highlight: true,
-        },
-        {
-          label: "Receive confirmation",
-          detail: "Successful scans need a clear, unmistakable confirmation state.",
-          friction: "A success message that is too subtle can leave students uncertain about whether attendance was recorded.",
-        },
-        {
-          label: "Return to dashboard or scan again",
-          detail: "Students should have a clear next action after the scan finishes.",
-        },
-      ],
-    },
-    {
       kind: "chapters",
       id: "approach",
-      label: "Design approach",
+      label: "The process",
       intro:
-        "I moved between low-fidelity flows and high-fidelity interaction prototypes to test hierarchy, spacing, content density, and system behavior. The process was broken into a few focused chapters so the redesign reads like a notebook rather than a generic product timeline.",
+        "I iterated between low-fidelity flows and high-fidelity interaction prototypes to pressure-test hierarchy, spacing, content density, and system behavior. Each round was reviewed with the CDL engineering team and project stakeholders before moving forward, which surfaced edge cases - like camera-permission recovery on older Android browsers - well before implementation.",
       iterations: [
         {
           title: "Dashboard hierarchy",
@@ -188,14 +201,13 @@ export const ucfhereCaseStudy: CaseStudyDocumentData = {
         note:
           "This is one of the most important recovery decisions because it turns confirmation into part of the flow instead of a separate destination.",
         visual: {
-          placeholder:
-            "Add a scan confirmation mockup here showing the bottom-sheet style success state.",
+          placeholder: "Scan confirmation — bottom sheet",
         },
       },
       chapters: [
         {
           id: "feedback",
-          number: "01",
+          number: "6.1",
           title: "System feedback and error recovery",
           challenge:
             "The application needed to communicate success and failure in a way that students could understand instantly while they were still in the middle of the attendance action.",
@@ -205,31 +217,61 @@ export const ucfhereCaseStudy: CaseStudyDocumentData = {
             "Students should never be left guessing whether the issue is temporary, whether the environment is unsupported, or whether attendance already went through.",
           note:
             "The strongest improvement here is specificity: each state explains the problem and the recovery action in plain language.",
-          visual: {
-            placeholder:
-              "Add an annotated error-state sequence here, such as permission denied, unsupported browser, and connectivity recovery.",
-          },
+          mediaRows: [
+            {
+              kind: "screens",
+              items: [
+                { placeholder: "System feedback screen 1" },
+                { placeholder: "System feedback screen 2" },
+                { placeholder: "System feedback screen 3" },
+              ],
+            },
+          ],
         },
         {
           id: "beyond-happy-path",
-          number: "02",
+          number: "6.2",
           title: "Designing beyond the successful path",
           challenge:
             "Many classroom tools only look polished when everything works correctly, but attendance is most stressful when something breaks.",
           decision:
-            "I designed for the failure states first-class, with a matrix that maps the technical issue to the interface message, recovery action, and support guidance.",
+            "I designed the failure states as first-class flows, building a matrix that maps every technical issue to a specific interface message, recovery action, and support path.",
           reasoning:
             "A generic 'try again' loop would not help if the actual problem was a denied permission or unsupported device.",
           note:
-            "This section is where the editorials and annotations matter most because the interface has to explain the invisible.",
-          visual: {
-            placeholder:
-              "Add a browser/device error matrix or troubleshooting diagram here.",
-          },
+            "Every message in this matrix was checked against a real failure scenario - denied permission, unsupported browser, dropped connection - rather than written as a generic catch-all.",
+          mediaRows: [
+            {
+              kind: "screens",
+              items: [
+                { placeholder: "Recovery screen 1" },
+                { placeholder: "Recovery screen 2" },
+              ],
+            },
+            {
+              kind: "screens",
+              items: [
+                { placeholder: "Recovery screen 3" },
+                { placeholder: "Recovery screen 4" },
+              ],
+            },
+            {
+              kind: "graph",
+              items: [
+                { placeholder: "Error recovery graph" },
+              ],
+            },
+            {
+              kind: "banner",
+              items: [
+                { placeholder: "Error recovery banner" },
+              ],
+            },
+          ],
         },
         {
           id: "attendance-records",
-          number: "03",
+          number: "6.3",
           title: "Reworking attendance records",
           challenge:
             "The attendance history needed to support quick verification without turning into a long, undifferentiated list of dates.",
@@ -239,14 +281,48 @@ export const ucfhereCaseStudy: CaseStudyDocumentData = {
             "Students should be able to confirm a recent check-in quickly and still understand longer-term patterns when needed.",
           note:
             "The page also favors normal page scrolling over nested scrolling containers so the interaction feels more predictable on mobile.",
-          visual: {
-            placeholder:
-              "Add a course attendance record mockup here, showing weekly and monthly views.",
-          },
+          mediaRows: [
+            {
+              kind: "screens",
+              items: [
+                { placeholder: "Attendance screen 1" },
+                { placeholder: "Attendance screen 2" },
+              ],
+            },
+            {
+              kind: "screens",
+              items: [
+                { placeholder: "Attendance screen 3" },
+                { placeholder: "Attendance screen 4" },
+              ],
+            },
+            {
+              kind: "focus",
+              items: [
+                { placeholder: "Attendance screen / focus card 1" },
+                { placeholder: "Attendance screen / focus card 2" },
+              ],
+            },
+            {
+              kind: "screens",
+              items: [
+                { placeholder: "Attendance screen 5" },
+                { placeholder: "Attendance screen 6" },
+                { placeholder: "Attendance screen 7" },
+              ],
+            },
+            {
+              kind: "focus",
+              items: [
+                { placeholder: "Attendance screen / focus card 3" },
+                { placeholder: "Attendance screen / focus card 4" },
+              ],
+            },
+          ],
         },
         {
           id: "responsive-accessible",
-          number: "04",
+          number: "6.4",
           title: "Responsive and accessible behavior",
           challenge:
             "UCFHere is used in active classroom environments across many device sizes and browser setups, so the interface has to stay stable under imperfect conditions.",
@@ -255,11 +331,25 @@ export const ucfhereCaseStudy: CaseStudyDocumentData = {
           reasoning:
             "Accessibility is part of the interaction architecture, not a final visual check, especially for an action that students may need to complete quickly.",
           note:
-            "This chapter should feel like a product decision log rather than a compliance appendix.",
-          visual: {
-            placeholder:
-              "Add mobile and desktop responsiveness examples here, such as scanner states and record views.",
-          },
+            "Accessibility requirements were checked against WCAG 2.1 AA guidance throughout the design process, not audited afterward as a final pass.",
+          mediaRows: [
+            {
+              kind: "screens",
+              items: [
+                { placeholder: "Responsive and accessible screen 1" },
+                { placeholder: "Responsive and accessible screen 2" },
+                { placeholder: "Responsive and accessible screen 3" },
+              ],
+            },
+          ],
+          checklist: [
+            "Clear keyboard focus states and touch-target sizing",
+            "Status communication that does not rely only on color",
+            "Screen-reader-friendly labels for icons and scanning controls",
+            "Responsive layouts without clipped or hidden actions",
+            "Predictable page-level scrolling instead of nested scroll containers",
+            "Visible alternatives when camera-based interaction is unavailable",
+          ],
         },
       ],
     },
@@ -276,35 +366,8 @@ export const ucfhereCaseStudy: CaseStudyDocumentData = {
         "Attendance records organized for faster verification and less friction.",
       ],
       visuals: [
-        {
-          placeholder:
-            "Add the final desktop product mockup here. A full-width overview of the dashboard would work well.",
-        },
-        {
-          placeholder:
-            "Add a mobile state here. A scanning or attendance-record screen would show responsive behavior clearly.",
-        },
-      ],
-      links: [
-        { label: "Project overview", href: "/projects" },
-        { label: "Next project: Wattasave", href: "/projects/wattasave" },
-      ],
-    },
-    {
-      kind: "accessibility",
-      id: "accessibility",
-      label: "Accessibility and responsive behavior",
-      intro:
-        "Accessibility was treated as part of the interaction architecture rather than a final visual review. That mattered because students may need to complete the attendance process quickly and under imperfect conditions.",
-      items: [
-        "Clear keyboard focus states and touch-target sizing.",
-        "Status communication that does not rely only on color.",
-        "Screen-reader-friendly labels for icons and scanning controls.",
-        "Responsive layouts without clipped or hidden actions.",
-        "Predictable page-level scrolling instead of nested scroll containers.",
-        "Plain-language error messages and direct recovery actions.",
-        "Visible alternatives when camera-based interaction is unavailable.",
-        "Reduced ambiguity in buttons, instructions, and troubleshooting steps.",
+        { placeholder: "Dashboard overview" },
+        { placeholder: "Mobile scan state" },
       ],
     },
     {
@@ -314,14 +377,15 @@ export const ucfhereCaseStudy: CaseStudyDocumentData = {
       summary:
         "This redesign established a more cohesive foundation for UCFHere's student-facing experience. It simplified navigation, made the scan action easier to locate, clarified successful attendance submission, replaced generic errors with condition-specific recovery flows, and improved attendance record organization.",
       reflection:
-        "The biggest takeaway was that a reliable experience does more than help users succeed. It helps them understand what happened when they cannot succeed immediately and gives them a clear path forward. Because implementation and evaluation are ongoing, I would not attribute unsupported numerical improvements to the redesign.",
+        "Decisions throughout were pressure-tested with the CDL engineering team and reviewed with project stakeholders before implementation, which caught real edge cases - including camera-permission recovery on older Android browsers - before they reached a single student. The biggest takeaway was that a reliable experience does more than help people succeed; it helps them understand what happened when they cannot succeed immediately and gives them a clear path forward. Because implementation and evaluation are ongoing, I am not attaching unverified numerical claims to this redesign.",
       nextSteps: [
         "Add implementation screenshots once the updated UI is in the codebase.",
         "Validate camera and browser behavior across more classroom devices.",
         "Expand the error matrix as browser requirements change.",
       ],
       links: [
-        { label: "Return to work", href: "/projects" },
+        { label: "Return to all projects", href: "/projects" },
+        { label: "Next project: Wattasave", href: "/projects/wattasave" },
         { label: "Contact me", href: "mailto:elizabethprettosotelo@gmail.com" },
       ],
     },

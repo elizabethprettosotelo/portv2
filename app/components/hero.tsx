@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import type { MouseEvent } from "react";
 import { useEffect, useRef } from "react";
 
@@ -75,12 +76,12 @@ export default function Hero() {
                 </p>
                 <p className="text-base sm:text-lg md:text-xl text-[#250D47]/80 font-inter leading-relaxed">
                   I&apos;m{" "}
-                  <a
+                  <Link
                     href="/experience"
                     className="inline-flex items-center border-b-2 border-[#9AB1EB] font-bold text-[#250D47] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#8EB522] hover:text-[#8EB522] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9AB1EB] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F0F1E3]"
                   >
                     Eli Pretto-Sotelo
-                  </a>
+                  </Link>
                   , a UX Designer and Frontend Developer who believes in iterating until every pixel feels intentional.
                 </p>
               </div>

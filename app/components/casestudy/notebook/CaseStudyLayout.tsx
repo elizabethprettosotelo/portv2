@@ -11,7 +11,7 @@ export default function CaseStudyLayout({ sections, children }: CaseStudyLayoutP
   return (
     <section className="w-full pb-20">
       <CaseStudyNavigation sections={sections} />
-      <div className="mx-auto w-full max-w-[min(80vw,76rem)] px-4 md:px-8">
+      <div className="mx-auto w-full max-w-[92rem] px-4 md:px-8">
         <div className="min-w-0">{children}</div>
       </div>
     </section>
