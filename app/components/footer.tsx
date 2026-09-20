@@ -39,11 +39,11 @@ export default function Footer() {
               <Link href="/experience" className="text-[#250D47]/85 hover:text-[#250D47] transition">
                 About
               </Link>
-              <Link href="/blog" className="text-[#250D47]/85 hover:text-[#250D47] transition">
-                Blog
-              </Link>
               <Link href="/play" className="text-[#250D47]/85 hover:text-[#250D47] transition">
                 Play
+              </Link>
+              <Link href="/blog" className="text-[#250D47]/85 hover:text-[#250D47] transition">
+                Blog
               </Link>
             </div>
           </div>

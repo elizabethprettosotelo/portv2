@@ -17,8 +17,8 @@ export default function Navbar() {
     { href: '/home', label: 'Home' },
     { href: '/projects', label: 'Projects' },
     { href: '/experience', label: 'About' },
-    { href: '/blog', label: 'Blog' },
     { href: '/play', label: 'Play' },
+    { href: '/blog', label: 'Blog' },
   ];
 
   const copyToClipboard = () => {
