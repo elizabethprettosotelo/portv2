@@ -45,7 +45,7 @@ function SectionShell({
   section: CaseStudySection;
   children: ReactNode;
 }) {
-  const sectionRef = useInView<HTMLElement>("anim-slide-up", undefined, { threshold: 0 });
+  const sectionRef = useInView<HTMLElement>("cs-fade-up", undefined, { threshold: 0 });
   return (
     <section
       ref={sectionRef}
@@ -73,28 +73,31 @@ export default function CaseStudyDocument({ study }: CaseStudyDocumentProps) {
                 <p className="text-base leading-relaxed text-[#250D47]/80 md:text-lg">
                   {section.description}
                 </p>
-                <PullQuote quote={section.valueStatement} />
-                {section.paragraphs?.map((paragraph, paragraphIndex) => (
-                  <div key={paragraph} className="space-y-6">
-                    <p className="text-base leading-relaxed text-[#250D47]/80 md:text-lg">
-                      {paragraph}
-                    </p>
-                    {paragraphIndex === 0 && section.contextCards && (
-                      <div className="grid min-w-0 gap-4 sm:grid-cols-3">
-                        {section.contextCards.map((card, cardIndex) => (
-                          <MediaFrame
-                            key={cardIndex}
-                            media={card}
-                            className="min-w-0"
-                            aspectClassName="aspect-[16/9]"
-                          />
-                        ))}
-                      </div>
-                    )}
+                {section.contextCards && (
+                  <div className="grid min-w-0 gap-4 sm:grid-cols-3">
+                    {[...section.contextCards].reverse().map((card, cardIndex) => (
+                      <MediaFrame
+                        key={cardIndex}
+                        media={card}
+                        className="min-w-0"
+                        aspectClassName="aspect-4/5"
+                        fit="contain"
+                        variant="plain"
+                        delayMs={cardIndex * 120}
+                      />
+                    ))}
                   </div>
+                )}
+                {section.paragraphs?.map((paragraph) => (
+                  <p
+                    key={paragraph}
+                    className="text-base leading-relaxed text-[#250D47]/80 md:text-lg"
+                  >
+                    {paragraph}
+                  </p>
                 ))}
                 {section.emphasis && <PullQuote quote={section.emphasis} />}
-                <MediaFrame media={section.diagram} />
+                {section.flow && <CurrentStateFlow {...section.flow} />}
               </SectionShell>
             );
 
@@ -123,7 +126,6 @@ export default function CaseStudyDocument({ study }: CaseStudyDocumentProps) {
             return (
               <SectionShell key={section.id} section={section}>
                 <SectionHeading number={number} kicker="The problem" title={section.label} />
-                {section.flow && <CurrentStateFlow {...section.flow} />}
                 <ProblemGrid
                   statement={section.statement}
                   evidence={section.evidence}
@@ -198,8 +200,12 @@ export default function CaseStudyDocument({ study }: CaseStudyDocumentProps) {
                     {section.summary}
                   </p>
                   <div className="grid gap-5 md:grid-cols-2">
-                    {section.visuals.map((media) => (
-                      <MediaFrame key={media.placeholder ?? media.src} media={media} />
+                    {section.visuals.map((media, mediaIndex) => (
+                      <MediaFrame
+                        key={media.placeholder ?? media.src}
+                        media={media}
+                        delayMs={mediaIndex * 120}
+                      />
                     ))}
                   </div>
                   <div className="grid gap-4 md:grid-cols-3">

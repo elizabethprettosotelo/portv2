@@ -69,6 +69,11 @@ export type IntroSection = CaseStudySectionBase & {
   contextCards?: MediaAsset[];
   emphasis?: string;
   diagram?: MediaAsset;
+  flow?: {
+    intro: string;
+    steps: FlowStep[];
+    note?: string;
+  };
 };
 
 export type ContextSection = CaseStudySectionBase & {
@@ -85,11 +90,6 @@ export type ProblemSection = CaseStudySectionBase & {
   issues?: ProblemIssue[];
   evidence?: string;
   visual?: MediaAsset;
-  flow?: {
-    intro: string;
-    steps: FlowStep[];
-    note?: string;
-  };
   pathComparison?: {
     happy: string[];
     unhappy: string[];

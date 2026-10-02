@@ -30,82 +30,33 @@ export const ucfhereCaseStudy: CaseStudyDocumentData = {
         "I led an end-to-end redesign of the student experience, restructuring the navigation, redesigning the QR check-in flow, creating a responsive attendance record system, and designing recovery experiences for device and browser issues.",
       paragraphs: [
         "Scanning a class QR code is a tiny interaction on paper, but it happens inside a very short window and carries real consequences if it fails. A student who is unsure whether attendance has been recorded is not just dealing with a UI problem; they are dealing with a class-time problem.",
-        "The application had to support more than the scanner itself. Students also needed a way to review attendance records, understand their current status within individual courses, access settings, and get help if something went wrong.",
+        "UCFHere functions as more than a scanner. It stores each student's key records — attendance history for every enrolled course, accessibility settings, and support services — all in one place.",
       ],
       contextCards: [
-        { placeholder: "Context card 1" },
-        { placeholder: "Context card 2" },
-        { placeholder: "Context card 3" },
+        { src: "/ucfhere/context/context-1.png", alt: "Illustration of a hand holding a phone with a green attendance confirmation checkmark", caption: "Attendance confirmed!" },
+        { src: "/ucfhere/context/context-2.png", alt: "Illustration of a student holding up a phone to scan", caption: "Students scan codes" },
+        { src: "/ucfhere/context/context-3.png", alt: "Illustration of a QR code displayed on a classroom screen with a presenter", caption: "QR codes displayed in class" },
       ],
-      emphasis:
-        "The redesign needed to answer three questions at almost every stage: what is happening, was the action successful, and what should the student do next?",
-      diagram: {
-        placeholder: "System context — UCFHere, Canvas, and the classroom device flow",
+      flow: {
+        intro: "The student journey, at a glance:",
+        steps: [
+          { label: "Open app", detail: "From the dashboard or scan flow." },
+          { label: "Scan QR code", detail: "Camera reads the course code." },
+          { label: "Confirm attendance", detail: "A clear success state." },
+          { label: "Return to dashboard", detail: "Or scan again for another class." },
+        ],
       },
     },
     {
       kind: "problem",
       id: "problem",
       label: "The problem",
-      flow: {
-        intro:
-          "Before proposing any fix, I mapped the full student journey rather than treating the QR scanner as an isolated screen. The central flow was open UCFHere, scan a course QR code, receive confirmation, and then either scan again or return to the dashboard.",
-        note:
-          "The highest-friction point is not the scan itself; it is the moment when the student cannot tell whether the failure is temporary, device-specific, or final. That single moment defined the central problem.",
-        steps: [
-          {
-            label: "Open UCFHere",
-            detail: "Students enter through a task-focused dashboard or the scan flow directly.",
-          },
-          {
-            label: "Scan a course QR code",
-            detail: "The camera and code reader need to feel immediate and unambiguous.",
-            friction: "Permission prompts, unsupported browsers, and unreadable codes can interrupt the flow before the scan even starts.",
-            highlight: true,
-          },
-          {
-            label: "Receive confirmation",
-            detail: "Successful scans need a clear, unmistakable confirmation state.",
-            friction: "A success message that is too subtle can leave students uncertain about whether attendance was recorded.",
-          },
-          {
-            label: "Return to dashboard or scan again",
-            detail: "Students should have a clear next action after the scan finishes.",
-          },
-        ],
-      },
       statement:
         "Attendance is a small action with high consequences. When the scan path breaks, the experience can feel ambiguous instead of reassuring, especially when the student is inside a time-limited classroom moment.",
       consequences: [
         "Camera permissions, unsupported browser behavior, failed QR scans, connectivity problems, and unclear confirmation states can all look and feel similar to the student.",
         "A generic error message is not enough when the real issue may be a device permission, a browser limitation, or an unreadable QR code.",
         "Students also need a clear path from attendance confirmation back into their history, settings, or support without getting trapped in a dead end.",
-      ],
-      issues: [
-        {
-          title: "Camera permission friction",
-          description:
-            "Students need a clear explanation and recovery path when the browser blocks camera access before scanning can even begin.",
-          screenshot: {
-            placeholder: "Camera permission — denied state",
-          },
-        },
-        {
-          title: "Unclear scan failures",
-          description:
-            "Failed QR scans should tell students what went wrong and how to try again without making the error feel generic.",
-          screenshot: {
-            placeholder: "Failed scan — retry state",
-          },
-        },
-        {
-          title: "Uncertain confirmation state",
-          description:
-            "After a successful scan, the interface still has to make the result obvious so students do not leave confused.",
-          screenshot: {
-            placeholder: "Success confirmation state",
-          },
-        },
       ],
       evidence:
         "Students could encounter disabled camera permissions, unsupported browser behavior, failed QR scans, connectivity problems, or uncertainty about whether their attendance had actually been recorded.",
@@ -117,20 +68,20 @@ export const ucfhereCaseStudy: CaseStudyDocumentData = {
             { src: "/ucfhere/screenshots/ucfherehappypath3.png", alt: "UCFHere attendance history showing the course list", caption: "Review history" },
           ],
           unhappy: [
-            { src: "/ucfhere/screenshots/ucfheresadpath.png", alt: "UCFHere scanner with a black camera preview", caption: "Open app" },
-            { src: "/ucfhere/screenshots/ucfheresadpath2.png", alt: "UCFHere session enrollment error, dimmed and crossed out", caption: "Scan error" },
-            { src: "/ucfhere/screenshots/ucfherehappypath3.png", alt: "UCFHere attendance history, dimmed and crossed out to show the interrupted path", caption: "Review history" },
+            { src: "/ucfhere/screenshots/ucfheresadpath.png", alt: "UCFHere scanner with a black camera preview", caption: "Attempt to scan" },
+            { src: "/ucfhere/screenshots/ucfheresadpath2.png", alt: "UCFHere session enrollment error, dimmed and crossed out", caption: "--" },
+            { src: "/ucfhere/screenshots/ucfherehappypath3.png", alt: "UCFHere attendance history, dimmed and crossed out to show the interrupted path", caption: "--" },
           ],
         },
         happy: [
           "The app opens and camera access is available.",
           "The course QR code scans without interruption.",
-          "Attendance is recorded, but subtle feedback can still leave students unsure.",
+          "Past the brief confirmation screen, there's no follow-up confirmation feedback to put users at ease, but rather directs user to visually cluttered attendance history.",
         ],
         unhappy: [
-          "The app opens, but a camera, browser, or connection issue interrupts the flow.",
-          "An unclear error leaves the student without a useful next step.",
-          "The student cannot complete the scan or reach confirmation.",
+          "App opens, but an unknown issue interrupts the flow.",
+          "An unclear error and a lack of feedback leaves the student without a useful course of action.",
+          "The student cannot complete the scan.",
         ],
       },
     },
@@ -207,7 +158,7 @@ export const ucfhereCaseStudy: CaseStudyDocumentData = {
       chapters: [
         {
           id: "feedback",
-          number: "6.1",
+          number: "4.1",
           title: "System feedback and error recovery",
           challenge:
             "The application needed to communicate success and failure in a way that students could understand instantly while they were still in the middle of the attendance action.",
@@ -230,7 +181,7 @@ export const ucfhereCaseStudy: CaseStudyDocumentData = {
         },
         {
           id: "beyond-happy-path",
-          number: "6.2",
+          number: "4.2",
           title: "Designing beyond the successful path",
           challenge:
             "Many classroom tools only look polished when everything works correctly, but attendance is most stressful when something breaks.",
@@ -271,7 +222,7 @@ export const ucfhereCaseStudy: CaseStudyDocumentData = {
         },
         {
           id: "attendance-records",
-          number: "6.3",
+          number: "4.3",
           title: "Reworking attendance records",
           challenge:
             "The attendance history needed to support quick verification without turning into a long, undifferentiated list of dates.",
@@ -322,7 +273,7 @@ export const ucfhereCaseStudy: CaseStudyDocumentData = {
         },
         {
           id: "responsive-accessible",
-          number: "6.4",
+          number: "4.4",
           title: "Responsive and accessible behavior",
           challenge:
             "UCFHere is used in active classroom environments across many device sizes and browser setups, so the interface has to stay stable under imperfect conditions.",

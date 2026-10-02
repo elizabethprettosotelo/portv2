@@ -12,14 +12,16 @@ export function useInView<T extends HTMLElement>(
   options?: IntersectionObserverInit
 ) {
   const ref = useRef<T>(null);
+  const hasRevealed = useRef(false);
 
   useEffect(() => {
     const el = ref.current;
-    if (!el) return;
+    if (!el || hasRevealed.current) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
+        if (entry.isIntersecting && !hasRevealed.current) {
+          hasRevealed.current = true;
           el.classList.remove("anim-hidden");
           el.classList.add(...animClass.split(" ").filter(Boolean));
           if (delayClass) el.classList.add(...delayClass.split(" ").filter(Boolean));

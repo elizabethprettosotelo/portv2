@@ -15,7 +15,7 @@ export function SectionHeading({
   kicker?: string;
   title: string;
 }) {
-  const headingRef = useInView<HTMLDivElement>("anim-fade");
+  const headingRef = useInView<HTMLDivElement>("cs-fade-in");
 
   return (
     <header ref={headingRef} className="anim-hidden space-y-3">
@@ -48,7 +48,7 @@ export function MarginNote({ children }: { children: ReactNode }) {
 }
 
 export function PullQuote({ quote }: { quote: string }) {
-  const quoteRef = useInView<HTMLQuoteElement>("anim-slide-up");
+  const quoteRef = useInView<HTMLQuoteElement>("cs-fade-up");
 
   return (
     <blockquote
@@ -67,7 +67,7 @@ export function GoalList({
   mainGoal: string;
   supportingGoals: GoalItem[];
 }) {
-  const goalRef = useInView<HTMLDivElement>("anim-slide-up");
+  const goalRef = useInView<HTMLDivElement>("cs-fade-up");
 
   return (
     <div ref={goalRef} className="anim-hidden space-y-8">
@@ -110,7 +110,7 @@ function AttendancePathComparison({ paths }: { paths: NonNullable<ProblemSection
         return (
           <div
             key={path}
-            className="flex min-w-0 flex-col overflow-hidden rounded-3xl border border-[#250D47]/12 bg-[#F9FAF3] p-5 lg:p-6"
+            className="flex min-w-0 flex-col overflow-hidden rounded-lg border border-[#250D47]/12 bg-[#F9FAF3] p-5 lg:p-6"
           >
             <h3 className="mb-5 text-center text-lg font-semibold text-[#250D47]">
               {unhappy ? "The unhappy path" : "The happy path"}
@@ -122,7 +122,7 @@ function AttendancePathComparison({ paths }: { paths: NonNullable<ProblemSection
                 return (
                   <figure key={label} className="min-w-0">
                     {screen?.src ? (
-                      <div className="relative overflow-hidden rounded-xl border border-[#250D47]/40 bg-black">
+                      <div className="relative overflow-hidden rounded-lg border border-[#250D47]/40 bg-black">
                         <Image
                           src={screen.src}
                           alt={screen.alt ?? screen.caption ?? label}
@@ -141,7 +141,7 @@ function AttendancePathComparison({ paths }: { paths: NonNullable<ProblemSection
                     <div
                       role="img"
                       aria-label={`${label}: ${blocked ? "unavailable screen, crossed out" : "mobile screen placeholder"}`}
-                      className={`relative flex aspect-[586/1268] w-full items-center justify-center overflow-hidden rounded-xl border p-2 ${
+                      className={`relative flex aspect-[586/1268] w-full items-center justify-center overflow-hidden rounded-lg border p-2 ${
                         blocked
                           ? "border-stone-300 bg-stone-200 text-stone-400"
                           : "border-dashed border-[#250D47]/25 bg-[#F0F1E3] text-[#250D47]/40"
@@ -164,7 +164,7 @@ function AttendancePathComparison({ paths }: { paths: NonNullable<ProblemSection
               })}
             </div>
             <h4 className="mt-6 text-xs font-bold uppercase tracking-[0.2em] text-[#8EB522]">
-              NOTES
+              THE FLOW
             </h4>
             <ul className="mt-3 space-y-3 text-sm leading-relaxed text-[#250D47]/75">
               {paths[path].map((point) => (
@@ -174,15 +174,36 @@ function AttendancePathComparison({ paths }: { paths: NonNullable<ProblemSection
                 </li>
               ))}
             </ul>
-            <div className="mt-auto pt-3">
-              <div className="flex items-center gap-3 rounded-xl border border-[#250D47]/10 bg-[#250D47]/5 px-3 py-3 text-sm font-semibold leading-relaxed text-[#250D47]">
-                <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" className="h-7 w-7 shrink-0">
+            <div className="mt-auto pt-6">
+              <div
+                className={`flex items-start gap-3 rounded-xl border px-3 py-3 text-sm leading-relaxed text-[#250D47] ${
+                  unhappy
+                    ? "border-red-400/30 bg-red-500/10"
+                    : "border-amber-400/30 bg-amber-400/10"
+                }`}
+              >
+                <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" className="mt-0.5 h-7 w-7 shrink-0">
                   <circle cx="12" cy="12" r="9" />
                   <circle cx="9" cy="9" r="0.7" fill="currentColor" />
                   <circle cx="15" cy="9" r="0.7" fill="currentColor" />
                   <path d={unhappy ? "M8 16Q12 11 16 16" : "M8 15H16"} />
                 </svg>
-                <span>{unhappy ? "Unhappy path experience: frustrating" : "Happy path experience: neutral"}</span>
+                <div>
+                  <p className="font-semibold">
+                    {unhappy ? "Overall Experience: Negative" : "Overall Experience: Neutral"}
+                  </p>
+                  <p className="mt-1 text-[#250D47]/75">
+                    {unhappy ? (
+                      <>
+                        <span className="font-semibold text-[#250D47]">Attendance wasn&apos;t recorded.</span>
+                        <br />
+                        Without error handling or system feedback, the user can&apos;t recover from any problems or bugs.
+                      </>
+                    ) : (
+                      "Scan completed and attendance recorded, but the user feels unsure and disoriented afterward."
+                    )}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -208,7 +229,7 @@ export function ProblemGrid({
   pathComparison?: ProblemSection["pathComparison"];
 }) {
   const hasIssues = Boolean(issues && issues.length > 0);
-  const problemRef = useInView<HTMLDivElement>("anim-slide-up");
+  const problemRef = useInView<HTMLDivElement>("cs-fade-up");
 
   return (
     <div ref={problemRef} className="anim-hidden space-y-8">
@@ -292,7 +313,7 @@ export function DesignDecision({
   note?: string;
   visual?: MediaAsset;
 }) {
-  const decisionRef = useInView<HTMLDivElement>("anim-slide-up");
+  const decisionRef = useInView<HTMLDivElement>("cs-fade-up");
 
   return (
     <article
@@ -332,15 +353,15 @@ export function ProcessChapter({
 }: {
   chapter: DesignChapter;
 }) {
-  const chapterRef = useInView<HTMLElement>("anim-slide-up", undefined, { threshold: 0 });
+  const chapterRef = useInView<HTMLElement>("cs-fade-up", undefined, { threshold: 0 });
 
   return (
     <article
       ref={chapterRef}
       id={chapter.id}
-      className="anim-hidden min-w-0 space-y-8 scroll-mt-32"
+      className="anim-hidden min-w-0 space-y-8 scroll-mt-32 border-l border-[#250D47]/15 pl-6"
     >
-      <div className="mx-auto w-full max-w-2xl space-y-5">
+      <div className="w-full space-y-5">
         <div className="flex items-center gap-3">
           <p className="text-xs font-bold uppercase tracking-[0.24em] text-[#8EB522]">
             {chapter.number}
@@ -396,6 +417,7 @@ export function ProcessChapter({
                 key={`${chapter.id}-${rowIndex}-${mediaIndex}`}
                 media={media}
                 className="min-w-0 w-full"
+                delayMs={mediaIndex * 120}
                 aspectClassName={
                   row.kind === "banner"
                     ? "aspect-[4/1] min-h-32"
@@ -421,7 +443,7 @@ export function AccessibilitySummary({
   intro: string;
   items: string[];
 }) {
-  const accessibilityRef = useInView<HTMLDivElement>("anim-slide-up");
+  const accessibilityRef = useInView<HTMLDivElement>("cs-fade-up");
 
   return (
     <div ref={accessibilityRef} className="anim-hidden space-y-8">
@@ -460,7 +482,7 @@ export function OutcomeSummary({
   reflection: string;
   nextSteps: string[];
 }) {
-  const outcomeRef = useInView<HTMLDivElement>("anim-slide-up");
+  const outcomeRef = useInView<HTMLDivElement>("cs-fade-up");
 
   return (
     <div ref={outcomeRef} className="anim-hidden space-y-8">
@@ -500,7 +522,7 @@ export function IterationSequence({
 }: {
   iterations: { title: string; caption: string }[];
 }) {
-  const iterationRef = useInView<HTMLDivElement>("anim-slide-up");
+  const iterationRef = useInView<HTMLDivElement>("cs-fade-up");
 
   return (
     <div ref={iterationRef} className="anim-hidden grid gap-5 md:grid-cols-2 xl:grid-cols-4">

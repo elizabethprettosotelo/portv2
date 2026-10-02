@@ -9,6 +9,9 @@ type MediaFrameProps = {
   media?: MediaAsset;
   className?: string;
   aspectClassName?: string;
+  fit?: "cover" | "contain";
+  variant?: "lightbox" | "plain";
+  delayMs?: number;
 };
 
 function getFocusableElements(root: HTMLElement) {
@@ -23,12 +26,15 @@ export default function MediaFrame({
   media,
   className = "",
   aspectClassName = "aspect-[16/9]",
+  fit = "cover",
+  variant = "lightbox",
+  delayMs = 0,
 }: MediaFrameProps) {
   const [open, setOpen] = useState(false);
   const dialogRef = useRef<HTMLDivElement | null>(null);
   const closeButtonRef = useRef<HTMLButtonElement | null>(null);
   const lastFocusedRef = useRef<HTMLElement | null>(null);
-  const revealRef = useInView<HTMLDivElement>("anim-scale-in");
+  const revealRef = useInView<HTMLDivElement>("cs-scale-in");
 
   useEffect(() => {
     if (!open) return;
@@ -73,10 +79,29 @@ export default function MediaFrame({
   const imageSrc = media.src;
   const caption = media.caption ?? media.placeholder;
 
+  if (imageSrc && variant === "plain") {
+    return (
+      <div ref={revealRef} className={`anim-hidden ${className}`} style={delayMs ? { animationDelay: `${delayMs}ms` } : undefined}>
+        <div className={`relative w-full overflow-hidden rounded-lg border border-[#250D47]/40 bg-[#F9FAF3] ${aspectClassName}`}>
+          <Image
+            src={imageSrc}
+            alt={media.alt ?? ""}
+            fill
+            className={fit === "contain" ? "object-contain" : "object-cover"}
+            sizes="(min-width: 1024px) 760px, 100vw"
+          />
+        </div>
+        {caption && (
+          <p className="mt-3 text-sm leading-relaxed text-[#250D47]/70">{caption}</p>
+        )}
+      </div>
+    );
+  }
+
   if (imageSrc) {
     return (
       <>
-        <div ref={revealRef} className={`anim-hidden ${className}`}>
+        <div ref={revealRef} className={`anim-hidden ${className}`} style={delayMs ? { animationDelay: `${delayMs}ms` } : undefined}>
           <button
             type="button"
             onClick={() => setOpen(true)}
@@ -87,7 +112,7 @@ export default function MediaFrame({
               src={imageSrc}
               alt={media.alt ?? ""}
               fill
-              className="object-cover transition duration-300 group-hover:scale-[1.02]"
+              className={`transition duration-300 group-hover:scale-[1.02] ${fit === "contain" ? "object-contain" : "object-cover"}`}
               sizes="(min-width: 1024px) 760px, 100vw"
             />
             <div className="absolute inset-0 bg-linear-to-t from-[#250D47]/55 via-transparent to-transparent" />
@@ -148,7 +173,7 @@ export default function MediaFrame({
   }
 
   return (
-    <div ref={revealRef} className={`anim-hidden ${className}`}>
+    <div ref={revealRef} className={`anim-hidden ${className}`} style={delayMs ? { animationDelay: `${delayMs}ms` } : undefined}>
       <div className={`flex items-center justify-center rounded-[1.5rem] border border-dashed border-[#250D47]/15 bg-[#F9FAF3] p-8 text-center ${aspectClassName}`}>
         <div className="flex max-w-xs flex-col items-center gap-2.5">
           <svg

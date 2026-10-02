@@ -10,64 +10,58 @@ type CurrentStateFlowProps = {
 };
 
 export default function CurrentStateFlow({ intro, steps, note }: CurrentStateFlowProps) {
-  const flowRef = useInView<HTMLDivElement>("anim-scale-in");
+  const flowRef = useInView<HTMLDivElement>("cs-scale-in");
 
   return (
-    <div className="space-y-8">
-      <p className="text-base leading-relaxed text-[#250D47]/80">{intro}</p>
+    <div className="space-y-4">
+      <p className="text-sm font-semibold text-[#250D47]/70">{intro}</p>
 
-      <div ref={flowRef} className="anim-hidden rounded-[1.75rem] border border-[#250D47]/12 bg-[#F9FAF3] p-6 md:p-8">
-        <div className="flex flex-col gap-4 lg:flex-row lg:items-stretch">
+      <div ref={flowRef} className="anim-hidden overflow-x-auto pb-1">
+        <div
+          className="grid gap-x-4 gap-y-3"
+          style={{
+            gridTemplateColumns: `repeat(${steps.length}, minmax(9rem, 1fr))`,
+            minWidth: `${steps.length * 9}rem`,
+          }}
+        >
           {steps.map((step, index) => {
             const isLast = index === steps.length - 1;
             return (
-              <div key={`${step.label}-${index}`} className="flex-1">
-                <div className="flex h-full gap-3">
-                  <div className="flex w-8 flex-col items-center">
-                    <div
-                      className={`flex h-8 w-8 items-center justify-center rounded-full border text-xs font-bold ${
-                        step.highlight
-                          ? "border-[#8EB522] bg-[#8EB522] text-[#250D47]"
-                          : "border-[#250D47]/15 bg-[#F0F1E3] text-[#250D47]"
-                      }`}
-                    >
-                      0{index + 1}
-                    </div>
-                    {!isLast && (
-                      <div className="my-2 hidden h-full w-px flex-1 bg-[#250D47]/12 lg:block" />
-                    )}
+              <div key={`number-${step.label}-${index}`} className="flex items-center">
+                <span className="shrink-0 text-xs font-bold uppercase tracking-[0.18em] text-[#250D47]/40">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                {!isLast && (
+                  <div className="ml-2 flex flex-1 items-center">
+                    <div className="h-px flex-1 bg-[#250D47]/25" />
+                    <svg width="8" height="8" viewBox="0 0 8 8" className="shrink-0 text-[#250D47]/35">
+                      <path d="M1 1l3 3-3 3" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
                   </div>
-
-                  <div className="min-w-0 flex-1 pb-4 lg:pb-0">
-                    <div className="space-y-2 rounded-[1.25rem] border border-[#250D47]/10 bg-[#F0F1E3] p-5">
-                      <p className="text-sm font-semibold text-[#250D47]">{step.label}</p>
-                      {step.detail && (
-                        <p className="text-sm leading-relaxed text-[#250D47]/70">
-                          {step.detail}
-                        </p>
-                      )}
-                      {step.friction && (
-                        <p className="rounded-xl border border-[#9AB1EB]/35 bg-[#9AB1EB]/8 px-3 py-2 text-xs leading-relaxed text-[#250D47]/75">
-                          Friction: {step.friction}
-                        </p>
-                      )}
-                    </div>
-                  </div>
-                </div>
+                )}
               </div>
             );
           })}
+
+          {steps.map((step, index) => (
+            <div
+              key={`card-${step.label}-${index}`}
+              className="rounded-xl border border-[#250D47]/12 bg-[#F9FAF3] p-3.5"
+            >
+              <p className="text-sm font-semibold text-[#250D47]">{step.label}</p>
+              {step.detail && (
+                <p className="mt-1 text-xs leading-relaxed text-[#250D47]/65">
+                  {step.detail}
+                </p>
+              )}
+            </div>
+          ))}
         </div>
       </div>
 
       {note && (
-        <p className="border-l-4 border-[#8EB522] pl-4 text-sm leading-relaxed text-[#250D47]/70">
-          {note}
-        </p>
+        <p className="text-xs leading-relaxed text-[#250D47]/60">{note}</p>
       )}
     </div>
   );
 }
-
-
-

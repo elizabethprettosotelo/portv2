@@ -10,9 +10,9 @@ type NotebookHeroProps = {
 };
 
 export default function NotebookHero({ study }: NotebookHeroProps) {
-  const introRef = useInView<HTMLDivElement>("anim-slide-up");
-  const metaRef = useInView<HTMLDListElement>("anim-slide-up anim-delay-1");
-  const mediaRef = useInView<HTMLDivElement>("anim-scale-in anim-delay-2");
+  const introRef = useInView<HTMLDivElement>("cs-fade-up");
+  const metaRef = useInView<HTMLDListElement>("cs-fade-up anim-delay-1");
+  const mediaRef = useInView<HTMLDivElement>("cs-scale-in anim-delay-2");
 
   return (
     <section className="w-full border-b border-[#250D47]/10 bg-[#F0F1E3]">
