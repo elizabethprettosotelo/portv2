@@ -64,7 +64,7 @@ const allProjects: Project[] = [
     tags: ["Fintech", "Hackathon"],
     slug: "wattasave",
     winner: true,
-    caseStudy: true,
+    caseStudy: false,
     links: [
       { label: "Demo", href: "https://devpost.com/software/wattasave", kind: "demo" },
     ],
@@ -87,7 +87,7 @@ const allProjects: Project[] = [
     tags: ["Accessibility", "Hackathon"],
     slug: "project-one",
     winner: true,
-    caseStudy: true,
+    caseStudy: false,
     links: [
       { label: "GitHub", href: "https://github.com/kwaiidev/conduit", kind: "github" },
       { label: "Demo", href: "https://devpost.com/software/conduit-y8gqoj?ref_content=my-projects-tab&ref_feature=my_projects", kind: "devpost" },
@@ -105,7 +105,7 @@ const allProjects: Project[] = [
     tagline: "Modernizing a gamified educational widget for accessibility and responsiveness.",
     tags: ["UI Redesign", "EdTech"],
     slug: "project-two",
-    caseStudy: true,
+    caseStudy: false,
     links: [
       { label: "GitHub", href: "https://github.com/elizabethprettosotelo", kind: "github" },
       { label: "Figma", href: "https://figma.com", kind: "figma" },
@@ -120,6 +120,7 @@ const allProjects: Project[] = [
     tags: ["Fintech", "Hackathon"],
     slug: "project-five",
     winner: true,
+    caseStudy: false,
     links: [
       { label: "GitHub", href: "https://github.com/Adr1an04/Tariffix", kind: "github" },
       { label: "Figma", href: "https://www.figma.com/design/VQeyiEWBKz8l6L7JDHwgqj/Tarrifix?node-id=0-1&p=f&t=aJdtyxYEZDz6tN2L-0", kind: "figma" },
@@ -151,7 +152,7 @@ const allProjects: Project[] = [
     images: ["/project6-1.jpg", "/project6-2.jpg", "/project6-3.jpg"],
     tags: ["Event Branding", "Web Design"],
     slug: "project-six",
-    caseStudy: true,
+    caseStudy: false,
     links: [
       { label: "Demo", href: "https://2025.knighthacks.org/", kind: "demo" },
       { label: "Figma", href: "https://www.figma.com/design/w7k6OFPP8emqJeIRZULqBb/KHVIII?node-id=0-1&t=glZQk6NvaPThdUn6-1", kind: "figma" },
@@ -173,7 +174,7 @@ const allProjects: Project[] = [
     images: ["/project7-1.jpg", "/project7-2.jpg"],
     tags: ["Product Design", "Developer Tools"],
     slug: "pallit",
-    caseStudy: true,
+    caseStudy: false,
     links: [
       { label: "Demo", href: "https://devpost.com/software/pallit", kind: "demo" },
       { label: "GitHub", href: "https://github.com/elizabethprettosotelo/pallit/tree/colors", kind: "github" },
@@ -250,7 +251,12 @@ function ProjectCard({ project }: { project: Project; }) {
         </div>
       )}
 
-      <Tooltip followCursor label="Open case study" className="block">
+      <Tooltip
+        followCursor
+        label="Coming soon | View demo"
+        disabled={project.caseStudy}
+        className="block"
+      >
         <Link href={caseStudyHref} className="block cursor-pointer">
           <div className="cursor-pointer">
             <div className="relative w-full h-56 overflow-hidden bg-[#250D47]/5 shrink-0">
@@ -281,15 +287,9 @@ function ProjectCard({ project }: { project: Project; }) {
                   className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 z-10 ${isHovered ? "opacity-100" : "opacity-0"}`}
                 />
               )}
-              <div className={`absolute inset-0 transition-colors duration-300 flex items-center justify-center z-20 ${
+              <div className={`absolute inset-0 transition-colors duration-300 z-20 ${
                 isHighlighted ? hoverTintClass : "bg-black/0"
-              }`}>
-                <span className={`text-white text-sm font-medium font-formadjr transition-opacity duration-300 ${
-                  isHighlighted ? "opacity-100" : "opacity-0"
-                }`}>
-                  Visual links below
-                </span>
-              </div>
+              }`} />
             </div>
 
             <div className="p-5 flex flex-col flex-1">

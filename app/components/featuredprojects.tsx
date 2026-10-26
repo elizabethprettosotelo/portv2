@@ -17,6 +17,7 @@ type Project = {
   tags: string[];
   slug: string;
   noTint?: boolean;
+  caseStudy?: boolean;
   caseStudyHref?: string;
   links?: { label: string; href: string; kind: "github" | "devpost" | "demo" | "figma" | "custom" }[];
 };
@@ -31,6 +32,7 @@ const projects: Project[] = [
     video: "/conduit/conduitlaunch.mp4",
     tags: ["Product Design", "EdTech"],
     slug: "ucfhere",
+    caseStudy: true,
     caseStudyHref: "/projects/ucfhere/case-study",
     links: [
       {
@@ -49,6 +51,7 @@ const projects: Project[] = [
     video: "/labeling/thumbnail.mp4",
     tags: ["Fintech", "Hackathon"],
     slug: "wattasave",
+    caseStudy: false,
     caseStudyHref: "/projects/wattasave",
     links: [
       { label: "Demo", href: "https://devpost.com/software/wattasave", kind: "demo" },
@@ -63,6 +66,7 @@ const projects: Project[] = [
     video: "/conduit/conduitlaunch.mp4",
     tags: ["Accessibility", "Hackathon"],
     slug: "project-one",
+    caseStudy: false,
     caseStudyHref: "/projects/project-one",
     links: [
       { label: "GitHub", href: "https://github.com/kwaiidev/conduit", kind: "github" },
@@ -124,7 +128,12 @@ function ProjectCard({ project }: { project: Project }) {
         setHoveredProject(null);
       }}
     >
-      <Tooltip followCursor label="Open case study" className="block h-full">
+      <Tooltip
+        followCursor
+        label="Coming soon | View demo"
+        disabled={project.caseStudy}
+        className="block h-full"
+      >
         <Link href={caseStudyHref} className="block cursor-pointer h-full">
           <div className="relative w-full aspect-[16/9]">
             <Image

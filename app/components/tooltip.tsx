@@ -7,6 +7,7 @@ import type { TooltipProps as MuiTooltipProps } from "@mui/material/Tooltip";
 type TooltipProps = {
   children: ReactNode;
   label: string;
+  disabled?: boolean;
   followCursor?: boolean;
   className?: string;
   placement?: MuiTooltipProps["placement"];
@@ -15,6 +16,7 @@ type TooltipProps = {
 export default function Tooltip({
   children,
   label,
+  disabled = false,
   followCursor = false,
   className = "",
   placement = "top",
@@ -22,6 +24,7 @@ export default function Tooltip({
   return (
     <MuiTooltip
       arrow
+      disableHoverListener={disabled}
       followCursor={followCursor}
       title={label}
       placement={placement}
