@@ -108,9 +108,11 @@ function Step({ step, index }: { step: PathStep; index: number }) {
         <div
           role="img"
           aria-label={`Two possible outcomes. ${recoveredLabel}: ${recovered.alt}. ${failedLabel}: ${failed.alt}.`}
-          className="overflow-hidden rounded-lg border border-[#250D47]/10 bg-[#14121A]"
+          className="@container"
         >
-          <div className="relative" style={{ aspectRatio: `${recovered.width} / ${recovered.height}` }}>
+          {/* Same thin iPhone frame as the other screenshots. */}
+          <div className="rounded-[13cqw] bg-[#1C1B21] p-[2.4cqw] shadow-[0_1px_0_1px_rgba(37,13,71,0.08),0_14px_30px_-18px_rgba(37,13,71,0.45)]">
+          <div className="relative overflow-hidden rounded-[10.8cqw] bg-[#14121A]" style={{ aspectRatio: `${recovered.width} / ${recovered.height}` }}>
           <div className="absolute inset-0" style={{ clipPath: half.recovered }}>
             <Image src={recovered.src} alt="" width={recovered.width} height={recovered.height} sizes="200px" className="absolute inset-0 h-full w-full object-cover" />
           </div>
@@ -130,8 +132,9 @@ function Step({ step, index }: { step: PathStep; index: number }) {
           <svg aria-hidden="true" viewBox="0 0 100 100" preserveAspectRatio="none" className="absolute inset-0 h-full w-full">
             <path d="M100 0L0 100" stroke="#FFFFFF" strokeWidth="3" vectorEffect="non-scaling-stroke" />
           </svg>
-          <span className="absolute left-1.5 top-1.5 rounded-full bg-[#2F8A4C] px-1.5 py-0.5 text-[9px] leading-tight sm:px-2 sm:text-[10px] font-bold text-white">{recoveredLabel}</span>
-          <span className="absolute bottom-1.5 right-1.5 rounded-full bg-[#C93C3C] px-1.5 py-0.5 text-[9px] leading-tight sm:px-2 sm:text-[10px] font-bold text-white">{failedLabel}</span>
+          <span className="absolute left-[8%] top-[5%] rounded-full bg-[#2F8A4C] px-1.5 py-0.5 text-[9px] leading-tight sm:px-2 sm:text-[10px] font-bold text-white">{recoveredLabel}</span>
+          <span className="absolute bottom-[5%] right-[8%] rounded-full bg-[#C93C3C] px-1.5 py-0.5 text-[9px] leading-tight sm:px-2 sm:text-[10px] font-bold text-white">{failedLabel}</span>
+          </div>
           </div>
         </div>
         <StepLabel index={index} label={step.label} />

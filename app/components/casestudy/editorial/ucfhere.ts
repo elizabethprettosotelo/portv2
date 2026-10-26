@@ -49,12 +49,7 @@ const screen = (file: string, alt: string, caption?: string): Figure => ({
   height: 2622,
 });
 
-const oldCourseDetail: Figure = {
-  src: "/ucfhere/screenshots/ucfhere-course-detail.png",
-  alt: "Old UCFHere course detail: every class date in alternating yellow and white rows, with present or absent on the right",
-  width: 1125,
-  height: 1902,
-};
+const oldCourseDetail = phone("ucfhere-course-detail.png", "Old UCFHere course detail: every class date in alternating yellow and white rows, with present or absent on the right");
 
 const oldCourseList = phone("ucfherehappypath3.png", "Old UCFHere course list showing every course");
 
@@ -284,9 +279,9 @@ export const ucfhere: CaseStudy = {
         {
           type: "figures",
           layout: "wide",
-          caption: "Nine issues across five screens, rated by severity. Student names are blurred.",
+          caption: "Nine issues across five screens, rated from 1/5 (no usability concern) to 5/5 (usability disaster). Student names are blurred.",
           items: [
-            diagram("A19-heuristic-evaluation.svg", "Heuristic evaluation of five old UCFHere screens with numbered markers, and a table listing each issue, the heuristic it breaks, and its severity: three critical, five major, one minor", 1320, 1246),
+            diagram("A19-heuristic-evaluation.svg", "Heuristic evaluation of five old UCFHere screens with numbered markers, and a table listing each issue, the heuristic it breaks, and its severity on a 1 to 5 scale: one 5/5 usability disaster, two 4/5 major, five 3/5 minor, and one 2/5 cosmetic", 1320, 1318),
           ],
         },
         { type: "subhead", text: "That gave me three priorities" },
@@ -327,7 +322,7 @@ export const ucfhere: CaseStudy = {
       blocks: [
         {
           type: "text",
-          text: "Before designing any screens, I listed every way a check-in could go wrong. I ended up with 26 error states in six categories:",
+          text: "Before designing any screens, I listed every way a check-in could go wrong. I ended up with 26 error states in six categories, each with its own kind of trouble:",
         },
         {
           type: "errorTypes",
@@ -335,32 +330,32 @@ export const ucfhere: CaseStudy = {
             {
               title: "Camera and permissions",
               count: 6,
-              errors: ["Blocked by the browser", "Permission denied before", "Blocked by phone settings", "No camera found", "Camera already in use", "Browser can't reach the camera"],
+              errors: ["The camera is blocked, missing, or busy, so the scanner can't see anything."],
             },
             {
               title: "QR detection",
               count: 5,
-              errors: ["No code detected", "Code out of frame", "Code too blurry", "Code too small or far", "Code too close"],
+              errors: ["The camera works, but the code isn't framed well enough to read."],
             },
             {
               title: "Interrupted sequence",
               count: 2,
-              errors: ["Only the 1st code scanned", "Only the 1st and 2nd scanned"],
+              errors: ["The scan stops before every code is captured."],
             },
             {
               title: "QR validity",
               count: 4,
-              errors: ["Invalid code", "Code for a different class", "Code for a different section", "Code for a different date"],
+              errors: ["A code gets read, but it's not the right one for this class."],
             },
             {
               title: "Check-in",
               count: 3,
-              errors: ["Already checked in", "Not enrolled in the course", "Not in this section"],
+              errors: ["The scan works, but the student can't be checked in."],
             },
             {
               title: "Network and system",
               count: 5,
-              errors: ["No internet connection", "Weak connection", "Request timed out", "Server unavailable", "Unknown error"],
+              errors: ["The connection or the server drops out before attendance is saved."],
             },
           ],
         },
@@ -368,7 +363,11 @@ export const ucfhere: CaseStudy = {
           type: "text",
           text: "For each one, I wrote down what the student sees, what they can do about it, and where they go if that doesn't work. I also settled a few rules along the way. Try again always restarts the whole scan, because the codes regenerate constantly and partial scans can't be saved. And not every error needs troubleshooting. Only camera errors do.",
         },
-        { type: "subhead", text: "The error flow for “Scan the QR code”" },
+        { type: "subhead", text: "Twenty-six ways to say “uh oh”" },
+        {
+          type: "text",
+          text: "Here's the whole map. Start at the top, where a student opens the app, and follow any “no” to see where it leads. Every branch ends at the sheet that catches it, and almost all of them loop right back to Try again.",
+        },
         {
           type: "figures",
           layout: "wide",
@@ -496,7 +495,7 @@ export const ucfhere: CaseStudy = {
           rules: [
             { title: "Try again leads", text: "Every error a student can recover from puts Try again first. Deeper help is optional." },
             { title: "Try again starts over", text: "Codes regenerate constantly, so partial scans aren't kept. A new scan starts at code 1." },
-            { title: "Support comes last", text: "The support page link only appears at the end of self-diagnose." },
+            { title: "Support comes last", text: "A small “Still stuck?” support link sits under the buttons. It’s always there, but never the first thing a student sees." },
           ],
         },
         {
@@ -551,7 +550,7 @@ export const ucfhere: CaseStudy = {
             { lead: "It keeps context.", text: "Students can see where the error happened." },
             { lead: "It doesn't interrupt.", text: "Nothing to dismiss before trying again." },
             { lead: "The fix sits next to the problem.", text: "“Turn on camera access” or “Try again” is right there." },
-            { lead: "There are no dead ends.", text: "Every error has a next step, and so does success: Scan another code or Go to dashboard." },
+            { lead: "There are no dead ends.", text: "Every error has a next step, and so does success: Continue to Dashboard or Scan another QR code." },
           ],
         },
         { type: "text", text: "Popups aren't always wrong. A sheet just fit a fast, repeated, camera-based task better." },
@@ -671,15 +670,15 @@ export const ucfhere: CaseStudy = {
       blocks: [
         {
           type: "text",
-          text: "Attendance status is the most important information on these screens, so it couldn't depend on color. Each status on the attendance bar gets its own pattern as well as its own color: solid for present, stripes for tardy, halftone dots for absent, and an outline for excused. The legend repeats each pattern next to its label, and every status pill pairs an icon with a word.",
+          text: "Attendance status is the most important information on these screens, so it couldn't depend on color. Each status on the attendance bar gets its own pattern as well as its own color: solid for present, stripes for tardy, halftone dots for absent. The legend repeats each pattern next to its label and only lists the statuses a student actually has. Every status pill pairs an icon with a word.",
         },
         {
           type: "figures",
           layout: "stackPhone",
           caption: "The attendance bar in color and in grayscale, and the same legend in use on the course list.",
           items: [
-            diagram("A15-status-color.png", "Attendance bar: 17 present in solid green, 2 tardy in yellow with diagonal stripes, 1 absent in red with halftone dots, and a legend that adds 0 excused as an outlined square", 1338, 438),
-            diagram("A15-status-gray.png", "The same attendance bar in grayscale: the solid, striped, dotted, and outlined swatches still tell the statuses apart", 1338, 438),
+            diagram("A15-status-color.png", "Attendance bar: 17 present in solid green, 2 tardy in yellow with diagonal stripes, 1 absent in red with halftone dots, and a legend that repeats each pattern", 1338, 438),
+            diagram("A15-status-gray.png", "The same attendance bar in grayscale: the solid, striped, and dotted swatches still tell the statuses apart", 1338, 438),
             screen("course-list.png", "Course list where each course card has the patterned attendance bar and its legend"),
           ],
         },
