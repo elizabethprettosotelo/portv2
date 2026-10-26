@@ -86,7 +86,7 @@ function ExperienceCard({ experience }: { experience: Experience }) {
       id={experience.id}
       onMouseEnter={() => setHoveredProject(experience.id)}
       onMouseLeave={() => setHoveredProject(null)}
-      className="relative w-full max-w-3xl bg-[#F9FAF3] rounded-xl overflow-hidden transition-all duration-300 border-2 border-transparent hover:border-[#9AB1EB] hover:-translate-y-0.5"
+      className="relative w-full max-w-3xl bg-[#FFFFFF] rounded-xl overflow-hidden transition-all duration-300 border-2 border-transparent hover:border-[#9AB1EB] hover:-translate-y-0.5"
     >
       <div className="px-5 py-5">
         <div className="flex items-start gap-3 flex-wrap">
@@ -195,7 +195,7 @@ export default function Experiences() {
   }, []);
 
   return (
-    <section id="experiences" className="w-full py-16 px-4 bg-[#F0F1E3]">
+    <section id="experiences" className="w-full py-16 px-4 bg-[#FAF9F6]">
       <div ref={headingRef} className="anim-hidden max-w-3xl mx-auto mb-12">
         <h2 className="text-4xl font-bold text-[#250D47] font-formadjr text-left">Experience</h2>
         <p className="text-lg text-[#250D47]/65 font-semibold font-inter mt-2 text-left">
@@ -215,7 +215,7 @@ export default function Experiences() {
           <div key={i} className="relative mb-8">
             {/* Timeline node */}
             <div
-              className="absolute w-3 h-3 rounded-full bg-[#8EB522] border-2 border-[#F0F1E3]"
+              className="absolute w-3 h-3 rounded-full bg-[#8EB522] border-2 border-[#FAF9F6]"
               style={{ left: "-2.375rem", top: "50%", transform: "translateY(-50%)" }}
             />
             <AnimatedExpCard experience={exp} />

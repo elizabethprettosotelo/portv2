@@ -62,7 +62,7 @@ export default function CaseStudy({
   gallery,
 }: CaseStudyProps) {
   return (
-    <div className="w-full bg-[#F0F1E3]">
+    <div className="w-full bg-[#FAF9F6]">
       {/* Hero Section */}
       <section className="relative w-full h-[60vh] min-h-100 overflow-hidden">
         <Image
@@ -75,10 +75,10 @@ export default function CaseStudy({
         <div className="absolute inset-0 bg-linear-to-t from-[#250D47]/80 via-[#250D47]/40 to-transparent" />
         <div className="absolute bottom-0 left-0 right-0 p-8 md:p-16">
           <div className="max-w-7xl mx-auto">
-            <h1 className="text-5xl md:text-7xl font-bold text-[#F0F1E3] font-formadjr mb-4">
+            <h1 className="text-5xl md:text-7xl font-bold text-[#FAF9F6] font-formadjr mb-4">
               {title}
             </h1>
-            <p className="text-xl md:text-2xl text-[#F0F1E3]/90 font-formadjr max-w-3xl">
+            <p className="text-xl md:text-2xl text-[#FAF9F6]/90 font-formadjr max-w-3xl">
               {subtitle}
             </p>
           </div>
@@ -86,7 +86,7 @@ export default function CaseStudy({
       </section>
 
       {/* Meta Info Bar */}
-      <section className="w-full border-b-2 border-[#250D47]/10 bg-[#F0F1E3]">
+      <section className="w-full border-b-2 border-[#250D47]/10 bg-[#FAF9F6]">
         <div className="max-w-7xl mx-auto px-8 py-8 grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* Role */}
           <div>
@@ -124,7 +124,7 @@ export default function CaseStudy({
       </section>
 
       {/* Tags */}
-      <section className="w-full bg-[#F0F1E3] border-b border-[#250D47]/10">
+      <section className="w-full bg-[#FAF9F6] border-b border-[#250D47]/10">
         <div className="max-w-7xl mx-auto px-8 py-4">
           <div className="flex flex-wrap gap-2">
             {tags.map((tag) => (
@@ -140,7 +140,7 @@ export default function CaseStudy({
       </section>
 
       {/* Overview Section */}
-      <section id="overview" className="w-full py-16 px-8 bg-[#F0F1E3]">
+      <section id="overview" className="w-full py-16 px-8 bg-[#FAF9F6]">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-bold text-[#250D47] font-formadjr mb-6 flex items-center gap-4">
             <span className="text-3xl">📋</span>
@@ -158,7 +158,7 @@ export default function CaseStudy({
       <div className="w-full h-px bg-[#250D47]/10" />
 
       {/* Problem Section */}
-      <section id="problem" className="w-full py-16 px-8 bg-[#F0F1E3]">
+      <section id="problem" className="w-full py-16 px-8 bg-[#FAF9F6]">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-bold text-[#250D47] font-formadjr mb-6 flex items-center gap-4">
             <span className="text-3xl">❓</span>
@@ -186,7 +186,7 @@ export default function CaseStudy({
       <div className="w-full h-px bg-[#250D47]/10" />
 
       {/* Solution Section */}
-      <section id="solution" className="w-full py-16 px-8 bg-[#F0F1E3]">
+      <section id="solution" className="w-full py-16 px-8 bg-[#FAF9F6]">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-bold text-[#250D47] font-formadjr mb-6 flex items-center gap-4">
             <span className="text-3xl">💡</span>
@@ -230,7 +230,7 @@ export default function CaseStudy({
       <div className="w-full h-px bg-[#250D47]/10" />
 
       {/* Results Section */}
-      <section id="results" className="w-full py-16 px-8 bg-[#F0F1E3]">
+      <section id="results" className="w-full py-16 px-8 bg-[#FAF9F6]">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-bold text-[#250D47] font-formadjr mb-6 flex items-center gap-4">
             <span className="text-3xl">✨</span>
@@ -253,7 +253,7 @@ export default function CaseStudy({
                   <div className="text-4xl font-bold text-[#8EB522] font-formadjr mb-2">
                     {metric.value}
                   </div>
-                  <div className="text-sm text-[#F0F1E3]/80 font-inter">
+                  <div className="text-sm text-[#FAF9F6]/80 font-inter">
                     {metric.label}
                   </div>
                 </div>
@@ -278,7 +278,7 @@ export default function CaseStudy({
       {gallery && gallery.length > 0 && (
         <>
           <div className="w-full h-px bg-[#250D47]/10" />
-          <section className="w-full py-16 px-8 bg-[#F0F1E3]">
+          <section className="w-full py-16 px-8 bg-[#FAF9F6]">
             <div className="max-w-6xl mx-auto">
               <h2 className="text-4xl md:text-5xl font-bold text-[#250D47] font-formadjr mb-12 text-center">
                 More Visuals

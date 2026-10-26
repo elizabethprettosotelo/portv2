@@ -55,7 +55,7 @@ export default function CaseStudyResearch({
   }, [registerSection, unregisterSection]);
 
   return (
-    <section id="research" className="w-full py-12 bg-[#F0F1E3]">
+    <section id="research" className="w-full py-12 bg-[#FAF9F6]">
       <div className="w-full">
         {/* Section Number */}
         <div className="text-6xl font-bold text-[#8EB522]/20 mb-3 font-formadjr">
@@ -176,17 +176,17 @@ export default function CaseStudyResearch({
                       </div>
                     )}
                     {!persona.image && (
-                      <div className="w-16 h-16 rounded-full bg-[#8EB522] flex items-center justify-center shrink-0 border-3 border-[#F0F1E3]">
+                      <div className="w-16 h-16 rounded-full bg-[#8EB522] flex items-center justify-center shrink-0 border-3 border-[#FAF9F6]">
                         <span className="text-2xl font-bold text-[#250D47] font-formadjr">
                           {persona.name.charAt(0)}
                         </span>
                       </div>
                     )}
                     <div className="flex-1 min-w-0">
-                      <h3 className="text-xl font-bold text-[#F0F1E3] font-formadjr mb-1 truncate">
+                      <h3 className="text-xl font-bold text-[#FAF9F6] font-formadjr mb-1 truncate">
                         {persona.name}
                       </h3>
-                      <div className="flex flex-col gap-0.5 text-xs text-[#F0F1E3]/70 font-inter">
+                      <div className="flex flex-col gap-0.5 text-xs text-[#FAF9F6]/70 font-inter">
                         {persona.age && persona.occupation && (
                           <span className="truncate">{persona.age}, {persona.occupation}</span>
                         )}

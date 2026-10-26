@@ -29,7 +29,7 @@ export default function CaseStudyHero({ title, subtitle }: CaseStudyHeroProps) {
           {subtitle}
         </p>
 
-        <div className="mt-2 rounded-2xl border-2 border-dashed border-[#250D47]/15 bg-[#F0F1E3] p-5 md:p-6 min-h-[220px] md:min-h-[320px] flex items-center justify-center text-center">
+        <div className="mt-2 rounded-2xl border-2 border-dashed border-[#250D47]/15 bg-[#FAF9F6] p-5 md:p-6 min-h-[220px] md:min-h-[320px] flex items-center justify-center text-center">
           <div className="max-w-xl space-y-2">
             <p className="text-sm font-bold uppercase tracking-[0.24em] text-[#8EB522] font-mono">
               Media placeholder

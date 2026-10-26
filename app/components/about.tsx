@@ -65,7 +65,7 @@ export default function About({
 
   return (
     <>
-      <div className="w-full bg-[#F0F1E3]">
+      <div className="w-full bg-[#FAF9F6]">
         <section id="about-bio" className="w-full py-16 px-4 sm:px-8 fade-in-up">
           <div className="max-w-6xl mx-auto flex flex-col lg:flex-row gap-12 items-center lg:items-start">
             <div className="shrink-0 flex flex-col items-start gap-3 lg:sticky lg:top-8 w-full lg:w-auto">
@@ -292,9 +292,9 @@ export default function About({
                           <Image src={book.cover} alt={book.title} fill className="object-cover rounded-md" />
                         </div>
                         <div className="absolute -top-14 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-10 whitespace-nowrap">
-                          <div className="bg-[#250D47] text-[#F0F1E3] text-sm font-inter px-3 py-2 rounded-lg">
+                          <div className="bg-[#250D47] text-[#FAF9F6] text-sm font-inter px-3 py-2 rounded-lg">
                             <p className="font-bold">{book.title}</p>
-                            {book.author && <p className="text-[#F0F1E3]/70 text-xs mt-0.5">{book.author}</p>}
+                            {book.author && <p className="text-[#FAF9F6]/70 text-xs mt-0.5">{book.author}</p>}
                           </div>
                           <div className="w-2.5 h-2.5 bg-[#250D47] rotate-45 mx-auto -mt-1.5" />
                         </div>

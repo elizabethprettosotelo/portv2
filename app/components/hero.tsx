@@ -54,7 +54,7 @@ export default function Hero() {
           <div ref={headlineRef} className="anim-hidden flex-shrink text-center lg:text-left">
             <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-8xl xl:text-9xl font-bold text-[#250D47] font-formadjr leading-none">
               <span className="block whitespace-nowrap">design til</span>
-              <span className="block whitespace-nowrap text-[#F0F1E3]">it&apos;s right!</span>
+              <span className="block whitespace-nowrap text-[#FAF9F6]">it&apos;s right!</span>
             </h1>
 
             <div ref={svgRef} className="anim-hidden mt-4 md:mt-6 pt-1 flex justify-center">
@@ -68,7 +68,7 @@ export default function Hero() {
             </div>
           </div>
 
-          <div ref={cardRef} className="anim-hidden bg-[#F0F1E3] rounded-2xl p-6 sm:p-8 md:p-10 max-w-xl w-full">
+          <div ref={cardRef} className="anim-hidden bg-[#FAF9F6] rounded-2xl p-6 sm:p-8 md:p-10 max-w-xl w-full">
             <div className="flex flex-col gap-4 md:gap-6">
               <div className="space-y-3 md:space-y-4">
                 <p className="text-lg sm:text-xl md:text-2xl text-[#250D47] font-inter leading-relaxed">
@@ -78,7 +78,7 @@ export default function Hero() {
                   I&apos;m{" "}
                   <Link
                     href="/experience"
-                    className="inline-flex items-center border-b-2 border-[#9AB1EB] font-bold text-[#250D47] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#8EB522] hover:text-[#8EB522] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9AB1EB] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F0F1E3]"
+                    className="inline-flex items-center border-b-2 border-[#9AB1EB] font-bold text-[#250D47] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#8EB522] hover:text-[#8EB522] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9AB1EB] focus-visible:ring-offset-2 focus-visible:ring-offset-[#FAF9F6]"
                   >
                     Eli Pretto-Sotelo
                   </Link>
@@ -89,7 +89,7 @@ export default function Hero() {
               <div className="flex flex-wrap gap-3 md:gap-4">
                 <button
                   onClick={handleScrollToProjects}
-                  className="px-6 sm:px-8 py-3 sm:py-4 bg-[#250D47] text-[#F0F1E3] rounded-lg font-formadjr font-bold text-base sm:text-lg hover:bg-[#8EB522] hover:text-[#250D47] transition-all duration-200 transform hover:-translate-y-0.5 active:scale-95"
+                  className="px-6 sm:px-8 py-3 sm:py-4 bg-[#250D47] text-[#FAF9F6] rounded-lg font-formadjr font-bold text-base sm:text-lg hover:bg-[#8EB522] hover:text-[#250D47] transition-all duration-200 transform hover:-translate-y-0.5 active:scale-95"
                 >
                   View Projects
                 </button>
@@ -97,7 +97,7 @@ export default function Hero() {
                   href="/resume.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-6 sm:px-8 py-3 sm:py-4 border-3 border-[#250D47] text-[#250D47] rounded-lg font-formadjr font-bold text-base sm:text-lg hover:bg-[#250D47] hover:text-[#F0F1E3] transition-all duration-200"
+                  className="px-6 sm:px-8 py-3 sm:py-4 border-3 border-[#250D47] text-[#250D47] rounded-lg font-formadjr font-bold text-base sm:text-lg hover:bg-[#250D47] hover:text-[#FAF9F6] transition-all duration-200"
                 >
                   Resume
                 </a>

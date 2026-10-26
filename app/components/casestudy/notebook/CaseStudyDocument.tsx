@@ -212,7 +212,7 @@ export default function CaseStudyDocument({ study }: CaseStudyDocumentProps) {
                     {section.highlights.map((highlight) => (
                       <div
                         key={highlight}
-                        className="rounded-2xl border border-[#250D47]/10 bg-[#F9FAF3] p-4 text-sm leading-relaxed text-[#250D47]"
+                        className="rounded-2xl border border-[#250D47]/10 bg-[#FFFFFF] p-4 text-sm leading-relaxed text-[#250D47]"
                       >
                         {highlight}
                       </div>
@@ -224,7 +224,7 @@ export default function CaseStudyDocument({ study }: CaseStudyDocumentProps) {
                         <CaseStudyLinkButton
                           key={link.label}
                           link={link}
-                          className="inline-flex items-center rounded-full border border-[#250D47]/12 bg-[#250D47] px-4 py-2 text-sm font-bold text-[#F0F1E3] transition hover:bg-[#8EB522] hover:text-[#250D47]"
+                          className="inline-flex items-center rounded-full border border-[#250D47]/12 bg-[#250D47] px-4 py-2 text-sm font-bold text-[#FAF9F6] transition hover:bg-[#8EB522] hover:text-[#250D47]"
                         />
                       ))}
                     </div>
@@ -256,7 +256,7 @@ export default function CaseStudyDocument({ study }: CaseStudyDocumentProps) {
                       <CaseStudyLinkButton
                         key={link.label}
                         link={link}
-                        className="inline-flex items-center rounded-full border border-[#250D47]/15 bg-[#F9FAF3] px-4 py-2 text-sm font-bold text-[#250D47] transition hover:border-[#8EB522]/50 hover:bg-[#8EB522]/10"
+                        className="inline-flex items-center rounded-full border border-[#250D47]/15 bg-[#FFFFFF] px-4 py-2 text-sm font-bold text-[#250D47] transition hover:border-[#8EB522]/50 hover:bg-[#8EB522]/10"
                       />
                     ))}
                   </div>
@@ -273,7 +273,7 @@ export default function CaseStudyDocument({ study }: CaseStudyDocumentProps) {
         <div className="flex flex-wrap gap-3">
           <CaseStudyLinkButton
             link={{ label: study.returnLabel, href: study.returnHref }}
-            className="inline-flex items-center rounded-full border border-[#250D47]/15 bg-[#F9FAF3] px-4 py-2 text-sm font-bold text-[#250D47] transition hover:border-[#8EB522]/50 hover:bg-[#8EB522]/10"
+            className="inline-flex items-center rounded-full border border-[#250D47]/15 bg-[#FFFFFF] px-4 py-2 text-sm font-bold text-[#250D47] transition hover:border-[#8EB522]/50 hover:bg-[#8EB522]/10"
           />
         </div>
       </section>

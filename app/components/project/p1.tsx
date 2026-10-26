@@ -32,7 +32,7 @@ const ConduitCaseStudy = () => {
   };
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-[#F0F1E3] to-[#F0F1E3] overflow-x-hidden">
+    <div className="min-h-screen bg-linear-to-br from-[#FAF9F6] to-[#FAF9F6] overflow-x-hidden">
       {/* Hero Section */}
       <section className="relative pt-20 pb-32 overflow-hidden">
         <div className="absolute inset-0 bg-linear-to-r from-blue-900/10 via-purple-900/5 to-indigo-900/10"></div>

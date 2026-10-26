@@ -27,7 +27,7 @@ export default function CaseStudyInsights({
   }, [registerSection, unregisterSection]);
 
   return (
-    <section id="insights" className="w-full py-12 bg-[#F0F1E3]">
+    <section id="insights" className="w-full py-12 bg-[#FAF9F6]">
       <div className="w-full">
         {/* Section Number */}
         <div className="text-6xl font-bold text-[#9AB1EB]/30 mb-3 font-formadjr">
@@ -63,7 +63,7 @@ export default function CaseStudyInsights({
             <p className="text-sm font-bold text-[#8EB522] font-formadjr mb-3 uppercase tracking-widest">
               How might we
             </p>
-            <p className="text-2xl md:text-3xl font-bold text-[#F0F1E3] font-formadjr leading-tight">
+            <p className="text-2xl md:text-3xl font-bold text-[#FAF9F6] font-formadjr leading-tight">
               {hmwStatement}
             </p>
           </div>

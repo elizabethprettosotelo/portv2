@@ -93,7 +93,7 @@ export default function CaseStudyNavigation({ sections }: CaseStudyNavigationPro
   return (
     <nav
       aria-label="Case study sections"
-      className="sticky top-16 md:top-0 z-40 w-full border-b border-[#250D47]/10 bg-[#F9FAF3]"
+      className="sticky top-16 md:top-0 z-40 w-full border-b border-[#250D47]/10 bg-[#FFFFFF]"
     >
       <div ref={trackRef} className="relative overflow-x-auto px-3 md:px-6">
         <div
@@ -112,7 +112,7 @@ export default function CaseStudyNavigation({ sections }: CaseStudyNavigationPro
                 }}
                 type="button"
                 onClick={() => scrollTo(item.id)}
-                className={`relative z-10 inline-flex items-center gap-2 rounded-full px-3.5 py-3 text-left transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9AB1EB] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F9FAF3] ${
+                className={`relative z-10 inline-flex items-center gap-2 rounded-full px-3.5 py-3 text-left transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9AB1EB] focus-visible:ring-offset-2 focus-visible:ring-offset-[#FFFFFF] ${
                   isActive ? "text-[#250D47]" : "text-[#250D47]/45 hover:text-[#250D47]/80"
                 }`}
                 aria-current={isActive ? "true" : undefined}

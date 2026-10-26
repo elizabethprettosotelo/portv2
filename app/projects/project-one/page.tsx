@@ -4,15 +4,15 @@ import PendingCaseStudyPage from "../../components/casestudy/PendingCaseStudyPag
 
 export default function ProjectOnePage() {
   return (
-    <div className="min-h-screen flex flex-col max-w-full bg-[#F0F1E3]">
+    <div className="min-h-screen flex flex-col max-w-full bg-[#FAF9F6]">
       <Navbar />
       <main
-        className="flex-1 pt-16 md:pt-0 max-w-full bg-[#F0F1E3]"
+        className="flex-1 pt-16 md:pt-0 max-w-full bg-[#FAF9F6]"
         style={{ marginLeft: "var(--sidebar-width, 0px)" }}
       >
         <PendingCaseStudyPage
           title="Conduit"
-          subtitle="Case study pending. This page is holding space for the full story while the project write-up is still being assembled."
+          subtitle="A multimodal accessibility platform that brings EEG, gaze tracking, voice detection, and ASL recognition into one adaptive interface."
           role="Lead UX Designer & Frontend Developer"
           timeline="Hackalytics 2025"
           tools={["Electron", "TypeScript", "Figma"]}
@@ -22,7 +22,7 @@ export default function ProjectOnePage() {
             { label: "Demo", href: "https://devpost.com/software/conduit-y8gqoj?ref_content=my-projects-tab&ref_feature=my_projects", kind: "devpost" },
             { label: "Figma", href: "https://figma.com", kind: "figma" },
           ]}
-          overview="Conduit is a multimodal accessibility platform that unifies EEG, gaze tracking, voice detection, and ASL recognition into one adaptive interface. The pending version keeps the project visible while the full case study is still in progress."
+          overview="Conduit is a multimodal accessibility platform that unifies EEG, gaze tracking, voice detection, and ASL recognition into one adaptive interface."
         />
       </main>
       <Footer />

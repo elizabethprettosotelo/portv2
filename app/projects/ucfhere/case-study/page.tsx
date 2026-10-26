@@ -1,27 +1,16 @@
 import Footer from "../../../components/footer";
 import Navbar from "../../../components/navbar";
-import CaseStudyDocument from "../../../components/casestudy/notebook/CaseStudyDocument";
-import CaseStudyLayout from "../../../components/casestudy/notebook/CaseStudyLayout";
-import NotebookHero from "../../../components/casestudy/notebook/NotebookHero";
-import { ucfhereCaseStudy } from "../../../components/casestudy/notebook/ucfhere-content";
+import CaseStudyPage from "../../../components/casestudy/editorial/CaseStudyPage";
+import { ucfhere } from "../../../components/casestudy/editorial/ucfhere";
 
 export default function UcfHereCaseStudyPage() {
   return (
-    <div className="min-h-screen flex flex-col max-w-full bg-[#F0F1E3]">
+    <div className="flex min-h-screen max-w-full flex-col bg-[#FAF9F6]">
       <Navbar />
-      <main
-        className="flex-1 pt-16 md:pt-0 max-w-full bg-[#F0F1E3]"
-        style={{ marginLeft: "var(--sidebar-width, 0px)" }}
-      >
-        <NotebookHero study={ucfhereCaseStudy} />
-        <CaseStudyLayout sections={ucfhereCaseStudy.sections}>
-          <CaseStudyDocument study={ucfhereCaseStudy} />
-        </CaseStudyLayout>
+      <main className="max-w-full flex-1 pt-16 md:pt-0" style={{ marginLeft: "var(--sidebar-width, 0px)" }}>
+        <CaseStudyPage study={ucfhere} />
       </main>
       <Footer />
     </div>
   );
 }
-
-
-

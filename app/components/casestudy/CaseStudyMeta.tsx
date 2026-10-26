@@ -47,7 +47,7 @@ export default function CaseStudyMeta({ role, timeline, tools, tags, links }: Ca
   const getColorForType = (type: string) => {
     switch (type) {
       case 'github':
-        return 'bg-[#250D47] hover:bg-[#250D47]/90 text-[#F0F1E3]';
+        return 'bg-[#250D47] hover:bg-[#250D47]/90 text-[#FAF9F6]';
       case 'demo':
         return 'bg-[#8EB522] hover:bg-[#8EB522]/90 text-[#250D47]';
       case 'figma':
@@ -60,7 +60,7 @@ export default function CaseStudyMeta({ role, timeline, tools, tags, links }: Ca
   return (
     <>
       {/* Meta Info Bar */}
-      <section className="w-full border-b-2 border-[#8EB522]/20 bg-[#F0F1E3]">
+      <section className="w-full border-b-2 border-[#8EB522]/20 bg-[#FAF9F6]">
         <div className={`max-w-7xl mx-auto px-8 py-6 grid grid-cols-1 ${links && links.length > 0 ? 'md:grid-cols-2 lg:grid-cols-4' : 'md:grid-cols-3'} gap-4`}>
           {/* Role */}
           <div>
@@ -122,7 +122,7 @@ export default function CaseStudyMeta({ role, timeline, tools, tags, links }: Ca
       </section>
 
       {/* Tags */}
-      <section className="w-full bg-[#F0F1E3] border-b border-[#250D47]/10 fade-in-up-delay-2">
+      <section className="w-full bg-[#FAF9F6] border-b border-[#250D47]/10 fade-in-up-delay-2">
         <div className="max-w-7xl mx-auto px-8 py-4">
           <div className="flex flex-wrap gap-2">
             {tags.map((tag) => (

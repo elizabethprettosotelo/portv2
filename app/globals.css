@@ -1,12 +1,19 @@
 @import "tailwindcss";
 
+/* No monospace on the site: anything using font-mono falls back to the body font. */
+@theme {
+  --font-mono: "Figtree", "Segoe UI", Arial, sans-serif;
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
   --sidebar-width: 0px; /* Mobile default */
   --text-brown: #250D47; /* Lighter, friendlier brown for body text */
-  --font-inter: "Plus Jakarta Sans", "Segoe UI", Arial, sans-serif;
+  --font-inter: "Figtree", "Segoe UI", Arial, sans-serif; /* body text */
   --font-formadjr: var(--font-inter);
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif; /* h1, h2 and big display text */
 }
 
 /* Desktop: Set sidebar width */
@@ -33,6 +40,19 @@ body {
    Lives in @layer base so Tailwind weight utilities (font-semibold, font-bold)
    can still win the cascade instead of being silently locked at 500. */
 @layer base {
+  /* Headings use Fraunces with its soft corners turned all the way up. */
+  h1,
+  h2,
+  .font-display {
+    font-family: var(--font-display);
+    font-variation-settings: "SOFT" 100;
+  }
+
+  /* Figtree reads best a touch heavier than regular for running text. */
+  p {
+    font-weight: 450;
+  }
+
   .font-inter {
     font-weight: 500;
     letter-spacing: 0.015em; /* Increase letter spacing for better readability */

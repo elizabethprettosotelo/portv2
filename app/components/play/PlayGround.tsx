@@ -56,7 +56,7 @@ function GraphicCard({
 }) {
   const aspectClass = aspect === "4/5" ? "aspect-4/5" : aspect === "1/1" ? "aspect-square" : "aspect-3/4";
   return (
-    <div className={`relative ${aspectClass} w-full overflow-hidden rounded-xl border border-[#250D47]/15 bg-[#F9FAF3]`}>
+    <div className={`relative ${aspectClass} w-full overflow-hidden rounded-xl border border-[#250D47]/15 bg-[#FFFFFF]`}>
       <Image src={src} alt={alt} fill className={fit === "cover" ? "object-cover" : "object-contain"} />
     </div>
   );
@@ -126,7 +126,7 @@ function KnightHacksGallery() {
 
 function FileSlot() {
   return (
-    <div className="group relative flex aspect-4/3 w-full flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed border-[#250D47]/20 bg-[#F9FAF3] text-center transition-all duration-300 hover:-translate-y-1 hover:border-[#9AB1EB]">
+    <div className="group relative flex aspect-4/3 w-full flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed border-[#250D47]/20 bg-[#FFFFFF] text-center transition-all duration-300 hover:-translate-y-1 hover:border-[#9AB1EB]">
       <span className="text-3xl text-[#250D47]/25 transition-colors duration-300 group-hover:text-[#9AB1EB]">
         +
       </span>
@@ -144,7 +144,7 @@ export default function PlayGround() {
 
   return (
     <div
-      className="relative min-h-screen w-full bg-[#F0F1E3]"
+      className="relative min-h-screen w-full bg-[#FAF9F6]"
       style={{
         backgroundImage: "radial-gradient(rgba(154,177,235,0.55) 1.5px, transparent 1.5px)",
         backgroundSize: "24px 24px",
@@ -152,7 +152,7 @@ export default function PlayGround() {
     >
       <div className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6 md:px-10">
         <div className="mb-16 max-w-2xl">
-          <span className="inline-flex items-center rounded-full border border-[#250D47]/15 bg-[#F0F1E3]/80 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.3em] text-[#250D47]/70 font-inter">
+          <span className="inline-flex items-center rounded-full border border-[#250D47]/15 bg-[#FAF9F6]/80 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.3em] text-[#250D47]/70 font-inter">
             Play
           </span>
           <h1 className="mt-4 text-5xl font-bold text-[#250D47] font-formadjr md:text-6xl">
@@ -191,7 +191,7 @@ export default function PlayGround() {
               transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
               className="overflow-hidden"
             >
-              <div className="mt-12 rounded-2xl border border-[#250D47]/12 bg-[#F9FAF3]/60 p-6 sm:p-8">
+              <div className="mt-12 rounded-2xl border border-[#250D47]/12 bg-[#FFFFFF]/60 p-6 sm:p-8">
                 <div className="mb-6 flex items-start justify-between gap-4">
                   <div>
                     <h2 className="text-2xl font-bold text-[#250D47] font-formadjr">{openSection.title}</h2>
@@ -203,7 +203,7 @@ export default function PlayGround() {
                     type="button"
                     onClick={() => setOpenId(null)}
                     aria-label="Close folder"
-                    className="shrink-0 rounded-full border border-[#250D47]/15 bg-[#F0F1E3] px-3 py-1.5 text-xs font-bold uppercase tracking-wide text-[#250D47]/70 transition hover:border-[#9AB1EB] hover:text-[#250D47] font-inter"
+                    className="shrink-0 rounded-full border border-[#250D47]/15 bg-[#FAF9F6] px-3 py-1.5 text-xs font-bold uppercase tracking-wide text-[#250D47]/70 transition hover:border-[#9AB1EB] hover:text-[#250D47] font-inter"
                   >
                     Close
                   </button>

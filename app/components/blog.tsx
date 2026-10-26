@@ -108,7 +108,7 @@ export default function Blog() {
       {/* Hero */}
       <section
         className={`w-full py-16 px-4 transition-colors duration-500 fade-in-up ${
-          mode === "books" ? "bg-[#EDF1F9]" : "bg-[#F0F1E3]"
+          mode === "books" ? "bg-[#EDF1F9]" : "bg-[#FAF9F6]"
         }`}
       >
         <div className="max-w-7xl mx-auto">
@@ -143,7 +143,7 @@ export default function Blog() {
             <button
               onClick={() => setMode("writing")}
               className={`relative z-10 flex-1 flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-full font-formadjr font-bold text-sm transition-colors duration-200 ${
-                mode === "writing" ? "text-[#F0F1E3]" : "text-[#250D47]/60 hover:text-[#250D47]"
+                mode === "writing" ? "text-[#FAF9F6]" : "text-[#250D47]/60 hover:text-[#250D47]"
               }`}
             >
               <PenIcon className="w-4 h-4 shrink-0" />
@@ -152,7 +152,7 @@ export default function Blog() {
             <button
               onClick={() => setMode("books")}
               className={`relative z-10 flex-1 flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-full font-formadjr font-bold text-sm transition-colors duration-200 ${
-                mode === "books" ? "text-[#F0F1E3]" : "text-[#250D47]/60 hover:text-[#250D47]"
+                mode === "books" ? "text-[#FAF9F6]" : "text-[#250D47]/60 hover:text-[#250D47]"
               }`}
             >
               <BookIcon className="w-4 h-4 shrink-0" />
@@ -167,7 +167,7 @@ export default function Blog() {
       ) : (
         <>
       {/* Tag filter */}
-      <section className="w-full py-6 px-4 bg-[#F0F1E3] border-t border-[#250D47]/10 fade-in-up-delay-1">
+      <section className="w-full py-6 px-4 bg-[#FAF9F6] border-t border-[#250D47]/10 fade-in-up-delay-1">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-wrap gap-3">
             {allTags.map((tag) => (
@@ -176,7 +176,7 @@ export default function Blog() {
                 onClick={() => setSelectedTag(tag)}
                 className={`px-4 py-2 rounded-full font-formadjr font-bold text-sm transition-all duration-200 ${
                   selectedTag === tag
-                    ? "bg-[#250D47] text-[#F0F1E3]"
+                    ? "bg-[#250D47] text-[#FAF9F6]"
                     : "bg-[#250D47]/10 text-[#250D47] hover:bg-[#250D47]/20"
                 }`}
               >
@@ -189,7 +189,7 @@ export default function Blog() {
 
       {/* Featured post */}
       {featuredPost && selectedTag === "All" && (
-        <section className="w-full px-4 pt-10 pb-4 bg-[#F0F1E3] fade-in-up-delay-2">
+        <section className="w-full px-4 pt-10 pb-4 bg-[#FAF9F6] fade-in-up-delay-2">
           <div className="max-w-7xl mx-auto">
             <div className="flex items-center gap-2 mb-4">
               <span className="text-[#8EB522] text-sm">✦</span>
@@ -199,7 +199,7 @@ export default function Blog() {
             </div>
             <Link
               href={`/blog/${featuredPost.slug}`}
-              className="group grid grid-cols-1 md:grid-cols-2 gap-0 md:gap-8 items-stretch bg-[#F9FAF3] rounded-xl overflow-hidden transition-all duration-300 border-2 border-transparent hover:border-[#9AB1EB] hover:-translate-y-1"
+              className="group grid grid-cols-1 md:grid-cols-2 gap-0 md:gap-8 items-stretch bg-[#FFFFFF] rounded-xl overflow-hidden transition-all duration-300 border-2 border-transparent hover:border-[#9AB1EB] hover:-translate-y-1"
             >
               <div className="relative w-full h-64 md:h-full min-h-[280px] overflow-hidden bg-[#250D47]/5">
                 <Image
@@ -244,7 +244,7 @@ export default function Blog() {
       )}
 
       {/* Post grid */}
-      <section className="w-full py-16 px-4 bg-[#F0F1E3]">
+      <section className="w-full py-16 px-4 bg-[#FAF9F6]">
         <div className="max-w-7xl mx-auto">
           {restPosts.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-start">
@@ -252,7 +252,7 @@ export default function Blog() {
                 <Link
                   key={post.slug}
                   href={`/blog/${post.slug}`}
-                  className={`group relative bg-[#F9FAF3] rounded-xl overflow-hidden transition-all duration-300 h-full flex flex-col border-2 border-transparent hover:border-[#9AB1EB] hover:-translate-y-1 ${getDelayClass(
+                  className={`group relative bg-[#FFFFFF] rounded-xl overflow-hidden transition-all duration-300 h-full flex flex-col border-2 border-transparent hover:border-[#9AB1EB] hover:-translate-y-1 ${getDelayClass(
                     index
                   )}`}
                 >

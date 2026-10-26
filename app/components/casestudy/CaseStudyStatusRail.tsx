@@ -100,7 +100,7 @@ export default function CaseStudyStatusRail() {
                     className={`relative z-10 block h-2.5 w-2.5 rounded-full border transition-all duration-200 ${
                       isActive
                         ? "bg-[#8EB522] border-[#8EB522] scale-110"
-                        : "bg-[#F0F1E3] border-[#250D47]/20"
+                        : "bg-[#FAF9F6] border-[#250D47]/20"
                     }`}
                   />
                   <span className={`text-sm font-medium font-formadjr ${isActive ? "" : ""}`}>
@@ -128,7 +128,7 @@ export default function CaseStudyStatusRail() {
               className={`whitespace-nowrap rounded-full border px-3 py-1 text-xs font-medium font-formadjr transition-colors ${
                 isActive
                   ? "border-[#8EB522] bg-[#8EB522]/15 text-[#250D47]"
-                  : "border-[#250D47]/10 bg-[#F0F1E3] text-[#250D47]/55"
+                  : "border-[#250D47]/10 bg-[#FAF9F6] text-[#250D47]/55"
               }`}
             >
               {item.label}

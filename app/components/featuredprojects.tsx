@@ -112,7 +112,7 @@ function ProjectCard({ project }: { project: Project }) {
 
   return (
     <div
-      className={`relative bg-[#F9FAF3] rounded-xl overflow-hidden transition-all duration-300 h-full flex flex-col ${
+      className={`relative bg-[#FFFFFF] rounded-xl overflow-hidden transition-all duration-300 h-full flex flex-col ${
         isHighlighted ? "-translate-y-1 border-[#9AB1EB]" : "border-transparent"
       } border-2`}
       onMouseEnter={() => {
@@ -169,7 +169,7 @@ function ProjectCard({ project }: { project: Project }) {
             href={link.href}
             target="_blank"
             rel="noopener noreferrer"
-            className={`inline-flex items-center gap-1.5 rounded-full border px-3.5 py-2 text-xs font-semibold tracking-[0.02em] transition-all duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8EB522] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F9FAF3] ${LINK_CONFIG[link.kind].bg} ${LINK_CONFIG[link.kind].text} border-[#250D47]/15 hover:border-[#250D47]/25 ${LINK_CONFIG[link.kind].hoverBg}`}
+            className={`inline-flex items-center gap-1.5 rounded-full border px-3.5 py-2 text-xs font-semibold tracking-[0.02em] transition-all duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8EB522] focus-visible:ring-offset-2 focus-visible:ring-offset-[#FFFFFF] ${LINK_CONFIG[link.kind].bg} ${LINK_CONFIG[link.kind].text} border-[#250D47]/15 hover:border-[#250D47]/25 ${LINK_CONFIG[link.kind].hoverBg}`}
           >
             <span aria-hidden="true">{LINK_CONFIG[link.kind].icon}</span>
             <span>{link.label}</span>
@@ -211,7 +211,7 @@ export default function FeaturedProjects() {
   }, []);
 
   return (
-    <section id="projects" className="w-full py-16 px-4 bg-[#F0F1E3]">
+    <section id="projects" className="w-full py-16 px-4 bg-[#FAF9F6]">
       <div ref={headingRef} className="anim-hidden max-w-7xl mx-auto mb-12 w-full">
         <div className="max-w-3xl text-left">
           <h2 className="text-4xl font-bold text-[#250D47] font-formadjr text-left">Selected Projects</h2>
@@ -234,7 +234,7 @@ export default function FeaturedProjects() {
       <div ref={btnRef} className="anim-hidden flex justify-center mt-8">
         <Link
           href="/projects"
-          className="px-8 py-3 bg-[#250D47] text-[#F0F1E3] rounded-lg font-formadjr font-bold text-lg hover:bg-[#8EB522] hover:text-[#250D47] transition-all duration-200 hover:-translate-y-0.5"
+          className="px-8 py-3 bg-[#250D47] text-[#FAF9F6] rounded-lg font-formadjr font-bold text-lg hover:bg-[#8EB522] hover:text-[#250D47] transition-all duration-200 hover:-translate-y-0.5"
         >
           View All Projects
         </Link>

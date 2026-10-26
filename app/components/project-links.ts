@@ -12,7 +12,7 @@ export const LINK_CONFIG: Record<
     icon: "⌥",
     bg: "bg-[#250D47]/8",
     text: "text-[#250D47]",
-    hoverBg: "hover:bg-[#250D47] hover:text-[#F0F1E3]",
+    hoverBg: "hover:bg-[#250D47] hover:text-[#FAF9F6]",
   },
   devpost: {
     icon: "◈",
@@ -36,7 +36,7 @@ export const LINK_CONFIG: Record<
     icon: "→",
     bg: "bg-[#250D47]/8",
     text: "text-[#250D47]",
-    hoverBg: "hover:bg-[#250D47] hover:text-[#F0F1E3]",
+    hoverBg: "hover:bg-[#250D47] hover:text-[#FAF9F6]",
   },
 };
 

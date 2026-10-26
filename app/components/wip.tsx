@@ -5,7 +5,7 @@ export default function UnderConstruction() {
     <div className="min-h-screen flex flex-col items-center justify-center w-full px-4 bg-[#8EB522]">
       <div className="relative mb-2 flex items-center justify-center" style={{ height: "60px" }}>
         <h1
-          className="absolute inset-0 flex items-center justify-center text-4xl sm:text-6xl text-[#F0F1E3] font-bold font-formadjr whitespace-nowrap"
+          className="absolute inset-0 flex items-center justify-center text-4xl sm:text-6xl text-[#FAF9F6] font-bold font-formadjr whitespace-nowrap"
           style={{
             WebkitTextStroke: "4px #250D47",
             zIndex: 1,
@@ -14,7 +14,7 @@ export default function UnderConstruction() {
           Pardon our dust!
         </h1>
         <h1
-          className="absolute inset-0 flex items-center justify-center text-4xl sm:text-6xl text-[#F0F1E3] font-bold font-formadjr whitespace-nowrap"
+          className="absolute inset-0 flex items-center justify-center text-4xl sm:text-6xl text-[#FAF9F6] font-bold font-formadjr whitespace-nowrap"
           style={{
             zIndex: 2,
           }}

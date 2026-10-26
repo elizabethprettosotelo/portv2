@@ -58,7 +58,7 @@ function AnimatedSkillCard({ group, index }: { group: typeof skillGroups[0]; ind
   }, [index]);
 
   return (
-    <div ref={ref} className="anim-hidden flex-1 min-w-[160px] bg-[#F9FAF3] rounded-xl px-5 py-4 border-2 border-transparent hover:border-[#9AB1EB] transition-colors duration-200">
+    <div ref={ref} className="anim-hidden flex-1 min-w-[160px] bg-[#FFFFFF] rounded-xl px-5 py-4 border-2 border-transparent hover:border-[#9AB1EB] transition-colors duration-200">
       <h3 className="text-xs font-bold text-[#250D47] font-formadjr mb-3 border-b border-[#250D47]/10 pb-2 uppercase tracking-wider">
         {group.category}
       </h3>
@@ -92,7 +92,7 @@ export default function Skills() {
   }, []);
 
   return (
-    <section id="skills" className="w-full py-20 px-4 bg-[#F0F1E3]">
+    <section id="skills" className="w-full py-20 px-4 bg-[#FAF9F6]">
       <div className="max-w-3xl mx-auto">
         <div ref={headingRef} className="anim-hidden mb-10">
           <h2 className="text-3xl md:text-4xl font-bold text-[#250D47] font-formadjr mb-2">

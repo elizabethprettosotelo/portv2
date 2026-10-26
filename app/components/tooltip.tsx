@@ -43,7 +43,7 @@ export default function Tooltip({
             bgcolor: "#250D47",
             color: "#9AB1EB",
             border: "1px solid rgba(154, 177, 235, 0.35)",
-            fontFamily: "monospace",
+            fontFamily: "inherit",
             fontSize: "0.65rem",
             fontWeight: 700,
             letterSpacing: "0.24em",

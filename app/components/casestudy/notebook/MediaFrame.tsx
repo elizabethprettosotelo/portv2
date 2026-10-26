@@ -82,7 +82,7 @@ export default function MediaFrame({
   if (imageSrc && variant === "plain") {
     return (
       <div ref={revealRef} className={`anim-hidden ${className}`} style={delayMs ? { animationDelay: `${delayMs}ms` } : undefined}>
-        <div className={`relative w-full overflow-hidden rounded-lg border border-[#250D47]/40 bg-[#F9FAF3] ${aspectClassName}`}>
+        <div className={`relative w-full overflow-hidden rounded-lg border border-[#250D47]/40 bg-[#FFFFFF] ${aspectClassName}`}>
           <Image
             src={imageSrc}
             alt={media.alt ?? ""}
@@ -105,7 +105,7 @@ export default function MediaFrame({
           <button
             type="button"
             onClick={() => setOpen(true)}
-            className={`group relative block w-full overflow-hidden rounded-[1.5rem] border border-[#250D47]/40 bg-[#F9FAF3] text-left transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8EB522] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F0F1E3] ${aspectClassName}`}
+            className={`group relative block w-full overflow-hidden rounded-[1.5rem] border border-[#250D47]/40 bg-[#FFFFFF] text-left transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8EB522] focus-visible:ring-offset-2 focus-visible:ring-offset-[#FAF9F6] ${aspectClassName}`}
             aria-label={media.alt ?? "Open image preview"}
           >
             <Image
@@ -118,7 +118,7 @@ export default function MediaFrame({
             <div className="absolute inset-0 bg-linear-to-t from-[#250D47]/55 via-transparent to-transparent" />
             {caption && (
               <div className="absolute bottom-0 left-0 right-0 p-4 text-left">
-                <p className="max-w-[90%] text-xs font-medium uppercase tracking-[0.2em] text-[#F0F1E3]/80">
+                <p className="max-w-[90%] text-xs font-medium uppercase tracking-[0.2em] text-[#FAF9F6]/80">
                   {caption}
                 </p>
               </div>
@@ -133,7 +133,7 @@ export default function MediaFrame({
               role="dialog"
               aria-modal="true"
               aria-label={media.alt ?? "Image preview"}
-              className="relative w-full max-w-5xl overflow-hidden rounded-[1.5rem] bg-[#F9FAF3]"
+              className="relative w-full max-w-5xl overflow-hidden rounded-[1.5rem] bg-[#FFFFFF]"
             >
               <div className="flex items-center justify-between gap-4 border-b border-[#250D47]/10 px-4 py-3">
                 <div className="min-w-0">
@@ -174,7 +174,7 @@ export default function MediaFrame({
 
   return (
     <div ref={revealRef} className={`anim-hidden ${className}`} style={delayMs ? { animationDelay: `${delayMs}ms` } : undefined}>
-      <div className={`flex items-center justify-center rounded-[1.5rem] border border-dashed border-[#250D47]/15 bg-[#F9FAF3] p-8 text-center ${aspectClassName}`}>
+      <div className={`flex items-center justify-center rounded-[1.5rem] border border-dashed border-[#250D47]/15 bg-[#FFFFFF] p-8 text-center ${aspectClassName}`}>
         <div className="flex max-w-xs flex-col items-center gap-2.5">
           <svg
             aria-hidden="true"

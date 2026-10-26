@@ -15,14 +15,14 @@ export default function NotebookHero({ study }: NotebookHeroProps) {
   const mediaRef = useInView<HTMLDivElement>("cs-scale-in anim-delay-2");
 
   return (
-    <section className="w-full border-b border-[#250D47]/10 bg-[#F0F1E3]">
+    <section className="w-full border-b border-[#250D47]/10 bg-[#FAF9F6]">
       <div className="mx-auto w-full max-w-[92rem] px-4 py-14 md:px-8 md:py-20">
         <div className="grid gap-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(360px,0.95fr)] lg:items-start">
           <div ref={introRef} className="space-y-6 anim-hidden">
             <div className="space-y-4">
               <Link
                 href={study.returnHref}
-                className="inline-flex items-center gap-2 border-b border-[#250D47]/25 pb-2 text-[11px] font-bold uppercase tracking-[0.28em] text-[#250D47]/72 transition hover:border-[#250D47]/55 hover:text-[#250D47] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9AB1EB] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F0F1E3]"
+                className="inline-flex items-center gap-2 border-b border-[#250D47]/25 pb-2 text-[11px] font-bold uppercase tracking-[0.28em] text-[#250D47]/72 transition hover:border-[#250D47]/55 hover:text-[#250D47] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9AB1EB] focus-visible:ring-offset-2 focus-visible:ring-offset-[#FAF9F6]"
               >
                 <svg
                   aria-hidden="true"

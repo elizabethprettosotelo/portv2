@@ -19,8 +19,8 @@ const spreads: Spread[] = [
     title: "Field Notes",
     leftLabel: "Thumbnail studies",
     rightLabel: "Perspective fragments",
-    leftAccent: "#F0F1E3",
-    rightAccent: "#F0F1E3",
+    leftAccent: "#FAF9F6",
+    rightAccent: "#FAF9F6",
     leftPattern:
       "linear-gradient(135deg, rgba(69,20,12,0.08) 0 18%, transparent 18% 36%, rgba(69,20,12,0.06) 36% 54%, transparent 54% 72%, rgba(69,20,12,0.08) 72% 100%)",
     rightPattern:
@@ -31,8 +31,8 @@ const spreads: Spread[] = [
     title: "Character Pass",
     leftLabel: "Gesture page",
     rightLabel: "Expression sheet",
-    leftAccent: "#F0F1E3",
-    rightAccent: "#F0F1E3",
+    leftAccent: "#FAF9F6",
+    rightAccent: "#FAF9F6",
     leftPattern:
       "linear-gradient(0deg, rgba(69,20,12,0.08) 0 2px, transparent 2px 100%), linear-gradient(90deg, rgba(69,20,12,0.04) 0 1px, transparent 1px 100%)",
     rightPattern:
@@ -43,8 +43,8 @@ const spreads: Spread[] = [
     title: "Material Tests",
     leftLabel: "Texture swatches",
     rightLabel: "Color callouts",
-    leftAccent: "#F0F1E3",
-    rightAccent: "#F0F1E3",
+    leftAccent: "#FAF9F6",
+    rightAccent: "#FAF9F6",
     leftPattern:
       "repeating-linear-gradient(135deg, rgba(69,20,12,0.08) 0 10px, transparent 10px 22px)",
     rightPattern:
@@ -55,8 +55,8 @@ const spreads: Spread[] = [
     title: "Storyboard",
     leftLabel: "Frame one",
     rightLabel: "Frame two",
-    leftAccent: "#F0F1E3",
-    rightAccent: "#F0F1E3",
+    leftAccent: "#FAF9F6",
+    rightAccent: "#FAF9F6",
     leftPattern:
       "linear-gradient(180deg, rgba(69,20,12,0.08) 0 2px, transparent 2px 100%), linear-gradient(90deg, rgba(69,20,12,0.06) 0 2px, transparent 2px 100%)",
     rightPattern:
@@ -67,8 +67,8 @@ const spreads: Spread[] = [
     title: "Final Polish",
     leftLabel: "Draft refinements",
     rightLabel: "Presentation page",
-    leftAccent: "#F0F1E3",
-    rightAccent: "#F0F1E3",
+    leftAccent: "#FAF9F6",
+    rightAccent: "#FAF9F6",
     leftPattern:
       "radial-gradient(circle at 18% 30%, rgba(69,20,12,0.12) 0 4%, transparent 4% 100%), radial-gradient(circle at 72% 68%, rgba(69,20,12,0.08) 0 4%, transparent 4% 100%)",
     rightPattern:
@@ -111,7 +111,7 @@ function SketchPage({
               {label}
             </h3>
           </div>
-          <div className="rounded-full border border-[#250D47]/20 bg-[#F0F1E3]/75 px-3 py-1 text-[0.65rem] uppercase tracking-[0.28em] text-[#250D47]/70">
+          <div className="rounded-full border border-[#250D47]/20 bg-[#FAF9F6]/75 px-3 py-1 text-[0.65rem] uppercase tracking-[0.28em] text-[#250D47]/70">
             Placeholder
           </div>
         </div>
@@ -119,7 +119,7 @@ function SketchPage({
         <div className="flex-1" />
 
         <div className="flex items-end justify-between gap-4">
-          <div className="max-w-[65%] rounded-2xl border border-dashed border-[#250D47]/25 bg-[#F0F1E3]/45 px-3 py-2 text-sm text-[#250D47]/80">
+          <div className="max-w-[65%] rounded-2xl border border-dashed border-[#250D47]/25 bg-[#FAF9F6]/45 px-3 py-2 text-sm text-[#250D47]/80">
             Add your artwork here
           </div>
           <div className="text-right text-xs uppercase tracking-[0.3em] text-[#250D47]/60">
@@ -155,11 +155,11 @@ export default function SketchbookCarousel() {
 
   return (
     <section className="relative isolate overflow-hidden px-4 py-10 sm:px-6 md:px-10 lg:px-14">
-      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,_rgba(69,20,12,0.12),_transparent_30%),radial-gradient(circle_at_bottom_right,_rgba(181,173,33,0.16),_transparent_32%),linear-gradient(180deg,#F0F1E3_0%,#F0F1E3_55%,#F0F1E3_100%)]" />
+      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,_rgba(69,20,12,0.12),_transparent_30%),radial-gradient(circle_at_bottom_right,_rgba(181,173,33,0.16),_transparent_32%),linear-gradient(180deg,#FAF9F6_0%,#FAF9F6_55%,#FAF9F6_100%)]" />
       <div className="mx-auto w-full max-w-7xl">
         <div className="mb-6 flex flex-col gap-3 sm:mb-8 sm:flex-row sm:items-end sm:justify-between">
           <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 rounded-full border border-[#250D47]/15 bg-[#F0F1E3]/80 px-4 py-2 text-xs uppercase tracking-[0.35em] text-[#250D47]/70 backdrop-blur">
+            <div className="inline-flex items-center gap-2 rounded-full border border-[#250D47]/15 bg-[#FAF9F6]/80 px-4 py-2 text-xs uppercase tracking-[0.35em] text-[#250D47]/70 backdrop-blur">
               <BookOpenText className="h-4 w-4" />
               Play page
             </div>
@@ -175,7 +175,7 @@ export default function SketchbookCarousel() {
             <button
               type="button"
               onClick={handlePrev}
-              className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-[#250D47]/20 bg-[#F0F1E3]/90 text-[#250D47] transition hover:-translate-y-0.5 hover:bg-[#250D47] hover:text-[#F0F1E3]"
+              className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-[#250D47]/20 bg-[#FAF9F6]/90 text-[#250D47] transition hover:-translate-y-0.5 hover:bg-[#250D47] hover:text-[#FAF9F6]"
               aria-label="Previous spread"
             >
               <ChevronLeft className="h-5 w-5" />
@@ -183,7 +183,7 @@ export default function SketchbookCarousel() {
             <button
               type="button"
               onClick={handleNext}
-              className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-[#250D47]/20 bg-[#F0F1E3]/90 text-[#250D47] transition hover:-translate-y-0.5 hover:bg-[#250D47] hover:text-[#F0F1E3]"
+              className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-[#250D47]/20 bg-[#FAF9F6]/90 text-[#250D47] transition hover:-translate-y-0.5 hover:bg-[#250D47] hover:text-[#FAF9F6]"
               aria-label="Next spread"
             >
               <ChevronRight className="h-5 w-5" />
@@ -248,7 +248,7 @@ export default function SketchbookCarousel() {
             </div>
           </div>
 
-          <aside className="rounded-[1.75rem] border border-[#250D47]/12 bg-[#F0F1E3]/85 p-5 backdrop-blur">
+          <aside className="rounded-[1.75rem] border border-[#250D47]/12 bg-[#FAF9F6]/85 p-5 backdrop-blur">
             <p className="text-xs uppercase tracking-[0.35em] text-[#250D47]/60">How to use</p>
             <p className="mt-3 text-sm leading-relaxed text-[#250D47]/80">
               Swap each panel with a real image, drawing scan, or spread preview. The right-side notes work well for captions, medium, or a short process description.
@@ -262,8 +262,8 @@ export default function SketchbookCarousel() {
                   onClick={() => goTo(spreadIndex)}
                   className={`w-full rounded-2xl border px-4 py-3 text-left transition ${
                     spreadIndex === index
-                      ? "border-[#250D47] bg-[#250D47] text-[#F0F1E3]"
-                      : "border-[#250D47]/12 bg-[#F0F1E3] text-[#250D47] hover:-translate-y-0.5 hover:border-[#250D47]/30"
+                      ? "border-[#250D47] bg-[#250D47] text-[#FAF9F6]"
+                      : "border-[#250D47]/12 bg-[#FAF9F6] text-[#250D47] hover:-translate-y-0.5 hover:border-[#250D47]/30"
                   }`}
                 >
                   <div className="flex items-center justify-between gap-3">

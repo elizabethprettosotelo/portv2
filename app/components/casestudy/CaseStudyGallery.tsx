@@ -12,7 +12,7 @@ export default function CaseStudyGallery({ gallery, title = "More Visuals", sect
   if (!gallery || gallery.length === 0) return null;
 
   return (
-    <section className="w-full py-12 bg-[#F0F1E3]">
+    <section className="w-full py-12 bg-[#FAF9F6]">
       <div className="w-full">
         {/* Section Number & Title */}
         <div className="text-6xl font-bold text-[#9AB1EB]/30 mb-3 font-formadjr">

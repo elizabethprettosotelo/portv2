@@ -71,7 +71,7 @@ export function GoalList({
 
   return (
     <div ref={goalRef} className="anim-hidden space-y-8">
-      <div className="rounded-[1.75rem] border border-[#250D47]/12 bg-[#F9FAF3] p-6 md:p-8">
+      <div className="rounded-[1.75rem] border border-[#250D47]/12 bg-[#FFFFFF] p-6 md:p-8">
         <p className="mb-3 text-xs font-bold uppercase tracking-[0.24em] text-[#8EB522]">
           Main goal
         </p>
@@ -84,7 +84,7 @@ export function GoalList({
         {supportingGoals.map((goal, index) => (
           <div
             key={goal.label}
-            className={`anim-slide-up anim-delay-${(index % 6) + 1} flex gap-4 rounded-2xl border border-[#250D47]/10 bg-[#F9FAF3] p-5 lg:min-h-full`}
+            className={`anim-slide-up anim-delay-${(index % 6) + 1} flex gap-4 rounded-2xl border border-[#250D47]/10 bg-[#FFFFFF] p-5 lg:min-h-full`}
           >
             <div className="shrink-0 text-sm font-bold uppercase tracking-[0.2em] text-[#8EB522]">
               0{index + 1}
@@ -110,7 +110,7 @@ function AttendancePathComparison({ paths }: { paths: NonNullable<ProblemSection
         return (
           <div
             key={path}
-            className="flex min-w-0 flex-col overflow-hidden rounded-lg border border-[#250D47]/12 bg-[#F9FAF3] p-5 lg:p-6"
+            className="flex min-w-0 flex-col overflow-hidden rounded-lg border border-[#250D47]/12 bg-[#FFFFFF] p-5 lg:p-6"
           >
             <h3 className="mb-5 text-center text-lg font-semibold text-[#250D47]">
               {unhappy ? "The unhappy path" : "The happy path"}
@@ -144,7 +144,7 @@ function AttendancePathComparison({ paths }: { paths: NonNullable<ProblemSection
                       className={`relative flex aspect-[586/1268] w-full items-center justify-center overflow-hidden rounded-lg border p-2 ${
                         blocked
                           ? "border-stone-300 bg-stone-200 text-stone-400"
-                          : "border-dashed border-[#250D47]/25 bg-[#F0F1E3] text-[#250D47]/40"
+                          : "border-dashed border-[#250D47]/25 bg-[#FAF9F6] text-[#250D47]/40"
                       }`}
                     >
                       <span className="absolute top-2 left-1/2 h-1 w-1/3 -translate-x-1/2 rounded-full bg-current opacity-30" />
@@ -259,7 +259,7 @@ export function ProblemGrid({
           {issues!.map((issue, index) => (
             <article
               key={issue.title}
-              className={`anim-slide-up anim-delay-${(index % 6) + 1} rounded-[1.5rem] border border-[#250D47]/10 bg-[#F9FAF3] p-5`}
+              className={`anim-slide-up anim-delay-${(index % 6) + 1} rounded-[1.5rem] border border-[#250D47]/10 bg-[#FFFFFF] p-5`}
             >
               <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#8EB522]">
                 0{index + 1}
@@ -391,7 +391,7 @@ export function ProcessChapter({
             {chapter.checklist.map((item) => (
               <li
                 key={item}
-                className="flex items-start gap-2 rounded-xl border border-[#250D47]/10 bg-[#F9FAF3] px-3 py-2.5 text-sm leading-relaxed text-[#250D47]/80"
+                className="flex items-start gap-2 rounded-xl border border-[#250D47]/10 bg-[#FFFFFF] px-3 py-2.5 text-sm leading-relaxed text-[#250D47]/80"
               >
                 <span className="mt-0.5 text-[#8EB522]">✓</span>
                 <span>{item}</span>
@@ -463,7 +463,7 @@ export function AccessibilitySummary({
             key={item}
             className={`anim-hidden anim-slide-up anim-delay-${
               (index % 6) + 1
-            } rounded-2xl border border-[#250D47]/10 bg-[#F9FAF3] px-5 py-4 text-sm leading-relaxed text-[#250D47]`}
+            } rounded-2xl border border-[#250D47]/10 bg-[#FFFFFF] px-5 py-4 text-sm leading-relaxed text-[#250D47]`}
           >
             {item}
           </li>
@@ -529,7 +529,7 @@ export function IterationSequence({
       {iterations.map((iteration, index) => (
         <div
           key={iteration.title}
-          className={`anim-slide-up anim-delay-${(index % 6) + 1} rounded-[1.5rem] border border-[#250D47]/10 bg-[#F9FAF3] p-5`}
+          className={`anim-slide-up anim-delay-${(index % 6) + 1} rounded-[1.5rem] border border-[#250D47]/10 bg-[#FFFFFF] p-5`}
         >
           <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#8EB522]">
             0{index + 1}

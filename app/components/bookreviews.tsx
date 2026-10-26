@@ -147,7 +147,7 @@ function BookDetailDrawer({ book, onClose }: { book: BookReview | null; onClose:
         onTransitionEnd={() => {
           if (!book) setRenderedBook(null);
         }}
-        className={`fixed top-0 right-0 z-50 h-full w-full sm:w-[440px] md:w-[480px] overflow-y-auto bg-[#F0F1E3] border-l-4 border-[#4A72E8] transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+        className={`fixed top-0 right-0 z-50 h-full w-full sm:w-[440px] md:w-[480px] overflow-y-auto bg-[#FAF9F6] border-l-4 border-[#4A72E8] transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
           visible ? "translate-x-0" : "translate-x-full"
         }`}
       >
@@ -180,13 +180,13 @@ function BookDetailDrawer({ book, onClose }: { book: BookReview | null; onClose:
           </div>
 
           <div className="grid grid-cols-2 gap-3 mt-6">
-            <div className="rounded-lg bg-[#F9FAF3] px-4 py-3">
+            <div className="rounded-lg bg-[#FFFFFF] px-4 py-3">
               <p className="text-[10px] font-bold text-[#250D47]/50 font-mono uppercase tracking-wider mb-1">
                 Finished
               </p>
               <p className="text-sm font-bold text-[#250D47] font-formadjr">{renderedBook.dateFinished}</p>
             </div>
-            <div className="rounded-lg bg-[#F9FAF3] px-4 py-3">
+            <div className="rounded-lg bg-[#FFFFFF] px-4 py-3">
               <p className="text-[10px] font-bold text-[#250D47]/50 font-mono uppercase tracking-wider mb-1">
                 Format
               </p>
@@ -229,7 +229,7 @@ export default function BookReviews() {
                 onClick={() => setSelectedGenre(genre)}
                 className={`px-4 py-2 rounded-full font-formadjr font-bold text-sm transition-all duration-200 ${
                   selectedGenre === genre
-                    ? "bg-[#4A72E8] text-[#F0F1E3]"
+                    ? "bg-[#4A72E8] text-[#FAF9F6]"
                     : "bg-[#250D47]/10 text-[#250D47] hover:bg-[#250D47]/20"
                 }`}
               >
@@ -256,7 +256,7 @@ export default function BookReviews() {
                 <button
                   key={book.slug}
                   onClick={() => setActiveBook(book)}
-                  className={`group flex items-center gap-4 sm:gap-5 py-4 text-left w-full border-b border-[#250D47]/10 border-l-4 border-l-transparent pl-3 -ml-3 hover:border-l-[#4A72E8] hover:bg-[#F9FAF3] transition-all duration-200 fade-in-up-delay-${Math.min(
+                  className={`group flex items-center gap-4 sm:gap-5 py-4 text-left w-full border-b border-[#250D47]/10 border-l-4 border-l-transparent pl-3 -ml-3 hover:border-l-[#4A72E8] hover:bg-[#FFFFFF] transition-all duration-200 fade-in-up-delay-${Math.min(
                     index + 1,
                     6
                   )}`}

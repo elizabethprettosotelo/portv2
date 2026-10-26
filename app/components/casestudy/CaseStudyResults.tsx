@@ -30,7 +30,7 @@ export default function CaseStudyResults({
   }, [registerSection, unregisterSection]);
 
   return (
-    <section id="results" className="w-full py-12 bg-[#F0F1E3]">
+    <section id="results" className="w-full py-12 bg-[#FAF9F6]">
       <div className="w-full">
         {/* Section Number */}
         <div className="text-6xl font-bold text-[#9AB1EB]/30 mb-3 font-formadjr">

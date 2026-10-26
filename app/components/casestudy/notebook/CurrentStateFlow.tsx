@@ -46,7 +46,7 @@ export default function CurrentStateFlow({ intro, steps, note }: CurrentStateFlo
           {steps.map((step, index) => (
             <div
               key={`card-${step.label}-${index}`}
-              className="rounded-xl border border-[#250D47]/12 bg-[#F9FAF3] p-3.5"
+              className="rounded-xl border border-[#250D47]/12 bg-[#FFFFFF] p-3.5"
             >
               <p className="text-sm font-semibold text-[#250D47]">{step.label}</p>
               {step.detail && (

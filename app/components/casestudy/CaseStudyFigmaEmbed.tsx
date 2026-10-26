@@ -26,7 +26,7 @@ export default function CaseStudyFigmaEmbed({
   }, [registerSection, unregisterSection]);
 
   return (
-    <section id="prototype" className="w-full py-12 bg-[#F0F1E3]">
+    <section id="prototype" className="w-full py-12 bg-[#FAF9F6]">
       <div className="w-full">
         {/* Section Number */}
         <div className="text-6xl font-bold text-[#8EB522]/20 mb-3 font-formadjr">

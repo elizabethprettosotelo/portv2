@@ -238,7 +238,7 @@ function ProjectCard({ project }: { project: Project; }) {
 
   return (
     <div
-      className={`relative bg-[#F9FAF3] rounded-xl overflow-hidden transition-all duration-300 h-full flex flex-col border-2 ${
+      className={`relative bg-[#FFFFFF] rounded-xl overflow-hidden transition-all duration-300 h-full flex flex-col border-2 ${
         isHighlighted ? "-translate-y-1 border-[#9AB1EB]" : "border-transparent"
       }`}
       onMouseEnter={handleMouseEnter}
@@ -316,7 +316,7 @@ function ProjectCard({ project }: { project: Project; }) {
             href={link.href}
             target="_blank"
             rel="noopener noreferrer"
-            className={`inline-flex items-center gap-1.5 rounded-full border px-3.5 py-2 text-xs font-semibold tracking-[0.02em] transition-all duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8EB522] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F9FAF3] ${LINK_CONFIG[link.kind].bg} ${LINK_CONFIG[link.kind].text} border-[#250D47]/15 hover:border-[#250D47]/25 ${LINK_CONFIG[link.kind].hoverBg}`}
+            className={`inline-flex items-center gap-1.5 rounded-full border px-3.5 py-2 text-xs font-semibold tracking-[0.02em] transition-all duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8EB522] focus-visible:ring-offset-2 focus-visible:ring-offset-[#FFFFFF] ${LINK_CONFIG[link.kind].bg} ${LINK_CONFIG[link.kind].text} border-[#250D47]/15 hover:border-[#250D47]/25 ${LINK_CONFIG[link.kind].hoverBg}`}
           >
             <span aria-hidden="true">{LINK_CONFIG[link.kind].icon}</span>
             <span>{link.label}</span>
@@ -347,7 +347,7 @@ export default function AllProjects() {
 
   return (
     <>
-      <section className="w-full py-16 px-4 bg-[#F0F1E3] fade-in-up">
+      <section className="w-full py-16 px-4 bg-[#FAF9F6] fade-in-up">
         <div className="max-w-7xl mx-auto">
           <h1 className="text-5xl md:text-6xl font-bold text-[#250D47] font-formadjr mb-4">All Projects</h1>
           <p className="text-xl text-[#250D47]/70 font-semibold font-formadjr max-w-2xl">
@@ -356,7 +356,7 @@ export default function AllProjects() {
         </div>
       </section>
 
-      <section className="w-full py-6 px-4 bg-[#F0F1E3] border-t border-[#250D47]/10 fade-in-up-delay-1">
+      <section className="w-full py-6 px-4 bg-[#FAF9F6] border-t border-[#250D47]/10 fade-in-up-delay-1">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-wrap gap-3">
             {allTags.map((tag) => (
@@ -365,7 +365,7 @@ export default function AllProjects() {
                 onClick={() => setSelectedTag(tag)}
                 className={`px-4 py-2 rounded-full font-formadjr font-bold text-sm transition-all duration-200 ${
                   selectedTag === tag
-                    ? "bg-[#250D47] text-[#F0F1E3]"
+                    ? "bg-[#250D47] text-[#FAF9F6]"
                     : "bg-[#250D47]/10 text-[#250D47] hover:bg-[#250D47]/20"
                 }`}
               >
@@ -376,7 +376,7 @@ export default function AllProjects() {
         </div>
       </section>
 
-      <section className="w-full py-16 px-4 bg-[#F0F1E3]">
+      <section className="w-full py-16 px-4 bg-[#FAF9F6]">
         <div className="max-w-7xl mx-auto">
           {filteredProjects.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-start">

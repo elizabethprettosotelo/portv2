@@ -71,7 +71,7 @@ export default function Folder({
         {PAPER_ROTATIONS.slice(0, count).map((rotation, i) => (
           <motion.div
             key={i}
-            className="absolute left-1/2 bottom-3 h-20 w-16 -translate-x-1/2 rounded-md border border-[#250D47]/15 bg-[#F9FAF3] shadow-sm sm:h-24 sm:w-18"
+            className="absolute left-1/2 bottom-3 h-20 w-16 -translate-x-1/2 rounded-md border border-[#250D47]/15 bg-[#FFFFFF] shadow-sm sm:h-24 sm:w-18"
             style={{ originY: 1, zIndex: 2 }}
             animate={
               isOpen

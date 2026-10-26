@@ -4,17 +4,15 @@ import PendingCaseStudyPage from "../../components/casestudy/PendingCaseStudyPag
 
 export default function PallitPage() {
   return (
-    <div className="min-h-screen flex flex-col max-w-full bg-[#F0F1E3]">
+    <div className="min-h-screen flex flex-col max-w-full bg-[#FAF9F6]">
       <Navbar />
       <main
-        className="flex-1 pt-16 md:pt-0 max-w-full bg-[#F0F1E3]"
+        className="flex-1 pt-16 md:pt-0 max-w-full bg-[#FAF9F6]"
         style={{ marginLeft: "var(--sidebar-width, 0px)" }}
       >
         <PendingCaseStudyPage
           title="Pallit"
           subtitle="A font and color-palette pairing generator created during my first hackathon."
-          role="Design Placeholder"
-          timeline="Pending"
           tools={["Figma", "Next.js"]}
           tags={["Product Design", "Hackathon", "Frontend"]}
           links={[
