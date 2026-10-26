@@ -236,7 +236,7 @@ export default function ZoomableImage({
         aria-label={`Open larger: ${figure.alt}`}
         className={`group relative block w-full cursor-zoom-in overflow-hidden rounded-lg text-left ${
           figure.detail
-            ? "transition duration-700 ease-out hover:scale-[1.012] hover:shadow-[0_14px_36px_-14px_rgba(37,13,71,0.28)] motion-reduce:transition-none motion-reduce:hover:scale-100"
+            ? "transition-[transform,box-shadow] duration-500 ease-out hover:-translate-y-1 hover:shadow-[0_16px_36px_-16px_rgba(37,13,71,0.32)] motion-reduce:transition-none motion-reduce:hover:translate-y-0"
             : ""
         } focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8EB522] focus-visible:ring-offset-2 focus-visible:ring-offset-[#FAF9F6] ${
           framed ? "border border-[#250D47]/10" : ""
@@ -249,7 +249,7 @@ export default function ZoomableImage({
           height={figure.height}
           sizes={sizes}
           priority={priority}
-          unoptimized={figure.src.endsWith(".svg")}
+          unoptimized={figure.detail || figure.src.endsWith(".svg")}
           className="h-auto w-full"
         />
         {figure.detail && (

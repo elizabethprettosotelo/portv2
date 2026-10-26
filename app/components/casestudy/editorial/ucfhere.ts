@@ -40,6 +40,22 @@ const diagram = (file: string, alt: string, width: number, height: number, capti
   detail: true,
 });
 
+/** Final high-fidelity screens exported from Figma at 3x, cropped to one phone screen. */
+const screen = (file: string, alt: string, caption?: string): Figure => ({
+  src: `/ucfhere/final/${file}`,
+  alt,
+  caption,
+  width: 1206,
+  height: 2622,
+});
+
+const oldCourseDetail: Figure = {
+  src: "/ucfhere/screenshots/ucfhere-course-detail.png",
+  alt: "Old UCFHere course detail: every class date in alternating yellow and white rows, with present or absent on the right",
+  width: 1125,
+  height: 1902,
+};
+
 const oldCourseList = phone("ucfherehappypath3.png", "Old UCFHere course list showing every course");
 
 export const ucfhere: CaseStudy = {
@@ -145,7 +161,7 @@ export const ucfhere: CaseStudy = {
               note: "Attendance is recorded, but the confirmation flashes by. Students land in a cluttered list, unsure it counted.",
               steps: [
                 { slot: phone("ucfherehappypath1.png", "Old UCFHere scanner reading a QR code"), label: "Scan" },
-                { slot: phone("ucfherehappypath2.png", "Old UCFHere brief success screen"), label: "Brief success" },
+                { slot: phone("ucfherehappypath2-redacted.png", "Old UCFHere brief success screen"), label: "Brief success" },
                 { slot: oldCourseList, label: "Every course, ever" },
               ],
             },
@@ -163,7 +179,7 @@ export const ucfhere: CaseStudy = {
                 {
                   label: "Try again",
                   split: {
-                    recovered: phone("ucfherehappypath2.png", "the brief success screen"),
+                    recovered: phone("ucfherehappypath2-redacted.png", "the brief success screen"),
                     recoveredLabel: "Figures it out",
                     failed: oldCourseList,
                     failedLabel: "Gives up",
@@ -222,7 +238,7 @@ export const ucfhere: CaseStudy = {
           type: "figures",
           layout: "pair",
           caption: "Every course ever taken, then every date as a list, with no summary at either level.",
-          items: [oldCourseList, slot("A5", "Old course detail: the yellow and white list of dates", "phone")],
+          items: [oldCourseList, oldCourseDetail],
         },
       ],
     },
@@ -262,9 +278,16 @@ export const ucfhere: CaseStudy = {
           ],
         },
         {
+          type: "text",
+          text: "Then I ran a heuristic evaluation of the existing screens against Nielsen's usability heuristics. The most severe problems sat exactly where the tickets pointed: the scanner and the error screen.",
+        },
+        {
           type: "figures",
           layout: "wide",
-          items: [slot("A19", "Heuristic evaluation: old screens marked up with the biggest issues", "wide")],
+          caption: "Nine issues across five screens, rated by severity. Student names are blurred.",
+          items: [
+            diagram("A19-heuristic-evaluation.svg", "Heuristic evaluation of five old UCFHere screens with numbered markers, and a table listing each issue, the heuristic it breaks, and its severity: three critical, five major, one minor", 1320, 1246),
+          ],
         },
         { type: "subhead", text: "That gave me three priorities" },
         {
@@ -476,6 +499,18 @@ export const ucfhere: CaseStudy = {
             { title: "Support comes last", text: "The support page link only appears at the end of self-diagnose." },
           ],
         },
+        {
+          type: "text",
+          text: "In the final designs, every sheet shares one layout: a status icon, a plain-language title, one sentence on what happened, and the next step as the main button. Full sheets add the details a student needs to sort it out, like which course or section a code belongs to.",
+        },
+        {
+          type: "figures",
+          layout: "wide",
+          caption: "One nudge, three half sheets, and three full sheets for check-in problems.",
+          items: [
+            diagram("A21-sheet-set.svg", "Seven final screens: a framing nudge over the live scanner; half sheets for camera access, an interrupted scan, and no connection; full sheets for already checked in, not on the roster, and wrong section", 1612, 571),
+          ],
+        },
       ],
     },
     {
@@ -574,8 +609,8 @@ export const ucfhere: CaseStudy = {
           type: "figures",
           layout: "pair",
           items: [
-            slot("A12", "Success sheet after scanning", "phone", "The scan succeeds"),
-            slot("A12", "Dashboard with the confirmation banner", "phone", "The dashboard confirms it"),
+            screen("confirmation.png", "Confirmation screen: You've been marked Present, with the time, course, section, and a confirmation number", "The scan succeeds"),
+            screen("dashboard.png", "Dashboard with a banner confirming the student was just marked present for COP3330, above the Scan QR Code card and recent attendance", "The dashboard confirms it"),
           ],
         },
         {
@@ -596,17 +631,20 @@ export const ucfhere: CaseStudy = {
         },
         {
           type: "beforeAfter",
-          before: [oldCourseList, slot("A5", "Old course detail list", "phone")],
-          after: [slot("A13", "New course list with attendance bars", "phone"), slot("A13", "Semester dropdown open", "phone")],
+          before: [oldCourseList, oldCourseDetail],
+          after: [
+            screen("course-list.png", "New course list showing this semester's courses, each with an attendance bar and present and tardy counts"),
+            screen("course-list-dropdown.png", "Course list with the semester dropdown open, listing past semesters"),
+          ],
         },
         { type: "text", text: "Each course page has three views: All for totals at a glance, Week to find a specific day, and Month to spot patterns." },
         {
           type: "figures",
           layout: "phones",
           items: [
-            slot("A14", "Course page: All view", "phone", "All"),
-            slot("A14", "Course page: Week view", "phone", "Week"),
-            slot("A14", "Course page: Month view", "phone", "Month"),
+            screen("course-all.png", "Course page in All view: totals for present, tardies, absences, and excused, then every class date", "All"),
+            screen("course-week.png", "Course page in Week view: one week with a status icon under each day", "Week"),
+            screen("course-month.png", "Course page in Month view: a calendar with a colored dot under each class day", "Month"),
           ],
         },
         { type: "subhead", text: "Four statuses" },
@@ -628,13 +666,16 @@ export const ucfhere: CaseStudy = {
       blocks: [
         {
           type: "text",
-          text: "Attendance status is the most important information on these screens, so it couldn't depend on color. Each status on the attendance bar gets its own halftone texture as well as its own color, and every status label pairs an icon with a word.",
+          text: "Attendance status is the most important information on these screens, so it couldn't depend on color. Each status on the attendance bar gets its own pattern as well as its own color: solid for present, stripes for tardy, halftone dots for absent. The legend repeats each pattern next to its label, and every status pill pairs an icon with a word.",
         },
         {
           type: "figures",
-          layout: "pair",
-          caption: "The same attendance bar in color and in grayscale. It reads either way.",
-          items: [slot("A15", "Attendance bar in color", "square"), slot("A15", "Same bar in grayscale", "square")],
+          layout: "wide",
+          caption: "The attendance bar in color and in grayscale. The patterns still tell the statuses apart.",
+          items: [
+            diagram("A15-status-color.png", "Attendance bar: 17 present in solid green, 2 tardy in yellow with diagonal stripes, 1 absent in red with halftone dots, and a legend pairing each with an icon", 1260, 438),
+            diagram("A15-status-gray.png", "The same attendance bar in grayscale: the solid, striped, and dotted segments and the icons still tell the statuses apart", 1260, 438),
+          ],
         },
       ],
     },
@@ -664,7 +705,19 @@ export const ucfhere: CaseStudy = {
           type: "text",
           text: "The redesign is handed off to development. The current version stays in production until the new one is built. Once it launches, the clearest measure will be support tickets, especially camera and permission tickets.",
         },
-        { type: "figures", layout: "wide", items: [slot("A17", "Final screens overview: every key screen in one image", "wide")] },
+        {
+          type: "figures",
+          layout: "wide",
+          items: [
+            {
+              src: "/ucfhere/final/overview.png",
+              alt: "The final screens side by side: scanner, camera error sheet, confirmation, dashboard, course list, and a course's week view",
+              width: 4138,
+              height: 1551,
+              detail: true,
+            },
+          ],
+        },
       ],
     },
     {

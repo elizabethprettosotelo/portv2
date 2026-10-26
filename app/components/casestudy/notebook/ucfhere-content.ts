@@ -64,7 +64,7 @@ export const ucfhereCaseStudy: CaseStudyDocumentData = {
         screens: {
           happy: [
             { src: "/ucfhere/screenshots/ucfherehappypath1.png", alt: "UCFHere scanner reading a classroom QR code", caption: "Scan QR code" },
-            { src: "/ucfhere/screenshots/ucfherehappypath2.png", alt: "UCFHere confirmation that attendance has been recorded", caption: "Confirm attendance" },
+            { src: "/ucfhere/screenshots/ucfherehappypath2-redacted.png", alt: "UCFHere confirmation that attendance has been recorded", caption: "Confirm attendance" },
             { src: "/ucfhere/screenshots/ucfherehappypath3.png", alt: "UCFHere attendance history showing the course list", caption: "Review history" },
           ],
           unhappy: [
