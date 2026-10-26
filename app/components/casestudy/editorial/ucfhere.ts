@@ -241,7 +241,7 @@ export const ucfhere: CaseStudy = {
           layout: "wide",
           caption: "What the tickets said versus what was actually wrong. The ticket wording is paraphrased.",
           items: [
-            diagram("A6-ticket-types.png", "A typical ticket saying UCFHere is broken splits into two real causes: a blocked camera, which made up a large share, and errors that weren't explained, which made up most of the rest", 4752, 1697),
+            diagram("A6-ticket-types.svg", "A typical ticket saying UCFHere is broken splits into two real causes: a blocked camera, which made up a large share, and errors that weren't explained, which made up most of the rest", 1584, 568),
           ],
         },
         {
@@ -258,7 +258,7 @@ export const ucfhere: CaseStudy = {
           layout: "wide",
           caption: "Built from support tickets and conversations with students who use UCFHere. Thoughts are paraphrased.",
           items: [
-            diagram("A18-journey-map.png", "Journey map of a student checking in when the scan fails, from arriving in class to filing a ticket, with an emotion curve that drops at the black screen", 4992, 2175),
+            diagram("A18-journey-map.svg", "Journey map of a student checking in when the scan fails, from arriving in class to filing a ticket, with an emotion curve that drops at the black screen", 1664, 725),
           ],
         },
         {
@@ -351,7 +351,7 @@ export const ucfhere: CaseStudy = {
           layout: "wide",
           caption: "All 26 error states, from opening the app to a confirmed check-in. Click to zoom in and follow any path.",
           items: [
-            diagram("A7-error-flowchart.png", "Flowchart of all 26 UCFHere scan error states, grouped into six categories, each leading to a nudge, half sheet, or full sheet", 7224, 7515),
+            diagram("A7-error-flowchart.svg", "Flowchart of all 26 UCFHere scan error states, grouped into six categories, each leading to a nudge, half sheet, or full sheet", 1806, 1883),
           ],
         },
         { type: "quote", text: "This matrix became the backbone of the whole redesign." },
@@ -402,7 +402,7 @@ export const ucfhere: CaseStudy = {
           layout: "wide",
           caption: "Try again is always the main action, and it returns to the scanner from every step. Each deeper step is optional. *Troubleshoot only appears for camera and interrupted-sequence errors.",
           items: [
-            diagram("A9-interaction-flow.png", "Interaction flow: scan result branches into attendance issues, framing issues, and blocking errors, with Try again returning to the scanner at every step", 7485, 2912),
+            diagram("A9-interaction-flow.svg", "Interaction flow: scan result branches into attendance issues, framing issues, and blocking errors, with Try again returning to the scanner at every step", 1871, 727),
           ],
         },
         {
@@ -558,8 +558,8 @@ export const ucfhere: CaseStudy = {
         },
         {
           type: "beforeAfter",
-          before: [diagram("A20-ia-before.png", "Old sitemap: three tabs, a scanner with a dead-end error, and a history of every course and every date", 3323, 3027, "Every screen hangs off a list.")],
-          after: [diagram("A20-ia-after.png", "New sitemap: the dashboard at the center, linking to scanning, the confirmation banner, recent attendance, and settings", 3323, 3027, "The dashboard is the center.")],
+          before: [diagram("A20-ia-before.svg", "Old sitemap: three tabs, a scanner with a dead-end error, and a history of every course and every date", 1106, 1009, "Every screen hangs off a list.")],
+          after: [diagram("A20-ia-after.svg", "New sitemap: the dashboard at the center, linking to scanning, the confirmation banner, recent attendance, and settings", 1106, 1009, "The dashboard is the center.")],
         },
         {
           type: "text",

@@ -249,6 +249,7 @@ export default function ZoomableImage({
           height={figure.height}
           sizes={sizes}
           priority={priority}
+          unoptimized={figure.src.endsWith(".svg")}
           className="h-auto w-full"
         />
         {figure.detail && (
