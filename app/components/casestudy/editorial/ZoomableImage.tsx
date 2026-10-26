@@ -227,6 +227,39 @@ export default function ZoomableImage({
     trigger.current?.focus();
   }, []);
 
+  // Phone screenshots (portrait) sit inside a thin iPhone frame.
+  // Sizes use container units so the bezel and corner radius scale with the image.
+  const device = figure.height / figure.width > 1.6;
+  if (device) {
+    return (
+      <>
+        <div className="@container w-full">
+          <button
+            ref={trigger}
+            type="button"
+            onClick={() => setOpen(true)}
+            aria-label={`Open larger: ${figure.alt}`}
+            className="group relative block w-full cursor-zoom-in rounded-[13cqw] bg-[#1C1B21] p-[2.4cqw] text-left shadow-[0_1px_0_1px_rgba(37,13,71,0.08),0_14px_30px_-18px_rgba(37,13,71,0.45)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8EB522] focus-visible:ring-offset-2 focus-visible:ring-offset-[#FAF9F6]"
+          >
+            <span className="block overflow-hidden rounded-[10.8cqw] bg-black">
+              <Image
+                src={figure.src}
+                alt={figure.alt}
+                width={figure.width}
+                height={figure.height}
+                sizes={sizes}
+                priority={priority}
+                unoptimized={figure.detail || figure.src.endsWith(".svg")}
+                className="block h-auto w-full"
+              />
+            </span>
+          </button>
+        </div>
+        {open && <Viewer figure={figure} onClose={close} />}
+      </>
+    );
+  }
+
   return (
     <>
       <button

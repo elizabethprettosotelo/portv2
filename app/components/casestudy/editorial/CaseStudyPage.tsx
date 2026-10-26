@@ -220,9 +220,28 @@ function renderBlock(block: Block, index: number) {
       );
 
     case "figures": {
+      if (block.layout === "stackPhone") {
+        // Diagrams stacked on the left, one phone screen on the right.
+        const phoneSlot = block.items[block.items.length - 1];
+        return (
+          <figure key={index} className="my-10">
+            <div className="grid items-center gap-6 sm:grid-cols-[minmax(0,1fr)_200px] md:grid-cols-[minmax(0,1fr)_230px]">
+              <div className="flex flex-col gap-4">
+                {block.items.slice(0, -1).map((slot, i) => (
+                  <SlotView key={i} slot={slot} sizes="(min-width: 1024px) 520px, 100vw" />
+                ))}
+              </div>
+              <SlotView slot={phoneSlot} sizes="(min-width: 640px) 230px, 60vw" framed className="mx-auto w-full max-w-[230px]" />
+            </div>
+            {block.caption && <figcaption className={caption}>{block.caption}</figcaption>}
+          </figure>
+        );
+      }
       const grid = {
         wide: "grid gap-4",
         pair: "grid grid-cols-2 gap-4 sm:max-w-md",
+        split: "grid gap-4 sm:grid-cols-2",
+        stackPhone: "",
         phones: "grid grid-cols-2 gap-4 sm:grid-cols-3",
         illustrations: "grid grid-cols-3 gap-3 sm:gap-4",
       }[block.layout];

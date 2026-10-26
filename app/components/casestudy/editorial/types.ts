@@ -64,7 +64,7 @@ export type Block =
   | { type: "subhead"; text: string }
   | { type: "list"; items: ListItem[]; ordered?: boolean }
   | { type: "quote"; text: string }
-  | { type: "figures"; items: Slot[]; layout: "phones" | "wide" | "illustrations" | "pair"; caption?: string }
+  | { type: "figures"; items: Slot[]; layout: "phones" | "wide" | "illustrations" | "pair" | "split" | "stackPhone"; caption?: string }
   | { type: "beforeAfter"; before: Slot[]; after: Slot[]; caption?: string }
   | {
       type: "paths";

@@ -366,7 +366,7 @@ export const ucfhere: CaseStudy = {
         },
         {
           type: "text",
-          text: "For each one, I wrote down what the student sees, what they can do about it, and where they go if that doesn't work. I also settled a few rules along the way. Try again always restarts the whole scan, because the codes regenerate constantly and partial scans can't be saved. And not every error needs troubleshooting. Only camera and interrupted-sequence errors do.",
+          text: "For each one, I wrote down what the student sees, what they can do about it, and where they go if that doesn't work. I also settled a few rules along the way. Try again always restarts the whole scan, because the codes regenerate constantly and partial scans can't be saved. And not every error needs troubleshooting. Only camera errors do.",
         },
         { type: "subhead", text: "The error flow for “Scan the QR code”" },
         {
@@ -423,7 +423,7 @@ export const ucfhere: CaseStudy = {
         {
           type: "figures",
           layout: "wide",
-          caption: "Try again is always the main action, and it returns to the scanner from every step. Each deeper step is optional. *Troubleshoot only appears for camera and interrupted-sequence errors.",
+          caption: "Try again is always the main action, and it returns to the scanner from every step. Each deeper step is optional. *Troubleshoot only appears for camera errors.",
           items: [
             diagram("A9-interaction-flow.svg", "Interaction flow: scan result branches into attendance issues, framing issues, and blocking errors, with Try again returning to the scanner at every step", 1871, 727),
           ],
@@ -468,7 +468,7 @@ export const ucfhere: CaseStudy = {
                 { label: "Shows when", text: "An error blocks the scan." },
                 { label: "The scanner", text: "Pauses, but stays visible behind the sheet." },
                 { label: "What it says", text: "What happened, in one sentence." },
-                { label: "What's next", text: "Try again, or Troubleshoot for camera and sequence errors." },
+                { label: "What's next", text: "Try again, or Troubleshoot for camera errors." },
               ],
             },
             {
@@ -484,7 +484,7 @@ export const ucfhere: CaseStudy = {
                 footnote: "Not iPhone with Safari? Self-diagnose",
               },
               count: "3 errors",
-              usedBy: ["Check-in", "Troubleshoot, from camera and sequence errors"],
+              usedBy: ["Check-in", "Troubleshoot, from camera errors"],
               rows: [
                 { label: "Shows when", text: "The student taps Troubleshoot, or can't check in." },
                 { label: "The scanner", text: "Covered by the sheet." },
@@ -508,7 +508,7 @@ export const ucfhere: CaseStudy = {
           layout: "wide",
           caption: "One nudge, three half sheets, and three full sheets for check-in problems.",
           items: [
-            diagram("A21-sheet-set.svg", "Seven final screens: a framing nudge over the live scanner; half sheets for camera access, an interrupted scan, and no connection; full sheets for already checked in, not on the roster, and wrong section", 1612, 571),
+            diagram("A21-sheet-set.svg", "Seven final screens: a framing nudge over the live scanner; half sheets for camera access, an interrupted scan, and no connection; full sheets for already checked in, not on the roster, and wrong section", 1682, 581),
           ],
         },
       ],
@@ -578,6 +578,11 @@ export const ucfhere: CaseStudy = {
         {
           type: "text",
           text: "I split it up. The half sheet gives enough context for students who can fix it themselves. The detailed steps moved into the optional full sheet, for students who need more help.",
+        },
+        {
+          type: "text",
+          // TODO(Eli): add what the A/B test found once confirmed.
+          text: "To check the split, I A/B tested both versions of the error sheet.",
         },
       ],
     },
@@ -666,15 +671,43 @@ export const ucfhere: CaseStudy = {
       blocks: [
         {
           type: "text",
-          text: "Attendance status is the most important information on these screens, so it couldn't depend on color. Each status on the attendance bar gets its own pattern as well as its own color: solid for present, stripes for tardy, halftone dots for absent. The legend repeats each pattern next to its label, and every status pill pairs an icon with a word.",
+          text: "Attendance status is the most important information on these screens, so it couldn't depend on color. Each status on the attendance bar gets its own pattern as well as its own color: solid for present, stripes for tardy, halftone dots for absent, and an outline for excused. The legend repeats each pattern next to its label, and every status pill pairs an icon with a word.",
         },
         {
           type: "figures",
-          layout: "wide",
-          caption: "The attendance bar in color and in grayscale. The patterns still tell the statuses apart.",
+          layout: "stackPhone",
+          caption: "The attendance bar in color and in grayscale, and the same legend in use on the course list.",
           items: [
-            diagram("A15-status-color.png", "Attendance bar: 17 present in solid green, 2 tardy in yellow with diagonal stripes, 1 absent in red with halftone dots, and a legend pairing each with an icon", 1260, 438),
-            diagram("A15-status-gray.png", "The same attendance bar in grayscale: the solid, striped, and dotted segments and the icons still tell the statuses apart", 1260, 438),
+            diagram("A15-status-color.png", "Attendance bar: 17 present in solid green, 2 tardy in yellow with diagonal stripes, 1 absent in red with halftone dots, and a legend that adds 0 excused as an outlined square", 1338, 438),
+            diagram("A15-status-gray.png", "The same attendance bar in grayscale: the solid, striped, dotted, and outlined swatches still tell the statuses apart", 1338, 438),
+            screen("course-list.png", "Course list where each course card has the patterned attendance bar and its legend"),
+          ],
+        },
+        { type: "subhead", text: "Text that grows with the student" },
+        {
+          type: "text",
+          text: "Settings has a text size control with three steps. Picking the largest one scales every label on the page, and the layout makes room for it instead of cutting words off.",
+        },
+        {
+          type: "figures",
+          layout: "pair",
+          items: [
+            screen("settings.png", "Settings at the default text size, with language, a three-step text size control, and a theme picker", "Default text size"),
+            screen("settings-large-text.png", "The same settings page with the largest text size selected: every label is bigger and the rows grow to fit", "Largest text size"),
+          ],
+        },
+        { type: "subhead", text: "Dark mode" },
+        {
+          type: "text",
+          text: "Every screen also has a dark version, which follows the phone's setting or the theme picker in Settings. The greens and reds are lightened for dark backgrounds so status text stays readable.",
+        },
+        {
+          type: "figures",
+          layout: "phones",
+          items: [
+            screen("dark-dashboard.png", "Dashboard in dark mode with the check-in banner, Scan QR Code card, and recent attendance", "Dashboard"),
+            screen("dark-course-list.png", "Course list in dark mode with patterned attendance bars", "Course list"),
+            screen("dark-course-week.png", "Course page in dark mode, Week view", "Week view"),
           ],
         },
       ],
