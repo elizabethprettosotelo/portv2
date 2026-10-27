@@ -61,16 +61,13 @@ export const ucfhere: CaseStudy = {
   meta: [
     { label: "Role", value: "UX Designer (sole designer)" },
     { label: "Team", value: "1 designer, 1 engineer" },
-    { label: "Timeline", value: "June–August 2026" },
-    { label: "Tools", value: "Figma, Figma Make, Claude" },
-    { label: "Status", value: "Handed off to development" },
+    { label: "Tools", value: "Figma, Figma Make, Claude Design" },
   ],
-  // TODO A1: swap for the new scanner with the half sheet open, next to the dashboard.
   hero: {
-    src: "/ucfhere/frame-2.png",
-    alt: "Redesigned UCFHere screens: the dashboard with a scan card and recent check-ins, and a course page with all, week, and month attendance views",
-    width: 1920,
-    height: 1080,
+    src: "/ucfhere/final/overview.png",
+    alt: "The redesigned UCFHere screens side by side: scanner, camera error sheet, confirmation, dashboard, course list, and a course's week view",
+    width: 4138,
+    height: 1551,
   },
   stats: [
     { value: "15K", label: "students checking in" },
@@ -119,20 +116,6 @@ export const ucfhere: CaseStudy = {
         {
           type: "text",
           text: "The interaction is short, but the stakes aren't. If the scan fails and the professor doesn't offer a backup, the student is marked absent, even though they were sitting in class.",
-        },
-        { type: "subhead", text: "Two moments that go wrong" },
-        {
-          type: "cards",
-          items: [
-            {
-              title: "Exam day",
-              text: "A student opens UCFHere and the scanner is black. Their camera permission is off, but nothing says so. The professor is strict, and there's no sign-in sheet. They're marked absent for an exam they sat in the room for.",
-            },
-            {
-              title: "The second scan",
-              text: "A student scans, sees a quick flash of success, and lands on a list of every class they've ever taken. Unsure it worked, they scan again just to check.",
-            },
-          ],
         },
       ],
     },
@@ -186,7 +169,6 @@ export const ucfhere: CaseStudy = {
               title: "The worst path",
               verdict: "Worst",
               tone: "worst",
-              wide: true,
               note: "The camera is blocked, so the scanner stays black. There's no error and nothing to try. The student can't tell what's wrong, can't fix it, and leaves marked absent.",
               steps: [
                 { slot: phone("ucfheresadpath.png", "Old UCFHere scanner showing a black camera preview"), label: "Black screen" },
@@ -196,45 +178,54 @@ export const ucfhere: CaseStudy = {
             },
           ],
         },
-        { type: "subhead", text: "The black screen" },
         {
-          type: "text",
-          text: "The worst case was when students couldn't scan at all. If a browser or camera permission was off, the scanner just showed a black screen. No error, no message. Students assumed the app was broken.",
+          type: "box",
+          title: "The black screen",
+          text: [
+            "Students assumed the app was broken. But behind the scenes, UCFHere could already detect the browser, the operating system, and whether camera access was on. None of that ever reached the screen.",
+          ],
         },
         { type: "quote", text: "UCFHere already knew what was wrong. It just had no way to tell the student." },
         {
           type: "text",
-          text: "It could detect the browser, the operating system, and whether camera access was on. None of that ever reached the screen.",
+          text: "The black screen was the loudest problem, but the same walkthrough turned up quieter ones too:",
         },
         {
-          type: "columns",
+          type: "cards",
           items: [
             {
               title: "“Error”",
-              text: "When a scan did go through but something else failed, like scanning a code for the wrong section, students got a generic error with no explanation of what to do next.",
+              text: "When something else failed, like scanning a code for the wrong section, students got a generic error and an OK button.",
             },
             {
               title: "“Did it count?”",
-              text: "Even when everything worked, students weren't sure. The app flashed a brief success screen, then dropped them into a list of every course. Many scanned again just to make sure, and only felt better when a second screen told them they'd already checked in.",
+              text: "Even when it worked, the success screen flashed by. Many students scanned again, and only felt sure when a second screen said they'd already checked in.",
+            },
+            {
+              title: "Two long lists, no summary",
+              text: "History showed every class a student had ever taken, then every date as its own row, with no summary at either level.",
+            },
+            {
+              title: "Color alone",
+              text: "Present, tardy, and absent were told apart only by color.",
             },
           ],
         },
-        { type: "subhead", text: "Two lists deep, and still no answer" },
-        {
-          type: "text",
-          text: "Students open their attendance to answer one question: did today count, and am I okay in this class? The old screens never answered it. The first list showed every class a student had ever taken at UCF, including classes that never used UCFHere and semesters long past. Finding this semester meant scrolling past all of it.",
-        },
-        {
-          type: "text",
-          text: "Tapping a course didn't summarize anything either. It opened a second list of every class date in alternating yellow and white rows, with a small “present” or “absent” at the edge. To know where they stood, students had to scroll and count.",
-        },
-        { type: "quote", text: "All of the data was there. None of it was organized around what students needed to know." },
+        { type: "subhead", text: "Every course, then every date" },
         {
           type: "figures",
-          layout: "pair",
-          caption: "Every course ever taken, then every date as a list, with no summary at either level.",
-          items: [oldCourseList, oldCourseDetail],
+          layout: "phones",
+          items: [
+            phone("ucfherehappypath2-redacted.png", "Old UCFHere brief success screen", "The brief success"),
+            { ...oldCourseList, caption: "List one: every course" },
+            { ...oldCourseDetail, caption: "List two: every date" },
+          ],
         },
+        {
+          type: "text",
+          text: "Students open their attendance to answer one question: did today count, and am I okay in this class? The old screens never answered it. The first list included classes that never used UCFHere and semesters long past. Tapping a course opened every class date in alternating yellow and white rows. To know where they stood, students had to scroll and count.",
+        },
+        { type: "quote", text: "All of the data was there. None of it was organized around what students needed to know." },
       ],
     },
     {
@@ -245,14 +236,14 @@ export const ucfhere: CaseStudy = {
       blocks: [
         {
           type: "text",
-          text: "I started with the support tickets. Most students reported the same thing: they tried to scan and UCFHere was broken. A large share of those tickets had the same fix, which was turning on camera access in the browser or phone settings. Most of the rest came from other errors that weren't explained clearly.",
+          text: "I started with the support tickets. Most students reported the same thing: they tried to scan and UCFHere was broken. A large share of those tickets had the same fix, which was turning on camera access in the browser or phone settings. The rest split into two much smaller groups: vague errors, where something real went wrong but the message never said what, and actual errors, like a dropped connection.",
         },
         {
           type: "figures",
           layout: "wide",
-          caption: "What the tickets said versus what was actually wrong. The ticket wording is paraphrased.",
+          caption: "Ticket wording is paraphrased.",
           items: [
-            diagram("A6-ticket-types.svg", "A typical ticket saying UCFHere is broken splits into two real causes: a blocked camera, which made up a large share, and errors that weren't explained, which made up most of the rest", 1584, 568),
+            diagram("A6-ticket-types.svg", "A typical ticket saying UCFHere is broken splits into three real causes: a blocked camera, which made up a large share, and two much smaller groups, vague errors that never explained what went wrong and actual errors like a dropped connection", 1584, 626),
           ],
         },
         {
@@ -267,55 +258,47 @@ export const ucfhere: CaseStudy = {
         {
           type: "figures",
           layout: "wide",
-          caption: "Built from support tickets and conversations with students who use UCFHere. Thoughts are paraphrased.",
+          caption: "Thoughts are paraphrased.",
           items: [
             diagram("A18-journey-map.svg", "Journey map of a student checking in when the scan fails, from arriving in class to filing a ticket, with an emotion curve that drops at the black screen", 1664, 725),
           ],
         },
         {
           type: "text",
-          text: "Then I ran a heuristic evaluation of the existing screens against Nielsen's usability heuristics. The most severe problems sat exactly where the tickets pointed: the scanner and the error screen.",
+          text: "Then I ran a heuristic evaluation of the existing screens against Nielsen's usability heuristics, and found nine issues across five screens. The most severe sat exactly where the tickets pointed: the scanner and the error screen.",
         },
         {
           type: "figures",
           layout: "wide",
-          caption: "Nine issues across five screens, rated from 1/5 (no usability concern) to 5/5 (usability disaster). Student names are blurred.",
+          caption: "Student names are blurred.",
           items: [
             diagram("A19-heuristic-evaluation.svg", "Heuristic evaluation of five old UCFHere screens with numbered markers, and a table listing each issue, the heuristic it breaks, and its severity on a 1 to 5 scale: one 5/5 usability disaster, two 4/5 major, five 3/5 minor, and one 2/5 cosmetic", 1320, 1318),
-          ],
-        },
-        { type: "subhead", text: "That gave me three priorities" },
-        {
-          type: "cards",
-          numbered: true,
-          items: [
-            { title: "Tell students what went wrong", text: "The app already had the information. It needed to share it." },
-            { title: "Give every error a way forward", text: "No dead ends, and no “error” with no next step." },
-            { title: "Make success obvious", text: "Students shouldn't have to scan twice to feel sure." },
           ],
         },
       ],
     },
     {
       id: "principles",
-      eyebrow: "Design principles",
+      nav: "The fixes",
+      eyebrow: "The fixes",
       title: "Four rules I designed by",
       blocks: [
+        { type: "text", text: "The research pointed to the same few gaps every time, so I turned them into rules. Every decision below traces back to at least one." },
         {
           type: "cards",
-          numbered: true,
+          feature: true,
           items: [
-            { title: "Say what the app already knows", text: "If UCFHere can detect the problem, the student should see it in plain words." },
+            { title: "Say what the app already knows", text: "If UCFHere can detect the problem, the student sees it in plain words." },
             { title: "Keep the fix next to the problem", text: "Recovery happens on the scanner, not on a separate page." },
             { title: "No dead ends", text: "Every state, error or success, has a clear next step." },
             { title: "Make success obvious", text: "No one should have to scan twice to feel sure." },
           ],
         },
-        { type: "text", text: "Every decision below traces back to at least one of these." },
       ],
     },
     {
       id: "mapping",
+      level: 3,
       nav: "Errors",
       eyebrow: "Mapping the problem",
       title: "Mapping every way a check-in can fail",
@@ -329,32 +312,26 @@ export const ucfhere: CaseStudy = {
           items: [
             {
               title: "Camera and permissions",
-              count: 6,
               errors: ["The camera is blocked, missing, or busy, so the scanner can't see anything."],
             },
             {
               title: "QR detection",
-              count: 5,
               errors: ["The camera works, but the code isn't framed well enough to read."],
             },
             {
               title: "Interrupted sequence",
-              count: 2,
               errors: ["The scan stops before every code is captured."],
             },
             {
               title: "QR validity",
-              count: 4,
               errors: ["A code gets read, but it's not the right one for this class."],
             },
             {
               title: "Check-in",
-              count: 3,
               errors: ["The scan works, but the student can't be checked in."],
             },
             {
               title: "Network and system",
-              count: 5,
               errors: ["The connection or the server drops out before attendance is saved."],
             },
           ],
@@ -366,27 +343,91 @@ export const ucfhere: CaseStudy = {
         { type: "subhead", text: "Twenty-six ways to say “uh oh”" },
         {
           type: "text",
-          text: "Here's the whole map. Start at the top, where a student opens the app, and follow any “no” to see where it leads. Every branch ends at the sheet that catches it, and almost all of them loop right back to Try again.",
+          text: "Here's the whole map. Start at the top, where a student opens the app, and follow any “no” to see where it leads. Every branch ends at the screen that catches it, and almost all of them loop right back to Try again. Click it to zoom in.",
         },
         {
           type: "figures",
           layout: "wide",
-          caption: "All 26 error states, from opening the app to a confirmed check-in. Click to zoom in and follow any path.",
           items: [
             diagram("A7-error-flowchart.svg", "Flowchart of all 26 UCFHere scan error states, grouped into six categories, each leading to a nudge, half sheet, or full sheet", 1806, 1883),
           ],
         },
-        { type: "quote", text: "This matrix became the backbone of the whole redesign." },
+      ],
+    },
+    {
+      id: "why-a-sheet",
+      level: 3,
+      eyebrow: "Why a sheet",
+      title: "Keeping the fix where the problem is",
+      blocks: [
+        {
+          type: "text",
+          text: "With every failure mapped, the first decision was where an error should show up at all. I considered a popup and a separate error page. Both would have worked, but both pull students away from the scanner at the exact moment they're trying to finish.",
+        },
+        {
+          type: "compare",
+          title: "Lo-fi prototypes",
+          caption: "The three options, redrawn as lo-fis for this case study.",
+          options: [
+            {
+              title: "Popup",
+              verdict: "no",
+              text: "Has to be dismissed before you can continue. One more tap when you're in a hurry.",
+              slot: art("A10-popup.png", "Lo-fi popup over a dimmed scanner", 1206, 2622),
+            },
+            {
+              title: "Separate page",
+              verdict: "no",
+              text: "Takes students off the scanner, so they lose track of where the error happened.",
+              slot: art("A10-separate-page.png", "Lo-fi separate error page that replaces the scanner", 1206, 2622),
+            },
+            {
+              title: "Bottom sheet",
+              verdict: "yes",
+              text: "Rises from the scanner. Keeps context, and puts the fix right next to the problem.",
+              slot: art("A10-bottom-sheet.png", "Lo-fi bottom sheet rising over the paused scanner", 1206, 2622),
+            },
+          ],
+        },
+        { type: "text", text: "Popups aren't always wrong. A sheet just fit a fast, repeated, camera-based task better, and it left room for a next step after success too: Continue to Dashboard or Scan another QR code." },
+      ],
+    },
+    {
+      id: "iteration",
+      level: 3,
+      eyebrow: "Iteration",
+      title: "Cutting the wall of text",
+      blocks: [
+        {
+          type: "text",
+          text: "My first sheet put every troubleshooting step in one place. It covered everything, and that was the problem. It was a wall of text, and most students only needed one line to fix their issue.",
+        },
+        {
+          type: "beforeAfter",
+          title: "Lo-fi prototypes",
+          before: [
+            art("A11-first-version.png", "First version of the camera error: a tall sheet with detected device, three numbered troubleshooting steps, a camera toggle illustration, and Try again", 804, 1748),
+          ],
+          after: [
+            art("A11-final-half-sheet.png", "Final half sheet for the camera error: one sentence on what happened, a Try again button, and a Troubleshoot link, with the scanner still visible above", 804, 1748),
+          ],
+        },
+        {
+          type: "text",
+          text: "So I split it in two. A short sheet gives enough context for students who can fix it themselves: one sentence, Try again, and Troubleshoot. The detailed steps moved to a second, optional sheet for students who need more help. That split turned out to work for every error, not just the camera.",
+        },
+        // TODO(Eli): add the A/B test back here with its result, e.g. "I A/B tested both versions, and ..."
       ],
     },
     {
       id: "solution",
+      level: 3,
       eyebrow: "The solution",
       title: "One pattern for 26 errors",
       blocks: [
         {
           type: "text",
-          text: "Once all 26 errors were mapped, a pattern emerged. They had very different causes, but from the student's side, every one of them fell into one of three situations:",
+          text: "Going back to the map, the 26 errors had very different causes, but from the student's side, every one fell into one of three situations:",
         },
         {
           type: "cards",
@@ -422,14 +463,13 @@ export const ucfhere: CaseStudy = {
         {
           type: "figures",
           layout: "wide",
-          caption: "Try again is always the main action, and it returns to the scanner from every step. Each deeper step is optional. *Troubleshoot only appears for camera errors.",
           items: [
             diagram("A9-interaction-flow.svg", "Interaction flow: scan result branches into attendance issues, framing issues, and blocking errors, with Try again returning to the scanner at every step", 1871, 727),
           ],
         },
         {
           type: "text",
-          text: "I built that flow as a bottom sheet attached to the scanner, with three levels. Each level only appears when the one before it isn't enough.",
+          text: "Try again is always the main action, and it returns to the scanner from every step. Everything deeper is optional. That flow became three levels of the same sheet, and each level only appears when the one before it isn't enough.",
         },
         {
           type: "sheetSpec",
@@ -439,6 +479,7 @@ export const ucfhere: CaseStudy = {
               kind: "nudge",
               color: "#1C7C76",
               tint: "#E1F1EF",
+              image: { src: "/ucfhere/final/sheet-nudge.png", alt: "Nudge: the scanner keeps running, with Move closer to the QR code under the greeting", width: 804, height: 1748 },
               mock: { title: "Move closer to the code" },
               count: "5 errors",
               usedBy: ["QR detection"],
@@ -454,6 +495,7 @@ export const ucfhere: CaseStudy = {
               kind: "half",
               color: "#C4512C",
               tint: "#F8E6DE",
+              image: { src: "/ucfhere/final/sheet-half-camera.png", alt: "Half sheet over the paused scanner: Camera access needed, with Try again, Troubleshoot, and a support link", width: 804, height: 1748 },
               mock: {
                 title: "Camera access is blocked",
                 body: "Your browser is blocking the camera, so UCFHere can't scan. Allow camera access for this site, then try again.",
@@ -475,6 +517,7 @@ export const ucfhere: CaseStudy = {
               kind: "full",
               color: "#5B45A8",
               tint: "#E9E4F6",
+              image: { src: "/ucfhere/final/sheet-full-not-enrolled.png", alt: "Full sheet: You're not on this roster, with the course the code is for, what you can do, and Back to dashboard", width: 804, height: 1748 },
               mock: {
                 meta: "Detected: iPhone · Safari",
                 title: "Fix: camera access is blocked",
@@ -492,20 +535,14 @@ export const ucfhere: CaseStudy = {
               ],
             },
           ],
-          rules: [
-            { title: "Try again leads", text: "Every error a student can recover from puts Try again first. Deeper help is optional." },
-            { title: "Try again starts over", text: "Codes regenerate constantly, so partial scans aren't kept. A new scan starts at code 1." },
-            { title: "Support comes last", text: "A small “Still stuck?” support link sits under the buttons. It’s always there, but never the first thing a student sees." },
-          ],
         },
         {
           type: "text",
-          text: "In the final designs, every sheet shares one layout: a status icon, a plain-language title, one sentence on what happened, and the next step as the main button. Full sheets add the details a student needs to sort it out, like which course or section a code belongs to.",
+          text: "In the final designs, every sheet shares one layout: a status icon, a plain-language title, one sentence on what happened, and the next step as the main button. Full sheets add the details a student needs to sort it out, like which course or section a code belongs to. The final set is one nudge, three half sheets, and three full sheets.",
         },
         {
           type: "figures",
           layout: "wide",
-          caption: "One nudge, three half sheets, and three full sheets for check-in problems.",
           items: [
             diagram("A21-sheet-set.svg", "Seven final screens: a framing nudge over the live scanner; half sheets for camera access, an interrupted scan, and no connection; full sheets for already checked in, not on the roster, and wrong section", 1682, 581),
           ],
@@ -513,80 +550,8 @@ export const ucfhere: CaseStudy = {
       ],
     },
     {
-      id: "why-a-sheet",
-      eyebrow: "Why a sheet",
-      title: "Keeping the fix where the problem is",
-      blocks: [
-        {
-          type: "text",
-          text: "I considered a popup and a separate error page. Both would have worked, but both pull students away from the scanner at the exact moment they're trying to finish.",
-        },
-        {
-          type: "compare",
-          options: [
-            {
-              title: "Popup",
-              verdict: "no",
-              text: "Has to be dismissed before you can continue. One more tap when you're in a hurry.",
-              slot: art("A10-popup.png", "Lo-fi popup over a dimmed scanner", 1170, 2532),
-            },
-            {
-              title: "Separate page",
-              verdict: "no",
-              text: "Takes students off the scanner, so they lose track of where the error happened.",
-              slot: art("A10-separate-page.png", "Lo-fi separate error page that replaces the scanner", 1170, 2532),
-            },
-            {
-              title: "Bottom sheet",
-              verdict: "yes",
-              text: "Rises from the scanner. Keeps context, and puts the fix right next to the problem.",
-              slot: art("A10-bottom-sheet.png", "Lo-fi bottom sheet rising over the paused scanner", 1170, 2532),
-            },
-          ],
-        },
-        {
-          type: "list",
-          items: [
-            { lead: "It keeps context.", text: "Students can see where the error happened." },
-            { lead: "It doesn't interrupt.", text: "Nothing to dismiss before trying again." },
-            { lead: "The fix sits next to the problem.", text: "“Turn on camera access” or “Try again” is right there." },
-            { lead: "There are no dead ends.", text: "Every error has a next step, and so does success: Continue to Dashboard or Scan another QR code." },
-          ],
-        },
-        { type: "text", text: "Popups aren't always wrong. A sheet just fit a fast, repeated, camera-based task better." },
-      ],
-    },
-    {
-      id: "iteration",
-      eyebrow: "Iteration",
-      title: "Cutting the wall of text",
-      blocks: [
-        {
-          type: "text",
-          text: "My first version put every troubleshooting step right in the expanded sheet. It covered everything, and that was the problem. It was a wall of text, and most students only needed one line to fix their issue.",
-        },
-        {
-          type: "beforeAfter",
-          before: [
-            art("A11-first-version.png", "First version of the camera error: a tall sheet with detected device, three numbered troubleshooting steps, a camera toggle illustration, and Try again", 804, 1748, "Every troubleshooting step, right in the sheet."),
-          ],
-          after: [
-            art("A11-final-half-sheet.png", "Final half sheet for the camera error: one sentence on what happened, a Try again button, and a Troubleshoot link, with the scanner still visible above", 804, 1748, "One sentence, Try again, and Troubleshoot if they need more."),
-          ],
-        },
-        {
-          type: "text",
-          text: "I split it up. The half sheet gives enough context for students who can fix it themselves. The detailed steps moved into the optional full sheet, for students who need more help.",
-        },
-        {
-          type: "text",
-          // TODO(Eli): add what the A/B test found once confirmed.
-          text: "To check the split, I A/B tested both versions of the error sheet.",
-        },
-      ],
-    },
-    {
       id: "dashboard",
+      level: 3,
       nav: "Dashboard",
       eyebrow: "The dashboard",
       title: "Giving the app a home",
@@ -610,11 +575,14 @@ export const ucfhere: CaseStudy = {
           text: "After a successful scan, the confirmation sheet takes over the screen. Then, back on the dashboard, a banner confirms which class they were marked present for. That second confirmation is what replaces the old habit of scanning again just to check.",
         },
         {
-          type: "figures",
-          layout: "pair",
-          items: [
+          type: "beforeAfter",
+          before: [
+            phone("ucfherehappypath2-redacted.png", "Old UCFHere success screen that flashes by after a scan", "Flashes by"),
+            { ...oldCourseList, caption: "Then every course, ever" },
+          ],
+          after: [
             screen("confirmation.png", "Confirmation screen: You've been marked Present, with the time, course, section, and a confirmation number", "The scan succeeds"),
-            screen("dashboard.png", "Dashboard with a banner confirming the student was just marked present for COP3330, above the Scan QR Code card and recent attendance", "The dashboard confirms it"),
+            screen("dashboard.png", "Dashboard with a banner confirming the student was just marked present, above the Scan QR Code card and recent attendance", "The dashboard confirms it"),
           ],
         },
         {
@@ -625,114 +593,172 @@ export const ucfhere: CaseStudy = {
     },
     {
       id: "history",
+      level: 3,
       nav: "History",
       eyebrow: "Attendance history",
       title: "From every class you've ever taken to this semester at a glance",
       blocks: [
         {
           type: "text",
-          text: "The old history showed everything at once, at the same level of detail. I reorganized it from overview to detail. The course list now shows only this semester, each course with a small bar summarizing attendance. Past semesters are still there in a dropdown.",
+          text: "The old history showed everything at once, at the same level of detail. I reworked both lists from overview to detail, one at a time.",
+        },
+        { type: "subhead", text: "The course list" },
+        {
+          type: "text",
+          text: "The course list now shows only this semester, each course with a small bar summarizing attendance. Past semesters are still there, one dropdown away.",
         },
         {
           type: "beforeAfter",
-          before: [oldCourseList, oldCourseDetail],
+          before: [{ ...oldCourseList, caption: "Every course, ever" }],
           after: [
-            screen("course-list.png", "New course list showing this semester's courses, each with an attendance bar and present and tardy counts"),
-            screen("course-list-dropdown.png", "Course list with the semester dropdown open, listing past semesters"),
+            screen("course-list.png", "New course list showing this semester's courses, each with an attendance bar and present and tardy counts", "This semester"),
+            screen("course-list-dropdown.png", "Course list with the semester dropdown open, listing past semesters", "Pick a semester"),
+            screen("course-list-spring-2026.png", "Course list after picking Spring 2026, showing that semester's two courses with their attendance bars", "Spring 2026"),
           ],
         },
-        { type: "text", text: "Each course page has three views: All for totals at a glance, Week to find a specific day, and Month to spot patterns." },
+        { type: "subhead", text: "The course page" },
         {
-          type: "figures",
-          layout: "phones",
-          items: [
+          type: "text",
+          text: "Tapping a course used to open every class date as one long list. Now each course page has three views: All for totals at a glance, Week to find a specific day, and Month to spot patterns.",
+        },
+        {
+          type: "beforeAfter",
+          before: [{ ...oldCourseDetail, caption: "Every date, one row each" }],
+          after: [
             screen("course-all.png", "Course page in All view: totals for present, tardies, absences, and excused, then every class date", "All"),
             screen("course-week.png", "Course page in Week view: one week with a status icon under each day", "Week"),
             screen("course-month.png", "Course page in Month view: a calendar with a colored dot under each class day", "Month"),
-          ],
-        },
-        { type: "subhead", text: "Four statuses" },
-        {
-          type: "legend",
-          items: [
-            { status: "present", label: "Present", text: "Scanned during the session" },
-            { status: "tardy", label: "Tardy", text: "The professor marked you present after the session ended" },
-            { status: "absent", label: "Absent", text: "Neither happened" },
-            { status: "excused", label: "Excused", text: "The professor excused the absence" },
           ],
         },
       ],
     },
     {
       id: "accessibility",
+      level: 3,
+      nav: "Accessibility",
       eyebrow: "Accessibility",
-      title: "Designing for more than color",
+      title: "Designing for more than recall",
       blocks: [
         {
           type: "text",
-          text: "Attendance status is the most important information on these screens, so it couldn't depend on color. Each status on the attendance bar gets its own pattern as well as its own color: solid for present, stripes for tardy, halftone dots for absent. The legend repeats each pattern next to its label and only lists the statuses a student actually has. Every status pill pairs an icon with a word.",
+          text: "The heuristic evaluation turned up a few places where students had to remember what something meant instead of seeing it: three unlabeled status dots on the error screen, and yellow history rows that didn't mean anything. I didn't want the redesign to repeat that anywhere.",
+        },
+        {
+          type: "text",
+          text: "So every status says what it is in three ways: a word, an icon, and a pattern on the attendance bar, with solid for present, stripes for tardy, and halftone dots for absent. That also keeps status readable without color. The legend sits right under the bar and only lists the statuses a student actually has.",
         },
         {
           type: "figures",
           layout: "stackPhone",
-          caption: "The attendance bar in color and in grayscale, and the same legend in use on the course list.",
           items: [
             diagram("A15-status-color.png", "Attendance bar: 17 present in solid green, 2 tardy in yellow with diagonal stripes, 1 absent in red with halftone dots, and a legend that repeats each pattern", 1338, 438),
             diagram("A15-status-gray.png", "The same attendance bar in grayscale: the solid, striped, and dotted swatches still tell the statuses apart", 1338, 438),
             screen("course-list.png", "Course list where each course card has the patterned attendance bar and its legend"),
           ],
         },
-        { type: "subhead", text: "Text that grows with the student" },
+        { type: "subhead", text: "Text that grows" },
         {
           type: "text",
-          text: "Settings has a text size control with three steps. Picking the largest one scales every label on the page, and the layout makes room for it instead of cutting words off.",
+          text: "Settings has a three-step text size control. The largest step scales every label on the page, and rows grow to fit instead of cutting words off.",
         },
         {
           type: "figures",
           layout: "pair",
           items: [
-            screen("settings.png", "Settings at the default text size, with language, a three-step text size control, and a theme picker", "Default text size"),
-            screen("settings-large-text.png", "The same settings page with the largest text size selected: every label is bigger and the rows grow to fit", "Largest text size"),
+            screen("settings.png", "Settings at the default text size, with language, a three-step text size control, and a theme picker", "Default"),
+            screen("settings-large-text.png", "The same settings page at the largest text size: every label is bigger and the rows grow to fit", "Largest"),
           ],
         },
         { type: "subhead", text: "Dark mode" },
         {
           type: "text",
-          text: "Every screen also has a dark version, which follows the phone's setting or the theme picker in Settings. The greens and reds are lightened for dark backgrounds so status text stays readable.",
+          text: "Every screen has a dark version that follows the phone, or the theme picker in Settings. The greens and reds are lightened so status text stays readable on dark backgrounds.",
         },
         {
           type: "figures",
-          layout: "phones",
+          layout: "pair",
           items: [
-            screen("dark-dashboard.png", "Dashboard in dark mode with the check-in banner, Scan QR Code card, and recent attendance", "Dashboard"),
+            screen("dark-dashboard.png", "Dashboard in dark mode with the check-in banner, the Scan QR Code card, and recent attendance", "Dashboard"),
             screen("dark-course-list.png", "Course list in dark mode with patterned attendance bars", "Course list"),
-            screen("dark-course-week.png", "Course page in dark mode, Week view", "Week view"),
           ],
         },
       ],
     },
     {
-      id: "validation",
+      id: "outcome",
       nav: "Outcome",
-      eyebrow: "Validation",
-      title: "Putting it in front of 25 people",
+      eyebrow: "Outcome",
+      title: "A more trustworthy, recovery-ready experience",
       blocks: [
         {
           type: "text",
-          text: "I walked 25 people through the full prototype: coworkers who are UCF students, instructional designers, and engineers. They could move through scanning, error recovery, the dashboard, and attendance history.",
+          text: "I walked 25 people through the full prototype: coworkers who are UCF students, instructional designers, and engineers. They moved through scanning, error recovery, the dashboard, and attendance history.",
+        },
+        // TODO(Eli): one or two real findings from the walkthroughs go here, e.g. how many recovered from the camera error without help, or a quote.
+        {
+          type: "countHead",
+          n: "01",
+          title: "More organized",
+          text: "This semester first, past semesters one dropdown away, and every course page summarized before it's listed.",
         },
         {
-          type: "figures",
-          layout: "wide",
-          items: [slot("A16", "Screen recording: scan, camera error, troubleshoot, try again, success", "wide")],
+          type: "clip",
+          src: "/ucfhere/motion/courses.mp4",
+          poster: "/ucfhere/motion/courses-poster.jpg",
+          label: "Animation: switching semesters, opening a course, viewing one check-in's details, filtering by Absent and Tardy, then switching to Week and Month",
         },
-      ],
-    },
-    {
-      id: "outcome",
-      eyebrow: "Outcome",
-      title: "Handed off and headed to build",
-      blocks: [
+        {
+          type: "countHead",
+          n: "02",
+          title: "More accessible",
+          text: "Clearer feedback, text that grows, and a dark theme that keeps everything readable.",
+        },
+        {
+          type: "clips",
+          items: [
+            {
+              title: "Did it count?",
+              text: "Success is confirmed twice, on the scanner and again on the dashboard. That fixes the visibility of system status issue from the heuristic evaluation.",
+              clip: {
+                src: "/ucfhere/motion/check-in.mp4",
+                poster: "/ucfhere/motion/check-in-poster.jpg",
+                label: "Animation: the three codes check off, the confirmation rises, the student continues to the dashboard, and a banner confirms the check-in before fading away",
+              },
+            },
+            {
+              title: "Text size",
+              text: "The largest of three steps scales every label, and rows grow to fit.",
+              clip: {
+                src: "/ucfhere/motion/text-size.mp4",
+                poster: "/ucfhere/motion/text-size-poster.jpg",
+                label: "Animation: tapping the largest text size, and the Settings page reloading with bigger text",
+              },
+            },
+            {
+              title: "Dark mode",
+              text: "Follows the phone or the theme picker, with status colors tuned for dark backgrounds.",
+              clip: {
+                src: "/ucfhere/motion/dark-mode.mp4",
+                poster: "/ucfhere/motion/dark-mode-poster.jpg",
+                label: "Animation: picking Dark in Settings, the page fading to dark, then going back to the dark dashboard",
+              },
+            },
+          ],
+        },
+        {
+          type: "countHead",
+          n: "03",
+          title: "More reliable",
+          text: "A blocked camera is no longer a dead end. Students get from the error to a fix to a confirmed check-in without leaving the scanner flow.",
+        },
+        {
+          type: "clip",
+          wide: true,
+          src: "/ucfhere/motion/reliable.mp4",
+          poster: "/ucfhere/motion/reliable-poster.jpg",
+          label: "Animation: from the dashboard, the student taps Scan QR Code and the camera is blocked. Troubleshoot detects their phone and browser, they allow the camera in Safari, scan again with a nudge to move closer, get checked in, and land back on the dashboard with a confirmation banner",
+        },
+        { type: "subhead", text: "Handed off and headed to build" },
         {
           type: "text",
           text: "The redesign is handed off to development. The current version stays in production until the new one is built. Once it launches, the clearest measure will be support tickets, especially camera and permission tickets.",
@@ -742,10 +768,10 @@ export const ucfhere: CaseStudy = {
           layout: "wide",
           items: [
             {
-              src: "/ucfhere/final/overview.png",
-              alt: "The final screens side by side: scanner, camera error sheet, confirmation, dashboard, course list, and a course's week view",
-              width: 4138,
-              height: 1551,
+              src: "/ucfhere/final/all-screens.png",
+              alt: "The final UCFHere screens as they sit in the Figma file: troubleshooting along the top, then scanning, confirmation, the dashboard, the course list, every course view, and settings, with the error sheets below. The dark versions sit to the right in the same layout",
+              width: 7000,
+              height: 4421,
               detail: true,
             },
           ],
@@ -769,7 +795,10 @@ export const ucfhere: CaseStudy = {
               title: "Structure builds trust",
               text: "Most of the “did it count?” anxiety came from information architecture, not visuals. Giving things a clear place did more than any visual polish.",
             },
-            // TODO: add "What I'd improve" once you pick one in the draft.
+            {
+              title: "Test beyond my own circle",
+              text: "My walkthroughs were with coworkers who already knew the app. Before launch, I'd put it in front of students who've never seen it.",
+            },
           ],
         },
       ],

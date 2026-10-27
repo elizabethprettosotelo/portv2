@@ -51,7 +51,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
           rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&family=Fraunces:opsz,SOFT,wght@9..144,100,300..900&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&family=Fraunces:ital,opsz,SOFT,wght@0,9..144,100,300..900;1,9..144,100,300..900&display=swap"
         />
       </head>
       <body className="min-h-full flex flex-col overflow-x-clip" suppressHydrationWarning>

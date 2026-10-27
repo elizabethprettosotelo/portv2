@@ -41,6 +41,8 @@ export type SheetLevel = {
   /** Level color and its light tint, matching the error flowchart. */
   color: string;
   tint: string;
+  /** A real screen for this level. When set, it replaces the coded mock. */
+  image?: { src: string; alt: string; width: number; height: number };
   mock: { title: string; body?: string; meta?: string; steps?: string[]; primary?: string; secondary?: string; footnote?: string };
   /** Short count shown as a badge, like "5 errors". */
   count: string;
@@ -64,21 +66,30 @@ export type Block =
   | { type: "subhead"; text: string }
   | { type: "list"; items: ListItem[]; ordered?: boolean }
   | { type: "quote"; text: string }
+  /** A short aside in a tinted box: a title and one or more paragraphs. */
+  | { type: "box"; title: string; text: string[] }
+  /** A numbered outcome heading, like "01 More organized", with a line of text under it. */
+  | { type: "countHead"; n: string; title: string; text: string }
+  /** A looping screen recording in a phone frame, optionally next to a short note. */
+  | { type: "clip"; src: string; poster: string; label: string; caption?: string; wide?: boolean }
+  /** Short clips side by side, each with a title and a line of text. A Slot stands in until the recording exists. */
+  | { type: "clips"; items: { title: string; text: string; clip?: { src: string; poster: string; label: string }; slot?: Slot }[] }
   | { type: "figures"; items: Slot[]; layout: "phones" | "wide" | "illustrations" | "pair" | "split" | "stackPhone"; caption?: string }
-  | { type: "beforeAfter"; before: Slot[]; after: Slot[]; caption?: string }
+  | { type: "beforeAfter"; title?: string; before: Slot[]; after: Slot[]; caption?: string }
   | {
       type: "paths";
       rows: { title: string; verdict: string; tone: PathTone; note: string; steps: PathStep[]; wide?: boolean }[];
     }
   | { type: "sequence"; steps: { title: string; text: string; slot: Slot }[] }
-  | { type: "cards"; items: Card[]; numbered?: boolean }
-  | { type: "compare"; options: { title: string; verdict: "no" | "yes"; text: string; slot: Slot }[] }
+  /** feature: dark, high-contrast cards for the core principles. */
+  | { type: "cards"; items: Card[]; numbered?: boolean; feature?: boolean }
+  | { type: "compare"; title?: string; caption?: string; options: { title: string; verdict: "no" | "yes"; text: string; slot: Slot }[] }
   | { type: "chips"; items: string[] }
   /** Short sub-points that read better side by side than stacked. */
   | { type: "columns"; items: { title: string; text: string }[] }
   | {
       type: "errorTypes";
-      items: { title: string; count: number; errors: string[] }[];
+      items: { title: string; count?: number; errors: string[] }[];
     }
   | { type: "video"; youtubeId: string; title: string; start?: number; caption?: string }
   | { type: "sheetSpec"; levels: SheetLevel[]; rules?: { title: string; text: string }[] }
@@ -92,6 +103,8 @@ export type Section = {
   title: string;
   /** Short label for the side nav. Only sections with one appear there, so related sections group under one entry. */
   nav?: string;
+  /** 3 makes this a subsection of the nearest level-2 section above it: an h3 heading, indented in the side nav. */
+  level?: 2 | 3;
   blocks: Block[];
 };
 

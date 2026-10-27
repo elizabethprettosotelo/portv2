@@ -17,9 +17,7 @@ export const chopchop: CaseStudy = {
   meta: [
     { label: "Role", value: "Frontend developer, interaction and UI designer" },
     { label: "Team", value: "2 developers, 1 designer, me" },
-    { label: "Timeline", value: "36-hour hackathon, Sept 2026" },
     { label: "Tools", value: "TypeScript, Vite, Tailwind, Claude Design" },
-    { label: "Status", value: "Playable hackathon build" },
   ],
   hero: slot("C1", "Host screen mid-round, with two phones in front of it", "wide"),
   stats: [

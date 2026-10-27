@@ -1,6 +1,8 @@
 import SheetSpec from "./SheetSpec";
 import VideoEmbed from "./VideoEmbed";
+import PhoneClip from "./PhoneClip";
 import ZoomableImage from "./ZoomableImage";
+import type { ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import type { Block, CaseStudy, ListItem, PathStep, PathTone, Placeholder, Slot } from "./types";
@@ -58,7 +60,7 @@ function SlotView({ slot, sizes, framed, className = "" }: { slot: Slot; sizes: 
 
 const statusStyle = {
   present: { color: "#2F8A4C", icon: "M5 12.5l4.5 4.5L19 7.5" },
-  tardy: { color: "#B7860B", icon: "M12 7v5l3 2" },
+  tardy: { color: "#D9730D", icon: "M12 7v5l3 2" },
   absent: { color: "#C93C3C", icon: "M7 7l10 10M17 7L7 17" },
   excused: { color: "#6A5BC4", icon: "M8 7h8M8 12h8M8 17h5" },
 };
@@ -74,6 +76,32 @@ function StatusIcon({ status }: { status: keyof typeof statusStyle }) {
     </span>
   );
 }
+
+/** Small line icons for the six error categories. */
+const errorIcons: Record<string, ReactNode> = {
+  "Camera and permissions": (
+    <>
+      <path d="M3 3l18 18" />
+      <path d="M9.5 5.5h5l1.5 2H19a1.5 1.5 0 0 1 1.5 1.5v8M17 19H5a1.5 1.5 0 0 1-1.5-1.5V9A1.5 1.5 0 0 1 5 7.5h1.5" />
+    </>
+  ),
+  "QR detection": <path d="M4 8.5V5.5a1.5 1.5 0 0 1 1.5-1.5h3M15.5 4h3A1.5 1.5 0 0 1 20 5.5v3M20 15.5v3a1.5 1.5 0 0 1-1.5 1.5h-3M8.5 20h-3A1.5 1.5 0 0 1 4 18.5v-3M8 12h8" />,
+  "Interrupted sequence": (
+    <>
+      <circle cx="5" cy="12" r="1.8" />
+      <circle cx="11" cy="12" r="1.8" />
+      <path d="M16 9.5l5 5M21 9.5l-5 5" />
+    </>
+  ),
+  "QR validity": <path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14.5 14.5l5 5M19.5 14.5l-5 5" />,
+  "Check-in": (
+    <>
+      <circle cx="9" cy="8" r="3.5" />
+      <path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M16.5 8.5l4 4M20.5 8.5l-4 4" />
+    </>
+  ),
+  "Network and system": <path d="M3 3l18 18M8.5 16.5a5 5 0 0 1 6-.7M5 13a10 10 0 0 1 4.5-2.6M19 13a10 10 0 0 0-3.3-2.2M12 20h.01" />,
+};
 
 /** Smile, flat, or frown, matching the faces on the journey map. The worst path adds furrowed brows. */
 function Face({ tone, className = "h-5 w-5" }: { tone: PathTone; className?: string }) {
@@ -180,7 +208,9 @@ const verdictTone = {
   positive: "bg-[#2F8A4C]/12 text-[#236B3A]",
 };
 
-function renderBlock(block: Block, index: number) {
+function renderBlock(block: Block, index: number, level: 2 | 3 = 2) {
+  // Headings inside a block sit one level below the section's own heading.
+  const Hx = level === 3 ? "h4" : "h3";
   switch (block.type) {
     case "text":
       return (
@@ -189,12 +219,14 @@ function renderBlock(block: Block, index: number) {
         </p>
       );
 
-    case "subhead":
+    case "subhead": {
+      const H = level === 3 ? "h4" : "h3";
       return (
-        <h3 key={index} className={`mt-10 text-xl font-bold first:mt-0 ${ink}`}>
+        <H key={index} className={`mt-10 text-xl font-bold first:mt-0 ${ink}`}>
           {block.text}
-        </h3>
+        </H>
       );
+    }
 
     case "list": {
       const Tag = block.ordered ? "ol" : "ul";
@@ -214,12 +246,44 @@ function renderBlock(block: Block, index: number) {
 
     case "quote":
       return (
-        <blockquote
-          key={index}
-          className={`my-10 border-l-4 border-[#8EB522] pl-6 font-display text-2xl font-semibold tracking-[-1px] leading-snug md:text-3xl ${ink}`}
-        >
-          {block.text}
-        </blockquote>
+        <figure key={index} className="relative my-12 w-fit max-w-[44rem] px-8 py-7 md:px-10">
+          <CornerFlourish className="absolute left-0 top-0" />
+          <CornerFlourish className="absolute bottom-0 right-0 rotate-180" />
+          <blockquote className={`font-display text-2xl font-semibold tracking-[-1px] leading-snug md:text-3xl ${ink}`}>
+            {block.text}
+          </blockquote>
+        </figure>
+      );
+
+    case "clip":
+      return (
+        <figure key={index} className="my-10">
+          <div className={block.wide ? "w-full" : "mx-auto w-full max-w-[260px]"}>
+            <PhoneClip src={block.src} poster={block.poster} label={block.label} wide={block.wide} />
+          </div>
+          {block.caption && <figcaption className={`${caption} text-center`}>{block.caption}</figcaption>}
+        </figure>
+      );
+
+    case "clips":
+      return (
+        <div key={index} className={`my-10 grid gap-8 ${block.items.length === 3 ? "sm:grid-cols-3" : "sm:grid-cols-2"}`}>
+          {block.items.map((item) => (
+            <figure key={item.title} className="flex min-w-0 flex-col">
+              <div className="mx-auto w-full max-w-[230px]">
+                {item.clip ? (
+                  <PhoneClip src={item.clip.src} poster={item.clip.poster} label={item.clip.label} />
+                ) : item.slot ? (
+                  <SlotView slot={item.slot} sizes="230px" framed className="w-full" />
+                ) : null}
+              </div>
+              <figcaption className="mt-5">
+                <Hx className={`text-lg font-bold ${ink}`}>{item.title}</Hx>
+                <p className="mt-1.5 text-[15px] leading-relaxed text-[#250D47]/85">{item.text}</p>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
       );
 
     case "figures": {
@@ -265,7 +329,7 @@ function renderBlock(block: Block, index: number) {
       const column = (label: string, items: typeof block.before, tone: string) => (
         <div className="min-w-0">
           <p className={`mb-3 inline-block rounded-full px-3 py-1 text-xs font-bold uppercase tracking-[0.14em] ${tone}`}>{label}</p>
-          <div className={`grid gap-3 ${items.length > 1 ? "grid-cols-2" : ""}`}>
+          <div className="grid gap-3" style={{ gridTemplateColumns: `repeat(${items.length}, minmax(0, 1fr))` }}>
             {items.map((slot, i) => (
               <SlotView
                 key={i}
@@ -280,7 +344,12 @@ function renderBlock(block: Block, index: number) {
       );
       return (
         <figure key={index} className="my-10 rounded-xl bg-[#FFFFFF] p-4 sm:p-6">
-          <div className="grid gap-8 sm:grid-cols-2">
+          {block.title && <p className={`${eyebrow} mb-4`}>{block.title}</p>}
+          {/* Each side is as wide as its number of screens, so one old screen sits beside three new ones at the same size. */}
+          <div
+            className="grid gap-8 sm:[grid-template-columns:var(--cols)]"
+            style={{ ["--cols" as string]: `${block.before.length}fr ${block.after.length}fr` }}
+          >
             {column("Before", block.before, verdictTone.neutral)}
             {column("After", block.after, verdictTone.positive)}
           </div>
@@ -291,41 +360,31 @@ function renderBlock(block: Block, index: number) {
 
     case "paths":
       return (
-        <div key={index} className="my-10 grid gap-4 lg:grid-cols-2">
-          {block.rows.map((row) => {
-            const verdict = (
-              <div className={`flex items-start gap-3 rounded-lg px-3.5 py-3 ${pathTone[row.tone]}`}>
-                <Face tone={row.tone} className="mt-0.5 h-6 w-6" />
-                <p className={`text-[14px] leading-snug ${row.tone === "worst" ? "text-white/90" : "text-[#250D47]/85"}`}>
-                  <span className="mb-0.5 block text-xs font-bold uppercase tracking-[0.12em]">Overall: {row.verdict}</span>
-                  {row.note}
-                </p>
+        // Every path uses the same row: what happened on the left, the three screens on the right,
+        // so the three rows read as one comparison from top to bottom.
+        <div key={index} className="my-10 overflow-hidden rounded-xl border border-[#250D47]/10 bg-[#FFFFFF]">
+          {block.rows.map((row, r) => (
+            <div
+              key={row.title}
+              className={`grid gap-5 p-4 sm:p-6 md:grid-cols-[minmax(0,15rem)_minmax(0,1fr)] md:items-center md:gap-8 ${
+                r > 0 ? "border-t border-[#250D47]/10" : ""
+              }`}
+            >
+              <div className="min-w-0">
+                <span className={`inline-flex items-center gap-1.5 rounded-full py-1 pl-1.5 pr-3 text-xs font-bold uppercase tracking-[0.12em] ${pathTone[row.tone]}`}>
+                  <Face tone={row.tone} className="h-5 w-5" />
+                  {row.verdict}
+                </span>
+                <Hx className={`mt-3 text-lg font-bold ${ink}`}>{row.title}</Hx>
+                <p className="mt-1.5 text-[15px] leading-snug text-[#250D47]/80">{row.note}</p>
               </div>
-            );
-            const steps = (
-              <div className="grid grid-cols-3 gap-2.5">
+              <div className="grid max-w-[30rem] grid-cols-3 gap-3">
                 {row.steps.map((step, i) => (
                   <Step key={i} step={step} index={i} />
                 ))}
               </div>
-            );
-            return row.wide ? (
-              <div key={row.title} className="min-w-0 rounded-xl border border-[#250D47]/10 bg-[#FFFFFF] p-4 sm:p-5 lg:col-span-2">
-                <h3 className={`mb-4 text-lg font-bold ${ink}`}>{row.title}</h3>
-                <div className="grid items-center gap-5 lg:grid-cols-2 lg:gap-6">
-                  <div className="min-w-0">{steps}</div>
-                  <div className="min-w-0">{verdict}</div>
-                </div>
-              </div>
-            ) : (
-              <div key={row.title} className="flex min-w-0 flex-col rounded-xl border border-[#250D47]/10 bg-[#FFFFFF] p-4 sm:p-5">
-                <h3 className={`mb-4 text-lg font-bold ${ink}`}>{row.title}</h3>
-                {steps}
-                <span className="min-h-5 flex-1" />
-                {verdict}
-              </div>
-            );
-          })}
+            </div>
+          ))}
         </div>
       );
 
@@ -348,6 +407,20 @@ function renderBlock(block: Block, index: number) {
       );
 
     case "cards":
+      if (block.feature)
+        return (
+          <ol key={index} className="my-10 grid gap-4 sm:grid-cols-2">
+            {block.items.map((card, i) => (
+              <li key={card.title} className="flex flex-col rounded-2xl bg-[#250D47] p-6 text-[#FAF9F6] sm:p-7">
+                <span aria-hidden="true" className="font-display text-5xl font-semibold leading-none tracking-[-2px] text-[#B5D65A]">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <Hx className="mt-5 font-display text-[1.6rem] font-semibold leading-tight tracking-[-0.5px]">{card.title}</Hx>
+                <p className="mt-2 text-[15.5px] leading-relaxed text-[#FAF9F6]/80">{card.text}</p>
+              </li>
+            ))}
+          </ol>
+        );
       return (
         <div key={index} className={`my-8 grid gap-4 ${block.items.length === 3 ? "sm:grid-cols-3" : "sm:grid-cols-2"}`}>
           {block.items.map((card, i) => (
@@ -359,7 +432,7 @@ function renderBlock(block: Block, index: number) {
               {block.numbered && (
                 <p className="font-display text-3xl font-semibold tracking-[-1px] text-[#8EB522]">{String(i + 1).padStart(2, "0")}</p>
               )}
-              <h3 className={`${block.numbered ? "mt-2" : ""} text-lg font-bold leading-snug ${ink}`}>{card.title}</h3>
+              <Hx className={`${block.numbered ? "mt-2" : ""} text-lg font-bold leading-snug ${ink}`}>{card.title}</Hx>
               <p className="mt-2 text-[15px] leading-relaxed text-[#250D47]/85">{card.text}</p>
               {card.tag && (
                 <>
@@ -376,7 +449,9 @@ function renderBlock(block: Block, index: number) {
 
     case "compare":
       return (
-        <div key={index} className="my-10 grid gap-4 sm:grid-cols-3">
+        <figure key={index} className="my-10">
+        {block.title && <p className={`${eyebrow} mb-4`}>{block.title}</p>}
+        <div className="grid gap-4 sm:grid-cols-3">
           {block.options.map((option) => (
             <div
               key={option.title}
@@ -386,7 +461,7 @@ function renderBlock(block: Block, index: number) {
             >
               <SlotView slot={option.slot} sizes="(min-width: 640px) 220px, 100vw" framed className="mx-auto w-full max-w-[200px]" />
               <div className="mt-4 flex items-center justify-between gap-2">
-                <h3 className={`font-bold ${ink}`}>{option.title}</h3>
+                <Hx className={`font-bold ${ink}`}>{option.title}</Hx>
                 <span
                   className={`rounded-full px-2.5 py-0.5 text-xs font-bold ${
                     option.verdict === "yes" ? verdictTone.positive : verdictTone.negative
@@ -399,6 +474,8 @@ function renderBlock(block: Block, index: number) {
             </div>
           ))}
         </div>
+        {block.caption && <figcaption className={caption}>{block.caption}</figcaption>}
+        </figure>
       );
 
     case "chips":
@@ -418,8 +495,12 @@ function renderBlock(block: Block, index: number) {
         <div key={index} className="my-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {block.items.map((type) => (
             <div key={type.title} className="rounded-xl border border-[#250D47]/10 bg-[#FFFFFF] px-4 py-3.5">
-              <p className={`flex items-baseline gap-2 text-[15px] font-bold ${ink}`}>
-                <span className="font-display text-xl font-semibold tracking-[-0.5px] text-[#5E7A12]">{type.count}</span>
+              <p className={`flex items-center gap-2.5 text-[15px] font-bold ${ink}`}>
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#8EB522]/15 text-[#5E7A12]">
+                  <svg aria-hidden="true" viewBox="0 0 24 24" className="h-[18px] w-[18px]" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
+                    {errorIcons[type.title]}
+                  </svg>
+                </span>
                 {type.title}
               </p>
               <p className="mt-1.5 text-[13px] leading-snug text-[#250D47]/65">{type.errors.join(" · ")}</p>
@@ -428,12 +509,40 @@ function renderBlock(block: Block, index: number) {
         </div>
       );
 
+    case "countHead":
+      return (
+        <div key={index} className="mt-14 flex items-start gap-5 border-t border-[#250D47]/10 pt-8 first:mt-0">
+          <span aria-hidden="true" className="font-display text-6xl font-semibold leading-none tracking-[-2px] text-[#8EB522]">
+            {block.n}
+          </span>
+          <div className="min-w-0 pt-1">
+            <Hx className={`text-2xl font-bold ${ink}`}>
+              {block.title.slice(0, block.title.lastIndexOf(" ") + 1)}
+              <span className="font-display text-[1.3em] font-medium italic leading-none tracking-[-0.5px]">{block.title.slice(block.title.lastIndexOf(" ") + 1)}</span>
+            </Hx>
+            <p className="mt-1.5 max-w-2xl text-[16px] leading-[1.6] text-[#250D47]/85">{block.text}</p>
+          </div>
+        </div>
+      );
+
+    case "box":
+      return (
+        <aside key={index} className="my-10 rounded-xl border border-[#8EB522]/40 bg-[#8EB522]/10 px-5 py-5 sm:px-7 sm:py-6">
+          <Hx className={`text-lg font-bold ${ink}`}>{block.title}</Hx>
+          {block.text.map((t) => (
+            <p key={t} className="mt-2 text-[16px] leading-[1.65] text-[#250D47]/90">
+              {t}
+            </p>
+          ))}
+        </aside>
+      );
+
     case "columns":
       return (
         <div key={index} className="mt-10 grid gap-x-8 gap-y-6 sm:grid-cols-2">
           {block.items.map((item) => (
             <div key={item.title} className="min-w-0 border-t-2 border-[#250D47]/10 pt-4">
-              <h3 className={`text-lg font-bold ${ink}`}>{item.title}</h3>
+              <Hx className={`text-lg font-bold ${ink}`}>{item.title}</Hx>
               <p className="mt-2 text-[16px] leading-[1.65] text-[#250D47]/90">{item.text}</p>
             </div>
           ))}
@@ -449,7 +558,7 @@ function renderBlock(block: Block, index: number) {
       );
 
     case "sheetSpec":
-      return <SheetSpec key={index} levels={block.levels} rules={block.rules} />;
+      return <SheetSpec headingLevel={level === 3 ? 4 : 3} key={index} levels={block.levels} rules={block.rules} />;
 
     case "legend":
       return (
@@ -468,6 +577,37 @@ function renderBlock(block: Block, index: number) {
   }
 }
 
+/** Decorative swirl tucked into a corner of a pull quote. Used in diagonally opposite corners. */
+function CornerFlourish({ className = "" }: { className?: string }) {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 72 72" className={`h-14 w-14 text-[#8EB522] ${className}`} fill="none">
+      <g stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M8 8h34c7 0 11 4.5 8.5 8.5-2 3.2-7 2.4-6.6-1.2.3-2.7 3.6-3.3 5-1.4" />
+        <path d="M8 8v34c0 7 4.5 11 8.5 8.5 3.2-2 2.4-7-1.2-6.6-2.7.3-3.3 3.6-1.4 5" />
+        <path d="M42 8c6-.2 12 1.6 16 5M8 42c-.2 6 1.6 12 5 16" opacity="0.55" />
+      </g>
+      <path d="M8 3.5 12.5 8 8 12.5 3.5 8z" fill="currentColor" />
+    </svg>
+  );
+}
+
+/** "How might we" gets a hand-drawn green marker stroke underneath. */
+function MarkerHMW({ text }: { text: string }) {
+  const m = text.match(/^(How might we)(.*)$/s);
+  if (!m) return <>{text}</>;
+  return (
+    <>
+      <span className="relative inline-block whitespace-nowrap">
+        {m[1]}
+        <svg aria-hidden="true" viewBox="0 0 200 12" preserveAspectRatio="none" className="pointer-events-none absolute -bottom-1.5 left-[-2%] h-3 w-[104%]" fill="none">
+          <path d="M3 8.5C36 4.5 76 4 112 5.6c30 1.3 58 3 85-1.6" stroke="#8EB522" strokeWidth="4.5" strokeLinecap="round" opacity="0.95" />
+        </svg>
+      </span>
+      {m[2]}
+    </>
+  );
+}
+
 export default function CaseStudyPage({ study }: { study: CaseStudy }) {
   return (
     <article className="mx-auto w-full max-w-6xl px-5 pb-24 pt-12 md:px-10 md:pt-20">
@@ -481,38 +621,39 @@ export default function CaseStudyPage({ study }: { study: CaseStudy }) {
         <p className="mt-5 text-xl leading-relaxed text-[#250D47]/90 md:text-2xl">{study.summary}</p>
       </header>
 
-      <dl className="mt-10 grid max-w-4xl grid-cols-2 gap-x-8 gap-y-5 border-t border-[#250D47]/15 pt-6 md:grid-cols-5">
-        {study.meta.map((item) => (
-          <div key={item.label}>
-            <dt className={eyebrow}>{item.label}</dt>
-            <dd className={`mt-1.5 text-[15px] leading-snug ${ink}`}>{item.value}</dd>
-          </div>
-        ))}
-      </dl>
 
       {study.hero && <SlotView slot={study.hero} sizes="(min-width: 1152px) 1072px, 100vw" className="mt-12" />}
 
-      {study.stats && (
-        <dl className="mt-12 grid grid-cols-2 gap-6 border-y border-[#250D47]/15 py-8 sm:grid-cols-4">
-          {study.stats.map((stat) => (
-            <div key={stat.label}>
-              <dt className="sr-only">{stat.label}</dt>
-              <dd>
-                <span className={`block font-display text-4xl font-semibold tracking-[-1px] md:text-5xl ${ink}`}>{stat.value}</span>
-                <span className="mt-1 block text-sm leading-snug text-[#250D47]/75">{stat.label}</span>
-              </dd>
+      <section aria-label="Project summary" className="mt-12 grid gap-x-10 gap-y-8 rounded-xl bg-[#250D47] p-6 text-[#FAF9F6] md:grid-cols-2 md:p-10">
+          <dl className="grid grid-cols-1 gap-x-10 gap-y-4 border-b border-[#FAF9F6]/15 pb-7 sm:grid-cols-3 md:col-span-2">
+            {study.meta.map((item) => (
+              <div key={item.label}>
+                <dt className="text-xs font-bold uppercase tracking-[0.18em] text-[#B5D65A]">{item.label}</dt>
+                <dd className="mt-1.5 text-[15px] leading-snug text-[#FAF9F6]/90">{item.value}</dd>
+              </div>
+            ))}
+          </dl>
+          {study.overview.map((item) => (
+            <div key={item.label}>
+              <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#B5D65A]">{item.label}</p>
+              <p className="mt-2 text-[17px] leading-relaxed text-[#FAF9F6]/90">
+                {item.label === "Objective" ? <MarkerHMW text={item.text} /> : item.text}
+              </p>
+              {item.label === "Outcome" && study.stats && (
+                <dl className="mt-5 grid grid-cols-2 gap-x-6 gap-y-4 border-t border-[#FAF9F6]/15 pt-5">
+                  {study.stats.map((stat) => (
+                    <div key={stat.label}>
+                      <dt className="sr-only">{stat.label}</dt>
+                      <dd>
+                        <span className="block font-display text-3xl font-semibold tracking-[-1px] text-[#FAF9F6]">{stat.value}</span>
+                        <span className="mt-0.5 block text-[13px] leading-snug text-[#FAF9F6]/70">{stat.label}</span>
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
+              )}
             </div>
           ))}
-        </dl>
-      )}
-
-      <section aria-label="Project summary" className="mt-12 grid gap-x-10 gap-y-8 rounded-xl bg-[#250D47] p-6 text-[#FAF9F6] md:grid-cols-2 md:p-10">
-        {study.overview.map((item) => (
-          <div key={item.label}>
-            <h2 className="text-xs font-bold uppercase tracking-[0.18em] text-[#B5D65A]">{item.label}</h2>
-            <p className="mt-2 text-[17px] leading-relaxed text-[#FAF9F6]/90">{item.text}</p>
-          </div>
-        ))}
       </section>
 
       <div className="mt-20 lg:grid lg:grid-cols-[6.5rem_minmax(0,1fr)] lg:gap-10">
@@ -521,7 +662,7 @@ export default function CaseStudyPage({ study }: { study: CaseStudy }) {
             {study.sections
               .filter((section) => section.nav)
               .map((section) => (
-                <li key={section.id}>
+                <li key={section.id} className={section.level === 3 ? "border-l border-[#250D47]/15 pl-3 text-[13px]" : ""}>
                   <a href={`#${section.id}`} className="text-[#250D47]/55 hover:text-[#250D47]">
                     {section.nav}
                   </a>
@@ -531,17 +672,25 @@ export default function CaseStudyPage({ study }: { study: CaseStudy }) {
         </nav>
 
         <div className="min-w-0 max-w-[54rem]">
-          {study.sections.map((section) => (
-            <section
-              key={section.id}
-              id={section.id}
-              className="scroll-mt-24 border-t border-[#250D47]/10 py-14 first:border-t-0 first:pt-0"
-            >
-              <p className={eyebrow}>{section.eyebrow}</p>
-              <h2 className={`mt-3 font-display text-3xl font-semibold tracking-[-1px] leading-tight md:text-4xl ${ink}`}>{section.title}</h2>
-              <div className="mt-6">{section.blocks.map(renderBlock)}</div>
-            </section>
-          ))}
+          {study.sections.map((section) => {
+            const level = section.level ?? 2;
+            const H = level === 3 ? "h3" : "h2";
+            return (
+              <section
+                key={section.id}
+                id={section.id}
+                className={`scroll-mt-24 border-t py-14 first:border-t-0 first:pt-0 ${level === 3 ? "border-dashed border-[#250D47]/10" : "border-[#250D47]/10"}`}
+              >
+                <p className={eyebrow}>{section.eyebrow}</p>
+                <H
+                  className={`mt-3 font-display font-semibold tracking-[-1px] leading-tight ${level === 3 ? "text-[1.7rem] md:text-[2rem]" : "text-3xl md:text-4xl"} ${ink}`}
+                >
+                  {section.title}
+                </H>
+                <div className="mt-6">{section.blocks.map((block, i) => renderBlock(block, i, level))}</div>
+              </section>
+            );
+          })}
 
           <footer className="flex flex-wrap items-center justify-between gap-4 border-t border-[#250D47]/10 pt-8 text-[15px] font-semibold">
             <Link href="/projects" className="text-[#250D47]/70 hover:text-[#250D47]">

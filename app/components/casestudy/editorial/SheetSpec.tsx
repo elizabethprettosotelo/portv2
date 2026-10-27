@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { SheetLevel } from "./types";
 
 // Inline version of the bottom sheet spec: a coded phone mockup for each level,
@@ -87,7 +88,8 @@ function Phone({ level }: { level: SheetLevel }) {
   );
 }
 
-export default function SheetSpec({ levels, rules }: { levels: SheetLevel[]; rules?: { title: string; text: string }[] }) {
+export default function SheetSpec({ levels, rules, headingLevel = 3 }: { levels: SheetLevel[]; rules?: { title: string; text: string }[]; headingLevel?: 3 | 4 }) {
+  const H = headingLevel === 4 ? "h4" : "h3";
   const rowCount = levels[0]?.rows.length ?? 0;
   // Header, phone, each row, and the "used by" footer share one row track per card,
   // so labels and dividers line up across all three levels on wide screens.
@@ -109,7 +111,7 @@ export default function SheetSpec({ levels, rules }: { levels: SheetLevel[]; rul
               >
                 {i + 1}
               </span>
-              <h3 className="text-lg font-bold text-[#250D47]">{level.name}</h3>
+              <H className="text-lg font-bold text-[#250D47]">{level.name}</H>
               <span
                 className="ml-auto shrink-0 whitespace-nowrap rounded-full px-2.5 py-0.5 text-xs font-bold"
                 style={{ color: level.color, backgroundColor: level.tint }}
@@ -119,7 +121,23 @@ export default function SheetSpec({ levels, rules }: { levels: SheetLevel[]; rul
             </header>
 
             <div className="mx-3 rounded-xl px-4 py-5" style={{ backgroundColor: level.tint }}>
-              <Phone level={level} />
+              {level.image ? (
+                <div className="@container mx-auto w-full max-w-[190px]">
+                  {/* Same thin iPhone frame as the other screenshots. */}
+                  <div className="rounded-[13cqw] bg-[#1C1B21] p-[2.4cqw]">
+                    <Image
+                      src={level.image.src}
+                      alt={level.image.alt}
+                      width={level.image.width}
+                      height={level.image.height}
+                      sizes="190px"
+                      className="block h-auto w-full rounded-[10.8cqw]"
+                    />
+                  </div>
+                </div>
+              ) : (
+                <Phone level={level} />
+              )}
             </div>
 
             <dl className="contents">
@@ -131,13 +149,12 @@ export default function SheetSpec({ levels, rules }: { levels: SheetLevel[]; rul
               ))}
             </dl>
 
-            <div className="px-4 py-3" style={{ backgroundColor: level.tint }}>
-              <p className="text-[11px] font-bold uppercase tracking-[0.1em]" style={{ color: level.color }}>
-                Handles
-              </p>
-              <ul className="mt-2 flex flex-wrap gap-1.5">
+            <div className="mx-4 border-t border-[#250D47]/10 py-3">
+              <p className="text-[11px] font-bold uppercase tracking-[0.1em] text-[#6B5E80]">Handles</p>
+              <ul className="mt-1.5 space-y-1 text-[15px] leading-snug text-[#250D47]/90">
                 {level.usedBy.map((type) => (
-                  <li key={type} className="rounded-full bg-white px-2.5 py-1 text-[12.5px] font-semibold text-[#250D47]">
+                  <li key={type} className="flex gap-2">
+                    <span aria-hidden="true" className="mt-[0.5em] h-1.5 w-1.5 shrink-0 rounded-full" style={{ backgroundColor: level.color }} />
                     {type}
                   </li>
                 ))}
