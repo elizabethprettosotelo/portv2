@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Templater</title>
+  <desc id="desc">A placeholder graphic for the Templater Canvas template picker.</desc>
+  <rect width="1200" height="675" fill="#D8C7F2"/>
+  <rect x="90" y="92" width="1020" height="490" rx="28" fill="#FAF9F6" opacity=".82"/>
+  <rect x="140" y="142" width="270" height="28" rx="14" fill="#250D47" opacity=".18"/>
+  <rect x="140" y="208" width="270" height="245" rx="18" fill="#9AB1EB" opacity=".65"/>
+  <rect x="470" y="208" width="270" height="245" rx="18" fill="#8EB522" opacity=".7"/>
+  <rect x="800" y="208" width="270" height="245" rx="18" fill="#F2B84B" opacity=".8"/>
+  <text x="140" y="530" fill="#250D47" font-family="Arial, sans-serif" font-size="58" font-weight="700">TEMPLATER</text>
+</svg>

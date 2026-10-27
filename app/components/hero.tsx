@@ -44,7 +44,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative min-h-[85vh] flex items-center justify-center bg-[#8EB522] px-4 sm:px-6 md:px-12 py-12 md:py-20 overflow-hidden"
+      className="site-bleed-x relative min-h-[85vh] flex items-center justify-center bg-[#8EB522] px-4 sm:px-6 md:px-12 py-12 md:py-20 overflow-hidden"
     >
       <div className="absolute top-20 right-10 w-40 h-40 rounded-full bg-[#250D47]/5"></div>
       <div className="absolute bottom-40 left-20 w-60 h-60 rounded-full bg-[#250D47]/10"></div>

@@ -1,4 +1,4 @@
-import type { CaseStudy, Figure, Placeholder } from "./types";
+import type { CaseStudy, Figure } from "./types";
 
 // Asset IDs (A1, A2...) match the asset list in the "UCFHere draft" tab of
 // Case Study Worksheets. Replace each slot(...) with a real image as you make it.
@@ -17,13 +17,6 @@ const illustration = (file: string, alt: string, caption: string): Figure => ({
   caption,
   width: 1080,
   height: 1350,
-});
-
-const slot = (asset: string, label: string, shape: Placeholder["shape"], caption?: string): Placeholder => ({
-  asset,
-  label,
-  shape,
-  caption,
 });
 
 const art = (file: string, alt: string, width: number, height: number, caption?: string): Figure => ({
@@ -73,7 +66,7 @@ export const ucfhere: CaseStudy = {
     { value: "15K", label: "students checking in" },
     { value: "26", label: "error states mapped" },
     { value: "3", label: "levels of help, one pattern" },
-    { value: "25", label: "people in prototype walkthroughs" },
+    { value: "1", label: "pattern for 26 errors" },
   ],
   overview: [
     {
@@ -90,7 +83,7 @@ export const ucfhere: CaseStudy = {
     },
     {
       label: "Outcome",
-      text: "One error pattern covering 26 failure states, a new dashboard, and a reorganized attendance history. Validated in walkthroughs with 25 people and handed off to development.",
+      text: "One error pattern covering 26 failure states, a new dashboard, and a reorganized attendance history. Validated in prototype walkthroughs and handed off to development.",
     },
   ],
   sections: [
@@ -656,30 +649,25 @@ export const ucfhere: CaseStudy = {
             screen("course-list.png", "Course list where each course card has the patterned attendance bar and its legend"),
           ],
         },
-        { type: "subhead", text: "Text that grows" },
         {
-          type: "text",
-          text: "Settings has a three-step text size control. The largest step scales every label on the page, and rows grow to fit instead of cutting words off.",
-        },
-        {
-          type: "figures",
-          layout: "pair",
+          type: "sideBySide",
           items: [
-            screen("settings.png", "Settings at the default text size, with language, a three-step text size control, and a theme picker", "Default"),
-            screen("settings-large-text.png", "The same settings page at the largest text size: every label is bigger and the rows grow to fit", "Largest"),
-          ],
-        },
-        { type: "subhead", text: "Dark mode" },
-        {
-          type: "text",
-          text: "Every screen has a dark version that follows the phone, or the theme picker in Settings. The greens and reds are lightened so status text stays readable on dark backgrounds.",
-        },
-        {
-          type: "figures",
-          layout: "pair",
-          items: [
-            screen("dark-dashboard.png", "Dashboard in dark mode with the check-in banner, the Scan QR Code card, and recent attendance", "Dashboard"),
-            screen("dark-course-list.png", "Course list in dark mode with patterned attendance bars", "Course list"),
+            {
+              title: "Text that grows",
+              text: "Settings has a three-step text size control. The largest step scales every label on the page, and rows grow to fit instead of cutting words off.",
+              figures: [
+                screen("settings.png", "Settings at the default text size, with language, a three-step text size control, and a theme picker", "Default"),
+                screen("settings-large-text.png", "The same settings page at the largest text size: every label is bigger and the rows grow to fit", "Largest"),
+              ],
+            },
+            {
+              title: "Dark mode",
+              text: "Every screen has a dark version that follows the phone, or the theme picker in Settings. The greens and reds are lightened so status text stays readable on dark backgrounds.",
+              figures: [
+                screen("dark-dashboard.png", "Dashboard in dark mode with the check-in banner, the Scan QR Code card, and recent attendance", "Dashboard"),
+                screen("dark-course-list.png", "Course list in dark mode with patterned attendance bars", "Course list"),
+              ],
+            },
           ],
         },
       ],

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { LINK_CONFIG, type ProjectLink } from "../project-links";
+import type { ProjectLink } from "../project-links";
 
 // A small default page for projects whose full case study isn't written yet.
 // Same props as before, so every existing project page keeps working.
@@ -15,7 +15,6 @@ type PendingCaseStudyPageProps = {
   tags?: string[];
   footerNote?: string;
   links?: ProjectLink[];
-  previewEmbedUrl?: string;
   /** Problem, solution, outcome. When these are given, they replace the overview paragraph. */
   summaryCards?: {
     number: string;
@@ -36,8 +35,6 @@ export default function PendingCaseStudyPage({
   tools = [],
   tags = [],
   footerNote = "Full case study coming soon.",
-  links = [],
-  previewEmbedUrl,
   summaryCards = [],
 }: PendingCaseStudyPageProps) {
   const meta = [
@@ -86,36 +83,6 @@ export default function PendingCaseStudyPage({
             </div>
           ))}
         </dl>
-      )}
-
-      {(previewEmbedUrl || links.length > 0) && (
-        <div className="mt-6 flex flex-wrap gap-2">
-          {previewEmbedUrl && (
-            <a
-              href={previewEmbedUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center rounded-full border border-[#250D47]/12 bg-[#FFFFFF] px-3.5 py-1.5 text-sm font-semibold transition hover:border-[#8EB522]/50"
-            >
-              Open visual preview
-            </a>
-          )}
-          {links.map((link) => {
-            const cfg = LINK_CONFIG[link.kind];
-            return (
-              <a
-                key={link.label + link.href}
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`inline-flex items-center gap-1.5 rounded-full border border-[#250D47]/12 px-3.5 py-1.5 text-sm font-semibold transition-all duration-200 ${cfg.bg} ${cfg.text} ${cfg.hoverBg}`}
-              >
-                <span aria-hidden="true">{cfg.icon}</span>
-                <span>{link.label}</span>
-              </a>
-            );
-          })}
-        </div>
       )}
 
       <section className="mt-14">

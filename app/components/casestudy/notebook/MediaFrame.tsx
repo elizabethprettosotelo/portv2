@@ -85,7 +85,7 @@ export default function MediaFrame({
         <div className={`relative w-full overflow-hidden rounded-lg border border-[#250D47]/40 bg-[#FFFFFF] ${aspectClassName}`}>
           <Image
             src={imageSrc}
-            alt={media.alt ?? ""}
+            alt={media.alt ?? caption ?? "Case study artifact"}
             fill
             className={fit === "contain" ? "object-contain" : "object-cover"}
             sizes="(min-width: 1024px) 760px, 100vw"
@@ -110,7 +110,7 @@ export default function MediaFrame({
           >
             <Image
               src={imageSrc}
-              alt={media.alt ?? ""}
+              alt={media.alt ?? caption ?? "Case study artifact"}
               fill
               className={`transition duration-300 group-hover:scale-[1.02] ${fit === "contain" ? "object-contain" : "object-cover"}`}
               sizes="(min-width: 1024px) 760px, 100vw"
@@ -158,7 +158,7 @@ export default function MediaFrame({
               <div className="relative aspect-[16/9] bg-[#250D47]">
                 <Image
                   src={imageSrc}
-                  alt={media.alt ?? ""}
+                  alt={media.alt ?? caption ?? "Case study artifact"}
                   fill
                   className="object-contain"
                   sizes="100vw"

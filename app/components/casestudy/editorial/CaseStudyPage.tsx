@@ -14,7 +14,7 @@ const isTall = (slot: Slot) => ("src" in slot ? slot.height > slot.width * 1.5 :
 export const SHOW_PLACEHOLDERS = true;
 
 const ink = "text-[#250D47]";
-const body = "max-w-[44rem] text-[17px] leading-[1.7] text-[#250D47]/90";
+const body = "max-w-[54rem] text-[17px] leading-[1.7] text-[#250D47]/90";
 const eyebrow = "text-xs font-bold uppercase tracking-[0.18em] text-[#5E7A12]";
 const caption = "mt-2 text-sm leading-snug text-[#250D47]/70";
 
@@ -142,12 +142,12 @@ function Step({ step, index }: { step: PathStep; index: number }) {
           <div className="rounded-[13cqw] bg-[#1C1B21] p-[2.4cqw] shadow-[0_1px_0_1px_rgba(37,13,71,0.08),0_14px_30px_-18px_rgba(37,13,71,0.45)]">
           <div className="relative overflow-hidden rounded-[10.8cqw] bg-[#14121A]" style={{ aspectRatio: `${recovered.width} / ${recovered.height}` }}>
           <div className="absolute inset-0" style={{ clipPath: half.recovered }}>
-            <Image src={recovered.src} alt="" width={recovered.width} height={recovered.height} sizes="200px" className="absolute inset-0 h-full w-full object-cover" />
+            <Image src={recovered.src} alt={`${recoveredLabel} screen`} width={recovered.width} height={recovered.height} sizes="200px" className="absolute inset-0 h-full w-full object-cover" />
           </div>
           <div className="absolute inset-0" style={{ clipPath: half.failed }}>
             <Image
               src={failed.src}
-              alt=""
+              alt={`${failedLabel} screen`}
               width={failed.width}
               height={failed.height}
               sizes="200px"
@@ -246,7 +246,7 @@ function renderBlock(block: Block, index: number, level: 2 | 3 = 2) {
 
     case "quote":
       return (
-        <figure key={index} className="relative my-12 w-fit max-w-[44rem] px-8 py-7 md:px-10">
+        <figure key={index} className="relative my-12 w-fit max-w-[54rem] px-8 py-7 md:px-10">
           <CornerFlourish className="absolute left-0 top-0" />
           <CornerFlourish className="absolute bottom-0 right-0 rotate-180" />
           <blockquote className={`font-display text-2xl font-semibold tracking-[-1px] leading-snug md:text-3xl ${ink}`}>
@@ -520,7 +520,7 @@ function renderBlock(block: Block, index: number, level: 2 | 3 = 2) {
               {block.title.slice(0, block.title.lastIndexOf(" ") + 1)}
               <span className="font-display text-[1.3em] font-medium italic leading-none tracking-[-0.5px]">{block.title.slice(block.title.lastIndexOf(" ") + 1)}</span>
             </Hx>
-            <p className="mt-1.5 max-w-2xl text-[16px] leading-[1.6] text-[#250D47]/85">{block.text}</p>
+            <p className="mt-1.5 max-w-[54rem] text-[16px] leading-[1.6] text-[#250D47]/85">{block.text}</p>
           </div>
         </div>
       );
@@ -545,6 +545,23 @@ function renderBlock(block: Block, index: number, level: 2 | 3 = 2) {
               <Hx className={`text-lg font-bold ${ink}`}>{item.title}</Hx>
               <p className="mt-2 text-[16px] leading-[1.65] text-[#250D47]/90">{item.text}</p>
             </div>
+          ))}
+        </div>
+      );
+
+    case "sideBySide":
+      return (
+        <div key={index} className="my-10 grid gap-8 sm:grid-cols-2">
+          {block.items.map((item) => (
+            <article key={item.title} className="min-w-0">
+              <Hx className={`text-xl font-bold ${ink}`}>{item.title}</Hx>
+              <p className="mt-2 text-[16px] leading-[1.65] text-[#250D47]/90">{item.text}</p>
+              <div className="mt-5 grid grid-cols-2 gap-3">
+                {item.figures.map((slot, i) => (
+                  <SlotView key={i} slot={slot} sizes="(min-width: 640px) 220px, 44vw" framed className="w-full" />
+                ))}
+              </div>
+            </article>
           ))}
         </div>
       );
@@ -593,7 +610,7 @@ function CornerFlourish({ className = "" }: { className?: string }) {
 
 /** "How might we" gets a hand-drawn green marker stroke underneath. */
 function MarkerHMW({ text }: { text: string }) {
-  const m = text.match(/^(How might we)(.*)$/s);
+  const m = text.match(/^(How might we)([\s\S]*)$/);
   if (!m) return <>{text}</>;
   return (
     <>
@@ -633,27 +650,29 @@ export default function CaseStudyPage({ study }: { study: CaseStudy }) {
               </div>
             ))}
           </dl>
-          {study.overview.map((item) => (
-            <div key={item.label}>
-              <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#B5D65A]">{item.label}</p>
-              <p className="mt-2 text-[17px] leading-relaxed text-[#FAF9F6]/90">
-                {item.label === "Objective" ? <MarkerHMW text={item.text} /> : item.text}
-              </p>
-              {item.label === "Outcome" && study.stats && (
-                <dl className="mt-5 grid grid-cols-2 gap-x-6 gap-y-4 border-t border-[#FAF9F6]/15 pt-5">
-                  {study.stats.map((stat) => (
-                    <div key={stat.label}>
-                      <dt className="sr-only">{stat.label}</dt>
-                      <dd>
-                        <span className="block font-display text-3xl font-semibold tracking-[-1px] text-[#FAF9F6]">{stat.value}</span>
-                        <span className="mt-0.5 block text-[13px] leading-snug text-[#FAF9F6]/70">{stat.label}</span>
-                      </dd>
-                    </div>
-                  ))}
-                </dl>
-              )}
-            </div>
-          ))}
+          <div className="grid gap-x-10 gap-y-8 md:col-span-2 md:grid-cols-2">
+            {study.overview.map((item) => (
+              <div key={item.label}>
+                <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#B5D65A]">{item.label}</p>
+                <p className="mt-2 text-[17px] leading-relaxed text-[#FAF9F6]/90">
+                  {item.label === "Objective" ? <MarkerHMW text={item.text} /> : item.text}
+                </p>
+              </div>
+            ))}
+          </div>
+          {study.stats && (
+            <dl className="grid grid-cols-2 gap-x-6 gap-y-5 border-t border-[#FAF9F6]/15 pt-6 md:col-span-2 sm:grid-cols-4">
+              {study.stats.map((stat) => (
+                <div key={stat.label}>
+                  <dt className="sr-only">{stat.label}</dt>
+                  <dd>
+                    <span className="block font-display text-3xl font-semibold tracking-[-1px] text-[#FAF9F6]">{stat.value}</span>
+                    <span className="mt-0.5 block text-[13px] leading-snug text-[#FAF9F6]/70">{stat.label}</span>
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          )}
       </section>
 
       <div className="mt-20 lg:grid lg:grid-cols-[6.5rem_minmax(0,1fr)] lg:gap-10">

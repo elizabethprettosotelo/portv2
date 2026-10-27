@@ -1,13 +1,24 @@
+import type { Metadata } from "next";
 import Footer from "../../components/footer";
 import Navbar from "../../components/navbar";
 import PendingCaseStudyPage from "../../components/casestudy/PendingCaseStudyPage";
+
+export const metadata: Metadata = {
+  title: "Conduit | Case Study",
+  description: "A multimodal accessibility platform bringing adaptive input methods into one interface.",
+  openGraph: {
+    title: "Conduit | Case Study",
+    description: "A multimodal accessibility platform bringing adaptive input methods into one interface.",
+    images: ["/conduit/conduitthumb.jpg"],
+  },
+};
 
 export default function ProjectOnePage() {
   return (
     <div className="min-h-screen flex flex-col max-w-full bg-[#FAF9F6]">
       <Navbar />
       <main
-        className="flex-1 pt-16 md:pt-0 max-w-full bg-[#FAF9F6]"
+        className="site-main flex-1 pt-16 md:pt-0 max-w-full bg-[#FAF9F6]"
         style={{ marginLeft: "var(--sidebar-width, 0px)" }}
       >
         <PendingCaseStudyPage
@@ -20,7 +31,7 @@ export default function ProjectOnePage() {
           links={[
             { label: "GitHub", href: "https://github.com/kwaiidev/conduit", kind: "github" },
             { label: "Demo", href: "https://devpost.com/software/conduit-y8gqoj?ref_content=my-projects-tab&ref_feature=my_projects", kind: "devpost" },
-            { label: "Figma", href: "https://figma.com", kind: "figma" },
+            // TODO: Add Conduit's real Figma URL here when available.
           ]}
           overview="Conduit is a multimodal accessibility platform that unifies EEG, gaze tracking, voice detection, and ASL recognition into one adaptive interface."
         />

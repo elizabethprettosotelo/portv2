@@ -87,6 +87,8 @@ export type Block =
   | { type: "chips"; items: string[] }
   /** Short sub-points that read better side by side than stacked. */
   | { type: "columns"; items: { title: string; text: string }[] }
+  /** Two explanatory feature panels, each with supporting artifacts. */
+  | { type: "sideBySide"; items: { title: string; text: string; figures: Slot[] }[] }
   | {
       type: "errorTypes";
       items: { title: string; count?: number; errors: string[] }[];

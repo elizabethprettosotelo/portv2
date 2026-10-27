@@ -1,13 +1,24 @@
+import type { Metadata } from "next";
 import Footer from "../../components/footer";
 import Navbar from "../../components/navbar";
 import PendingCaseStudyPage from "../../components/casestudy/PendingCaseStudyPage";
+
+export const metadata: Metadata = {
+  title: "Knight Hacks VIII | Case Study",
+  description: "The visual design and UI for the Knight Hacks VIII hackathon website.",
+  openGraph: {
+    title: "Knight Hacks VIII | Case Study",
+    description: "The visual design and UI for the Knight Hacks VIII hackathon website.",
+    images: ["/knighthacks/kh2025.svg"],
+  },
+};
 
 export default function ProjectSixPage() {
   return (
     <div className="min-h-screen flex flex-col max-w-full bg-[#FAF9F6]">
       <Navbar />
       <main
-        className="flex-1 pt-16 md:pt-0 max-w-full bg-[#FAF9F6]"
+        className="site-main flex-1 pt-16 md:pt-0 max-w-full bg-[#FAF9F6]"
         style={{ marginLeft: "var(--sidebar-width, 0px)" }}
       >
         <PendingCaseStudyPage

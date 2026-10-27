@@ -97,5 +97,5 @@ import CaseStudyMeta from "../../components/casestudy/CaseStudyMeta";
 ## Examples
 
 See:
-- `projects/project-one/page.tsx` - Full case study with all sections
-- `projects/project-two/page.tsx` - Minimal case study with custom icons
+- `projects/conduit/page.tsx` - Full case study with all sections
+- `projects/labeling/page.tsx` - Minimal case study with custom icons

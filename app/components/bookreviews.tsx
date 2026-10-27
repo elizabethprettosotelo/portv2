@@ -107,11 +107,14 @@ function BookDetailDrawer({ book, onClose }: { book: BookReview | null; onClose:
 
   useEffect(() => {
     if (book) {
-      setRenderedBook(book);
-      const raf = requestAnimationFrame(() => setVisible(true));
+      const raf = requestAnimationFrame(() => {
+        setRenderedBook(book);
+        setVisible(true);
+      });
       return () => cancelAnimationFrame(raf);
     }
-    setVisible(false);
+    const raf = requestAnimationFrame(() => setVisible(false));
+    return () => cancelAnimationFrame(raf);
   }, [book]);
 
   useEffect(() => {

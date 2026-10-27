@@ -269,7 +269,7 @@ export default function ZoomableImage({
         aria-label={`Open larger: ${figure.alt}`}
         className={`group relative block w-full cursor-zoom-in overflow-hidden rounded-lg text-left ${
           figure.detail
-            ? "transition-[transform,box-shadow] duration-500 ease-out hover:-translate-y-1 hover:shadow-[0_16px_36px_-16px_rgba(37,13,71,0.32)] motion-reduce:transition-none motion-reduce:hover:translate-y-0"
+            ? "transition-[transform,box-shadow] duration-[750ms] ease-out hover:-translate-y-0.5 hover:shadow-[0_18px_42px_-16px_rgba(37,13,71,0.3)] motion-reduce:transition-none motion-reduce:hover:translate-y-0"
             : ""
         } focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8EB522] focus-visible:ring-offset-2 focus-visible:ring-offset-[#FAF9F6] ${
           framed ? "border border-[#250D47]/10" : ""
@@ -288,7 +288,7 @@ export default function ZoomableImage({
         {figure.detail && (
           <span
             aria-hidden="true"
-            className="pointer-events-none absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-full bg-[#250D47]/80 text-[#FAF9F6] shadow-sm backdrop-blur-sm transition duration-500 ease-out sm:translate-y-1 sm:opacity-0 sm:group-hover:translate-y-0 sm:group-hover:opacity-100 sm:group-focus-visible:translate-y-0 sm:group-focus-visible:opacity-100"
+            className="pointer-events-none absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-lg bg-[#9AB1EB]/20 text-[#DCE6FF] shadow-[0_0_22px_rgba(154,177,235,0.32)] backdrop-blur-sm transition-[opacity,transform,background-color,box-shadow] duration-[750ms] ease-out sm:translate-y-2 sm:scale-95 sm:opacity-0 sm:group-hover:translate-y-0 sm:group-hover:scale-100 sm:group-hover:bg-[#9AB1EB]/30 sm:group-hover:shadow-[0_0_28px_rgba(154,177,235,0.46)] sm:group-hover:opacity-100 sm:group-focus-visible:translate-y-0 sm:group-focus-visible:scale-100 sm:group-focus-visible:opacity-100"
           >
             <Icon d={ICONS.expand} />
           </span>

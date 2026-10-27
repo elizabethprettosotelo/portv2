@@ -1,13 +1,24 @@
+import type { Metadata } from "next";
 import Footer from "../../components/footer";
 import Navbar from "../../components/navbar";
 import PendingCaseStudyPage from "../../components/casestudy/PendingCaseStudyPage";
+
+export const metadata: Metadata = {
+  title: "Tariffix | Case Study",
+  description: "A Chrome extension that helps shoppers understand estimated tariff costs while browsing.",
+  openGraph: {
+    title: "Tariffix | Case Study",
+    description: "A Chrome extension that helps shoppers understand estimated tariff costs while browsing.",
+    images: ["/tariffix/gallery-1.jpg"],
+  },
+};
 
 export default function ProjectFivePage() {
   return (
     <div className="min-h-screen flex flex-col max-w-full bg-[#FAF9F6]">
       <Navbar />
       <main
-        className="flex-1 pt-16 md:pt-0 max-w-full bg-[#FAF9F6]"
+        className="site-main flex-1 pt-16 md:pt-0 max-w-full bg-[#FAF9F6]"
         style={{ marginLeft: "var(--sidebar-width, 0px)" }}
       >
         <PendingCaseStudyPage

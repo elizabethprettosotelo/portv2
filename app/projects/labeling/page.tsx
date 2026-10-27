@@ -1,13 +1,24 @@
+import type { Metadata } from "next";
 import Footer from "../../components/footer";
 import Navbar from "../../components/navbar";
 import PendingCaseStudyPage from "../../components/casestudy/PendingCaseStudyPage";
+
+export const metadata: Metadata = {
+  title: "Labeling | Case Study",
+  description: "A more accessible and responsive direction for a gamified educational widget.",
+  openGraph: {
+    title: "Labeling | Case Study",
+    description: "A more accessible and responsive direction for a gamified educational widget.",
+    images: ["/labeling/thumbnail.png"],
+  },
+};
 
 export default function ProjectTwoPage() {
   return (
     <div className="min-h-screen flex flex-col max-w-full bg-[#FAF9F6]">
       <Navbar />
       <main
-        className="flex-1 pt-16 md:pt-0 max-w-full bg-[#FAF9F6]"
+        className="site-main flex-1 pt-16 md:pt-0 max-w-full bg-[#FAF9F6]"
         style={{ marginLeft: "var(--sidebar-width, 0px)" }}
       >
         <PendingCaseStudyPage
@@ -17,10 +28,8 @@ export default function ProjectTwoPage() {
           timeline="Jan - Feb 2025"
           tools={["Figma", "React", "TypeScript"]}
           tags={["Accessibility", "UI Redesign", "EdTech", "Frontend"]}
-          links={[
-            { label: "GitHub", href: "https://github.com/elizabethprettosotelo", kind: "github" },
-            { label: "Figma", href: "https://figma.com", kind: "figma" },
-          ]}
+          // TODO: Add Labeling's real GitHub and Figma URLs here when available.
+          links={[]}
           overview="The existing experience felt outdated and was not designed to work consistently across screen sizes or support a wide range of users. I modernized the interface and improved its accessibility and responsiveness while preserving the widget's core learning interactions."
           summaryCards={[
             {

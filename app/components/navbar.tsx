@@ -102,7 +102,7 @@ export default function Navbar() {
             <div className="flex items-start justify-between gap-2">
               {!sidebarCollapsed && (
                 <div className="flex flex-col">
-                  <Image src="/thebaby.png" alt="alt" width={32} height={32} className="mb-2" />
+                  <Image src="/thebaby.png" alt="Eli's portfolio mascot" width={32} height={32} className="mb-2" />
                   <h2 className="text-lg font-bold text-[#FAF9F6] font-formadjr">eli&apos;s portfolio</h2>
                 </div>
               )}

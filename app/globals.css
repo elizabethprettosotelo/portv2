@@ -29,6 +29,24 @@ body {
   font-family: var(--font-inter);
 }
 
+/* Keep page content comfortably clear of the fixed sidebar and viewport edge. */
+.site-main {
+  --site-gutter: 1rem;
+  padding-inline: 1rem;
+}
+
+@media (min-width: 768px) {
+  .site-main {
+    --site-gutter: clamp(1.5rem, 3vw, 4rem);
+    padding-inline: var(--site-gutter);
+  }
+}
+
+.site-bleed-x {
+  width: calc(100% + var(--site-gutter) + var(--site-gutter));
+  margin-inline: calc(var(--site-gutter) * -1);
+}
+
 @media (pointer: fine) {
   html,
   html * {
