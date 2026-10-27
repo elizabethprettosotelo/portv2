@@ -1,45 +1,16 @@
 import Footer from "../../components/footer";
 import Navbar from "../../components/navbar";
-import PendingCaseStudyPage from "../../components/casestudy/PendingCaseStudyPage";
+import CaseStudyPage from "../../components/casestudy/editorial/CaseStudyPage";
+import { templater } from "../../components/casestudy/editorial/templater";
 
-export default function TemplaterPage() {
+export default function TemplaterCaseStudyPage() {
   return (
-    <div className="min-h-screen flex flex-col max-w-full bg-[#FAF9F6]">
+    <div className="flex min-h-screen max-w-full flex-col bg-[#FAF9F6]">
       <Navbar />
-      <main
-        className="flex-1 pt-16 md:pt-0 max-w-full bg-[#FAF9F6]"
-        style={{ marginLeft: "var(--sidebar-width, 0px)" }}
-      >
-        <PendingCaseStudyPage
-          title="Templater"
-          subtitle="An internal faculty tool that helps instructors explore and select templates for their Canvas courses."
-          tools={["Figma", "Next.js"]}
-          tags={["UX Design"]}
-          overview="The original interface made templates difficult to distinguish, forcing instructors to choose without clearly understanding how each option would look or function. I redesigned the experience with clearer navigation, polished template previews, and visual thumbnails that helped instructors compare their options."
-          summaryCards={[
-            {
-              number: "01",
-              title: "Problem",
-              copy: "The original interface made templates difficult to distinguish, forcing instructors to choose without clearly understanding how each option would look or function.",
-            },
-            {
-              number: "02",
-              title: "Solution",
-              copy: "I redesigned the experience with clearer navigation, polished template previews, and visual thumbnails that helped instructors compare their options.",
-            },
-            {
-              number: "03",
-              title: "Outcome",
-              copy: "Reimagined how instructors build courses by turning template selection into a more visual, confident, and approachable process.",
-            },
-          ]}
-          footerNote="Full case study coming soon."
-        />
+      <main className="max-w-full flex-1 pt-16 md:pt-0" style={{ marginLeft: "var(--sidebar-width, 0px)" }}>
+        <CaseStudyPage study={templater} />
       </main>
       <Footer />
     </div>
   );
 }
-
-
-
