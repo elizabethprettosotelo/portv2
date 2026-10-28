@@ -61,18 +61,6 @@ const projects: Project[] = [
     ],
   },
   {
-    title: "Wattasave",
-    blurb: "A savings and spending companion that helps people spot small opportunities to save, set goals, and keep momentum without making budgeting feel heavy.",
-    tagline: "Turning everyday routines into cleaner, cheaper energy choices.",
-    thumbnail: "/wattasave/preview.png",
-    tags: ["Fintech", "Hackathon"],
-    slug: "wattasave",
-    caseStudy: false,
-    links: [
-      { label: "Demo", href: "https://devpost.com/software/wattasave", kind: "demo" },
-    ],
-  },
-  {
     title: "Knight Hacks VIII Site",
     blurb: "The visual design and UI for the Knight Hacks VIII website, created to recruit participants and introduce them to the hackathon community.",
     tagline: "More than a website—an invitation to our hackathon.",
@@ -86,6 +74,18 @@ const projects: Project[] = [
       { label: "Demo", href: "https://2025.knighthacks.org/", kind: "demo" },
       { label: "Figma", href: "https://www.figma.com/design/w7k6OFPP8emqJeIRZULqBb/KHVIII?node-id=0-1&t=glZQk6NvaPThdUn6-1", kind: "figma" },
     ],
+  },
+  {
+    title: "Templater",
+    blurb: "A Canvas template-import tool that lets instructors see a page before they add it to their course.",
+    tagline: "Showing professors what they are picking before they pick it.",
+    thumbnail: "/templater/hero-thumbnails.png",
+    heroVideo: "/templater/hero.mp4",
+    heroPoster: "/templater/hero-thumbnails.png",
+    tags: ["Product Design", "EdTech"],
+    slug: "templater",
+    caseStudy: true,
+    caseStudyHref: "/projects/templater",
   },
 ];
 
@@ -202,8 +202,8 @@ function ProjectCard({ project }: { project: Project }) {
         disabled={project.caseStudy}
         className="block h-full"
       >
-        {project.slug === "ucfhere" ? (
-          <Link href="/projects/ucfhere/case-study" className="block h-full">
+        {project.caseStudy && project.caseStudyHref ? (
+          <Link href={project.caseStudyHref} className="block h-full">
             {cardContent}
           </Link>
         ) : (
