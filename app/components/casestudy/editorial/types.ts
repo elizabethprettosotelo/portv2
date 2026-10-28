@@ -71,11 +71,13 @@ export type Block =
   /** A numbered outcome heading, like "01 More organized", with a line of text under it. */
   | { type: "countHead"; n: string; title: string; text: string }
   /** A looping screen recording in a phone frame, optionally next to a short note. */
-  | { type: "clip"; src: string; poster: string; label: string; caption?: string; wide?: boolean }
+  /** ratio (like "1600 / 730") keeps a wide recording at its own shape instead of 16:9. */
+  | { type: "clip"; src: string; poster: string; label: string; caption?: string; wide?: boolean; ratio?: string }
   /** Short clips side by side, each with a title and a line of text. A Slot stands in until the recording exists. */
   | { type: "clips"; items: { title: string; text: string; clip?: { src: string; poster: string; label: string }; slot?: Slot }[] }
   | { type: "figures"; items: Slot[]; layout: "phones" | "wide" | "illustrations" | "pair" | "split" | "stackPhone"; caption?: string }
-  | { type: "beforeAfter"; title?: string; before: Slot[]; after: Slot[]; caption?: string }
+  /** labels replaces the default "Before" and "After" pills, for comparisons that aren't old versus new. */
+  | { type: "beforeAfter"; title?: string; before: Slot[]; after: Slot[]; caption?: string; labels?: [string, string] }
   | {
       type: "paths";
       rows: { title: string; verdict: string; tone: PathTone; note: string; steps: PathStep[]; wide?: boolean }[];

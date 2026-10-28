@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 
 // A short looping screen recording inside the same thin iPhone frame as the screenshots.
 // Autoplays muted; people who prefer reduced motion get a paused clip with controls instead.
-export default function PhoneClip({ src, poster, label, wide }: { src: string; poster: string; label: string; wide?: boolean }) {
+export default function PhoneClip({ src, poster, label, wide, ratio }: { src: string; poster: string; label: string; wide?: boolean; ratio?: string }) {
   const ref = useRef<HTMLVideoElement>(null);
   const [reduced, setReduced] = useState(false);
 
@@ -21,11 +21,12 @@ export default function PhoneClip({ src, poster, label, wide }: { src: string; p
   }, []);
 
   if (wide) {
-    // A 16:9 scene that already has its own phone in it, so no extra frame.
+    // A wide scene with no phone frame: 16:9 by default, or the recording's own shape when ratio is set.
     return (
       <video
         ref={ref}
-        className="block aspect-video w-full rounded-xl bg-[#FAF9F6] shadow-[0_1px_0_1px_rgba(37,13,71,0.06)]"
+        className={`block w-full rounded-xl bg-[#FAF9F6] shadow-[0_1px_0_1px_rgba(37,13,71,0.06)] ${ratio ? "" : "aspect-video"}`}
+        style={ratio ? { aspectRatio: ratio } : undefined}
         src={src}
         poster={poster}
         aria-label={label}
