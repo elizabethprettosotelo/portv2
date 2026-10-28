@@ -259,7 +259,7 @@ function renderBlock(block: Block, index: number, level: 2 | 3 = 2) {
       return (
         <figure key={index} className="my-10">
           <div className={block.wide ? "w-full" : "mx-auto w-full max-w-[260px]"}>
-            <PhoneClip src={block.src} poster={block.poster} label={block.label} wide={block.wide} />
+            <PhoneClip src={block.src} poster={block.poster} label={block.label} wide={block.wide} ratio={block.ratio} />
           </div>
           {block.caption && <figcaption className={`${caption} text-center`}>{block.caption}</figcaption>}
         </figure>
@@ -350,8 +350,8 @@ function renderBlock(block: Block, index: number, level: 2 | 3 = 2) {
             className="grid gap-8 sm:[grid-template-columns:var(--cols)]"
             style={{ ["--cols" as string]: `${block.before.length}fr ${block.after.length}fr` }}
           >
-            {column("Before", block.before, verdictTone.neutral)}
-            {column("After", block.after, verdictTone.positive)}
+            {column(block.labels?.[0] ?? "Before", block.before, verdictTone.neutral)}
+            {column(block.labels?.[1] ?? "After", block.after, verdictTone.positive)}
           </div>
           {block.caption && <figcaption className={caption}>{block.caption}</figcaption>}
         </figure>
