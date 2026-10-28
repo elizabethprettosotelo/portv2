@@ -37,6 +37,7 @@ const projects: Project[] = [
     tags: ["Product Design", "EdTech"],
     slug: "ucfhere",
     caseStudy: true,
+    caseStudyHref: "/projects/ucfhere/case-study",
     links: [
       {
         label: "Demo",
